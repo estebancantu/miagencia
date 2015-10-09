@@ -14,14 +14,21 @@
     
     
     
+    
     <context:component-scan base-package="com.miagencia"></context:component-scan>
-    <mvc:annotation-driven/>
+    
+    <!-- <mvc:default-servlet-handler/>  -->
+    <mvc:resources mapping="/app/**" location="/app/build/"/>
+    
+	<mvc:annotation-driven/>
+
 
     
+    
     <bean id="jspViewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
-    <property name="prefix" value="/WEB-INF/views/"/>
-    <property name="suffix" value=".jsp"/>
-</bean>
+    	<property name="prefix" value="/WEB-INF/views/"/>
+    	<property name="suffix" value=".jsp"/>
+	</bean>
     
     
 </beans>
