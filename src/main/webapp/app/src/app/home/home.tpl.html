@@ -1,0 +1,155 @@
+
+<div>
+  <div class="row">
+
+    <!--sidebar-->
+    <div class="col-md-2 sidebar">
+      <div class="nav-side-menu">
+        <div class="brand">
+          </br>
+        </div>
+
+        <i class="fa fa-bars fa-2x toggle-btn" data-toggle="collapse" data-target="#menu-content"></i>
+  
+          <div class="menu-list">
+            <ul id="menu-content" class="menu-content collapse out">
+                <li>
+                  <a href="#">
+                  <i class="fa fa-car"></i>  Mis Autos
+                  </a>
+                </li>
+                <li>
+                  <a href="#">
+                  <i class="fa fa-users"></i>  Mis Contactos
+
+                  </a>
+                </li>
+
+                <li  data-toggle="collapse" data-target="#products" class="collapsed active">
+                  <a href="#"><i class="fa fa-cloud-upload"></i> Nuevo <span class="arrow"></span></a>
+                </li>
+                <ul class="sub-menu collapse" id="products">
+                    <li class="active"><a href="#">CSS3 Animation</a></li>
+                    <li><a href="#">General</a></li>
+                    <li><a href="#">Buttons</a></li>
+                    <li><a href="#">Tabs & Accordions</a></li>
+                    <li><a href="#">Typography</a></li>
+                    <li><a href="#">FontAwesome</a></li>
+                    <li><a href="#">Slider</a></li>
+                    <li><a href="#">Panels</a></li>
+                    <li><a href="#">Widgets</a></li>
+                    <li><a href="#">Bootstrap Model</a></li>
+                </ul>
+
+                <li data-toggle="collapse" data-target="#service" class="collapsed">
+                  <a href="#"><i class="fa fa-globe fa-lg"></i> Seguros <span class="arrow"></span></a>
+                </li>  
+                <ul class="sub-menu collapse" id="service">
+                  <li>New Service 1</li>
+                  <li>New Service 2</li>
+                  <li>New Service 3</li>
+                </ul>
+
+                <li data-toggle="collapse" data-target="#new" class="collapsed">
+                  <a href="#"><i class="fa fa-car fa-lg"></i> Prendas <span class="arrow"></span></a>
+                </li>
+                <ul class="sub-menu collapse" id="new">
+                  <li>Auto</li>
+                  <li>Persona</li>
+                  <li>New New 3</li>
+                </ul>
+
+
+                 <li>
+                  <a href="#">
+                  <i class="fa fa-user fa-lg"></i> Profile
+                  </a>
+                  </li>
+
+                 <li>
+                  <a href="#">
+                  <i class="fa fa-users fa-lg"></i> Users
+                  </a>
+                </li>
+            </ul>
+          </div>
+        </div>
+    </div>
+
+
+    <div class="container-fluid">
+      <div id="div-contenido" class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+
+        <div class="row">
+          <a href="" id="button-new" class="btn btn-lg m-t-md btn-new"><i class="fa fa-cloud-upload"></i> Nuevo Auto</a>
+        </div>
+          <div class="row">
+            <!--<div class="col-xs-12 col-sm-4 col-md-3"> -->
+              <div ng-repeat="car in cars | filter:query" class="col-sm-6 col-md-4  ">
+                <div class="vehicle-item">
+                  <img ng-src={{car.image}} alt="...">
+                    <div class="overlay-container">
+                      <div class="camera-count">
+                        <i class="fa fa-camera"></i> 4
+                      </div>
+                    </div>
+                  </img>
+                  <!--<div class="caption"> -->
+                    <div class="make-model-area">
+                      <div class="make-area">
+                        <strong class="make">{{car.make}}</strong>
+                      </div>
+                      <strong class="model">{{car.model}}</strong>
+                    </div>
+                    <div class="price-area">
+                      <div class="price">${{car.price}}</div>
+                      <div class="year-kms">{{car.year}}  | {{car.kilometers}} Km</div>
+                    </div>
+                    <div class="sell-buttons-area">
+                      <a href="#" ng-hide="car.isSold || car.isBooked" class="btn btn-new" role="button">Vender</a> 
+                      <a href="#" ng-hide="car.isBooked || car.isSold" class="btn btn-primary btn-book-car" role="button">Reservar</a>
+                      <h2 class="is-sold"><span ng-show="car.isSold" class="label label-success"><i class="fa fa-check-square"></i> Vendido</span></h2>
+                      <h2 class="is-booked"><span ng-show="car.isBooked" class="label label-warning"><i class="fa fa-exclamation-triangle"></i> Reservado</span></h2>
+                    </div>
+                  <!--</div> -->
+                </div>
+              </div>
+            <!--</div> -->
+          </div>
+                      <div class="col-sm-4">
+            </div>
+            <div class="col-sm-6">
+              <nav>
+                <ul class="pagination">
+                  <li>
+                    <a href="#" aria-label="Previous">
+                      <span aria-hidden="true">&laquo;</span>
+                    </a>
+                  </li>
+                  <li><a href="#">1</a></li>
+                  <li><a href="#">2</a></li>
+                  <li><a href="#">3</a></li>
+                  <li><a href="#">4</a></li>
+                  <li><a href="#">5</a></li>
+                  <li>
+                    <a href="#" aria-label="Next">
+                      <span aria-hidden="true">&raquo;</span>
+                    </a>
+                  </li>
+                </ul>
+              </nav>
+            </div>
+            <div class="col-sm-2">
+            </div>
+          </br>
+          <!--pagination component-->
+          <div class="row">
+
+          </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+

@@ -1,0 +1,104 @@
+<div class="col-sm-8">
+	<div class="page-header">
+		<h1>Chevrolet Astra 2005 Gls 2.0</h1>
+	</div>
+	<carousel  interval="setInterval">
+		<slide ng-repeat="slide in slides">
+			<img class="carousel-image" ng-src="{{slide.image}}"/>
+				<div class="carousel-caption">
+					<h2>{{slide.title}}</h2>
+					<p>{{slide.text}}</p>
+				</div>
+		</slide>
+	</carousel>
+	<ul class="phone-thumbs">
+	  <li ng-repeat="slide in slides">
+	    <img ng-src="{{slide.image}}" ng-click="setImage(slide.image)">
+	  </li>
+	</ul>
+	&nbsp;
+    <div class="panel with-nav-tabs panel-default car-details-panel">
+        <div class="panel-heading">
+                <ul class="nav nav-tabs">
+                    <li class="active"><a href="#tab1default" data-toggle="tab">Ficha T&eacute;cnica</a></li>
+                    <li><a href="#tab2default" data-toggle="tab">Clientes Interesados</a></li>
+                    <li><a href="#tab3default" data-toggle="tab">Datos del Proveedor</a></li>
+                </ul>
+        </div>
+        <div class="panel-body">
+            <div class="tab-content">
+                <div class="tab-pane fade in active" id="tab1default">
+                	<div class="col-md-12 no-padding features">
+                		<hr class="m-t-xs">
+                		<div class="col-md-4 col-sm-6 col-xs-12 no-padding m-b-md">
+							<div class="col-md-1 col-sm-1 col-xs-1 no-padding  m-t-sm">
+								<i class="fa fa-chevron-right text-warning pull-left"></i>
+							</div>
+							<div class="col-md-10 no-padding">
+								<div class="text-muted">Marca</div>
+								<div class="h5"><strong>Citroen</strong></div>
+							</div>
+						</div>
+						<div class="col-md-4 col-sm-6 col-xs-12 no-padding m-b-md">
+							<div class="col-md-1 col-sm-1 col-xs-1 no-padding  m-t-sm">
+								<i class="fa fa-chevron-right text-warning pull-left"></i>
+							</div>
+							<div class="col-md-10 no-padding">
+								<div class="text-muted">Modelo</div>
+								<div class="h5"><strong>C3</strong></div>
+							</div>
+						</div>
+						<div class="col-md-4 col-sm-6 col-xs-12 no-padding m-b-md">
+							<div class="col-md-1 col-sm-1 col-xs-1 no-padding  m-t-sm">
+								<i class="fa fa-chevron-right text-warning pull-left"></i>
+							</div>
+							<div class="col-md-10 no-padding">
+								<div class="text-muted">Año</div>
+								<div class="h5"><strong>2012</strong></div>
+							</div>
+						</div>
+					    <div class="col-md-4 col-sm-6 col-xs-12 no-padding m-b-md">
+							<div class="col-md-1 col-sm-1 col-xs-1 no-padding  m-t-sm">
+								<i class="fa fa-chevron-right text-warning pull-left"></i>
+							</div>
+							<div class="col-md-10 no-padding">
+								<div class="text-muted">Kilometraje</div>
+								<div class="h5"><strong>20000 Kms.</strong></div>
+							</div>
+						</div>
+						<div class="col-md-4 col-sm-6 col-xs-12 no-padding m-b-md">
+							<div class="col-md-1 col-sm-1 col-xs-1 no-padding  m-t-sm">
+								<i class="fa fa-chevron-right text-warning pull-left"></i>
+							</div>
+							<div class="col-md-10 no-padding">
+								<div class="text-muted">Color</div>
+								<div class="h5"><strong>Rojo</strong></div>
+							</div>
+						</div>
+           			</div>
+                </div>
+                <div class="tab-pane fade" id="tab2default">
+                	<div class="col-md-12 no-padding features">
+                		<hr class="m-t-xs">
+           			</div>
+                </div>
+                <div class="tab-pane fade" id="tab3default">Default 3</div>
+                <div class="tab-pane fade" id="tab4default">Default 4</div>
+                <div class="tab-pane fade" id="tab5default">Default 5</div>
+            </div>
+        </div>
+	</div>
+</div>
+
+<div class="col-sm-4">
+	<div class="panel panel-default panel-details-right">
+	  <div class="panel-heading">
+	    <h4 class="panel-title">$120000</h4>
+	  </div>
+	  <div class="panel-body">
+	    <a href="#" ng-hide="car.isSold || car.isBooked" class="btn btn-primary btn-lg btn-block" role="button">Vender</a> 
+	    <br/>
+        <a href="#" ng-hide="car.isBooked || car.isSold" class="btn btn-default btn-lg btn-block" role="button">Reservar</a>
+	  </div>
+	</div>
+</div>
