@@ -21,20 +21,13 @@
     <!-- font awesome from BootstrapCDN -->
     <link href="http://netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.css" rel="stylesheet">
 
-    <!-- Custom styles for dashboard bootstrap template -->
-    <link href="assets/dashboard.css" rel="stylesheet">
-
+ 
     <!-- compiled CSS --><% styles.forEach( function ( file ) { %>
     <link rel="stylesheet" type="text/css" href="<%= file %>" /><% }); %>
 
     <!-- compiled JavaScript --><% scripts.forEach( function ( file ) { %>
     <script type="text/javascript" src="<%= file %>"></script><% }); %>
 
-
-    <!-- it's stupid to have to load it here, but this is for the +1 button -->
-    <script type="text/javascript" src="https://apis.google.com/js/plusone.js">
-      { "parsetags": "explicit" }
-    </script>
   </head>
   <body>
 
@@ -47,11 +40,11 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand" href="#">
+          <a class="navbar-brand" href="index.html#/home">
             <img src="assets/img/logo.jpg"></img>
           </a>
         </div>
-        <div id="navbar" class="navbar-collapse collapse">
+        <div id="navbar" class="navbar-collapse collapse">  
           <ul class="nav navbar-nav navbar-right">
             
             <li><a class="user-menu" href="#"><i class="fa fa-user fa-lg user-avatar"></i>&nbsp;&nbsp;&nbsp;Zingaro Automotores</a></li>
@@ -66,38 +59,29 @@
     </nav>
 
 
-      <div class="container" ui-view="main"></div>
 
 
-    <!--<footer class="footer">
-      <div class="container">
-        <div class="footer-inner">
-          <ul class="social">
-            <li><a target="_blank" href="http://gplus.to/joshdmiller"><i class="fa fa-google-plus-sign"></i></a></li>
-            <li><a target="_blank" href="http://twitter.com/joshdmiller"><i class="fa fa-twitter-sign"></i></a></li>
-            <li><a target="_blank" href="http://linkedin.com/in/joshdmiller"><i class="fa fa-linkedin-sign"></i></a></li>
-            <li><a target="_blank" href="http://github.com/ngbp/ngbp"><i class="fa fa-github-sign"></i></a></li>
-          </ul>
-          
 
-          <p>
-            (c) 2013 <a href="http://www.joshdavidmiller.com">Josh David Miller</a>. 
-            <a href="http://github.com/ngbp/ngbp/fork_select">Fork this</a>
-            to kickstart your next project.
-            <br />
-            ngbp is based on
-            <a href="http://www.angularjs.org">AngularJS</a>,
-            <a href="http://getbootstrap.com">Bootstrap</a>, 
-            <a href="http://angular-ui.github.com/bootstrap">UI Bootstrap</a>,
-            and 
-            <a href="http://fortawesome.github.com/Font-Awesome">Font Awesome</a>.        
-          </p>
-        </div>
-      </div>
-    </footer> -->
-      <footer class="site-footer navbar-fixed-bottom">
-        <div class="container">
-          <p class="muted credit">Example courtesy <a href="http://martinbean.co.uk">Martin Bean</a> and <a href="http://ryanfait.com/sticky-footer/">Ryan Fait</a>.</p>
+
+
+      <div class="container contenido-principal" ui-view="main"></div>
+
+
+
+
+
+
+
+      <footer class="site-footer navbar-fixed-bottom">  
+        <div class="footer-container">
+          <div class="m-t m-l-xs">
+            &#169;&nbsp;2000 - 2015 -&nbsp;<a href="/" class="text-danger">MiAgencia.com</a>&nbsp;- Todos los derechos reservados.<br>                   
+          </div>
+          <div class="m-t m-l-xs">
+                        Usar este sitio implica aceptar nuestros <a href="http://ayuda.latamautos.com/teacuterminos-y-condiciones.html" class="text-danger">T&eacute;rminos y Condiciones</a> de Uso.
+                        Prohibida su reproducci&oacute;n total o parcial, <p>as&iacute; como su traducci&oacute;n a cualquier idioma sin autorizaci&oacute;n escrita de su titular.
+                        </p>
+          </div>
         </div>
       </footer>
   </body>

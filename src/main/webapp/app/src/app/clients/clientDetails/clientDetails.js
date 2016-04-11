@@ -6,7 +6,7 @@ angular.module( 'ngBoilerplate.clientDetails', [
 
 .config(function config( $stateProvider ) {
   $stateProvider.state( 'clientDetails', {
-    url: '/clientDetails',
+    url: '/clientDetails/:clientId',
     views: {
       "main": {
         controller: 'ClientDetailsCtrl',
@@ -17,13 +17,11 @@ angular.module( 'ngBoilerplate.clientDetails', [
   });
 })
 
-.controller( 'ClientDetailsCtrl', function ClientDetailsCtrl( $scope ) {
-  // This is simple a demo for UI Boostrap.
-  $scope.dropdownDemoItems = [
-    "The first choice!",
-    "And another choice for you.",
-    "but wait! A third!"
-  ];
-})
+.controller( 'ClientDetailsCtrl', function ClientDetailsCtrl( $scope, $stateParams, clientService ) {
+ 
+ 
+  $scope.client = clientService.get({id: $stateParams.clientId});
 
-;
+     
+
+});

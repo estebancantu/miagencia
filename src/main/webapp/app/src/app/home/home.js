@@ -14,7 +14,7 @@
  */
 angular.module( 'ngBoilerplate.home', [
   'ui.router',
-  'plusOne'
+  'vehicleService'
 ])
 
 /**
@@ -38,7 +38,15 @@ angular.module( 'ngBoilerplate.home', [
 /**
  * And of course we define a controller for our route.
  */
-.controller( 'HomeCtrl', function HomeController( $scope ) {
+.controller( 'HomeCtrl', function HomeController( $scope, vehicleService ) {
+
+
+
+  $scope.cars = vehicleService.query();
+
+
+
+/**
 
   $scope.cars = [
     {
@@ -46,7 +54,7 @@ angular.module( 'ngBoilerplate.home', [
       make: 'Peugeot',
       model:'307',
       description:'Peugeot 307 5ptas. 1.6 N Xt Premium (110cv)',
-      price:'120000',
+      price:'120.000',
       year:'2012',
       kilometers:'150,500',
       isSold:false,
@@ -57,7 +65,7 @@ angular.module( 'ngBoilerplate.home', [
       make:'Chevrolet',
       model:'Astra',
       description:'Chevrolet Astra 2005 Gls 2.0',
-      price:'30000',
+      price:'30.000',
       year:'2012',
       kilometers:'1,500',
       isSold:false,
@@ -68,7 +76,7 @@ angular.module( 'ngBoilerplate.home', [
       make:'Fiat',
       model:'Palio',
       description:'Chevrolet Astra 2005 Gls 2.0',
-      price:'30000',
+      price:'30.000',
       year:'2012',
       kilometers:'1,500',
       isSold:true,
@@ -79,7 +87,7 @@ angular.module( 'ngBoilerplate.home', [
       make:'Chevrolet',
       model:'Astra',
       description:'Chevrolet Astra 2005 Gls 2.0',
-      price:'30000',
+      price:'35.000',
       year:'2012',
       kilometers:'1,500',
       isSold:false,
@@ -90,13 +98,17 @@ angular.module( 'ngBoilerplate.home', [
       make:'Chevrolet',
       model:'Astra',
       description:'Chevrolet Astra 2005 Gls 2.0',
-      price:'30000',
+      price:'87.000',
       year:'2012',
       kilometers:'1,500',
       isSold:false,
       isBooked:false
     }
   ];
+
+*/
+
+
   $scope.isSold = function() {
 
   };
@@ -104,4 +116,8 @@ angular.module( 'ngBoilerplate.home', [
 })
 
 ;
+
+
+
+
 

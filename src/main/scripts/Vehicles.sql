@@ -1,0 +1,21 @@
+CREATE TABLE `Vehicles` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `createdAt` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `vehicleType` ENUM('CAR_TRUCK','MOTORBIKE') NOT NULL,
+  `makeId` int(11) NOT NULL,
+  `modelId` int(11) NOT NULL,
+  `modelYear` int(11) NOT NULL,
+  `plate` varchar(255) NOT NULL,
+  `colour` varchar(255) DEFAULT NULL,
+  `chassisNumber` varchar(255) DEFAULT NULL,
+  `engineNumber` varchar(255) DEFAULT NULL,
+  `kilometers` int(11) NOT NULL,
+  `fuelType` ENUM('GASOLINE','DIESEL','GNC','NOT_SPECIFIED') NOT NULL,
+  `transmission` ENUM('AUTOMATIC','MANUAL','NOT_SPECIFIED') NOT NULL,
+  `description` varchar(255),
+  `city` varchar(255),
+  `provinceId` int(11) NOT NULL,
+  `vehicleCondition` ENUM('NEW','USED') NOT NULL,
+  `imageUrl` varchar(255) DEFAULT NULL,
+    PRIMARY KEY (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=9 DEFAULT CHARSET=latin1;

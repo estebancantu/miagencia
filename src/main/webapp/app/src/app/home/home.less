@@ -23,19 +23,53 @@
     margin-top: 40px;
     margin-bottom: 40px;
     margin-left: 15px;
+
+    font-size: 16px;
+    color: #f1f1f1!important;
+    background-color: #ed382b;
+    border-color: #ed382b;
+    -webkit-box-shadow: 0 4px 4px -3px rgba(0,0,0,0.6);
+    box-shadow: 0 4px 4px -3px rgba(0,0,0,0.6);
+  }
+
+  .car-filter {
+    margin-top: 40px;
+    margin-left: 60px;
+  }
+
+  .well{
+    background-color: #FFFFFF;
+    padding-top: 30px;
+    border-radius:12px;
   }
 
 .vehicle-item {
-  height:373px;
+  height:445px;
   display:block;
-  margin-bottom:15px;
+  margin-bottom: 40px;
   background-color: #ffffff;
-  border: 1px solid #dddddd;
-  border-radius:7px;
+  /* border: 1px solid #dddddd; */
+  border-radius:3px;
+  border:4px solid white;
+  box-shadow: 1px 1px 6px #E8E8E8;
+  -webkit-transition: border 0.6s;
+
+}
+
+.vehicle-item:hover {
+  border:4px solid #E8E8E8;
+  border-radius:5px;
+
+}
+
+.image-container {
+  height: 161px;
+  width: auto: ;
 }
 
 .vehicle-item img{
   width:100%;
+  max-height: 100%;
   border-radius:7px 7px 0px 0px;
 }
 
@@ -56,32 +90,45 @@
   padding-top:4px;
   padding-bottom:5px;
   margin-left:14px;
-  font-size:14px;
-  color:#ed382b;
+  font-size:16px;
+  color:white;
   display:block;
 }
 
 
 
 .model {
-  padding-top:3px;
+  padding-top:7px;
   margin-left:14px;
   display:block;
   border-top: 1px solid #dddddd;
+  color:red;
 }
 
 .price {
-  padding-top:6px;
   margin-left:14px;
+  margin-bottom: 10px;
   display:block;
-  font-size:20px;
+  font-size:23px;
   font-weight:600;
   color:#333;
 }
 
+.price-label {
+  margin-left: 14px;
+  margin-top: 15px;
+  font-size: 12px;
+  font-weight: bold;
+  color: #667;
+}
+
 .year-kms {
   margin-left:14px;
+  margin-top: 4px;
   padding-bottom:10px;
+  font-size: 13px;
+  /* font-style: italic; */
+  color: #667;
 }
 
 .make-area {
@@ -101,9 +148,9 @@
 .sell-buttons-area {
   border-top3:px solid #dddddd;
   padding-left:14px;
-  padding-top:30px;
+  padding-top:20px;
   background:#F0F0F0;
-  height:83px;
+  height:76px;
   border-radius:0px 0px 4px 4px;
 }
 
@@ -121,9 +168,32 @@
   font-style: italic;
 }
 
-.btn-book-car {
-  background-color: #000000;
+.btn-sell-car {
+    font-size: 16px;
+    color: #f1f1f1!important;
+    background-color: #ed382b;
+    border-color: #ed382b;
+    -webkit-box-shadow: 0 4px 4px -3px rgba(0,0,0,0.6);
+    box-shadow: 0 4px 4px -3px rgba(0,0,0,0.6);
 }
+
+.btn-sell-car:hover {
+  background-color: #0B0B3B;
+}
+
+.btn-book-car {
+    font-size: 16px;
+    color: #f1f1f1!important;
+    background-color: #335397;
+    border-color: #335397;
+    -webkit-box-shadow: 0 4px 4px -3px rgba(0,0,0,0.6);
+    box-shadow: 0 4px 4px -3px rgba(0,0,0,0.6);
+}
+
+.btn-book-car:hover {
+  background-color: #0B0B3B;
+}
+
 
 .marketing {
   .row {

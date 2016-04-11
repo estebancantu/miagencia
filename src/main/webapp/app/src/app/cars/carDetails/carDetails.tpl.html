@@ -1,28 +1,32 @@
 <div class="col-sm-8">
 	<div class="page-header">
-		<h1>Chevrolet Astra 2005 Gls 2.0</h1>
+		<h1>el make es {{car.plate}} y el model {{car.model}}Chevrolet Astra 2005 Gls 2.0</h1>
 	</div>
 	<carousel  interval="setInterval">
 		<slide ng-repeat="slide in slides">
-			<img class="carousel-image" ng-src="{{slide.image}}"/>
-				<div class="carousel-caption">
-					<h2>{{slide.title}}</h2>
-					<p>{{slide.text}}</p>
-				</div>
+			<div class="carousel-container img-polaroid">
+				<img class="carousel-image img-polaroid" ng-src="{{slide.image}}"/>
+					<div class="carousel-caption">
+						<h2>{{slide.title}}</h2>
+						<p>{{slide.text}}</p>
+					</div>
+			</div>
 		</slide>
 	</carousel>
-	<ul class="phone-thumbs">
-	  <li ng-repeat="slide in slides">
-	    <img ng-src="{{slide.image}}" ng-click="setImage(slide.image)">
-	  </li>
-	</ul>
+	</br>
+	<div class="well car-thumbs-container">
+		<ul class="car-thumbs">
+		  <li ng-repeat="slide in slides">
+		    <img ng-src="{{slide.image}}" ng-click="setImage(slide.image)">
+		  </li>
+		</ul>
+	</div>
 	&nbsp;
     <div class="panel with-nav-tabs panel-default car-details-panel">
         <div class="panel-heading">
                 <ul class="nav nav-tabs">
-                    <li class="active"><a href="#tab1default" data-toggle="tab">Ficha T&eacute;cnica</a></li>
-                    <li><a href="#tab2default" data-toggle="tab">Clientes Interesados</a></li>
-                    <li><a href="#tab3default" data-toggle="tab">Datos del Proveedor</a></li>
+                    <li class="active"><a href="#tab1default" data-toggle="tab">Datos del Veh&iacute;culo</a></li>
+                    <li><a href="#tab3default" data-toggle="tab">Datos del Vendedor</a></li>
                 </ul>
         </div>
         <div class="panel-body">
@@ -53,7 +57,7 @@
 								<i class="fa fa-chevron-right text-warning pull-left"></i>
 							</div>
 							<div class="col-md-10 no-padding">
-								<div class="text-muted">Año</div>
+								<div class="text-muted">A&ntilde;o</div>
 								<div class="h5"><strong>2012</strong></div>
 							</div>
 						</div>
@@ -62,7 +66,7 @@
 								<i class="fa fa-chevron-right text-warning pull-left"></i>
 							</div>
 							<div class="col-md-10 no-padding">
-								<div class="text-muted">Kilometraje</div>
+								<div class="text-info">Kilometraje</div>
 								<div class="h5"><strong>20000 Kms.</strong></div>
 							</div>
 						</div>
@@ -93,12 +97,18 @@
 <div class="col-sm-4">
 	<div class="panel panel-default panel-details-right">
 	  <div class="panel-heading">
-	    <h4 class="panel-title">$120000</h4>
+	    <h2 class="panel-title">Precio: ${{car.price}}</h2>
 	  </div>
 	  <div class="panel-body">
-	    <a href="#" ng-hide="car.isSold || car.isBooked" class="btn btn-primary btn-lg btn-block" role="button">Vender</a> 
+	    <a href="#" ng-hide="car.isSold || car.isBooked" class="btn btn-primary btn-lg btn-block btn-sell-car-panel" role="button">Vender</a> 
 	    <br/>
-        <a href="#" ng-hide="car.isBooked || car.isSold" class="btn btn-default btn-lg btn-block" role="button">Reservar</a>
+        <a href="#" ng-hide="car.isBooked || car.isSold" class="btn btn-default btn-lg btn-block btn-book-car-panel" role="button">Reservar</a>
+	  </div>
+	</div>
+	<div class="panel panel-default panel-details-right">
+	  <div class="panel-body">
+	    <a href="#" ng-hide="car.isSold || car.isBooked" class="btn btn-primary btn-lg btn-block btn-sell-car-panel" role="button">Calcular Seguro</a> 
+	    <br/>
 	  </div>
 	</div>
 </div>

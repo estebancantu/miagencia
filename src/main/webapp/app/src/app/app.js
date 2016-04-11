@@ -8,8 +8,21 @@ angular.module( 'ngBoilerplate', [
   'ngBoilerplate.clientList',
   'ngBoilerplate.clientDetails',
   'ngBoilerplate.newClient',
-  'ui.router'
+  'ngBoilerplate.newCar',
+  'ui.router',
+  'ngAnimate',
+  'flow',
+  'ui.bootstrap',
+  'LocalStorageModule',
+  'ngResource',
+  'ngFileUpload',
+  'ngImgCrop'
+
 ])
+
+.config(['localStorageServiceProvider', function(localStorageServiceProvider) {
+  localStorageServiceProvider.setPrefix('ls');
+}])
 
 .config( function myAppConfig ( $stateProvider, $urlRouterProvider ) {
   $urlRouterProvider.otherwise( '/home' );

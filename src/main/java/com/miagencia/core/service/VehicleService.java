@@ -1,6 +1,9 @@
 package com.miagencia.core.service;
 
-import com.miagencia.core.entity.Vehicle;
+import java.util.List;
+
+import com.miagencia.rest.dto.VehicleDTO;
+import com.miagencia.rest.dto.VehicleSummaryDTO;
 
 /**
  * 19/9/2015
@@ -8,12 +11,9 @@ import com.miagencia.core.entity.Vehicle;
  */
 public interface VehicleService {
 	
-	
-	public Vehicle createVehicle(Vehicle data); // como se asocia a la agencia? en el servicio?
-	
-	public Vehicle findVehicle(Long vehicleId);
 
-	public Vehicle updateVehicle(Long vehicleId, Vehicle data);
-	
-	public Vehicle deleteVehicle(Long vehicleId);
+	public VehicleDTO find(Long vehicleId);
+
+	public List<VehicleSummaryDTO> getAllVehicles();
+
 }

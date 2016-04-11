@@ -62,13 +62,23 @@ module.exports = {
    */
   vendor_files: {
     js: [
+      'vendor/jquery/dist/jquery.min.js',
       'vendor/angular/angular.js',
+      'vendor/angular-animate/angular-animate.min.js',
       'vendor/angular-bootstrap/ui-bootstrap-tpls.min.js',
       'vendor/placeholders/angular-placeholders-0.0.1-SNAPSHOT.min.js',
       'vendor/angular-ui-router/release/angular-ui-router.js',
-      'vendor/angular-ui-utils/modules/route/route.js'
+      'vendor/angular-ui-utils/modules/route/route.js',
+      'vendor/ng-flow/dist/ng-flow.min.js',
+      'vendor/angular-local-storage/dist/angular-local-storage.min.js',
+      'vendor/angular-resource/angular-resource.min.js',
+      'vendor/ng-file-upload/ng-file-upload-all.min.js',
+      'vendor/ng-img-crop/compile/minified/ng-img-crop.js'
+      
+
     ],
     css: [
+      'vendor/ng-img-crop/compile/minified/ng-img-crop.css'
     ],
     assets: [
     ]

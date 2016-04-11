@@ -6,7 +6,7 @@ angular.module( 'ngBoilerplate.carDetails', [
 
 .config(function config( $stateProvider ) {
   $stateProvider.state( 'carDetails', {
-    url: '/carDetails',
+    url: '/carDetails/:carId',
     views: {
       "main": {
         controller: 'carDetailsCtrl',
@@ -17,10 +17,12 @@ angular.module( 'ngBoilerplate.carDetails', [
   });
 })
 
-.controller( 'carDetailsCtrl', function carDetailsCtrl( $scope ) {
+.controller( 'carDetailsCtrl', function carDetailsCtrl( $scope, $stateParams, vehicleService ) {
   // This is simple a demo for UI Boostrap.
  
   $scope.setInterval=5000;
+
+  $scope.car = vehicleService.get({id: $stateParams.carId});
 
   $scope.slides = [
   {

@@ -1,6 +1,6 @@
 angular.module( 'ngBoilerplate.clientList', [
   'ui.router',
-  'placeholders',
+  'clientService',
   'ui.bootstrap'
 ])
 
@@ -17,7 +17,10 @@ angular.module( 'ngBoilerplate.clientList', [
   });
 })
 
-.controller( 'ClientListCtrl', function ClientListCtrl( $scope ) {
+.controller( 'ClientListCtrl', function ClientListCtrl( $scope, clientService ) {
+
+
+  $scope.clients = clientService.query();
   // This is simple a demo for UI Boostrap.
   $scope.dropdownDemoItems = [
     "The first choice!",

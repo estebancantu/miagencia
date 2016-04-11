@@ -1,0 +1,271 @@
+
+  <div class="row">
+  	<div class="col-md-3"></div>
+    <div class="col-md-6" ng-controller="newCarCtrl">
+    <h2 class="page-header new-client-header"><i class="fa fa-car"></i>  Nuevo Auto</h2>
+		<form name="newVehicleForm" role="form" novalidate>
+			<div class="panel panel-info">
+				<div class="panel-heading">Tipo de Veh&iacute;culo</div>
+				<div class="panel-body">
+					<div class="form-group">
+						<select class="form-control" ng-model="newCar.vehicleType" 
+							ng-options="vehicleType.name for vehicleType in availableVehicles">
+						  <option value="">Tipo</option>
+						</select>
+					</div>
+					<div class="form-group">
+						<select class="form-control" ng-model="newCar.make" 
+							ng-options="make.name for make in newCar.vehicleType.makes">
+						  <option value="">Marca</option>
+						</select>
+					</div>
+					<div class="form-group">
+						<select class="form-control" ng-model="newCar.model" 
+							ng-options="model.name for model in newCar.make.models">
+						  <option value="">Modelo</option>
+						</select>
+					</div>
+					<!--<div flow-init
+					     flow-files-submitted="$flow.upload()"
+					     flow-file-success="$file.msg = $message" class="ng-scope">
+
+
+					  <span class="btn btn-default" flow-btn>
+					  	Upload File
+					  	<input type="file" multiple="multiple" style="visibility:hidden; position:absolute;"/>
+					  </span>
+
+					  <table>
+					    <tr ng-repeat="file in $flow.files">
+					        <td>{{$index+1}}</td>
+					        <td>{{file.name}}</td>
+					        <td>{{file.msg}}</td>
+					    </tr>
+					  </table>
+					  <img flow-img="$flow.files[0]" />
+					</div> -->
+					<div class="form-group">
+						<select class="form-control" ng-model="newCar.vehicleCondition" 
+							ng-options="condition for condition in vehicleConditions">
+						  <option value="">Condicion</option>
+						</select>
+					</div>
+				  	<div class="form-group">
+						<select class="form-control" ng-model="newCar.fuelType" 
+							ng-options="fuel for fuel in fuelTypes">
+						  <option value="">Combustible</option>
+						</select>
+					</div>
+					<div class="form-group">
+						<select class="form-control" ng-model="newCar.doors" 
+							ng-options="door for door in doors">
+						  <option value="">Cantidad de Puertas</option>
+						</select>
+					</div>
+					<div class="form-group">
+						<select class="form-control" ng-model="newCar.color" 
+							ng-options="color for color in colors">
+						  <option value="">Color</option>
+						</select>
+					</div>
+					<div class="form-group">
+						<select class="form-control" ng-model="newCar.transmissionType" 
+							ng-options="transmission for transmission in transmissionTypes">
+						  <option value="">Transmisi&oacute;n</option>
+						</select>
+					</div>
+				</div>
+			</div>
+
+
+
+			<div class="panel panel-info">
+				<div class="panel-heading">Detalles del Veh&iacute;culo</div>
+				<div class="panel-body">
+					<div class="form-group">
+						<label for="exampleInputEmail1">A&ntilde;o</label>
+						<select class="form-control" ng-model="newCar.year" 
+							ng-options="year for year in years">
+						  <option value="">A&ntilde;o</option>
+						</select>
+					</div>
+					<div class="form-group" ng-class="{'has-error': newVehicleForm.kilometers.$invalid}">
+					  <label for="exampleInputEmail1">Kil&oacute;metros</label>
+					  <input type="text" name="kilometers" class="form-control" id="exampleInputEmail1" placeholder="Cantidad de kilometros del vehiculo" ng-model="newCar.kilometers" required>
+					  <span class="help-block" 
+         					ng-show="newVehicleForm.kilometers.$error.required">El campo es requerido</span>
+					</div>
+					<div class="form-group" ng-class="{'has-error': newVehicleForm.plate.$invalid}">
+					  <label for="exampleInputEmail1">Nro. de patente</label>
+					  <input type="text" name="plate" class="form-control" id="exampleInputEmail1" placeholder="N&uacute;mero de patente" ng-model="newCar.plate" required>
+					  <span class="help-block" 
+         					ng-show="newVehicleForm.plate.$error.required">El campo es requerido</span>
+					</div>
+					<div class="form-group">
+					  <label for="exampleInputEmail1">Nro. de motor</label>
+					  <input type="text" class="form-control" id="exampleInputEmail1" placeholder="N&uacute;mero de motor del vehiculo" ng-model="newCar.engineNumber">
+					</div>
+					<div class="form-group">
+					  <label for="exampleInputEmail1">Nro. de chassis</label>
+					  <input type="text" class="form-control" id="exampleInputEmail1" placeholder="N&uacute;mero de chassis del vehiculo" ng-model="newCar.chassisNumber">
+					</div>
+					<fieldset class="form-group">
+				    	<label for="exampleTextarea">Descripci&oacute;n</label>
+				    	<textarea class="form-control" id="exampleTextarea" rows="3" ng-model="newCar.description"></textarea>
+		  			</fieldset>
+				</div>
+			</div>
+
+
+
+
+			<div class="panel panel-info">
+				<div class="panel-heading">Caracter&iacute;sticas</div>
+				<div class="panel-body">
+
+					  <div class="checkbox">
+					    <label>
+					      <input type="checkbox"> Aire acondicionado
+					    </label>
+					  </div>
+					  <div class="checkbox">
+					    <label>
+					      <input type="checkbox"> Frenos ABS
+					    </label>
+					  </div>
+					  <div class="checkbox">
+					    <label>
+					      <input type="checkbox"> Airbag
+					    </label>
+					  </div>
+					  <div class="checkbox">
+					    <label>
+					      <input type="checkbox"> Alarma
+					    </label>
+					  </div>
+
+				</div>
+			</div>
+
+
+
+			<div class="panel panel-info">
+				<div class="panel-heading">Documentaci&oacute;n</div>
+				<div class="panel-body">
+					<div class="checkbox">
+					    <label>
+					      <input type="checkbox"> Posee deuda de patentes?
+					    </label>
+					 </div>		
+					 <div class="form-group">
+			    		<label class="sr-only" for="exampleInputAmount">Deuda de Patente</label>
+					      <div class="input-group">
+					      	<div class="input-group-addon">$</div>
+					      	<input type="text" class="form-control" id="exampleInputAmount" placeholder="Monto de la deuda" ng-model="newCar.price">
+					    	<div class="input-group-addon">.00</div>
+					      </div>
+					 </div>
+					 <div class="checkbox">
+					    <label>
+					      <input type="checkbox"> Posee T&iacute;tulo
+					    </label>
+					 </div>	
+					 <div class="checkbox">
+					    <label>
+					      <input type="checkbox"> Posee Certificado de Dominio
+					    </label>
+					 </div>	
+				</div>
+			</div>
+
+
+
+
+
+		<div class="panel panel-info">
+			<div class="panel-heading">Valor del Veh&iacute;culo</div>
+				<div class="panel-body">
+				  <div class="form-group" ng-class="{'has-error': newVehicleForm.price.$invalid}">
+				      <div class="input-group">
+				      	<div class="input-group-addon">$</div>
+				      	<input type="text" name="price" class="form-control" id="exampleInputAmount" placeholder="Precio" ng-model="newCar.price" required>
+				    	<div class="input-group-addon">.00</div>
+				      </div>
+				      <span class="help-block" 
+         			ng-show="newVehicleForm.price.$error.required">El campo es requerido</span>
+				  </div>
+				</div>
+		 </div>
+
+		<div class="panel panel-info">
+		<div class="panel-heading">Tipo de Operaci&oacute;n</div>
+			<div class="panel-body">
+				<div class="radio">
+  					<label><input type="radio" name="optradio">Compra</label>
+				</div>
+				<div class="radio">
+  					<label><input type="radio" name="optradio">Concesi&oacute;n</label>
+				</div>
+			</div>
+		</div>
+
+
+
+		<form name="myForm">
+	        <div>Eleg&iacute; una imagen del veh&iacute;culo</div>
+	        <button ng-select ng-model="picFile" accept="image/*">
+	            Seleccionar</button>
+	        <div ngf-drop ng-model="picFile" ngf-pattern="image/*"
+	             class="cropArea">
+	            <img-crop image="picFile  | ngfDataUrl" 
+	             area-type="square"                
+	            result-image="croppedDataUrl" ng-init="croppedDataUrl=''">
+	            </img-crop>
+	        </div>
+	        <div>
+	            <img ng-src="{{croppedDataUrl}}" />
+	        </div>
+	        <button ng-click="upload(croppedDataUrl, picFile.name)">Subir</button> 
+	            
+	        <span class="progress" ng-show="progress >= 0">
+	          <div style="width:{{progress}}%" ng-bind="progress + '%'"></div>
+	        </span>
+	        <span ng-show="result">La imagen se ha subido exitosamente.</span>
+	        <span class="err" ng-show="errorMsg">{{errorMsg}}</span>
+	    </form>
+
+
+
+
+
+		 <div class="panel panel-info">
+			<div class="panel-heading">Detalles del Vendedor</div>
+				<div class="panel-body">
+					<div class="form-group" ng-class="{'has-error': newVehicleForm.firstName.$invalid}">
+					  <label for="exampleInputEmail1">Nombre</label>
+					  <input type="text" name="firstName" class="form-control" id="exampleInputEmail1" placeholder="Nombre" ng-model="seller.firstName" required>
+					  <span class="help-block" 
+         			ng-show="newVehicleForm.firstName.$error.required">El campo es requerido</span>
+					</div>
+					<div class="form-group" ng-class="{'has-error': newVehicleForm.lastName.$invalid}">
+					  <label for="exampleInputEmail1">Apellido</label>
+					  <input type="text" name="lastName" class="form-control" id="exampleInputEmail1" placeholder="Apellido" ng-model="seller.lastName" required>
+					  <span class="help-block" 
+         			ng-show="newVehicleForm.lastName.$error.required">El campo es requerido</span>
+					</div>
+					<div class="form-group" ng-class="{'has-error': newVehicleForm.dni.$invalid}">
+					  <label for="exampleInputEmail1">DNI</label>
+					  <input type="text" name="dni" class="form-control" id="exampleInputEmail1" placeholder="Documento" ng-model="seller.dni" required>
+					  <span class="help-block" 
+         			ng-show="newVehicleForm.dni.$error.required">El campo es requerido</span>
+					</div>
+				</div>
+		 </div>
+
+
+		  <button type="submit" class="btn btn-primary" ng-click="saveNewCar()">Guardar</button>
+		</form>
+
+	</div>
+	<div class="col-md-3"></div>
+</div>

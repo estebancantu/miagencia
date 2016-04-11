@@ -17,17 +17,17 @@
             <div class="panel-heading user-details-panel-heading">
               <div class="col-md-3 col-lg-3 " align="center"> <img alt="User Pic" src="http://www.elminero.com.mx/assets/2014/06/jpg2.jpg" class="img-circle img-responsive"> </div>
               <div class=" col-md-9 col-lg-9 panel-heading-text"> 
-                <h3 class="panel-title user-details-name">Lionel Messi</h3>
-                <small><cite title="San Francisco, USA">La Plata, Argentina <i class="icon-map-marker"></i>
+                <h3 class="panel-title user-details-name">{{client.firstName}} &nbsp; {{client.lastName}}</h3>
+                <small><cite title="San Francisco, USA">{{client.city}},&nbsp;{{client.country}} <i class="icon-map-marker"></i>
                   <!-- <i class="glyphicon glyphicon-map-marker">
                   </i> -->
               </cite></small>
                 <p>
-                            <i class="fa fa-envelope"></i> lionel10@gmail.com
+                            <i class="fa fa-envelope"></i> {{client.email}}
                             <br />
-                            <i class="fa fa-phone"></i> 221 4343405</a>
+                            <i class="fa fa-phone"></i> {{client.phone}}</a>
                             <br />
-                            <i class="fa fa-mobile"></i> 221 15 6844432</a>
+                            <i class="fa fa-mobile"></i> {{client.mobile}}</a>
                             <br />
 
               </div>
@@ -54,30 +54,26 @@
                     <tbody>
                       <tr>
                         <td>Direccion:</td>
-                        <td>49 N686 3A</td>
+                        <td>{{client.address}}</td>
                       </tr>
                       <tr>
                         <td>Localidad</td>
-                        <td>La Plata</td>
+                        <td>{{client.city}}</td>
                       </tr>
                       <tr>
                         <td>Provincia</td>
-                        <td>Buenos Aires</td>
+                        <td>{{client.province}}</td>
                       </tr>
                       <tr>
                         <td>DNI</td>
-                        <td>29768529</td>
-                      </tr>
-                      <tr>
-                        <td>Sexo</td>
-                        <td>Masculino</td>
+                        <td>{{client.dni}}</td>
                       </tr>
                       <tr>
                         <td>email</td>
-                        <td><a href="mailto:info@support.com">lionel10@gmail.com</a></td>
+                        <td><a href="mailto:info@support.com">{{client.email}}</a></td>
                       </tr>
                         <td>Telefono</td>
-                        <td>221 4343405 (Fijo)<br><br>221 15 6844432 (Movil)
+                        <td>{{client.phone}} (Fijo)<br><br>{{client.mobile}} (Movil)
                         </td>    
                       </tr>
                       </tr>

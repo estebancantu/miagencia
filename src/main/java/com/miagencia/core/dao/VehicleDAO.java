@@ -1,6 +1,8 @@
 package com.miagencia.core.dao;
 
-import com.miagencia.core.entity.Vehicle;
+import java.util.List;
+
+import com.miagencia.core.model.Vehicle;
 
 /**
  * 19/9/2015
@@ -8,12 +10,12 @@ import com.miagencia.core.entity.Vehicle;
  */
 public interface VehicleDAO {
 	
-	public Vehicle createVehicle(Vehicle data); // como se asocia a la agencia? en el servicio?
-	
-	public Vehicle findVehicle(Long vehicleId);
 
-	public Vehicle updateVehicle(Long vehicleId, Vehicle data);
+
 	
-	public Vehicle deleteVehicle(Long vehicleId);
+	public Vehicle find(Long vehicleId);
+	
+	public List<Vehicle> getAllVehicles();
+
 
 }
