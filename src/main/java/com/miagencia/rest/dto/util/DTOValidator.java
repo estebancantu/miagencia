@@ -1,7 +1,7 @@
 package com.miagencia.rest.dto.util;
 
 import com.miagencia.rest.dto.ClientDTO;
-import com.miagencia.rest.dto.VehicleOperationDTO;
+import com.miagencia.rest.dto.operations.BuyVehicleRequestDTO;
 
 public class DTOValidator {
 	
@@ -16,12 +16,10 @@ public class DTOValidator {
 		}
 		return false;
 	}
-	
-	
-	
-	public static boolean validateFields(VehicleOperationDTO vehicleOperationDto){
+
+	public static boolean validateBuyRequestDTO(BuyVehicleRequestDTO buyRequestDto){
 		
-		if(vehicleOperationDto.getClientDto() != null && vehicleOperationDto.getVehicleDto() != null) {
+		if( buyRequestDto.getSellerId() != null  && buyRequestDto.getVehicleDto() != null ) {
 			return true;
 		}
 		return false;

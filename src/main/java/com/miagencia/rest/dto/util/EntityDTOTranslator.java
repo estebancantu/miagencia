@@ -17,10 +17,10 @@ import com.miagencia.rest.dto.ClientDTO;
 import com.miagencia.rest.dto.ClientSummaryDTO;
 import com.miagencia.rest.dto.VehicleDTO;
 import com.miagencia.rest.dto.VehicleSummaryDTO;
-import com.miagencia.rest.dto.operations.BuyVehicleOperationDTO;
-import com.miagencia.rest.dto.operations.ConsignVehicleOperationDTO;
-import com.miagencia.rest.dto.operations.ReserveVehicleOperationDTO;
-import com.miagencia.rest.dto.operations.SellVehicleOperationDTO;
+import com.miagencia.rest.dto.operations.BuyVehicleRequestDTO;
+import com.miagencia.rest.dto.operations.ConsignVehicleRequestDTO;
+import com.miagencia.rest.dto.operations.ReserveVehicleRequestDTO;
+import com.miagencia.rest.dto.operations.SellVehicleRequestDTO;
 
 public class EntityDTOTranslator {
 	
@@ -175,10 +175,10 @@ public class EntityDTOTranslator {
 	
 	
 	
-	public static BuyOperation buildBuyOperation(BuyVehicleOperationDTO buyVehicleOperationDto, Vehicle vehicle, Client sellerParty) {
+	public static BuyOperation buildBuyOperation(BuyVehicleRequestDTO buyVehicleRequestDto, Vehicle vehicle, Client sellerParty) {
 		
-		int paidAmount = buyVehicleOperationDto.getPaidAmount();
-		String paymentTypeString = buyVehicleOperationDto.getPaymentType();
+		int paidAmount = buyVehicleRequestDto.getPaidAmount();
+		String paymentTypeString = buyVehicleRequestDto.getPaymentType();
 		
 		PaymentType paymentType = PaymentType.valueOf(paymentTypeString);
 		
@@ -188,19 +188,21 @@ public class EntityDTOTranslator {
 	}
 	
 	
-	public static ConsignmentOperation buildConsignmentOperation(ConsignVehicleOperationDTO consignVehicleOperationDto, Vehicle vehicle, Client sellerParty) {
+	public static ConsignmentOperation buildConsignmentOperation(ConsignVehicleRequestDTO consignVehicleRequestDto, Vehicle vehicle, Client sellerParty) {
 		
-		int offeringPrice = consignVehicleOperationDto.getOfferingPrice();
+		int offeringPrice = consignVehicleRequestDto.getOfferingPrice();
 
 		ConsignmentOperation consignmentOperation = new ConsignmentOperation(vehicle, sellerParty, offeringPrice);
 		
 		return consignmentOperation;
 	}
 	
-	public static ReservationOperation buildReservationOperation(ReserveVehicleOperationDTO reserveVehicleOperationDto, Vehicle vehicle, Client reservationHolder) {
+	
+	
+	public static ReservationOperation buildReservationOperation(ReserveVehicleRequestDTO reserveVehicleRequestDto, Vehicle vehicle, Client reservationHolder) {
 		
-		int advancePayment = reserveVehicleOperationDto.getAdvancePayment();
-		int daysOnHold = reserveVehicleOperationDto.getDaysOnHold();
+		Long advancePayment = reserveVehicleRequestDto.getAdvancePayment();
+		int daysOnHold = reserveVehicleRequestDto.getDaysOnHold();
 
 		ReservationOperation reservationOperation = new ReservationOperation(vehicle, reservationHolder, advancePayment, daysOnHold);
 		
@@ -208,14 +210,14 @@ public class EntityDTOTranslator {
 	}
 	
 	
-	public static SaleOperation buildSaleOperation(SellVehicleOperationDTO sellVehicleOperationDto, Vehicle vehicle, Client buyer) {
+	public static SaleOperation buildSaleOperation(SellVehicleRequestDTO sellVehicleRequestDto, Vehicle vehicle, Client buyer) {
 		
-		int sellingAmount = sellVehicleOperationDto.getSellingAmount();
-		String paymentTypeString = sellVehicleOperationDto.getPaymentType();
+		int paidAmount = sellVehicleRequestDto.getPaidAmount();
+		String paymentTypeString = sellVehicleRequestDto.getPaymentType();
 		
 		PaymentType paymentType = PaymentType.valueOf(paymentTypeString);
 
-		SaleOperation saleOperation = new SaleOperation(vehicle, buyer, sellingAmount, paymentType);
+		SaleOperation saleOperation = new SaleOperation(vehicle, buyer, paidAmount, paymentType);
 		
 		return saleOperation;
 	}

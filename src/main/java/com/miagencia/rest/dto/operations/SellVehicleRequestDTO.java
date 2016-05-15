@@ -1,11 +1,12 @@
 package com.miagencia.rest.dto.operations;
 
-import com.miagencia.rest.dto.VehicleOperationDTO;
 
-public class BuyVehicleOperationDTO extends VehicleOperationDTO {
+public class SellVehicleRequestDTO {
 	
 	
-	private Long id;
+	private Long vehicleId;
+	
+	private Long buyerId;
 	
 	private int paidAmount;
 	
@@ -14,14 +15,6 @@ public class BuyVehicleOperationDTO extends VehicleOperationDTO {
 	
 	
 	
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
-	}
-
 	public int getPaidAmount() {
 		return paidAmount;
 	}
@@ -36,6 +29,22 @@ public class BuyVehicleOperationDTO extends VehicleOperationDTO {
 
 	public void setPaymentType(String paymentType) {
 		this.paymentType = paymentType;
+	}
+
+	public Long getVehicleId() {
+		return vehicleId;
+	}
+
+	public void setVehicleId(Long vehicleId) {
+		this.vehicleId = vehicleId;
+	}
+
+	public Long getBuyerId() {
+		return buyerId;
+	}
+
+	public void setBuyerId(Long buyerId) {
+		this.buyerId = buyerId;
 	}
 
 }

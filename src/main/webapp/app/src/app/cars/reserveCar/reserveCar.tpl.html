@@ -1,0 +1,39 @@
+<div class="row">
+<div class="col-sm-8" ng-controller="reserveCarCtrl">
+	<div class="page-header">
+		<h2 class="page-header reserve-car-header"><i class="fa fa-car"></i>Reservar Auto</h2>
+	</div>
+        <div class="image-container">
+          <img ng-src={{selectedCar.imageUrl}} alt="...">
+            <div class="overlay-container">
+            </div>
+          </img>
+        </div>
+        <form name="reserveVehicleForm" role="form" novalidate>
+		<div class="panel panel-info">
+			<div class="panel-heading">Valor de reserva del Veh&iacute;culo</div>
+				<div class="panel-body">
+				  <div class="form-group" ng-class="{'has-error': reserveVehicleForm.advancePayment.$invalid}">
+				      <div class="input-group">
+				      	<div class="input-group-addon">$</div>
+				      	<input type="text" name="advancePayment" class="form-control" id="exampleInputAmount" placeholder="Monto de reserva para este ve&iacute;culo" ng-model="advancePayment" required>
+				    	<div class="input-group-addon">.00</div>
+				      </div>
+				      <span class="help-block" 
+	     			ng-show="reserveVehicleForm.advancePayment.$error.required">El campo es requerido</span>
+				  </div>
+				</div>
+		 </div>
+
+		 <div class="panel panel-info">
+			<div class="panel-heading">Cliente que reserva</div>
+			<div class="panel-body">
+				<select name="repeatSelect" id="clientSelect" ng-model="selectedClientId">
+      				<option ng-repeat="option in clientList" value="{{option.id}}">{{option.firstName}}&nbsp;{{option.lastName}}</option>
+    			</select>
+			</div>
+		</div>
+		<button type="submit" class="btn btn-primary" ng-click="reserveCar()">Vender</button>
+		</form>
+</div>
+</div>

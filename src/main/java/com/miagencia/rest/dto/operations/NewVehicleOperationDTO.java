@@ -1,19 +1,20 @@
-package com.miagencia.rest.dto;
+package com.miagencia.rest.dto.operations;
+
+import com.miagencia.rest.dto.ClientDTO;
+import com.miagencia.rest.dto.VehicleDTO;
 
 
 
-public abstract class VehicleOperationDTO {
+
+// TODO por ahora no lo usamos
+public abstract class NewVehicleOperationDTO {
 	
-
 	
 	private VehicleDTO vehicleDto;
 	
 	private ClientDTO clientDto;
 	
-	//private OperationDetailsDTO operationDetailsDto;
 
-
-	
 	
 	
 	
@@ -32,6 +33,5 @@ public abstract class VehicleOperationDTO {
 	public void setClientDto(ClientDTO clientDto) {
 		this.clientDto = clientDto;
 	}
-
 
 }

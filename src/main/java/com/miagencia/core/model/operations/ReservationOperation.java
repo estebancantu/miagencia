@@ -22,18 +22,19 @@ import com.miagencia.core.model.Vehicle;
 public class ReservationOperation extends VehicleOperation {
 	
 	@Column(nullable = false)
-	private int advancePayment;
+	private Long advancePayment;
 	
+	@Column(nullable = false)
 	private int daysOnHold;
 
 	
-	public ReservationOperation(Vehicle vehicle, Client reservationHolder, int advancePayment, int daysOnHold) {
+	public ReservationOperation(Vehicle vehicle, Client reservationHolder, Long advancePayment, int daysOnHold) {
 		super(vehicle, reservationHolder);
 		this.advancePayment = advancePayment;
 		this.daysOnHold = daysOnHold;
 	}	
 
-	public int getAdvancePayment() {
+	public Long getAdvancePayment() {
 		return advancePayment;
 	}
 

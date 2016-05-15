@@ -1,20 +1,22 @@
 package com.miagencia.core.service;
 
-import com.miagencia.rest.dto.operations.BuyVehicleOperationDTO;
-import com.miagencia.rest.dto.operations.ConsignVehicleOperationDTO;
-import com.miagencia.rest.dto.operations.ReserveVehicleOperationDTO;
-import com.miagencia.rest.dto.operations.SellVehicleOperationDTO;
+
+import com.miagencia.rest.dto.operations.BuyVehicleRequestDTO;
+import com.miagencia.rest.dto.operations.ConsignVehicleRequestDTO;
+import com.miagencia.rest.dto.operations.ReserveVehicleRequestDTO;
+import com.miagencia.rest.dto.operations.SellVehicleRequestDTO;
+
 
 public interface VehicleOperationService {
 	
 
-	public void buyVehicle(BuyVehicleOperationDTO operationDto);
+	public void buyVehicle(BuyVehicleRequestDTO operationDto);
 	
-	public void consignVehicle(ConsignVehicleOperationDTO operationDto);
+	public void consignVehicle(ConsignVehicleRequestDTO operationDto);
 	
-	public void reserveVehicle(ReserveVehicleOperationDTO operationDto);
+	public void reserveVehicle(ReserveVehicleRequestDTO operationDto);
 	
-	public void sellVehicle(SellVehicleOperationDTO operationDto);
+	public void sellVehicle(SellVehicleRequestDTO operationDto);
 	
 
 }

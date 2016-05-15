@@ -100,7 +100,7 @@
 	    <h2 class="panel-title">Precio: ${{car.price}}</h2>
 	  </div>
 	  <div class="panel-body">
-	    <a href="#" ng-hide="car.isSold || car.isBooked" class="btn btn-primary btn-lg btn-block btn-sell-car-panel" role="button">Vender</a> 
+	    <a ui-sref="saleCar({carId:car.id})" ng-hide="car.isSold || car.isBooked" class="btn btn-primary btn-lg btn-block btn-sell-car-panel" role="button">Vender</a> 
 	    <br/>
         <a href="#" ng-hide="car.isBooked || car.isSold" class="btn btn-default btn-lg btn-block btn-book-car-panel" role="button">Reservar</a>
 	  </div>

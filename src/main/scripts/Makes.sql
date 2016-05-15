@@ -1,5 +1,5 @@
 CREATE TABLE `Makes` (
-  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `id` int(11) NOT NULL,
   `vehicleType` int(11) NOT NULL,
   `name` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`)

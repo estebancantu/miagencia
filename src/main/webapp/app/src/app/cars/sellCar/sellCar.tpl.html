@@ -1,0 +1,39 @@
+<div class="row">
+<div class="col-sm-8" ng-controller="sellCarCtrl">
+	<div class="page-header">
+		<h2 class="page-header sell-car-header"><i class="fa fa-car"></i>Vender Auto</h2>
+	</div>
+        <div class="image-container">
+          <img ng-src={{selectedCar.imageUrl}} alt="...">
+            <div class="overlay-container">
+            </div>
+          </img>
+        </div>
+        <form name="sellVehicleForm" role="form" novalidate>
+		<div class="panel panel-info">
+			<div class="panel-heading">Valor de venta del Veh&iacute;culo</div>
+				<div class="panel-body">
+				  <div class="form-group" ng-class="{'has-error': sellVehicleForm.salePrice.$invalid}">
+				      <div class="input-group">
+				      	<div class="input-group-addon">$</div>
+				      	<input type="text" name="salePrice" class="form-control" id="exampleInputAmount" placeholder="Precio final al que se vende este ve&iacute;culo" ng-model="salePrice" required>
+				    	<div class="input-group-addon">.00</div>
+				      </div>
+				      <span class="help-block" 
+	     			ng-show="sellVehicleForm.salePrice.$error.required">El campo es requerido</span>
+				  </div>
+				</div>
+		 </div>
+
+		 <div class="panel panel-info">
+			<div class="panel-heading">Comprador</div>
+			<div class="panel-body">
+				<select name="repeatSelect" id="clientSelect" ng-model="selectedBuyerId">
+      				<option ng-repeat="option in buyerList" value="{{option.id}}">{{option.firstName}}&nbsp;{{option.lastName}}</option>
+    			</select>
+			</div>
+		</div>
+		<button type="submit" class="btn btn-primary" ng-click="sellCar()">Vender</button>
+		</form>
+</div>
+</div>

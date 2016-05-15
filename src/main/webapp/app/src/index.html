@@ -31,6 +31,7 @@
   </head>
   <body>
 
+  <div class="row">
     <nav class="navbar navbar-inverse navbar-fixed-top">
       <div class="container-fluid">
         <div class="navbar-header">
@@ -41,33 +42,84 @@
             <span class="icon-bar"></span>
           </button>
           <a class="navbar-brand" href="index.html#/home">
-            <img src="assets/img/logo.jpg"></img>
+            <img src="assets/img/logo.png"></img>
           </a>
         </div>
-        <div id="navbar" class="navbar-collapse collapse">  
+        <div id="navbar" class="navbar-collapse collapse"> 
           <ul class="nav navbar-nav navbar-right">
-            
-            <li><a class="user-menu" href="#"><i class="fa fa-user fa-lg user-avatar"></i>&nbsp;&nbsp;&nbsp;Zingaro Automotores</a></li>
+            <li>
+              <div class="span12">
+                  <form id="custom-search-form" class="form-search form-horizontal pull-right">
+                      <div class="input-append span12">
+                        <input type="text" ng-model="query" class="search-query" placeholder="Buscar..">
+                        <button type="submit" class="btn"><i class="fa fa-search"></i></button>
+                      </div>
+                  </form>
+              </div>
+            </li>
+            <li>
+              <a class="user-menu" href="#"><i class="fa fa-user fa-lg user-avatar"></i>&nbsp;&nbsp;&nbsp;Zingaro Automotores</a>
+            </li>
           </ul>
-
-          <div id="buscar-form" class="input-group-btn navbar-form navbar-right">
-            <input type="text" ng-model="query" class="form-control" placeholder="Buscar...">
-             <button class="btn btn-default" type="submit"><i class="fa fa-search"></i></button>
-          </div>
         </div>
       </div>
     </nav>
+  </div>
 
 
 
 
+    
+    <div class="row">
 
+      
+        <!-- sidebar -->
+        <div class="sidebar" sidebar-directive="state">
+            <a href="#" id="navigation-toggle" ng-click="toggleState()"><i class="fa fa-angle-right fa-2x"></i></a>
+            <div class="brand">
+              <a href="#menu-toggle" style="visibility:hidden;" class="btn btn-default" id="menu-toggle">Toggle Menu</a>
+            </br>
+            </div>
+            <ul class="navigation">
+              <uib-accordion class="sidebar-menu-entry" close-others="oneAtATime">
+                  <uib-accordion-group is-open="false">
+                  <uib-accordion-heading>
+                    <a href="#"><i class="fa fa-cloud-upload"></i> Nuevo <span class="arrow"></span></a>
+                  </uib-accordion-heading>
+                  <ul>
+                    <li><a href="index.html#/newCar">Nuevo auto</a></li>
+                    <li><a href="index.html#/newClient">Nuevo cliente</a></li>
+                  </ul>
+                  </uib-accordion-group>
+              </uib-accordion>
+              <li class="navigation-items">
+                  <a href="index.html#/home">
+                    <i class="fa fa-car"></i> Mis Autos
+                  </a>
+              </li>
+              <li class="navigation-items">
+                  <a href="index.html#/clientList">
+                    <i class="fa fa-users"></i>  Mis Contactos
+                  </a>
+              </li>
+                
+              <li data-toggle="collapse" data-target="#service" class="collapsed">
+                <a href="#"><i class="fa fa-globe fa-lg"></i> Seguros </a>
+              </li>  
+              <li data-toggle="collapse" data-target="#new" class="collapsed">
+                <a href="#"><i class="fa fa-car fa-lg"></i> Prendas </a>
+              </li>
+            </ul>
+        </div>
 
+      <div class="col-md-1">
+      </div>
 
-      <div class="container contenido-principal" ui-view="main"></div>
-
-
-
+      <div class="col-md-11">
+        <!-- contenido -->
+        <div class="container contenido-principal" ui-view="main"></div>
+      </div>
+    </div>
 
 
 

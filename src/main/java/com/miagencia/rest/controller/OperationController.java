@@ -11,10 +11,10 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import com.miagencia.core.service.VehicleOperationService;
-import com.miagencia.rest.dto.operations.BuyVehicleOperationDTO;
-import com.miagencia.rest.dto.operations.ConsignVehicleOperationDTO;
-import com.miagencia.rest.dto.operations.ReserveVehicleOperationDTO;
-import com.miagencia.rest.dto.operations.SellVehicleOperationDTO;
+import com.miagencia.rest.dto.operations.BuyVehicleRequestDTO;
+import com.miagencia.rest.dto.operations.ConsignVehicleRequestDTO;
+import com.miagencia.rest.dto.operations.ReserveVehicleRequestDTO;
+import com.miagencia.rest.dto.operations.SellVehicleRequestDTO;
 import com.miagencia.rest.dto.util.DTOValidator;
 
 
@@ -39,11 +39,11 @@ public class OperationController {
 	 * @return
 	 */
 	@RequestMapping(value = "/buyVehicle", method = RequestMethod.POST)
-	public ResponseEntity<Void> buyVehicle(@RequestBody BuyVehicleOperationDTO vehicleOperationDto,  UriComponentsBuilder ucBuilder) {
+	public ResponseEntity<Void> buyVehicle(@RequestBody BuyVehicleRequestDTO buyRequestDto,  UriComponentsBuilder ucBuilder) {
 		
 		
 		// TODO revisar validacion, tal vez se pueda resolver con excepciones etc
-		if (vehicleOperationDto == null || !DTOValidator.validateFields(vehicleOperationDto) ){
+		if (buyRequestDto == null || !DTOValidator.validateBuyRequestDTO(buyRequestDto) ){
 			
 			System.out.println("Operation fields are incorrect"); 
 			return new ResponseEntity<Void>( HttpStatus.BAD_REQUEST);
@@ -53,7 +53,7 @@ public class OperationController {
 		System.out.println("Creating Buy Operation ");
 
 		
-		vehicleOperationService.buyVehicle(vehicleOperationDto);
+		vehicleOperationService.buyVehicle(buyRequestDto);
 
 		
 		HttpHeaders responseHeaders = new HttpHeaders();
@@ -71,11 +71,11 @@ public class OperationController {
 	 * @return
 	 */
 	@RequestMapping(value = "/consignVehicle", method = RequestMethod.POST)
-	public ResponseEntity<Void> consignVehicle(@RequestBody ConsignVehicleOperationDTO vehicleOperationDto,  UriComponentsBuilder ucBuilder) {
+	public ResponseEntity<Void> consignVehicle(@RequestBody ConsignVehicleRequestDTO consignRequestDto,  UriComponentsBuilder ucBuilder) {
 		
 		
 		// TODO revisar validacion, tal vez se pueda resolver con excepciones etc
-		if (vehicleOperationDto == null || !DTOValidator.validateFields(vehicleOperationDto) ){
+		if (consignRequestDto == null ){
 			System.out.println("Operation fields are incorrect"); 
 			return new ResponseEntity<Void>( HttpStatus.BAD_REQUEST);
 			// TODO MEJORAR PARA QUE DIGA QUE ANDUVO MAL, creo que se puede hacer en un header
@@ -84,7 +84,7 @@ public class OperationController {
 		System.out.println("Creating Consignment Operation ");
 
 		
-		vehicleOperationService.consignVehicle(vehicleOperationDto);
+		vehicleOperationService.consignVehicle(consignRequestDto);
 
 		
 		HttpHeaders responseHeaders = new HttpHeaders();
@@ -102,11 +102,11 @@ public class OperationController {
 	 * @return
 	 */
 	@RequestMapping(value = "/reserveVehicle", method = RequestMethod.POST)
-	public ResponseEntity<Void> reserveVehicle(@RequestBody ReserveVehicleOperationDTO vehicleOperationDto,  UriComponentsBuilder ucBuilder) {
+	public ResponseEntity<Void> reserveVehicle(@RequestBody ReserveVehicleRequestDTO reserveRequestDto,  UriComponentsBuilder ucBuilder) {
 		
 		
 		// TODO revisar validacion, tal vez se pueda resolver con excepciones etc
-		if (vehicleOperationDto == null || !DTOValidator.validateFields(vehicleOperationDto)){
+		if (reserveRequestDto == null ){
 			
 			System.out.println("Operation fields are incorrect"); 
 			return new ResponseEntity<Void>( HttpStatus.BAD_REQUEST);
@@ -116,7 +116,7 @@ public class OperationController {
 		System.out.println("Creating Reservation Operation ");
 
 		
-		vehicleOperationService.reserveVehicle(vehicleOperationDto);
+		vehicleOperationService.reserveVehicle(reserveRequestDto);
 
 		
 		HttpHeaders responseHeaders = new HttpHeaders();
@@ -133,11 +133,11 @@ public class OperationController {
 	 * @return
 	 */
 	@RequestMapping(value = "/sellVehicle", method = RequestMethod.POST)
-	public ResponseEntity<Void> sellVehicle(@RequestBody SellVehicleOperationDTO vehicleOperationDto,  UriComponentsBuilder ucBuilder) {
+	public ResponseEntity<Void> sellVehicle(@RequestBody SellVehicleRequestDTO sellRequestDto,  UriComponentsBuilder ucBuilder) {
 		
 		
 		// TODO revisar validacion, tal vez se pueda resolver con excepciones etc
-		if (vehicleOperationDto == null || !DTOValidator.validateFields(vehicleOperationDto)){
+		if (sellRequestDto == null ){
 			
 			System.out.println("Operation fields are incorrect"); 
 			return new ResponseEntity<Void>( HttpStatus.BAD_REQUEST);
@@ -147,7 +147,7 @@ public class OperationController {
 		System.out.println("Creating Sale Operation ");
 
 		
-		vehicleOperationService.sellVehicle(vehicleOperationDto);
+		vehicleOperationService.sellVehicle(sellRequestDto);
 
 		
 		HttpHeaders responseHeaders = new HttpHeaders();

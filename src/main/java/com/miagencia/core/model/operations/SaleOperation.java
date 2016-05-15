@@ -17,21 +17,21 @@ public class SaleOperation extends VehicleOperation {
 	// TODO estudiar si tiene sentido que una Sale conozca a su Purchase o Consignation generadora.
 	
 	@Column(nullable = false)
-	private int sellingAmount;
+	private int paidAmount;
 	
 	private PaymentType paymentType;
 
 
-	public SaleOperation(Vehicle vehicle, Client buyer, int sellingAmount, PaymentType paymentType) {
+	public SaleOperation(Vehicle vehicle, Client buyer, int paidAmount, PaymentType paymentType) {
 		
 		super(vehicle, buyer);
-		this.sellingAmount = sellingAmount;
+		this.paidAmount = paidAmount;
 		this.paymentType = paymentType;
 	}
 	
 
 	public int getSellingAmount() {
-		return sellingAmount;
+		return paidAmount;
 	}
 
 	public PaymentType getPaymentType() {

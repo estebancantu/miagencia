@@ -42,11 +42,11 @@ angular.module( 'ngBoilerplate.home', [
 
 
 
-  $scope.cars = vehicleService.query();
+ /** $scope.cars = vehicleService.query(); **/
 
 
 
-/**
+
 
   $scope.cars = [
     {
@@ -106,7 +106,7 @@ angular.module( 'ngBoilerplate.home', [
     }
   ];
 
-*/
+
 
 
   $scope.isSold = function() {

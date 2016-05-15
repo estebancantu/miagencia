@@ -9,6 +9,8 @@ angular.module( 'ngBoilerplate', [
   'ngBoilerplate.clientDetails',
   'ngBoilerplate.newClient',
   'ngBoilerplate.newCar',
+  'ngBoilerplate.sellCar',
+  'ngBoilerplate.reserveCar',
   'ui.router',
   'ngAnimate',
   'flow',
@@ -32,11 +34,37 @@ angular.module( 'ngBoilerplate', [
 })
 
 .controller( 'AppCtrl', function AppCtrl ( $scope, $location ) {
+
   $scope.$on('$stateChangeSuccess', function(event, toState, toParams, fromState, fromParams){
     if ( angular.isDefined( toState.data.pageTitle ) ) {
       $scope.pageTitle = toState.data.pageTitle + ' | Mi Agencia' ;
     }
   });
+
+
+
+  // Sidebar
+  $scope.state = false;
+    
+  $scope.toggleState = function() {
+      $scope.state = !$scope.state;
+  };
+
+})
+
+.directive('sidebarDirective', function() {
+    return {
+        link : function(scope, element, attr) {
+            scope.$watch(attr.sidebarDirective, function(newVal) {
+                  if(newVal)
+                  {
+                    element.addClass('show'); 
+                    return;
+                  }
+                  element.removeClass('show');
+            });
+        }
+    };
 })
 
 ;

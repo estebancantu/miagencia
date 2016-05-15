@@ -111,7 +111,9 @@
 					</div>
 					<fieldset class="form-group">
 				    	<label for="exampleTextarea">Descripci&oacute;n</label>
-				    	<textarea class="form-control" id="exampleTextarea" rows="3" ng-model="newCar.description"></textarea>
+				    	<textarea class="form-control" id="exampleTextarea" rows="3" ng-model="newCar.description" maxlength="350"></textarea>
+				    	<span class="help-block" 
+         					ng-show="newVehicleForm.exampleTextarea.$error.maxlength">El texto debe ser de 250 car&aacute;cteres de longitud como m&aacute;ximo</span>
 		  			</fieldset>
 				</div>
 			</div>
@@ -183,16 +185,31 @@
 
 
 		<div class="panel panel-info">
-			<div class="panel-heading">Valor del Veh&iacute;culo</div>
+			<div class="panel-heading">Valor de compra del Veh&iacute;culo</div>
 				<div class="panel-body">
-				  <div class="form-group" ng-class="{'has-error': newVehicleForm.price.$invalid}">
+				  <div class="form-group" ng-class="{'has-error': newVehicleForm.buyingPrice.$invalid}">
 				      <div class="input-group">
 				      	<div class="input-group-addon">$</div>
-				      	<input type="text" name="price" class="form-control" id="exampleInputAmount" placeholder="Precio" ng-model="newCar.price" required>
+				      	<input type="text" name="buyingPrice" class="form-control" id="exampleInputAmount" placeholder="Precio al cual se compra este ve&iacute;culo" ng-model="newCar.price" required>
 				    	<div class="input-group-addon">.00</div>
 				      </div>
 				      <span class="help-block" 
-         			ng-show="newVehicleForm.price.$error.required">El campo es requerido</span>
+	     			ng-show="newVehicleForm.buyingPrice.$error.required">El campo es requerido</span>
+				  </div>
+				</div>
+		 </div>
+
+		 <div class="panel panel-info">
+			<div class="panel-heading">Valor de venta del Veh&iacute;culo</div>
+				<div class="panel-body">
+				  <div class="form-group" ng-class="{'has-error': newVehicleForm.offeringPrice.$invalid}">
+				      <div class="input-group">
+				      	<div class="input-group-addon">$</div>
+				      	<input type="text" name="offeringPrice" class="form-control" id="exampleInputAmount" placeholder="Precio al que se pone a la venta a este ve&iacute;culo" ng-model="newCar.offeringPrice" required>
+				    	<div class="input-group-addon">.00</div>
+				      </div>
+				      <span class="help-block" 
+	     			ng-show="newVehicleForm.offeringPrice.$error.required">El campo es requerido</span>
 				  </div>
 				</div>
 		 </div>
@@ -201,19 +218,20 @@
 		<div class="panel-heading">Tipo de Operaci&oacute;n</div>
 			<div class="panel-body">
 				<div class="radio">
-  					<label><input type="radio" name="optradio">Compra</label>
+  					<label><input type="radio" name="optradio" value="buy" ng-model="opType" />Compra</label>
 				</div>
 				<div class="radio">
-  					<label><input type="radio" name="optradio">Concesi&oacute;n</label>
+  					<label><input type="radio" name="optradio" value="consignment" ng-model="opType" />Concesi&oacute;n</label>
 				</div>
 			</div>
 		</div>
-
+		
+		{{opType}}
 
 
 		<form name="myForm">
 	        <div>Eleg&iacute; una imagen del veh&iacute;culo</div>
-	        <button ng-select ng-model="picFile" accept="image/*">
+	        <button ngf-select ng-model="picFile" accept="image/*">
 	            Seleccionar</button>
 	        <div ngf-drop ng-model="picFile" ngf-pattern="image/*"
 	             class="cropArea">
@@ -237,7 +255,18 @@
 
 
 
+		<div class="panel panel-info">
+			<div class="panel-heading">Vendedor</div>
+			<div class="panel-body">
+				<select name="repeatSelect" id="clientSelect" ng-model="selectedSellerId">
+      				<option ng-repeat="option in sellerList" value="{{option.id}}">{{option.firstName}}&nbsp;{{option.lastName}}</option>
+    			</select>
+			</div>
+			
+		</div>
+		 
 
+<!--
 		 <div class="panel panel-info">
 			<div class="panel-heading">Detalles del Vendedor</div>
 				<div class="panel-body">
@@ -261,7 +290,7 @@
 					</div>
 				</div>
 		 </div>
-
+-->
 
 		  <button type="submit" class="btn btn-primary" ng-click="saveNewCar()">Guardar</button>
 		</form>
