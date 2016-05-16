@@ -74,8 +74,9 @@
 
       
         <!-- sidebar -->
-        <div class="sidebar" sidebar-directive="state">
-            <a href="#" id="navigation-toggle" ng-click="toggleState()"><i class="fa fa-angle-right fa-2x"></i></a>
+        <!--<div class="sidebar" sidebar-directive="state"> -->
+        <div class="sidebar" ng-class="{'show' : state }">
+            <a id="navigation-toggle" ng-click="toggleState()"><i class="fa fa-angle-right fa-2x"></i></a>
             <div class="brand">
               <a href="#menu-toggle" style="visibility:hidden;" class="btn btn-default" id="menu-toggle">Toggle Menu</a>
             </br>

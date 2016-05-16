@@ -587,34 +587,39 @@ form .progress {
 
 
 
-
+// Este es el sidebar principal que anda.x
 .sidebar {
     position : fixed;
-    top : 0px;
+    top : 50px;
     left : -160px;;
     transition : 500ms left;
     height: 100%;
     background: #000000;
     z-index: 10;
 }
+
+// Esta es la solapita para mostrar o ocultar el sidebar
 #navigation-toggle {
         position : absolute;
-        left : 229px;
-        top:50px;
+        left : 200px;
+        top: 5px;
         background: #000000;
         color : white;
         text-decoration : none;
         padding : 10px;
         border-radius: 0px 20px 20px 0px;
 }
+
 .show {
     left : 0;
 }
+
+// Esto es el contenedor de los elementos internos de la sidebar
 .navigation {
     list-style : none;
     padding : 0;
     margin : 0;
-    width: 230px;
+    width: 200px;
 }
 .navigation-items a {
     display : block;
