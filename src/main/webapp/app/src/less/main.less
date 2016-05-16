@@ -323,7 +323,6 @@ h2 {
   background-color: #000000;
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-size: 14px;
-  font-weight: 400;
 }
 
 .nav-side-menu .sidebar-menu-entry a i {
@@ -587,63 +586,7 @@ form .progress {
 
 
 
-// Este es el sidebar principal que anda.x
-.sidebar {
-    position : fixed;
-    top : 50px;
-    left : -160px;;
-    transition : 500ms left;
-    height: 100%;
-    background: #000000;
-    z-index: 10;
-}
-
-// Esta es la solapita para mostrar o ocultar el sidebar
-#navigation-toggle {
-        position : absolute;
-        left : 200px;
-        top: 5px;
-        background: #000000;
-        color : white;
-        text-decoration : none;
-        padding : 10px;
-        border-radius: 0px 20px 20px 0px;
-}
-
-.show {
-    left : 0;
-}
-
-// Esto es el contenedor de los elementos internos de la sidebar
-.navigation {
-    list-style : none;
-    padding : 0;
-    margin : 0;
-    width: 200px;
-}
-.navigation-items a {
-    display : block;
-    color : white;
-    line-height : 2em;
-    text-decoration : none;
-    padding : 10px 30px;
-
-
-}
-.navigation-items a:hover {
-    background-color : #222;
-}
-
-
-
-
-
-
-
-
-
-
-
+// Barra de busqueda principal
     #custom-search-form {
         position: relative;
         margin:0;
@@ -685,6 +628,87 @@ form .progress {
     .search-query:focus + button {
         z-index: 3;   
     }
+
+
+
+
+
+
+// Este es el sidebar principal que anda.
+.sidebar {
+
+    position : fixed;
+    top : 50px;
+    left : -160px;;
+    transition : 500ms left;
+    height: 100%;
+    background: #000000;
+    z-index: 10;
+}
+
+// Esta es la solapita para mostrar o ocultar el sidebar
+#navigation-toggle {
+        position : absolute;
+        left : 200px;
+        top: 5px;
+        background: #000000;
+        color : white;
+        text-decoration : none;
+        padding : 10px;
+        border-radius: 0px 20px 20px 0px;
+}
+
+.show {
+    left : 0;
+}
+
+// Esto es el contenedor de los elementos internos de la sidebar
+.navigation {
+    list-style : none;
+    padding : 0;
+    margin : 0;
+    width: 200px;
+}
+
+.navigation a {
+    display : block;
+    color : white;
+    line-height : 2em;
+    text-decoration : none;
+    padding : 10px 30px;
+
+}
+
+.navigation .panel-heading a {
+  //padding:0px;
+      padding: 10px 30px;
+}
+
+.navigation .panel-heading {
+      padding:0px; 
+}
+
+.navigation .panel-heading a a {
+      padding:0px; 
+}
+
+.navigation a:hover {
+    background-color : #222;
+}
+
+.panel-group .panel-body {
+  background-color : #222;
+}
+
+
+
+
+
+
+
+
+
+
 
 
 

@@ -1,11 +1,18 @@
 
 <div class="container-fluid">
+
+
+<div class="container-fluid padding-right-45">
+  </br>
+  <div class="row">
+    <div class="col-md-12">
+      <a ui-sref="newClient" id="button-new" class="btn btn-lg btn-new"><i class="fa fa-cloud-upload"></i> Nuevo</a>
+    </div>
+  </div>
   <div class="row">
 
-    <div class="col-md-1">
-    </div>
     <div class="col-md-11">
-      <h4>Clientes</h4>
+      <h2>Mis Contactos</h2>
       <div class="table-responsive">
 
                     
@@ -15,22 +22,16 @@
            
             <th><input type="checkbox" id="checkall" /></th>
             <th>Nombre</th>
-            <th>Email</th>
             <th>Telefono</th>
-            <th>Compras</th>
-            <th>Ventas</th>
-            <th>Consultas</th>
+            <th>E-mail</th>
           </thead>
 
           <tbody>
               <tr ng-repeat="client in clients">
               <td><input type="checkbox" class="checkthis" /></td>
               <td><a ui-sref="clientDetails({clientId:client.id})">{{client.firstName}}&nbsp;{{client.lastName}}</a></td>
-              <td>{{client.email}}</td>
               <td>{{client.phone}}</td>
-              <td><a href="#" class="text-right">0</a></td>
-              <td><a href="#" class="text-right">0</a></td>
-              <td><a href="#" class="text-right">2</a></td>
+              <td>{{client.email}}</td>
               </tr>
           </tbody>
               
@@ -41,19 +42,31 @@
 
         <!--pagination -->
         <ul class="pagination pull-right">
-          <li class="disabled"><a href="#"><span class="glyphicon glyphicon-chevron-left"></span></a></li>
+          <li class="disabled">
+            <a href="#" aria-label="Previous">
+              <span aria-hidden="true">&laquo;</span>
+            </a>
+          </li>
           <li class="active"><a href="#">1</a></li>
           <li><a href="#">2</a></li>
           <li><a href="#">3</a></li>
           <li><a href="#">4</a></li>
           <li><a href="#">5</a></li>
-          <li><a href="#"><span class="glyphicon glyphicon-chevron-right"></span></a></li>
+          <li>
+            <a href="#" aria-label="Next">
+              <span aria-hidden="true">&raquo;</span>
+            </a>
+          </li>
         </ul>
                     
       </div>
                 
     </div>
+    <div class="col-md-1">
+    </div>
   </div>
+
+</div>
 </div>
 
 
