@@ -19,7 +19,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <!-- font awesome from BootstrapCDN -->
-    <link href="http://netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.css" rel="stylesheet">
+    <link href="http://netdna.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.css" rel="stylesheet">
 
  
     <!-- compiled CSS --><% styles.forEach( function ( file ) { %>
@@ -76,7 +76,8 @@
         <!-- sidebar -->
         <!--<div class="sidebar" sidebar-directive="state"> -->
         <div class="sidebar" ng-class="{'show' : state }">
-            <a id="navigation-toggle" ng-click="toggleState()"><i class="fa fa-angle-right fa-2x"></i></a>
+            <a id="navigation-toggle" ng-click="toggleState()"><i class="fa fa-2x"
+              ng-class="{'fa-angle-double-left' : state, 'fa-angle-double-right' : !state}"></i></a>
             <div class="brand">
               <a href="#menu-toggle" style="visibility:hidden;" class="btn btn-default" id="menu-toggle">Toggle Menu</a>
             </br>
@@ -112,7 +113,7 @@
                 <a href="#"><i class="fa fa-globe fa-lg"></i> Seguros </a>
               </li>  
               <li data-toggle="collapse" data-target="#new" class="collapsed">
-                <a href="#"><i class="fa fa-car fa-lg"></i> Prendas </a>
+                <a href="#"><i class="fa fa-bar-chart fa-lg"></i> Prendas </a>
               </li>
             </ul>
         </div>
