@@ -8,10 +8,12 @@
 			<div class="well well-sm black-well">
 				<div class="container">
 					<div class="col-sm-8">
-						<h2><span class="title-make">Chevrolet</span>&nbsp;Astra 2005 Gls 2.0</h2>
+						<h2><span class="title-make">Chevrolet</span>&nbsp;
+							<div class="title-model">Astra 2005 Gls 2.0</div>
+						</h2>
 					</div>
 					<div class="col-sm-4">
-						<h3><span class="label label-danger">2012</span></h3>
+						<!--<h3><span class="label label-danger">2012</span></h3> -->
 					</div>
 				</div>
 			</div>
@@ -118,16 +120,32 @@
 				<div class="well side-well">
 						<div class="well price-well price-area">
 					    	<h1 class="text-center">
-					    		<div class="price-label-details pull-left">Precio</div>
-					    		<div>$120.000</div>
+					    		<div class="price-label-details">Precio</div>
+					    		<div class="price-details">$ 179.900</div>
 					    	</h1>
 					    </div>
 					<div class="panel panel-default panel-details-right">
 					  <div class="panel-body">
-					    <a ui-sref="saleCar({carId:car.id})" ng-hide="car.isSold || car.isBooked" class="btn btn-primary btn-lg btn-block btn-sell-car-panel" role="button">Vender</a> 
-					    <br/>
-				        <a href="#" ng-hide="car.isBooked || car.isSold" class="btn btn-default btn-lg btn-block btn-book-car-panel" role="button">Reservar</a>
-				        <a href="#" ng-hide="car.isSold || car.isBooked" class="btn btn-primary btn-lg btn-block btn-sell-car-panel" role="button">Calcular Seguro</a> 
+					    <a ui-sref="saleCar({carId:car.id})" ng-hide="car.isSold || car.isBooked" class="btn btn-danger btn-lg btn-block" role="button">
+					    	<div class="car-details-buttons">
+					    		<i class="fa fa-usd fa-lg"></i>  Vender
+					    	</div>
+					    </a> 
+				        <a href="#" ng-hide="car.isBooked || car.isSold" class="btn btn-primary btn-lg btn-block" role="button">
+				        	<div class="car-details-buttons">
+				        		<i class="fa fa-lock fa-lg"></i> Reservar
+				        	</div>
+				        </a>
+				        <a href="#" ng-hide="car.isSold || car.isBooked" class="btn btn-primary btn-lg btn-block" role="button">
+				        	<div class="car-details-buttons">
+				        		<i class="fa fa-globe fa-lg"></i> Calcular Seguro
+				        	</div>
+				        </a> 
+				        <a href="#" ng-hide="car.isSold || car.isBooked" class="btn btn-primary btn-lg btn-block" role="button">
+				        	<div class="car-details-buttons">
+				        		<i class="fa fa-bar-chart fa-lg"></i> Calcular Prenda
+				        	</div>
+				        </a> 
 					  </div>
 					</div>
 				</div>
