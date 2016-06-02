@@ -18,6 +18,14 @@
 
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
+
+
+    <link rel="shortcut icon" href="assets/img/favicon.ico" type="image/x-icon">
+    <link rel="icon" href="assets/img/favicon.ico" type="image/x-icon">
+
+
+
+
     <!-- font awesome from BootstrapCDN -->
     <link href="http://netdna.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.css" rel="stylesheet">
 
@@ -82,7 +90,7 @@
               <a href="#menu-toggle" style="visibility:hidden;" class="btn btn-default" id="menu-toggle">Toggle Menu</a>
             </br>
             </div>
-            <ul class="navigation">
+            <ul class="navigation list-unstyled">
               <uib-accordion class="sidebar-menu-entry" close-others="oneAtATime">
                   <uib-accordion-group is-open="false">
                   <uib-accordion-heading>
@@ -94,7 +102,7 @@
                   </uib-accordion-heading>
                   <ul>
                     <li><a ui-sref="newCar">Nuevo auto</a></li>
-                    <li><a ui-sref="newClient">Nuevo cliente</a></li>
+                    <li><a ui-sref="newClient">Nuevo contacto</a></li>
                   </ul>
                   </uib-accordion-group>
               </uib-accordion>
@@ -110,10 +118,12 @@
               </li>
                 
               <li data-toggle="collapse" data-target="#service" class="collapsed">
-                <a href="#"><i class="fa fa-globe fa-lg"></i> Seguros </a>
+                <a href="http://www.softeam1.com.ar/cotiwebdemo/"><i class="fa fa-globe fa-lg"></i> Seguros </a>
               </li>  
               <li data-toggle="collapse" data-target="#new" class="collapsed">
-                <a href="#"><i class="fa fa-bar-chart fa-lg"></i> Prendas </a>
+                  <a ui-sref="insuranceQuote">
+                    <i class="fa fa-bar-chart fa-lg"></i> Prendas 
+                  </a>
               </li>
             </ul>
         </div>
