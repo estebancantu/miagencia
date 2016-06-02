@@ -11,6 +11,7 @@ angular.module( 'ngBoilerplate', [
   'ngBoilerplate.newCar',
   'ngBoilerplate.sellCar',
   'ngBoilerplate.reserveCar',
+  'ngBoilerplate.insuranceQuote',
   'ui.router',
   'ngAnimate',
   'flow',
@@ -37,7 +38,7 @@ angular.module( 'ngBoilerplate', [
 
   $scope.$on('$stateChangeSuccess', function(event, toState, toParams, fromState, fromParams){
     if ( angular.isDefined( toState.data.pageTitle ) ) {
-      $scope.pageTitle = toState.data.pageTitle + ' | Mi Agencia' ;
+      $scope.pageTitle = toState.data.pageTitle + ' | Mi Agencia Virtual' ;
     }
   });
 
