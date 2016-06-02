@@ -319,6 +319,32 @@ h2 {
   padding-right: 20px;
 }
 
+.sidebar-menu-entry ul {
+    padding:3px 27px 12px 18px;
+    list-style: none;
+}
+
+.sidebar-menu-entry ul > li > a {
+    padding-bottom: 0px;
+}
+
+.sidebar-menu-entry .panel-group {
+    margin-bottom: 0px;
+}
+
+.sidebar-menu-entry .panel-default {
+    border: none;
+    background-color: black;
+}
+
+.sidebar-menu-entry .panel-title {
+    background-color: black;
+}
+
+.panel-group .panel-heading + .panel-collapse .panel-body {
+  border-top: none;
+} 
+
 .sidebar-menu-entry .panel-default .panel-heading {
   background-color: #000000;
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
@@ -639,11 +665,12 @@ form .progress {
 
     position : fixed;
     top : 50px;
-    left : -160px;;
+    left : -160px;
     transition : 500ms left;
     height: 100%;
     background: #000000;
     z-index: 10;
+    padding-left: 25px;
 }
 
 // Esta es la solapita para mostrar o ocultar el sidebar
@@ -685,7 +712,7 @@ form .progress {
 
 .navigation .panel-heading a {
   //padding:0px;
-      padding: 10px 30px;
+   //   padding: 10px 30px;
 }
 
 .navigation .panel-heading {
@@ -743,5 +770,8 @@ form .progress {
 @import '../app/clients/newClient/newClient.less';
 @import '../app/clients/clientList/clientList.less';
 @import '../app/cars/newCar/newCar.less';
+@import '../app/cars/reserveCar/reserveCar.less';
+@import '../app/cars/sellCar/sellCar.less';
+@import '../app/insuranceQuote/insuranceQuote.less';
 
 
