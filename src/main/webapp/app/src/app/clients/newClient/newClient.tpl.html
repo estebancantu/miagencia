@@ -1,6 +1,7 @@
+<div class="container-fluid padding-right-45">
   <div class="row">
-    <div class="col-md-6 col-md-offset-3">
-    <h2 class="page-header new-client-header">Nuevo Cliente</h2>
+    <div class="col-md-7 col-md-offset-2">
+    <h2 class="page-header new-client-header">&nbsp;<i class="fa fa-user"></i>&nbsp;Nuevo Contacto</h2>
 
     <div ng-controller="newClientCtrl">
      <form class="form-horizontal well" role="form">
@@ -9,29 +10,32 @@
           <!-- Form Name -->
           <legend>Datos Personales</legend>
 
-          <!-- Text input-->
-          <div class="form-group">
-            <label class="col-sm-2 control-label" for="textinput">Nombre</label>
-            <div class="col-sm-10">
-              <input type="text" placeholder="Nombre" class="form-control" ng-model="newClient.firstName">
-            </div>
-          </div>
+            <div class="new-client-fields">
+                <!-- Text input-->
+                <div class="form-group">
+                  <label class="col-sm-3 control-label new-client-control-label" for="textinput">Nombre</label>
+                  <div class="col-sm-9">
+                    <input type="text" placeholder="Nombre" class="form-control new-client-form-control" ng-model="newClient.firstName">
+                  </div>
+                </div>
 
-          <!-- Text input-->
-          <div class="form-group">
-            <label class="col-sm-2 control-label" for="textinput">Apellido</label>
-            <div class="col-sm-10">
-              <input type="text" placeholder="Apellido" class="form-control" ng-model="newClient.lastName">
-            </div>
-          </div>
+                <!-- Text input-->
+                <div class="form-group">
+                  <label class="col-sm-3 control-label new-client-control-label" for="textinput">Apellido</label>
+                  <div class="col-sm-9">
+                    <input type="text" placeholder="Apellido" class="form-control new-client-form-control" ng-model="newClient.lastName">
+                  </div>
+                </div>
 
-          <!-- Text input-->
-          <div class="form-group">
-            <label class="col-sm-2 control-label" for="textinput" >DNI</label>
-            <div class="col-sm-10">
-              <input type="text" placeholder="Documento" class="form-control" ng-model="newClient.dni">
-            </div>
-          </div>
+                <!-- Text input-->
+                <div class="form-group">
+                  <label class="col-sm-3 control-label new-client-control-label" for="textinput" >DNI</label>
+                  <div class="col-sm-9">
+                    <input type="text" placeholder="Documento" class="form-control new-client-form-control" ng-model="newClient.dni">
+                  </div>
+                </div>
+
+              </div>
 
         </fieldset>
       </form>
@@ -48,80 +52,91 @@
           <!-- Form Name -->
           <legend>Datos de Contacto</legend>
 
-          <!-- Text input-->
-          <div class="form-group">
-            <label class="col-sm-2 control-label" for="textinput">email</label>
-            <div class="col-sm-10">
-              <input type="text" placeholder="Correo electronico" class="form-control" ng-model="newClient.email">
-            </div>
-          </div>
 
-          <!-- Text input-->
-          <div class="form-group">
-            <label class="col-sm-2 control-label" for="textinput">Telefono 1</label>
-            <div class="col-sm-10">
-              <input type="text" placeholder="Telefono de Linea" class="form-control" ng-model="newClient.phone">
-            </div>
-          </div>
+            <div class="new-client-fields">
 
-          <!-- Text input-->
-          <div class="form-group">
-            <label class="col-sm-2 control-label" for="textinput">Telefono 2</label>
-            <div class="col-sm-10">
-              <input type="text" placeholder="Telefono Movil" class="form-control" ng-model="newClient.mobile">
-            </div>
-          </div>
+                <!-- Text input-->
+                <div class="form-group">
+                  <label class="col-sm-3 control-label new-client-control-label" for="textinput">Email</label>
+                  <div class="col-sm-9">
+                    <input type="text" placeholder="Correo electronico" class="form-control new-client-form-control" ng-model="newClient.email">
+                  </div>
+                </div>
 
-          <!-- Text input-->
-          <div class="form-group">
-            <label class="col-sm-2 control-label" for="textinput">Direccion</label>
-            <div class="col-sm-10">
-              <input type="text" placeholder="City" class="form-control" ng-model="newClient.address">
-            </div>
-          </div>
+                <!-- Text input-->
+                <div class="form-group">
+                  <label class="col-sm-3 control-label new-client-control-label" for="textinput">Telefono 1</label>
+                  <div class="col-sm-9">
+                    <input type="text" placeholder="Telefono de Linea" class="form-control new-client-form-control" ng-model="newClient.phone">
+                  </div>
+                </div>
 
-          <!-- Text input-->
-          <div class="form-group">
-            <label class="col-sm-2 control-label" for="textinput">Localidad</label>
-            <div class="col-sm-10">
-              <input type="text" placeholder="City" class="form-control" ng-model="newClient.city">
-            </div>
-          </div>
+                <!-- Text input-->
+                <div class="form-group">
+                  <label class="col-sm-3 control-label new-client-control-label" for="textinput">Telefono 2</label>
+                  <div class="col-sm-9">
+                    <input type="text" placeholder="Telefono Movil" class="form-control new-client-form-control" ng-model="newClient.mobile">
+                  </div>
+                </div>
 
-          <!-- Text input-->
-          <div class="form-group">
-            <label class="col-sm-2 control-label" for="textinput">Provincia</label>
-            <div class="col-sm-4">
-              <input type="text" placeholder="State" class="form-control" ng-model="newClient.province">
-            </div>
+                <!-- Text input-->
+                <div class="form-group">
+                  <label class="col-sm-3 control-label new-client-control-label" for="textinput">Direccion</label>
+                  <div class="col-sm-9">
+                    <input type="text" placeholder="Direccion" class="form-control new-client-form-control" ng-model="newClient.address">
+                  </div>
+                </div>
 
-            <label class="col-sm-2 control-label" for="textinput">Codigo Postal</label>
-            <div class="col-sm-4">
-              <input type="text" placeholder="Post Code" class="form-control" ng-model="newClient.postalCode">
-            </div>
-          </div>
+                <!-- Text input-->
+                <div class="form-group">
+                  <label class="col-sm-3 control-label new-client-control-label" for="textinput">Localidad</label>
+                  <div class="col-sm-9">
+                    <input type="text" placeholder="Localidad" class="form-control new-client-form-control" ng-model="newClient.city">
+                  </div>
+                </div>
+
+                <!-- Text input-->
+                <div class="form-group">
+                  <label class="col-sm-3 control-label new-client-control-label" for="textinput">Provincia</label>
+                  <div class="col-sm-9">
+                    <input type="text" placeholder="Provincia" class="form-control new-client-form-control" ng-model="newClient.province">
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <label class="col-sm-3 control-label new-client-control-label" for="textinput">Codigo Postal</label>
+                  <div class="col-sm-9">
+                    <input type="text" placeholder="Codigo Postal" class="form-control new-client-form-control" ng-model="newClient.postalCode">
+                  </div>
+                </div>
 
 
+                <!-- Text input-->
+                <div class="form-group">
+                  <label class="col-sm-3 control-label new-client-control-label" for="textinput">Pais</label>
+                  <div class="col-sm-9">
+                    <input type="text" placeholder="Pais" class="form-control new-client-form-control" ng-model="newClient.country">
+                  </div>
+                </div>
 
-          <!-- Text input-->
-          <div class="form-group">
-            <label class="col-sm-2 control-label" for="textinput">Pais</label>
-            <div class="col-sm-10">
-              <input type="text" placeholder="Country" class="form-control" ng-model="newClient.country">
-            </div>
-          </div>
-
-          <div class="form-group">
-            <div class="col-sm-offset-2 col-sm-10">
-              <div class="pull-right">
-                <button type="submit" class="btn btn-default">Cancelar</button>
-                <button type="submit" class="btn btn-primary" ng-click="saveNewClient()">Guardar </button>
               </div>
-            </div>
-          </div>
+
+                <div class="row">
+                  <div class="col-sm-6 col-sm-offset-4">
+                    <div class="form-group">
+                      <div class="col-sm-offset-2 col-sm-10 new-client-buttons">
+                        <div class="pull-right">
+                          <button type="submit" class="btn btn-default">Cancelar</button>
+                          <button type="submit" class="btn btn-primary" ng-click="saveNewClient()">Guardar </button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
 
         </fieldset>
       </form>
     </div>
     </div><!-- /.col-lg-12 -->
 </div><!-- /.row -->
+</div>
