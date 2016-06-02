@@ -1,113 +1,97 @@
-
-
-
-
-
-
-<div class="container">
+<div class="container-fluid padding-right-45">
 
 
       <div class="row">
-      <div class="col-md-5  toppad  pull-right col-md-offset-3 "> 
-      </div>
-        <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xs-offset-0 col-sm-offset-0 col-md-offset-3 col-lg-offset-3 toppad" >
+        <div class="col-md-7 col-md-offset-2" >
    
    
           <div class="panel panel-info">
+
+
             <div class="panel-heading user-details-panel-heading">
-              <div class="col-md-3 col-lg-3 " align="center"> <img alt="User Pic" src="http://www.elminero.com.mx/assets/2014/06/jpg2.jpg" class="img-circle img-responsive"> </div>
-              <div class=" col-md-9 col-lg-9 panel-heading-text"> 
-                <h3 class="panel-title user-details-name">{{client.firstName}} &nbsp; {{client.lastName}}</h3>
-                <small><cite title="San Francisco, USA">{{client.city}},&nbsp;{{client.country}} <i class="icon-map-marker"></i>
+              <div class="col-md-4" align="center"> 
+                  <img alt="User Pic" src="http://www.elminero.com.mx/assets/2014/06/jpg2.jpg" class="img-circle img-responsive"> 
+              </div>
+
+              <div class="col-md-8 panel-heading-text"> 
+                <h3 class="panel-title user-details-name">Lionel &nbsp;Messi</h3>
+                <small>
+                  <cite title="Ciudad">{{client.city}},&nbsp;{{client.country}}<i class="icon-map-marker"></i>
                   <!-- <i class="glyphicon glyphicon-map-marker">
                   </i> -->
-              </cite></small>
+                  </cite>
+                </small>
                 <p>
-                            <i class="fa fa-envelope"></i> {{client.email}}
-                            <br />
-                            <i class="fa fa-phone"></i> {{client.phone}}</a>
-                            <br />
-                            <i class="fa fa-mobile"></i> {{client.mobile}}</a>
-                            <br />
+                  <i class="fa fa-envelope"></i> {{client.email}}
+                  <br />
+                  <i class="fa fa-phone"></i> {{client.phone}}</a>
+                  <br />
+                  <i class="fa fa-mobile"></i> {{client.mobile}}</a>
+                  <br />
+                </p>
+              </div> <!-- column -->       
+            </div> <!-- panel heading -->
 
-              </div>
-              
-            </div>
-            <div class="panel-body">
+
+            <div class="panel-body client-details-panel-body">
               <div class="row">
 
-                
-                <!--<div class="col-xs-10 col-sm-10 hidden-md hidden-lg"> <br>
-                  <dl>
-                    <dt>DEPARTMENT:</dt>
-                    <dd>Administrator</dd>
-                    <dt>HIRE DATE</dt>
-                    <dd>11/12/2013</dd>
-                    <dt>DATE OF BIRTH</dt>
-                       <dd>11/12/2013</dd>
-                    <dt>GENDER</dt>
-                    <dd>Male</dd>
-                  </dl>
-                </div>-->
-                <div class=" col-md-9 col-lg-9 "> 
-                  <table class="table table-user-information">
-                    <tbody>
-                      <tr>
-                        <td>Direccion:</td>
-                        <td>{{client.address}}</td>
-                      </tr>
-                      <tr>
-                        <td>Localidad</td>
-                        <td>{{client.city}}</td>
-                      </tr>
-                      <tr>
-                        <td>Provincia</td>
-                        <td>{{client.province}}</td>
-                      </tr>
-                      <tr>
-                        <td>DNI</td>
-                        <td>{{client.dni}}</td>
-                      </tr>
-                      <tr>
-                        <td>email</td>
-                        <td><a href="mailto:info@support.com">{{client.email}}</a></td>
-                      </tr>
-                        <td>Telefono</td>
-                        <td>{{client.phone}} (Fijo)<br><br>{{client.mobile}} (Movil)
-                        </td>    
-                      </tr>
-                      </tr>
-                        <td>Fecha de nacimiento</td>
-                        <td>2 de noviembre de 1984
-                        </td>    
-                      </tr>
-                      </tr>
-                        <td>Vencimiento del registro</td>
-                        <td>3 de enero de 2017
-                        </td>    
-                      </tr>
-                     
-                    </tbody>
-                  </table-user-informationº ºle>
-                  html
-                  
+                <div class="container-fluid">
+                  <div class=" col-md-12"> 
+                    <table class="table table-user-information">
+                      <tbody>
+                        <tr>
+                          <td>Direccion</td>
+                          <td><div class="text-right">{{client.address}}</div></td>
+                        </tr>
+                        <tr>
+                          <td>Localidad</td>
+                          <td><div class="text-right">{{client.city}}</td>
+                        </tr>
+                        <tr>
+                          <td>Provincia</td>
+                          <td><div class="text-right">{{client.province}}</div></td>
+                        </tr>
+                        <tr>
+                          <td>DNI</td>
+                          <td><div class="text-right">{{client.dni}}</div></td>
+                        </tr>
+                        <tr>
+                          <td>Email</td>
+                          <td>
+                            <div class="text-right">
+                              <a href="mailto:info@support.com">{{client.email}}</a>
+                            </div>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td>Telefono Fijo</td>
+                          <td><div class="text-right">{{client.phone}}</div></td>
+                        </tr>
+                        <tr>
+                          <td>Telefono Movil</td>
+                          <td><div class="text-right">{{client.mobile}}</div></td>
+                        </tr>
+                        <tr>
+                          <td>Fecha de nacimiento</td>
+                          <td><div class="text-right">2 de noviembre de 1984</div>
+                          </td>    
+                        </tr>
+                        </tr>
+                          <td>Vencimiento del registro</td>
+                          <td><div class="text-right">3 de enero de 2017</div>
+                          </td>    
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div> <!-- column -->
                 </div>
-               <!--  <div class=" col-md-12 col-lg-12 sell-buttons-area car-buttons-area"> 
-                  <a href="#" class="btn btn-primary">Compras</a>
-                  <a href="#" class="btn btn-primary">Ventas</a>
-                  <a href="#" class="btn btn-primary">Consultas</a>
-                </div> 
-              </div> -->
-              </div>
-                 <!-- <div class="panel-footer">
-                        <a data-original-title="Broadcast Message" data-toggle="tooltip" type="button" class="btn btn-sm btn-primary"><i class="fa fa-pencil-square-o"></i></a>
-                      <span class="pull-right">
-                          <a href="edit.html" data-original-title="Editar" data-toggle="tooltip" type="button" class="btn btn-sm btn-warning"><i class="fa fa-pencil-square-o"></i>&nbsp;Editar</a>
-                          <a data-original-title="Remove this user" data-toggle="tooltip" type="button" class="btn btn-sm btn-danger"><i class="fa fa-trash-o"></i>&nbsp;Eliminar</a>
-                      </span>
-                  </div> -->
-            
-          </div>
-        </div>
-      </div>
-    </div>
+              </div> <!-- row -->
+            </div> <!-- panel body -->
+
+
+        </div> <!-- panel info -->
+      </div> <!-- columna principal -->
+    </div> <! -- row -->
+
+</div>
