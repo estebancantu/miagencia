@@ -1,7 +1,6 @@
-
+<div class="container-fluid padding-right-45">
   <div class="row">
-  	<div class="col-md-3"></div>
-    <div class="col-md-6" ng-controller="newCarCtrl">
+    <div class="col-md-7 col-md-offset-2" ng-controller="newCarCtrl">
     <h2 class="page-header new-client-header"><i class="fa fa-car"></i>  Nuevo Auto</h2>
 		<form name="newVehicleForm" role="form" novalidate>
 			<div class="panel panel-info">
@@ -125,29 +124,72 @@
 				<div class="panel-heading">Caracter&iacute;sticas</div>
 				<div class="panel-body">
 
-					  <div class="checkbox">
-					    <label>
+					    <label class="checkbox-inline">
 					      <input type="checkbox"> Aire acondicionado
 					    </label>
-					  </div>
-					  <div class="checkbox">
-					    <label>
+					    <label class="checkbox-inline">
 					      <input type="checkbox"> Frenos ABS
 					    </label>
-					  </div>
-					  <div class="checkbox">
-					    <label>
+					    <label class="checkbox-inline">
 					      <input type="checkbox"> Airbag
 					    </label>
-					  </div>
-					  <div class="checkbox">
-					    <label>
+					    <label class="checkbox-inline">
 					      <input type="checkbox"> Alarma
 					    </label>
-					  </div>
+					    <label class="checkbox-inline">
+					      <input type="checkbox"> Otra cosa
+					    </label>
+					    <label class="checkbox-inline">
+					      <input type="checkbox"> Otra cosa mas
+					    </label>
+					    <label class="checkbox-inline">
+					      <input type="checkbox"> Y otra mas
+					    </label>
 
 				</div>
 			</div>
+
+
+
+			<form name="myForm">
+				
+					<div class="row">
+						<div class="col-md-12">
+				        	<h4>Eleg&iacute; una imagen del veh&iacute;culo</h4>
+				        </div>
+				    </div>
+				    <div class="row">
+				    	<div class="col-md-12">
+				    		<button class="btn btn-default btn-select-pic" ngf-select ng-model="picFile" accept="image/*">Seleccionar</button>
+				    	</div>
+				    </div>
+			        
+			        <div class="row well">
+				    	<div class="col-md-12">
+					        <div ngf-drop ng-model="picFile" ngf-pattern="image/*"
+					             class="cropArea">
+					            <img-crop image="picFile  | ngfDataUrl" 
+					             area-type="square"                
+					            result-image="croppedDataUrl" ng-init="croppedDataUrl=''">
+					            </img-crop>
+					        </div>
+					        <div class="row cropped-image-container">
+								<div class="col-md-4 col-md-offset-4 padding:0px">
+					            	<img ng-src="{{croppedDataUrl}}" />
+					            </div>
+					       	</div>
+					         <button class="btn btn-default pull-right btn-save-pic" ng-click="upload(croppedDataUrl, picFile.name)">Subir</button> 
+					     </div>
+					 </div>
+			       
+			            
+			        <span class="progress" ng-show="progress >= 0">
+			          <div style="width:{{progress}}%" ng-bind="progress + '%'"></div>
+			        </span>
+			        <span ng-show="result">La imagen se ha subido exitosamente.</span>
+			        <span class="err" ng-show="errorMsg">{{errorMsg}}</span>
+		    </form>
+
 
 
 
@@ -181,7 +223,26 @@
 			</div>
 
 
+			<div class="panel panel-info">
+				<div class="panel-heading">Tipo de Operaci&oacute;n</div>
+					<div class="panel-body">
+						<div class="radio">
+		  					<label><input type="radio" name="optradio" value="buy" ng-model="opType" />Compra</label>
+						</div>
+						<div class="radio">
+		  					<label><input type="radio" name="optradio" value="consignment" ng-model="opType" />Concesi&oacute;n</label>
+						</div>
+					</div>
+			</div>
 
+			<div class="panel panel-info"> 
+				<div class="panel-heading">Vendedor</div>
+				<div class="panel-body">
+					<select name="repeatSelect" id="clientSelect" ng-model="selectedSellerId">
+	      				<option ng-repeat="option in sellerList" value="{{option.id}}">{{option.firstName}}&nbsp;{{option.lastName}}</option>
+	    			</select>
+				</div>
+			</div>
 
 
 		<div class="panel panel-info">
@@ -214,56 +275,11 @@
 				</div>
 		 </div>
 
-		<div class="panel panel-info">
-		<div class="panel-heading">Tipo de Operaci&oacute;n</div>
-			<div class="panel-body">
-				<div class="radio">
-  					<label><input type="radio" name="optradio" value="buy" ng-model="opType" />Compra</label>
-				</div>
-				<div class="radio">
-  					<label><input type="radio" name="optradio" value="consignment" ng-model="opType" />Concesi&oacute;n</label>
-				</div>
-			</div>
-		</div>
-		
-		{{opType}}
 
-
-		<form name="myForm">
-	        <div>Eleg&iacute; una imagen del veh&iacute;culo</div>
-	        <button ngf-select ng-model="picFile" accept="image/*">
-	            Seleccionar</button>
-	        <div ngf-drop ng-model="picFile" ngf-pattern="image/*"
-	             class="cropArea">
-	            <img-crop image="picFile  | ngfDataUrl" 
-	             area-type="square"                
-	            result-image="croppedDataUrl" ng-init="croppedDataUrl=''">
-	            </img-crop>
-	        </div>
-	        <div>
-	            <img ng-src="{{croppedDataUrl}}" />
-	        </div>
-	        <button ng-click="upload(croppedDataUrl, picFile.name)">Subir</button> 
-	            
-	        <span class="progress" ng-show="progress >= 0">
-	          <div style="width:{{progress}}%" ng-bind="progress + '%'"></div>
-	        </span>
-	        <span ng-show="result">La imagen se ha subido exitosamente.</span>
-	        <span class="err" ng-show="errorMsg">{{errorMsg}}</span>
-	    </form>
+	
 
 
 
-
-		<div class="panel panel-info">
-			<div class="panel-heading">Vendedor</div>
-			<div class="panel-body">
-				<select name="repeatSelect" id="clientSelect" ng-model="selectedSellerId">
-      				<option ng-repeat="option in sellerList" value="{{option.id}}">{{option.firstName}}&nbsp;{{option.lastName}}</option>
-    			</select>
-			</div>
-			
-		</div>
 		 
 
 <!--
@@ -292,9 +308,27 @@
 		 </div>
 -->
 
-		  <button type="submit" class="btn btn-primary" ng-click="saveNewCar()">Guardar</button>
+	
+
+		
+							<div class="row">
+			                  <div class="col-md-12">
+			                    <div class="form-group">
+			                      <div class="new-car-buttons">
+			                        <div class="pull-right">
+			                          <button type="submit" class="btn btn-default">Cancelar</button>
+			                          <button type="submit" class="btn btn-primary" ng-click="saveNewCar()">Guardar </button>
+			                        </div>
+			                      </div>
+			                    </div>
+			                  </div>
+			                </div>
+
+
+
 		</form>
 
 	</div>
 	<div class="col-md-3"></div>
+</div>
 </div>
