@@ -1,39 +1,101 @@
-<div class="row">
-<div class="col-sm-8" ng-controller="reserveCarCtrl">
-	<div class="page-header">
-		<h2 class="page-header reserve-car-header"><i class="fa fa-car"></i>Reservar Auto</h2>
-	</div>
-        <div class="image-container">
-          <img ng-src={{selectedCar.imageUrl}} alt="...">
-            <div class="overlay-container">
-            </div>
-          </img>
-        </div>
-        <form name="reserveVehicleForm" role="form" novalidate>
-		<div class="panel panel-info">
-			<div class="panel-heading">Valor de reserva del Veh&iacute;culo</div>
-				<div class="panel-body">
-				  <div class="form-group" ng-class="{'has-error': reserveVehicleForm.advancePayment.$invalid}">
-				      <div class="input-group">
-				      	<div class="input-group-addon">$</div>
-				      	<input type="text" name="advancePayment" class="form-control" id="exampleInputAmount" placeholder="Monto de reserva para este ve&iacute;culo" ng-model="advancePayment" required>
-				    	<div class="input-group-addon">.00</div>
-				      </div>
-				      <span class="help-block" 
-	     			ng-show="reserveVehicleForm.advancePayment.$error.required">El campo es requerido</span>
-				  </div>
-				</div>
-		 </div>
+<div class="container-fluid padding-right-45">
+	<div class="row">
+	<div class="col-md-7 col-md-offset-2" ng-controller="reserveCarCtrl">
+		<h2 class="page-header reserve-car-header">&nbsp;<i class="fa fa-car"></i>&nbsp;Reservar Auto</h2>
 
-		 <div class="panel panel-info">
-			<div class="panel-heading">Cliente que reserva</div>
-			<div class="panel-body">
-				<select name="repeatSelect" id="clientSelect" ng-model="selectedClientId">
-      				<option ng-repeat="option in clientList" value="{{option.id}}">{{option.firstName}}&nbsp;{{option.lastName}}</option>
-    			</select>
+			<div class="panel panel-info reserve-car-panel">		
+
+					<div class="panel-heading vehicle-excerpt-horizontal">
+						<div class="container-fluid">
+							<div class="row vehicle-excerpt-horizontal-header">
+								<div class="col-md-9">
+									<h3>
+										<span class="vehicle-excerpt-horizontal-title-make">Peugeot 207</span>
+										<div class="vehicle-excerpt-horizontal-title-model"> Compact</div>
+									</h3>
+								</div>
+								<div class="col-md-3">
+									<h3>
+										<span class="vehicle-excerpt-horizontal-title-year pull-right">
+											2012&nbsp;&nbsp;<i class="fa fa-calendar-o"></i>
+										</span>
+									</h3>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-md-6">
+							        <div class="image-container no-padding">
+							          <img src="assets/img/foto1.jpg">
+							          <!-- <img ng-src={{selectedCar.imageUrl}} alt="..."> -->
+							            <div class="overlay-container">
+							            </div>
+							          </img>
+						        	</div>
+								</div>
+								<div class="col-md-6 vehicle-excerpt-horizontal-block">
+								   <div class="vehicle-excerpt-horizontal-summary-area">
+									 <i class="fa fa-calendar-o"></i>&nbsp;&nbsp;A&ntilde;o&nbsp;2012</br>
+						             <i class="fa fa-road"></i>&nbsp;140.000&nbsp;Km</br>
+						             <i class="fa fa-clock-o"></i>&nbsp;&nbsp;20&nbsp;D&iacute;as en venta&nbsp;</br>
+						             <i class="fa fa-usd"></i>&nbsp;Gastos&nbsp;$2.500&nbsp;</br>
+						           </div>
+						           <div class="vehicle-excerpt-horizontal-price-area pull-right">
+						           	<div class="vehicle-excerpt-horizontal-price-label-details">Precio</div>
+									<div class="vehicle-excerpt-horizontal-price-details">$130.200</div>
+						           </div>
+								</div>
+					        </div>
+				    	</div>
+				    </div>
+
+					</br>
+					</br>
+			        <form name="reserveVehicleForm" class="panel-body" role="form" novalidate>
+
+			        	<div class="row">
+			        		<div class="col-md-12">
+					        	<fieldset class="form-group container-fluid">
+									<h4 class="control-label reserve-car-form-label">Cliente que reserva</h4>
+									<select class="form-control" name="repeatSelect" id="clientSelect" ng-model="selectedClientId">
+					      				<option ng-repeat="option in clientList" value="{{option.id}}">{{option.firstName}}&nbsp;{{option.lastName}}</option>
+					    			</select>
+								</fieldset>
+							</div>	
+						</div>
+					
+						<div class="row">
+							<div class="col-md-12">	
+								<fieldset class="form-group container-fluid" ng-class="{'has-error': reserveVehicleForm.advancePayment.$invalid}">
+									<h4 class="control-label reserve-car-form-label">Valor de reserva del Veh&iacute;culo</h4>
+										<div class="input-group">
+										  <div class="input-group-addon">$</div>
+										  <input type="text" name="advancePayment" class="form-control" id="exampleInputAmount" placeholder="Monto de reserva para este ve&iacute;culo" ng-model="advancePayment" required>
+										 <div class="input-group-addon">.00</div>
+									 	</div> 
+									 <span class="help-block" 
+						     			ng-show="reserveVehicleForm.advancePayment.$error.required">El campo es requerido
+						     		</span>
+								</fieldset>
+							</div>
+						</div>
+				
+
+							<div class="row">
+			                  <div class="col-md-12">
+			                    <div class="form-group">
+			                      <div class="reserve-car-buttons">
+			                      	<button type="submit" class="btn btn-default">Imprimir reserva</button>
+			                        <div class="pull-right">
+			                          <button type="submit" class="btn btn-default">Cancelar</button>
+			                          <button type="submit" class="btn btn-primary" ng-click="reserveCar()">Guardar </button>
+			                        </div>
+			                      </div>
+			                    </div>
+			                  </div>
+			                </div>
+					</form>
+
 			</div>
-		</div>
-		<button type="submit" class="btn btn-primary" ng-click="reserveCar()">Vender</button>
-		</form>
-</div>
+	</div>
+	</div>
 </div>
