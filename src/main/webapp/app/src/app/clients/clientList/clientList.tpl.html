@@ -2,33 +2,35 @@
 <div class="container-fluid padding-right-45">
   </br>
   <div class="row">
-    <div class="col-md-12">
+    <div class="col-md-12 col-md-offset-2">
       <a ui-sref="newClient" id="button-new" class="btn btn-lg btn-new"><i class="fa fa-user-plus"></i> Nuevo</a>
     </div>
   </div>
   <div class="row">
-
-    <div class="col-md-11">
-      <h2>Mis Contactos</h2>
+    <br/>
+    <div class="col-md-8 col-md-offset-2">
+      <h2 class="client-list-page-title">Mis Contactos</h2>
       <div class="table-responsive">
 
                     
-        <table id="clients-table" class="table table-bordred table-striped table-hover">
+        <table ng-show="clients.length > 0" id="clients-table" class="table table-bordred table-striped table-hover">
                          
           <thead>
            
-            <th><input type="checkbox" id="checkall" /></th>
-            <th>Nombre</th>
-            <th>Telefono</th>
-            <th>E-mail</th>
+            <th><input style="visibility:hidden;" type="checkbox" id="checkall" /></th>
+            <th class="client-list-table-item-name">Nombre</th>
+            <th class="client-list-table-item-name text-center">Tel&eacute;fono</th>
+            <th class="client-list-table-item-name text-center">e-mail</th>
           </thead>
 
           <tbody>
               <tr ng-repeat="client in clients">
-              <td><input type="checkbox" class="checkthis" /></td>
-              <td><a ui-sref="clientDetails({clientId:client.id})">{{client.firstName}}&nbsp;{{client.lastName}}</a></td>
-              <td>{{client.phone}}</td>
-              <td>{{client.email}}</td>
+              <td><i style="visibility:hidden;" class="fa fa-pencil-square-o"/></i></td>
+              <td><a class="client-list-table-item-data" ui-sref="clientDetails({clientId:client.id})">{{client.firstName}}&nbsp;{{client.lastName}}</a></td>
+              <td ng-show="client.phone != null" class="text-center">{{client.phone}}</td>
+              <td ng-show="client.phone == null" class="text-center">-</td>
+              <td ng-show="client.email != null" class="text-center">{{client.email}}</td>
+              <td  ng-show="client.email == null"class="text-center">-</td>
               </tr>
           </tbody>
               
@@ -36,9 +38,13 @@
 
 
         <div class="clearfix"></div>
+        <div>
+          <h3 ng-show="clients.length == 0" class="text-muted">
+              No hay contactos para mostrar.
+          </h3>
 
         <!--pagination -->
-        <ul class="pagination pull-right">
+        <ul ng-show="clients.length > 8" class="pagination pull-right">
           <li class="disabled">
             <a href="#" aria-label="Previous">
               <span aria-hidden="true">&laquo;</span>
