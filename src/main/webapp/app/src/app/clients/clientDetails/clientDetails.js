@@ -22,6 +22,6 @@ angular.module( 'ngBoilerplate.clientDetails', [
  
   $scope.client = clientService.get({id: $stateParams.clientId});
 
-     
+  
 
 });

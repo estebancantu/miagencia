@@ -12,21 +12,24 @@
               <div class="col-md-4" align="center"> 
                   <img alt="User Pic" src="http://www.elminero.com.mx/assets/2014/06/jpg2.jpg" class="img-circle img-responsive"> 
               </div>
-
               <div class="col-md-8 panel-heading-text"> 
-                <h3 class="panel-title user-details-name">Lionel &nbsp;Messi</h3>
-                <small>
-                  <cite title="Ciudad">{{client.city}},&nbsp;{{client.country}}<i class="icon-map-marker"></i>
+                <h3 class="panel-title user-details-name">{{client.firstName}}&nbsp;{{client.lastName}}</h3>
+                <small class="client-location">
+                  <cite title="Ciudad">
+                    <span ng-show="client.city  != null">{{client.city}}</span>
+                    <span ng-show="client.country != null">,&nbsp;{{client.country}}</span>
+                    <i ng-show="client.city != null || client.country != null"class="fa fa-map-marker"></i>
                   <!-- <i class="glyphicon glyphicon-map-marker">
                   </i> -->
                   </cite>
                 </small>
-                <p>
-                  <i class="fa fa-envelope"></i> {{client.email}}
+                
+                <p class="client-excerpt">
+                  <span ng-show="client.email != null"><i class="fa fa-envelope"></i>&nbsp;{{client.email}}</span>
                   <br />
-                  <i class="fa fa-phone"></i> {{client.phone}}</a>
+                  <span ng-show="client.phone != null"><i class="fa fa-phone"></i>&nbsp;{{client.phone}}</a></span>
                   <br />
-                  <i class="fa fa-mobile"></i> {{client.mobile}}</a>
+                  <span ng-show="client.mobile != null"><i class="fa fa-mobile"></i>&nbsp;&nbsp;{{client.mobile}}</a></span>
                   <br />
                 </p>
               </div> <!-- column -->       
@@ -40,46 +43,46 @@
                   <div class=" col-md-12"> 
                     <table class="table table-user-information">
                       <tbody>
-                        <tr>
-                          <td>Direccion</td>
-                          <td><div class="text-right">{{client.address}}</div></td>
+                        <tr ng-show="client.address != null">
+                          <td class="client-details-data-title">Direcci&oacute;n</td>
+                          <td><div class="text-right client-details-data-text">{{client.address}}</div></td>
                         </tr>
-                        <tr>
-                          <td>Localidad</td>
-                          <td><div class="text-right">{{client.city}}</td>
+                        <tr ng-show="client.city != null">
+                          <td class="client-details-data-title">Localidad</td>
+                          <td><div class="text-right client-details-data-text">{{client.city}}</td>
                         </tr>
-                        <tr>
-                          <td>Provincia</td>
-                          <td><div class="text-right">{{client.province}}</div></td>
+                        <tr ng-show="client.province != null">
+                          <td class="client-details-data-title">Provincia</td>
+                          <td><div class="text-right client-details-data-text">{{client.province}}</div></td>
                         </tr>
-                        <tr>
-                          <td>DNI</td>
-                          <td><div class="text-right">{{client.dni}}</div></td>
+                        <tr ng-show="client.dni != null">
+                          <td class="client-details-data-title">DNI</td>
+                          <td><div class="text-right client-details-data-text">{{client.dni}}</div></td>
                         </tr>
-                        <tr>
-                          <td>Email</td>
+                        <tr ng-show="client.email != null">
+                          <td class="client-details-data-title">e-mail</td>
                           <td>
-                            <div class="text-right">
+                            <div class="text-right client-details-data-text">
                               <a href="mailto:info@support.com">{{client.email}}</a>
                             </div>
                           </td>
                         </tr>
-                        <tr>
-                          <td>Telefono Fijo</td>
-                          <td><div class="text-right">{{client.phone}}</div></td>
+                        <tr ng-show="client.phone != null">
+                          <td class="client-details-data-title">Tel&eacute;fono Fijo</td>
+                          <td><div class="text-right client-details-data-text">{{client.phone}}</div></td>
                         </tr>
-                        <tr>
-                          <td>Telefono Movil</td>
-                          <td><div class="text-right">{{client.mobile}}</div></td>
+                        <tr ng-show="client.mobile != null">
+                          <td class="client-details-data-title">Tel&eacute;fono Movil</td>
+                          <td><div class="text-right client-details-data-text">{{client.mobile}}</div></td>
                         </tr>
-                        <tr>
-                          <td>Fecha de nacimiento</td>
-                          <td><div class="text-right">2 de noviembre de 1984</div>
+                        <tr style="visibility:hidden;">
+                          <td class="client-details-data-title">Fecha de nacimiento</td>
+                          <td><div class="text-right client-details-data-text">2 de noviembre de 1984</div>
                           </td>    
                         </tr>
-                        </tr>
-                          <td>Vencimiento del registro</td>
-                          <td><div class="text-right">3 de enero de 2017</div>
+                        <tr style="visibility:hidden;">
+                          <td class="client-details-data-title">Vencimiento del registro</td>
+                          <td><div class="text-right client-details-data-text">3 de enero de 2017</div>
                           </td>    
                         </tr>
                       </tbody>
