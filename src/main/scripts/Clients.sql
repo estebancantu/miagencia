@@ -7,7 +7,7 @@ CREATE TABLE `Clients` (
   `country` varchar(255) DEFAULT NULL,
   `dateOfBirth` datetime DEFAULT NULL,
   `dni` bigint(20) DEFAULT NULL,
-  `email` varchar(255) DEFAULT NULL,
+  `email` varchar(255) NOT NULL,
   `firstName` varchar(255) NOT NULL,
   `lastName` varchar(255) NOT NULL,
   `mobile` varchar(255) DEFAULT NULL,

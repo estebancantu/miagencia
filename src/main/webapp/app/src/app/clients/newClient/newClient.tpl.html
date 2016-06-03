@@ -4,7 +4,7 @@
     <h2 class="page-header new-client-header">&nbsp;<i class="fa fa-user"></i>&nbsp;Nuevo Contacto</h2>
 
     <div ng-controller="newClientCtrl">
-     <form class="form-horizontal well" role="form">
+     <form name="newClientForm" class="form-horizontal well" role="form">
         <fieldset>
 
           <!-- Form Name -->
@@ -12,19 +12,23 @@
 
             <div class="new-client-fields">
                 <!-- Text input-->
-                <div class="form-group">
+                <div class="form-group" ng-class="{'has-error': newClientForm.firstName.$invalid}">
                   <label class="col-sm-3 control-label new-client-control-label" for="textinput">Nombre</label>
                   <div class="col-sm-9">
-                    <input type="text" placeholder="Nombre" class="form-control new-client-form-control" ng-model="newClient.firstName">
-                  </div>
+                    <input type="text" name="firstName" placeholder="Nombre" class="form-control new-client-form-control" ng-model="newClient.firstName" required>
+                    <span class="help-block new-client-help-block" 
+                      ng-show="newClientForm.firstName.$error.required">Este campo es obligatorio</span>
+                    </div>
                 </div>
 
                 <!-- Text input-->
-                <div class="form-group">
+                <div class="form-group" ng-class="{'has-error': newClientForm.lastName.$invalid}">
                   <label class="col-sm-3 control-label new-client-control-label" for="textinput">Apellido</label>
                   <div class="col-sm-9">
-                    <input type="text" placeholder="Apellido" class="form-control new-client-form-control" ng-model="newClient.lastName">
-                  </div>
+                    <input type="text" name="lastName" placeholder="Apellido" class="form-control new-client-form-control" ng-model="newClient.lastName" required> 
+                    <span class="help-block new-client-help-block" 
+                        ng-show="newClientForm.lastName.$error.required">Este campo es obligatorio</span>
+                    </div>
                 </div>
 
                 <!-- Text input-->
@@ -38,15 +42,7 @@
               </div>
 
         </fieldset>
-      </form>
-
-
-
-
-
-
-
-      <form class="form-horizontal well form-last" role="form">
+        <br/>
         <fieldset>
 
           <!-- Form Name -->
@@ -56,10 +52,12 @@
             <div class="new-client-fields">
 
                 <!-- Text input-->
-                <div class="form-group">
+                <div class="form-group" ng-class="{'has-error': newClientForm.email.$invalid}">
                   <label class="col-sm-3 control-label new-client-control-label" for="textinput">e-mail</label>
                   <div class="col-sm-9">
-                    <input type="text" placeholder="Correo electronico" class="form-control new-client-form-control" ng-model="newClient.email">
+                    <input type="text" name="email" placeholder="Correo electronico" class="form-control new-client-form-control" ng-model="newClient.email" required>
+                    <span class="help-block new-client-help-block" 
+                    ng-show="newClientForm.email.$error.required">Este campo es obligatorio</span>
                   </div>
                 </div>
 

@@ -26,6 +26,7 @@ public class Client extends PersistableEntity {
 	@Column(nullable=false)
 	private String lastName;
 	
+	@Column(nullable=false)
 	private String email;
 	
 	private String phone;
