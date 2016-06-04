@@ -1,11 +1,13 @@
 package com.miagencia.core.model;
 
+import java.sql.Timestamp;
 import java.util.Date;
 
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
+import javax.persistence.PrePersist;
 import javax.persistence.Version;
 
 
@@ -16,10 +18,11 @@ public class PersistableEntity {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
 	
-	private Date createdAt;
+
+	private Timestamp createdAt;
 	
 	@Version
-	private Date updatedTime;
+	private Timestamp updatedTime;
 	
 	
 	
@@ -31,20 +34,24 @@ public class PersistableEntity {
 		this.id = id;
 	}
 	
-	public Date getCreatedAt() {
+	public Timestamp getCreatedAt() {
 		return createdAt;
 	}
 
-	public void setCreatedAt(Date createdAt) {
+	public void setCreatedAt(Timestamp createdAt) {
 		this.createdAt = createdAt;
 	}
 
-	public Date getUpdatedTime() {
+	public Timestamp getUpdatedTime() {
 		return updatedTime;
 	}
 
-	public void setUpdatedTime(Date updatedTime) {
+	public void setUpdatedTime(Timestamp updatedTime) {
 		this.updatedTime = updatedTime;
 	}
 	
+    @PrePersist
+    void onCreate() {
+        this.setCreatedAt(new Timestamp((new Date()).getTime()));
+    }
 }
