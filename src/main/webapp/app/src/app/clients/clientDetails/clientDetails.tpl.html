@@ -16,20 +16,20 @@
                 <h3 class="panel-title user-details-name">{{client.firstName}}&nbsp;{{client.lastName}}</h3>
                 <small class="client-location">
                   <cite title="Ciudad">
-                    <span ng-show="client.city  != null">{{client.city}}</span>
-                    <span ng-show="client.country != null">,&nbsp;{{client.country}}</span>
-                    <i ng-show="client.city != null || client.country != null"class="fa fa-map-marker"></i>
+                    <span ng-show="client.city  != null && client.city !=''">{{client.city}}</span>
+                    <span ng-show="client.country != null && client.country !=''">,&nbsp;{{client.country}}</span>
+                    <i ng-show="(client.city != null && client.city !='')|| (client.country != null && client.country !='')"class="fa fa-map-marker"></i>
                   <!-- <i class="glyphicon glyphicon-map-marker">
                   </i> -->
                   </cite>
                 </small>
                 
                 <p class="client-excerpt">
-                  <span ng-show="client.email != null"><i class="fa fa-envelope"></i>&nbsp;{{client.email}}</span>
+                  <span ng-show="client.email != null && client.email !=''"><i class="fa fa-envelope"></i>&nbsp;{{client.email}}</span>
                   <br />
-                  <span ng-show="client.phone != null"><i class="fa fa-phone"></i>&nbsp;{{client.phone}}</a></span>
+                  <span ng-show="client.phone != null && client.phone !=''"><i class="fa fa-phone"></i>&nbsp;{{client.phone}}</a></span>
                   <br />
-                  <span ng-show="client.mobile != null"><i class="fa fa-mobile"></i>&nbsp;&nbsp;{{client.mobile}}</a></span>
+                  <span ng-show="client.mobile != null && client.mobile !=''"><i class="fa fa-mobile"></i>&nbsp;&nbsp;{{client.mobile}}</a></span>
                   <br />
                 </p>
               </div> <!-- column -->       
@@ -43,23 +43,23 @@
                   <div class=" col-md-12"> 
                     <table class="table table-user-information">
                       <tbody>
-                        <tr ng-show="client.address != null">
+                        <tr ng-show="client.address != null && client.address !=''">
                           <td class="client-details-data-title">Direcci&oacute;n</td>
                           <td><div class="text-right client-details-data-text">{{client.address}}</div></td>
                         </tr>
-                        <tr ng-show="client.city != null">
+                        <tr ng-show="client.city != null && client.city !=''">
                           <td class="client-details-data-title">Localidad</td>
                           <td><div class="text-right client-details-data-text">{{client.city}}</td>
                         </tr>
-                        <tr ng-show="client.province != null">
+                        <tr ng-show="client.province != null && client.province !=''">
                           <td class="client-details-data-title">Provincia</td>
                           <td><div class="text-right client-details-data-text">{{client.province}}</div></td>
                         </tr>
-                        <tr ng-show="client.dni != null">
+                        <tr ng-show="client.dni != null && client.dni !=''">
                           <td class="client-details-data-title">DNI</td>
                           <td><div class="text-right client-details-data-text">{{client.dni}}</div></td>
                         </tr>
-                        <tr ng-show="client.email != null">
+                        <tr ng-show="client.email != null && client.email !=''">
                           <td class="client-details-data-title">e-mail</td>
                           <td>
                             <div class="text-right client-details-data-text">
@@ -67,11 +67,11 @@
                             </div>
                           </td>
                         </tr>
-                        <tr ng-show="client.phone != null">
+                        <tr ng-show="client.phone != null && client.phone !=''">
                           <td class="client-details-data-title">Tel&eacute;fono Fijo</td>
                           <td><div class="text-right client-details-data-text">{{client.phone}}</div></td>
                         </tr>
-                        <tr ng-show="client.mobile != null">
+                        <tr ng-show="client.mobile != null && client.mobile !=''">
                           <td class="client-details-data-title">Tel&eacute;fono Movil</td>
                           <td><div class="text-right client-details-data-text">{{client.mobile}}</div></td>
                         </tr>
