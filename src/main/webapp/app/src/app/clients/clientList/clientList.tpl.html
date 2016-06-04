@@ -27,10 +27,10 @@
               <tr ng-repeat="client in clients">
               <td><i style="visibility:hidden;" class="fa fa-pencil-square-o"/></i></td>
               <td><a class="client-list-table-item-data" ui-sref="clientDetails({clientId:client.id})">{{client.firstName}}&nbsp;{{client.lastName}}</a></td>
-              <td ng-show="client.phone != null" class="text-center">{{client.phone}}</td>
-              <td ng-show="client.phone == null" class="text-center">-</td>
-              <td ng-show="client.email != null" class="text-center">{{client.email}}</td>
-              <td  ng-show="client.email == null"class="text-center">-</td>
+              <td ng-show="client.phone != null && client.phone !=''" class="text-center">{{client.phone}}</td>
+              <td ng-show="client.phone == null || client.phone ==''" class="text-center">-</td>
+              <td ng-show="client.email != null && client.email !=''" class="text-center">{{client.email}}</td>
+              <td ng-show="client.email == null || client.email ==''" class="text-center">-</td>
               </tr>
           </tbody>
               
