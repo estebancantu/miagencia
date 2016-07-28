@@ -1,6 +1,7 @@
 package com.miagencia.rest.dto;
 
 
+
 public class VehicleDTO {
 	
 	
@@ -10,7 +11,11 @@ public class VehicleDTO {
 	
 	private int make;
 	
+	private String makeString;
+	
 	private int model;
+	
+	private String modelString;
 	
 	private int year;
 	
@@ -42,7 +47,8 @@ public class VehicleDTO {
 	
 	private String imageUrl;
 	
-	
+	// TODO falta implementar
+	//private List<String> features;
 	
 
 	
@@ -55,7 +61,6 @@ public class VehicleDTO {
 	public void setId(Long id) {
 		this.id = id;
 	}
-
 
 	public String getVehicleType() {
 		return vehicleType;
@@ -202,6 +207,21 @@ public class VehicleDTO {
 	public void setImageUrl(String imageUrl) {
 		this.imageUrl = imageUrl;
 	}
-	
+
+	public String getMakeString() {
+		return makeString;
+	}
+
+	public void setMakeString(String makeString) {
+		this.makeString = makeString;
+	}
+
+	public String getModelString() {
+		return modelString;
+	}
+
+	public void setModelString(String modelString) {
+		this.modelString = modelString;
+	}
 
 }
