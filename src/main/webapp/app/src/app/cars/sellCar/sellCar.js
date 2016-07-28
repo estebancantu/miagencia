@@ -21,8 +21,11 @@ angular.module( 'ngBoilerplate.sellCar', [
 .controller( 'sellCarCtrl', function AboutCtrl( $scope, $http, clientService, $stateParams, vehicleService) {
 
 
+  $scope.carDetailsDto = vehicleService.get({id: $stateParams.carId}, function(result) {
 
-  $scope.selecteCar = vehicleService.get({id: $stateParams.carId});
+      $scope.salePrice = result.sellingPrice;
+
+  });
   $scope.selectedBuyerId = null;
 
 
@@ -33,12 +36,11 @@ angular.module( 'ngBoilerplate.sellCar', [
   // Saves new sale
   $scope.sellCar = function () {
 
-    // levantar el sale price del auto que salio de la pagina anterior. aca se tiene que poder
-    // modificar
+
 
     var sellVehicleRequestDto = {
 
-      vehicleId: $scope.selectedCar.id,
+      vehicleId: $scope.carDetailsDto.vehicleDto.id,
       buyerId: $scope.selectedBuyerId,
 
       paidAmount: $scope.salePrice,
@@ -52,7 +54,8 @@ angular.module( 'ngBoilerplate.sellCar', [
 
     $http({
                 method: 'POST',
-                url: 'http://localhost:8080/miagencia/api/operations/sellVehicle/',
+              //  url: 'http://localhost:8080/miagencia/api/operations/sellVehicle/',
+                url: 'http://miagenciavirtual.com.ar:8080/miagencia/api/operations/sellVehicle/',
                 data: sellVehicleRequestDto,
                 headers: {
                     "Content-Type": "application/json",

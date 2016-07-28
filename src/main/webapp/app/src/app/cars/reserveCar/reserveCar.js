@@ -22,7 +22,7 @@ angular.module( 'ngBoilerplate.reserveCar', [
 
 
 
-  $scope.selecteCar = vehicleService.get({id: $stateParams.carId});
+  $scope.carDetailsDto = vehicleService.get({id: $stateParams.carId});
   $scope.selectedClientId = null;
   $scope.advancePayment = null;
   $scope.daysOnHold = null;
@@ -40,9 +40,8 @@ angular.module( 'ngBoilerplate.reserveCar', [
 
     var reserveVehicleRequestDto = {
 
-      vehicleId: $scope.selectedCar.id,
+      vehicleId: $scope.carDetailsDto.vehicleDto.id,
       clientId: $scope.selectedClientId,
-
       advancePayment: $scope.advancePayment,
       daysOnHold: $scope.daysOnHold
 
@@ -54,7 +53,8 @@ angular.module( 'ngBoilerplate.reserveCar', [
 
     $http({
                 method: 'POST',
-                url: 'http://localhost:8080/miagencia/api/operations/reserveVehicle/',
+              //  url: 'http://localhost:8080/miagencia/api/operations/reserveVehicle/',
+                url: 'http://miagenciavirtual.com.ar:8080/miagencia/api/operations/reserveVehicle/',
                 data: reserveVehicleRequestDto,
                 headers: {
                     "Content-Type": "application/json",
