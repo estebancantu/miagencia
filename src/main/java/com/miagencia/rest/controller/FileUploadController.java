@@ -155,6 +155,32 @@ public class FileUploadController {
 	
 	
 	
+    @RequestMapping(value = "/legalDocument/{documentName}", method = RequestMethod.GET)
+    public ResponseEntity<byte[]> getLegalDocument(@PathVariable String documentName) throws IOException {
+    	
+    	
+    	// TODO workaround, solucionar y borrar despues
+    	documentName = documentName + ".pdf";
+    	
+    	// TODO chequear nulls, que el archivo exista etc
+    	String rootPath = System.getProperty("catalina.home");
+    	String path = rootPath + File.separator + "tmpFiles" + File.separator + "legalDocuments" + File.separator + documentName;
+    	
+        InputStream in = context.getResourceAsStream(path);
+        File file = new File(path);
+        InputStream is = new FileInputStream(file);
+        // TODO chequear que no sea null
+
+        final HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_PDF);
+
+        return new ResponseEntity<byte[]>(IOUtils.toByteArray(is), headers, HttpStatus.CREATED);
+    }
+	
+	
+	
+	
+	
 	
 
 }
