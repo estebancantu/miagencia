@@ -16,9 +16,11 @@ import com.miagencia.core.model.operations.SaleOperation;
 import com.miagencia.rest.dto.ClientDTO;
 import com.miagencia.rest.dto.ClientSummaryDTO;
 import com.miagencia.rest.dto.VehicleDTO;
+import com.miagencia.rest.dto.VehicleDetailsDTO;
 import com.miagencia.rest.dto.VehicleSummaryDTO;
 import com.miagencia.rest.dto.operations.BuyVehicleRequestDTO;
 import com.miagencia.rest.dto.operations.ConsignVehicleRequestDTO;
+import com.miagencia.rest.dto.operations.NewVehicleRequestDTO;
 import com.miagencia.rest.dto.operations.ReserveVehicleRequestDTO;
 import com.miagencia.rest.dto.operations.SellVehicleRequestDTO;
 
@@ -39,7 +41,7 @@ public class EntityDTOTranslator {
 		vehicle.setModelId(vehicleDto.getModel());
 		vehicle.setModelYear(vehicleDto.getYear());
 		vehicle.setPlate(vehicleDto.getPlate());
-		vehicle.setColour(vehicleDto.getColor());
+		vehicle.setColor(vehicleDto.getColor());
 		vehicle.setVehicleCondition(VehicleCondition.fromString(vehicleDto.getVehicleCondition()));
 		vehicle.setChassisNumber(vehicleDto.getChassisNumber());
 		vehicle.setEngineNumber(vehicleDto.getEngineNumber());
@@ -69,7 +71,7 @@ public class EntityDTOTranslator {
 		vehicleDto.setModel(vehicle.getModelId());
 		vehicleDto.setYear(vehicle.getModelYear());
 		vehicleDto.setPlate(vehicle.getPlate());
-		vehicleDto.setColor(vehicle.getColour());
+		vehicleDto.setColor(vehicle.getColor());
 		vehicleDto.setVehicleCondition(vehicle.getVehicleCondition().getText());
 		vehicleDto.setChassisNumber(vehicle.getChassisNumber());
 		vehicleDto.setEngineNumber(vehicle.getEngineNumber());
@@ -80,12 +82,14 @@ public class EntityDTOTranslator {
 		vehicleDto.setCity(vehicle.getCity());
 		vehicleDto.setProvinceId(vehicle.getProvinceId());
 		vehicleDto.setVehicleCondition(vehicle.getVehicleCondition().getText());
+		vehicleDto.setImageUrl(vehicle.getImageUrl());
 		
 		return vehicleDto;
 	}
 	
 	
-	// TODO falta price del sell item, pasarselo directamente como parametro
+
+	
 	public static VehicleSummaryDTO buildVehicleSummaryDTO(Vehicle vehicle, SaleItem saleItem, String make, String model) {
 		
 		VehicleSummaryDTO vehicleDto = new VehicleSummaryDTO();
@@ -110,6 +114,39 @@ public class EntityDTOTranslator {
 		
 		return vehicleDto;
 	}
+	
+	
+	
+	public static VehicleDetailsDTO buildVehicleDetailsDTO(Vehicle vehicle, Client seller, SaleItem saleItem, String makeString, String modelString) {
+		
+		VehicleDetailsDTO vehicleDetailsDto = new VehicleDetailsDTO();
+		
+		VehicleDTO vehicleDto = buildVehicleDTO(vehicle);
+		
+		vehicleDto.setMakeString(makeString);
+		vehicleDto.setModelString(modelString);
+		
+		ClientDTO clientDto = buildClientDTO(seller);
+		
+		
+		vehicleDetailsDto.setSellingPrice(saleItem.getSellingPrice());
+		
+		// TODO chequear otros estados, delivered etc
+		if (saleItem.getStatus().equals(VehicleStatus.SOLD)) {
+			vehicleDetailsDto.setSold(Boolean.TRUE);
+		}
+		
+		if (saleItem.getStatus().equals(VehicleStatus.RESERVED)) {
+			vehicleDetailsDto.setBooked(Boolean.TRUE);
+		}
+		
+		vehicleDetailsDto.setVehicleDto(vehicleDto);
+		vehicleDetailsDto.setSeller(clientDto);
+		
+		return vehicleDetailsDto;
+	}
+	
+	
 	
 	
 	
@@ -175,9 +212,9 @@ public class EntityDTOTranslator {
 	
 	
 	
-	public static BuyOperation buildBuyOperation(BuyVehicleRequestDTO buyVehicleRequestDto, Vehicle vehicle, Client sellerParty) {
+	public static BuyOperation buildBuyOperation(NewVehicleRequestDTO buyVehicleRequestDto, Vehicle vehicle, Client sellerParty) {
 		
-		int paidAmount = buyVehicleRequestDto.getPaidAmount();
+		int paidAmount = buyVehicleRequestDto.getDealPrice();
 		String paymentTypeString = buyVehicleRequestDto.getPaymentType();
 		
 		PaymentType paymentType = PaymentType.valueOf(paymentTypeString);
@@ -188,11 +225,15 @@ public class EntityDTOTranslator {
 	}
 	
 	
-	public static ConsignmentOperation buildConsignmentOperation(ConsignVehicleRequestDTO consignVehicleRequestDto, Vehicle vehicle, Client sellerParty) {
+	public static ConsignmentOperation buildConsignmentOperation(NewVehicleRequestDTO consignVehicleRequestDto, Vehicle vehicle, Client sellerParty) {
 		
-		int offeringPrice = consignVehicleRequestDto.getOfferingPrice();
 
-		ConsignmentOperation consignmentOperation = new ConsignmentOperation(vehicle, sellerParty, offeringPrice);
+		// TODO se puede guardar el offering price pero es lo mismo que guardarlo para buy
+		// a lo mejor conviene que este en la operacion de venta nada mas porque en este punto no se sabe 
+		// a cuanto se va a vender finalmente
+		int dealPrice = consignVehicleRequestDto.getDealPrice();
+
+		ConsignmentOperation consignmentOperation = new ConsignmentOperation(vehicle, sellerParty, dealPrice);
 		
 		return consignmentOperation;
 	}
