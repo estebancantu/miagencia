@@ -1,16 +1,14 @@
 package com.miagencia.core.model.operations;
 
-import java.util.Date;
-
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
+import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.MappedSuperclass;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import com.miagencia.core.model.Client;
@@ -22,8 +20,9 @@ import com.miagencia.core.model.Vehicle;
 // Y TODO SE HACE CON JOINS. NO HAY INFO REPETIDA EN LAS TABLAS COMO 
 // CON LA ESTRATEGIA DE TABLE PER CONCRETE CLASS.
 
-@MappedSuperclass
-@Inheritance(strategy=InheritanceType.TABLE_PER_CLASS)
+@Entity
+@Table(name="VEHICLE_OPERATION")
+@Inheritance(strategy=InheritanceType.JOINED)
 public abstract class VehicleOperation extends PersistableEntity {
 	
 	
@@ -33,33 +32,32 @@ public abstract class VehicleOperation extends PersistableEntity {
 	public static final String SALE ="SALE";
 
 	
-	private Date operationDate;
 	
 	
 	@ManyToOne(fetch=FetchType.EAGER, cascade = CascadeType.ALL )
+	@JoinColumn(name="VEHICLE_ID", nullable = false)
 	private Vehicle vehicle;
 
 	
 	@ManyToOne(fetch=FetchType.EAGER, cascade = CascadeType.ALL)
-	//@JoinColumn(name="clientId", nullable=false)
+	@JoinColumn(name="CLIENT_ID", nullable=false)
 	private Client client;
+
 	
 
 	public VehicleOperation(Vehicle vehicle, Client client){
 		
 		this.vehicle = vehicle;
 		this.client = client;
-		this.operationDate = new Date();
 	}
 
 
-	public Date getOperationDate() {
-		return operationDate;
+	// No usar. Lo necesita hibernate.
+	public VehicleOperation() {
+		// TODO Auto-generated constructor stub
 	}
 
-	public void setOperationDate(Date operationDate) {
-		this.operationDate = operationDate;
-	}
+
 
 	public Vehicle getVehicle() {
 		return vehicle;
