@@ -8,13 +8,18 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.miagencia.core.dao.ClientDAO;
 import com.miagencia.core.dao.MakesAndModelsDAO;
+import com.miagencia.core.dao.OperationDAO;
 import com.miagencia.core.dao.SaleItemDAO;
 import com.miagencia.core.dao.VehicleDAO;
 import com.miagencia.core.model.SaleItem;
 import com.miagencia.core.model.Vehicle;
+import com.miagencia.core.model.operations.BuyOperation;
+import com.miagencia.core.model.operations.ConsignmentOperation;
+import com.miagencia.core.model.operations.VehicleOperation;
 import com.miagencia.core.service.VehicleService;
-import com.miagencia.rest.dto.VehicleDTO;
+import com.miagencia.rest.dto.VehicleDetailsDTO;
 import com.miagencia.rest.dto.VehicleSummaryDTO;
 import com.miagencia.rest.dto.util.EntityDTOTranslator;
 
@@ -31,6 +36,14 @@ public class VehicleServiceImpl implements VehicleService {
 	@Autowired
 	SaleItemDAO saleItemDao;
 	
+	@Autowired
+	OperationDAO operationDao;
+	
+	@Autowired
+	ClientDAO clientDao;
+	
+
+	
 
 	//TODO chequear nulls en las respuestas de los daos antes de hacer las conversiones
 
@@ -38,13 +51,41 @@ public class VehicleServiceImpl implements VehicleService {
 	
 	@Override
 	@Transactional
-	public VehicleDTO find(Long vehicleId) {
+	public VehicleDetailsDTO find(Long vehicleId) {
 		
 		Vehicle vehicle = vehicleDao.find(vehicleId);
 		
-		VehicleDTO vehicleDto = EntityDTOTranslator.buildVehicleDTO(vehicle);
+		// hay que ir a buscar el cliente vendedor, eso solo lo conoce la operacion
+		// de compra o concesion
+		List<VehicleOperation> operations;
+		
+		operations = operationDao.findOperationsByVehicleId(vehicleId);
+		VehicleOperation newVehicleOperation = null;
+		
+		
+		
+		for (Iterator iterator = operations.iterator(); iterator.hasNext();) {
+			VehicleOperation vehicleOperation = (VehicleOperation) iterator
+					.next();
+			
+			if(vehicleOperation.getClass().equals(BuyOperation.class)
+					|| vehicleOperation.getClass().equals(ConsignmentOperation.class)){
+				
+				newVehicleOperation = vehicleOperation;
+				break;
+			}
+			
+		}
+		
+		String makeString = makesAndModelsDao.getMake( new Long(vehicle.getMakeId()));
+		String modelString = makesAndModelsDao.getModel( new Long(vehicle.getModelId()));
+		
+		SaleItem saleItem = saleItemDao.getSaleItemByVehicleId(vehicleId);
 
-		return vehicleDto;
+
+		VehicleDetailsDTO vehicleDetailsDto = EntityDTOTranslator.buildVehicleDetailsDTO(vehicle, newVehicleOperation.getClient(), saleItem, makeString, modelString);
+
+		return vehicleDetailsDto;
 	}
 
 	

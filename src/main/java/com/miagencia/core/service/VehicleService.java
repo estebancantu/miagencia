@@ -2,7 +2,7 @@ package com.miagencia.core.service;
 
 import java.util.List;
 
-import com.miagencia.rest.dto.VehicleDTO;
+import com.miagencia.rest.dto.VehicleDetailsDTO;
 import com.miagencia.rest.dto.VehicleSummaryDTO;
 
 /**
@@ -12,8 +12,10 @@ import com.miagencia.rest.dto.VehicleSummaryDTO;
 public interface VehicleService {
 	
 
-	public VehicleDTO find(Long vehicleId);
+	public VehicleDetailsDTO find(Long vehicleId);
 
 	public List<VehicleSummaryDTO> getAllVehicles();
+	
+	//public List<VehicleSummaryDTO> getAllVehiclesOnStock();
 
 }
