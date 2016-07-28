@@ -33,7 +33,8 @@ angular.module( 'ngBoilerplate.newClient', [
   
         $http({
                 method: 'POST',
-                url: 'http://localhost:8080/miagencia/api/clients/',
+               // url: 'http://localhost:8080/miagencia/api/clients/',
+                url: 'http://miagenciavirtual.com.ar:8080/miagencia/api/clients/',
                 data: $scope.newClient,
                 headers: {
                     "Content-Type": "application/json",

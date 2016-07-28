@@ -4,7 +4,7 @@
     <h2 class="page-header new-client-header">&nbsp;<i class="fa fa-user"></i>&nbsp;Nuevo Contacto</h2>
 
     <div ng-controller="newClientCtrl">
-     <form name="newClientForm" class="form-horizontal well" role="form">
+     <form name="newClientForm" class="form-horizontal well well-shadow" role="form">
         <fieldset>
 
           <!-- Form Name -->
@@ -65,7 +65,7 @@
                 <div class="form-group">
                   <label class="col-sm-3 control-label new-client-control-label" for="textinput">Tel&eacute;fono 1</label>
                   <div class="col-sm-9">
-                    <input type="text" placeholder="Tel&eacute;fono de Linea" class="form-control new-client-form-control" ng-model="newClient.phone">
+                    <input type="text" placeholder="Tel&eacute;fono de Linea" class="form-control new-client-form-control" ng-model="newClient.phone" ui-br-phone-number>
                   </div>
                 </div>
 
@@ -73,7 +73,7 @@
                 <div class="form-group">
                   <label class="col-sm-3 control-label new-client-control-label" for="textinput">Tel&eacute;fono 2</label>
                   <div class="col-sm-9">
-                    <input type="text" placeholder="Tel&eacute;fono Movil" class="form-control new-client-form-control" ng-model="newClient.mobile">
+                    <input type="text" placeholder="Tel&eacute;fono Movil" class="form-control new-client-form-control" ng-model="newClient.mobile" ui-br-phone-number>
                   </div>
                 </div>
 

@@ -5,7 +5,7 @@
         <div class="col-md-7 col-md-offset-2" >
    
    
-          <div class="panel panel-info">
+          <div class="panel panel-info panel-default-shadow">
 
 
             <div class="panel-heading user-details-panel-heading">
@@ -27,9 +27,9 @@
                 <p class="client-excerpt">
                   <span ng-show="client.email != null && client.email !=''"><i class="fa fa-envelope"></i>&nbsp;{{client.email}}</span>
                   <br />
-                  <span ng-show="client.phone != null && client.phone !=''"><i class="fa fa-phone"></i>&nbsp;{{client.phone}}</a></span>
+                  <span ng-show="client.phone != null && client.phone !=''"><i class="fa fa-phone"></i>&nbsp;{{client.phone | tel }}</a></span>
                   <br />
-                  <span ng-show="client.mobile != null && client.mobile !=''"><i class="fa fa-mobile"></i>&nbsp;&nbsp;{{client.mobile}}</a></span>
+                  <span ng-show="client.mobile != null && client.mobile !=''"><i class="fa fa-mobile"></i>&nbsp;&nbsp;{{client.mobile | tel }}</a></span>
                   <br />
                 </p>
               </div> <!-- column -->       
@@ -69,11 +69,11 @@
                         </tr>
                         <tr ng-show="client.phone != null && client.phone !=''">
                           <td class="client-details-data-title">Tel&eacute;fono Fijo</td>
-                          <td><div class="text-right client-details-data-text">{{client.phone}}</div></td>
+                          <td><div class="text-right client-details-data-text">{{client.phone | tel }}</div></td>
                         </tr>
                         <tr ng-show="client.mobile != null && client.mobile !=''">
                           <td class="client-details-data-title">Tel&eacute;fono Movil</td>
-                          <td><div class="text-right client-details-data-text">{{client.mobile}}</div></td>
+                          <td><div class="text-right client-details-data-text">{{client.mobile | tel }}</div></td>
                         </tr>
                         <tr style="visibility:hidden;">
                           <td class="client-details-data-title">Fecha de nacimiento</td>
