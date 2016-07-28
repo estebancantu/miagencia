@@ -10,38 +10,51 @@ import javax.persistence.TemporalType;
 
 
 @Entity
-@Table(name="Clients")
+@Table(name="CLIENTS")
 public class Client extends PersistableEntity {
 
-	// TODO no mapea bien los timestamps a las fechas, revisar. Arriba en PersistableEntity esta el createdAt
 	
-	// HAY QUE VER SI ESTO PUEDE SER PERSONA FISICA O JURIDICA
+	// TODO no mapea bien los timestamps a las fechas, revisar.
+	
+	// TODO HAY QUE VER SI ESTO PUEDE SER PERSONA FISICA O JURIDICA
 
-	
+	@Column(name="DNI")
 	private Long dni;
 	
-	@Column(nullable=false)
+	@Column(name="FIRST_NAME", nullable=false)
 	private String firstName;
 	
-	@Column(nullable=false)
+	@Column(name="LAST_NAME", nullable=false)
 	private String lastName;
 	
-	@Column(nullable=false)
+	@Column(name="E_MAIL", nullable=false)
 	private String email;
 	
+	@Column(name="PHONE")
 	private String phone;
 	
+	@Column(name="MOBILE")
 	private String mobile;
 	
+	@Column(name="ADDRESS")
 	private String address;
 	
+	@Column(name="CITY")
 	private String city;
 	
+	@Column(name="PROVINCE")
 	private String province;
 	
+	@Column(name="POSTAL_CODE")
 	private String postalCode;
 	
+	@Column(name="COUNTRY")
 	private String country;
+	
+	@Temporal(TemporalType.TIMESTAMP)
+	@Column(name="DATE_OF_BIRTH")
+	private Date dateOfBirth;
+	
 	
 	//private int buysCount;
 	
@@ -49,8 +62,7 @@ public class Client extends PersistableEntity {
 	
 	//private int questionsCount;
 	
-	@Temporal(TemporalType.TIMESTAMP)
-	private Date dateOfBirth;
+
 
 	
 
