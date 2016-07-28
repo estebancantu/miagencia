@@ -106,25 +106,15 @@ angular.module('ngBoilerplate.newCar', [
   ];
 
 
-  $scope.sellerList = clientService.query();
+  $scope.clientList = clientService.query();
 
 
-  /**
-      $scope.sellerList =[
-        {id: '1', name: 'Cliente 1'},
-        {id: '2', name: 'Cliente 2'},
-        {id: '3', name: 'Cliente 3'}
-    ];
 
-  **/
 
   
 
   // Saves new car
   $scope.saveNewCar = function() {
-
-    // TODO hacer un if compra o concesion
-    // si es concesion tiene que invocar a un servicio distinto con otro dto!
 
 
     $scope.newCar.model = $scope.newCar.model.id;
@@ -132,24 +122,32 @@ angular.module('ngBoilerplate.newCar', [
     $scope.newCar.vehicleType = $scope.newCar.vehicleType.name;
 
 
-    var buyVehicleRequestDto = {
+    var newVehicleRequestDto = {
 
         vehicleDto: $scope.newCar,
-        sellerId: $scope.selectedSellerId,
-        paidAmount: $scope.newCar.buyingPrice,
+        clientId: $scope.selectedClientId,
+        operationType: $scope.opType,
+        dealPrice: $scope.dealPrice,
+        sellingPrice: $scope.sellingPrice,
+        // paymentType, falta implementar
+        hasRegistration: $scope.hasRegistration,
+        hasDomainCertificate: $scope.hasDomainCertificate,
         paymentType: "CASH",
-        offeringAmount: $scope.newCar.offeringPrice
+        taxDebt: $scope.taxDebt,
+        trafficTicketsDebt: $scope.trafficTicketsDebt
+        
     };
 
 
-    buyVehicleRequestDto.vehicleDto.imageUrl = $scope.imageUrl;
+    newVehicleRequestDto.vehicleDto.imageUrl = $scope.imageUrl;
 
 
 
     $http({
         method: 'POST',
-        url: 'http://localhost:8080/miagencia/api/operations/buyVehicle/',
-        data: buyVehicleRequestDto,
+       // url: 'http://localhost:8080/miagencia/api/operations/buyVehicle/',
+        url: 'http://miagenciavirtual.com.ar:8080/miagencia/api/operations/buyVehicle/',
+        data: newVehicleRequestDto,
         headers: {
           "Content-Type": "application/json",
           "Accept": "text/plain"
@@ -176,13 +174,15 @@ angular.module('ngBoilerplate.newCar', [
   $scope.upload = function(dataUrl, name) {
     Upload.upload({
       method: 'POST',
-      url: 'http://localhost:8080/miagencia/pics/upload/',
+     // url: 'http://localhost:8080/miagencia/pics/upload/',
+      url: 'http://miagenciavirtual.com.ar:8080/miagencia/pics/upload/',
       data: {
         name: name,
         file: Upload.dataUrltoBlob(dataUrl, name)
       }
     }).then(function(response) {
-      $scope.imageUrl = 'http://localhost:8080/miagencia/pics/' + response.data.imageUrl;
+    //  $scope.imageUrl = 'http://localhost:8080/miagencia/pics/' + response.data.imageUrl;
+      $scope.imageUrl = 'http://miagenciavirtual.com.ar:8080/miagencia/pics/' + response.data.imageUrl;
 
 
     }, function(response) {

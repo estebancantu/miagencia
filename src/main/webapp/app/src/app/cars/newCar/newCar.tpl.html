@@ -3,7 +3,7 @@
     <div class="col-md-7 col-md-offset-2" ng-controller="newCarCtrl">
     <h2 class="page-header new-client-header"><i class="fa fa-car"></i>  Nuevo Auto</h2>
 		<form name="newVehicleForm" role="form" novalidate>
-			<div class="panel panel-info">
+			<div class="panel panel-info panel-default-shadow">
 				<div class="panel-heading">Tipo de Veh&iacute;culo</div>
 				<div class="panel-body">
 					<div class="form-group">
@@ -78,7 +78,7 @@
 
 
 
-			<div class="panel panel-info">
+			<div class="panel panel-info panel-default-shadow">
 				<div class="panel-heading">Detalles del Veh&iacute;culo</div>
 				<div class="panel-body">
 					<div class="form-group">
@@ -90,7 +90,7 @@
 					</div>
 					<div class="form-group" ng-class="{'has-error': newVehicleForm.kilometers.$invalid}">
 					  <label for="exampleInputEmail1">Kil&oacute;metros</label>
-					  <input type="text" name="kilometers" class="form-control" id="exampleInputEmail1" placeholder="Cantidad de kilometros del vehiculo" ng-model="newCar.kilometers" required>
+					  <input type="text" name="kilometers" class="form-control" id="exampleInputEmail1" placeholder="Cantidad de kilometros del vehiculo" ng-model="newCar.kilometers" required ui-number-mask="0">
 					  <span class="help-block" 
          					ng-show="newVehicleForm.kilometers.$error.required">El campo es requerido</span>
 					</div>
@@ -119,7 +119,7 @@
 
 
 
-
+			<!--
 			<div class="panel panel-info">
 				<div class="panel-heading">Caracter&iacute;sticas</div>
 				<div class="panel-body">
@@ -147,7 +147,7 @@
 					    </label>
 
 				</div>
-			</div>
+			</div> -->
 
 
 
@@ -155,7 +155,7 @@
 				
 					<div class="row">
 						<div class="col-md-12">
-				        	<h4>Eleg&iacute; una imagen del veh&iacute;culo</h4>
+				        	<h4>Elija una imagen del veh&iacute;culo</h4>
 				        </div>
 				    </div>
 				    <div class="row">
@@ -164,13 +164,12 @@
 				    	</div>
 				    </div>
 			        
-			        <div class="row well">
+			        <div class="row well well-shadow upload-vehicle-image-container">
 				    	<div class="col-md-12">
 					        <div ngf-drop ng-model="picFile" ngf-pattern="image/*"
 					             class="cropArea">
 					            <img-crop image="picFile  | ngfDataUrl" 
-					             area-type="square"                
-					            result-image="croppedDataUrl" ng-init="croppedDataUrl=''">
+					             area-type="rectangle" aspect-ratio="1.7" result-image-size='{w: 340,h: 200}' result-image="croppedDataUrl" ng-init="croppedDataUrl=''">
 					            </img-crop>
 					        </div>
 					        <div class="row cropped-image-container">
@@ -183,7 +182,7 @@
 					 </div>
 			       
 			            
-			        <span class="progress" ng-show="progress >= 0">
+			        <span class="progress upload-progress" ng-show="progress >= 0">
 			          <div style="width:{{progress}}%" ng-bind="progress + '%'"></div>
 			        </span>
 			        <span ng-show="result">La imagen se ha subido exitosamente.</span>
@@ -191,67 +190,83 @@
 		    </form>
 
 
-
-
-			<div class="panel panel-info">
-				<div class="panel-heading">Documentaci&oacute;n</div>
-				<div class="panel-body">
-					<div class="checkbox">
-					    <label>
-					      <input type="checkbox"> Posee deuda de patentes?
-					    </label>
-					 </div>		
-					 <div class="form-group">
-			    		<label class="sr-only" for="exampleInputAmount">Deuda de Patente</label>
-					      <div class="input-group">
-					      	<div class="input-group-addon">$</div>
-					      	<input type="text" class="form-control" id="exampleInputAmount" placeholder="Monto de la deuda" ng-model="newCar.price">
-					    	<div class="input-group-addon">.00</div>
-					      </div>
-					 </div>
-					 <div class="checkbox">
-					    <label>
-					      <input type="checkbox"> Posee T&iacute;tulo
-					    </label>
-					 </div>	
-					 <div class="checkbox">
-					    <label>
-					      <input type="checkbox"> Posee Certificado de Dominio
-					    </label>
-					 </div>	
-				</div>
-			</div>
-
-
-			<div class="panel panel-info">
+		    <div class="panel panel-info panel-default-shadow">
 				<div class="panel-heading">Tipo de Operaci&oacute;n</div>
-					<div class="panel-body">
+					<div class="panel-body operation-type-choose-body">
+						
 						<div class="radio">
-		  					<label><input type="radio" name="optradio" value="buy" ng-model="opType" />Compra</label>
+		  					<label><input type="radio" name="optradio" value="BUY" ng-model="opType" /><div class="buy-operation-type">Compra</div><p class="help-block operation-type-help-block">El veh&iacute;culo es comprado por esta agencia.</p></label>
 						</div>
+
+
 						<div class="radio">
-		  					<label><input type="radio" name="optradio" value="consignment" ng-model="opType" />Concesi&oacute;n</label>
+		  					<label><input type="radio" name="optradio" value="CONSIGNMENT" ng-model="opType" />Consignaci&oacute;n   <span class="help-block operation-type-help-block">El veh&iacute;culo se toma en consignaci&oacute;n.</span></label>
 						</div>
+					
 					</div>
 			</div>
 
-			<div class="panel panel-info"> 
+			<div class="panel panel-info panel-default-shadow"> 
 				<div class="panel-heading">Vendedor</div>
 				<div class="panel-body">
-					<select name="repeatSelect" id="clientSelect" ng-model="selectedSellerId">
-	      				<option ng-repeat="option in sellerList" value="{{option.id}}">{{option.firstName}}&nbsp;{{option.lastName}}</option>
+					<select name="repeatSelect" id="clientSelect" ng-model="selectedClientId">
+	      				<option ng-repeat="client in clientList" value="{{client.id}}">{{client.firstName}}&nbsp;{{client.lastName}}</option>
 	    			</select>
 				</div>
 			</div>
 
 
-		<div class="panel panel-info">
-			<div class="panel-heading">Valor de compra del Veh&iacute;culo</div>
+
+
+			<div class="panel panel-info panel-default-shadow">
+				<div class="panel-heading">Documentaci&oacute;n</div>
+				<div class="panel-body">
+					<div class="checkbox">
+					    <label>
+					      <input type="checkbox"> Posee deuda de patentes
+					    </label>
+					 </div>		
+					 <div class="form-group">			    		
+					      <div class="input-group">
+					      	<div class="input-group-addon">$</div>
+					      	<input type="text" class="form-control" id="exampleInputAmount" placeholder="Monto adeudado en concepto de patentes" ng-model="taxDebt" ui-number-mask="0">
+					    	<div class="input-group-addon">.00</div>
+					      </div>
+					 </div>
+					 <div class="checkbox">
+					    <label>
+					      <input type="checkbox"> Tiene multas impagas
+					    </label>
+					 </div>
+					 <div class="form-group">
+					      <div class="input-group">
+					      	<div class="input-group-addon">$</div>
+					      	<input type="text" class="form-control" id="exampleInputAmount" placeholder="Monto adeudado en concepto de multas impagas" ng-model="trafficTicketsDebt" ui-number-mask="0">
+					    	<div class="input-group-addon">.00</div>
+					      </div>
+					 </div>	
+					 <div class="checkbox">
+					    <label>
+					      <input type="checkbox" ng-model="hasRegistration"> Posee T&iacute;tulo
+					    </label>
+					 </div>	
+					 <div class="checkbox">
+					    <label>
+					      <input type="checkbox" ng-model="hasDomainCertificate"> Posee Certificado de Dominio
+					    </label>
+					 </div>	
+				</div>
+			</div>
+
+
+		<div class="panel panel-info panel-default-shadow">
+			<div ng-show="opType == 'buy'" class="panel-heading">Valor de compra del Veh&iacute;culo</div>
+			<div ng-show="opType == 'consignment'" class="panel-heading">Monto acordado que recibe el vendedor</div>
 				<div class="panel-body">
 				  <div class="form-group" ng-class="{'has-error': newVehicleForm.buyingPrice.$invalid}">
 				      <div class="input-group">
 				      	<div class="input-group-addon">$</div>
-				      	<input type="text" name="buyingPrice" class="form-control" id="exampleInputAmount" placeholder="Precio al cual se compra este ve&iacute;culo" ng-model="newCar.price" required>
+				      	<input type="text" name="dealPrice" class="form-control" id="exampleInputAmount" ng-model="dealPrice" required ui-number-mask="0">
 				    	<div class="input-group-addon">.00</div>
 				      </div>
 				      <span class="help-block" 
@@ -260,55 +275,27 @@
 				</div>
 		 </div>
 
-		 <div class="panel panel-info">
+		 <div class="panel panel-info panel-default-shadow">
 			<div class="panel-heading">Valor de venta del Veh&iacute;culo</div>
 				<div class="panel-body">
-				  <div class="form-group" ng-class="{'has-error': newVehicleForm.offeringPrice.$invalid}">
+				  <div class="form-group" ng-class="{'has-error': newVehicleForm.sellingPrice.$invalid}">
 				      <div class="input-group">
 				      	<div class="input-group-addon">$</div>
-				      	<input type="text" name="offeringPrice" class="form-control" id="exampleInputAmount" placeholder="Precio al que se pone a la venta a este ve&iacute;culo" ng-model="newCar.offeringPrice" required>
+				      	<input type="text" name="sellingPrice" class="form-control" id="exampleInputAmount" placeholder="Precio al que se pone a la venta a este ve&iacute;culo" ng-model="sellingPrice" required ui-number-mask="0">
 				    	<div class="input-group-addon">.00</div>
 				      </div>
 				      <span class="help-block" 
-	     			ng-show="newVehicleForm.offeringPrice.$error.required">El campo es requerido</span>
+	     			ng-show="newVehicleForm.sellingPrice.$error.required">El campo es requerido</span>
 				  </div>
 				</div>
 		 </div>
 
-
-	
-
-
-
-		 
-
-<!--
-		 <div class="panel panel-info">
-			<div class="panel-heading">Detalles del Vendedor</div>
-				<div class="panel-body">
-					<div class="form-group" ng-class="{'has-error': newVehicleForm.firstName.$invalid}">
-					  <label for="exampleInputEmail1">Nombre</label>
-					  <input type="text" name="firstName" class="form-control" id="exampleInputEmail1" placeholder="Nombre" ng-model="seller.firstName" required>
-					  <span class="help-block" 
-         			ng-show="newVehicleForm.firstName.$error.required">El campo es requerido</span>
-					</div>
-					<div class="form-group" ng-class="{'has-error': newVehicleForm.lastName.$invalid}">
-					  <label for="exampleInputEmail1">Apellido</label>
-					  <input type="text" name="lastName" class="form-control" id="exampleInputEmail1" placeholder="Apellido" ng-model="seller.lastName" required>
-					  <span class="help-block" 
-         			ng-show="newVehicleForm.lastName.$error.required">El campo es requerido</span>
-					</div>
-					<div class="form-group" ng-class="{'has-error': newVehicleForm.dni.$invalid}">
-					  <label for="exampleInputEmail1">DNI</label>
-					  <input type="text" name="dni" class="form-control" id="exampleInputEmail1" placeholder="Documento" ng-model="seller.dni" required>
-					  <span class="help-block" 
-         			ng-show="newVehicleForm.dni.$error.required">El campo es requerido</span>
-					</div>
-				</div>
+		 <div class="well well-shadow">
+		 	Margen de ganancia: $ {{ sellingPrice - dealPrice | number }}
 		 </div>
--->
 
-	
+
+
 
 		
 							<div class="row">
