@@ -11,6 +11,7 @@
     <meta name="twitter:creator" content="@joshdmiller">
     <meta name="twitter:image:src" content="https://a248.e.akamai.net/assets.github.com/images/modules/logos_page/Octocat.png?1366128846">
     <meta property="og:title" content="ngBoilerplate" />
+    <meta charset="utf-8"/>
     <meta property="og:type" content="website" />
     <meta property="og:url" content="http://bit.ly/ngBoilerplate" />
     <meta property="og:image" content="https://a248.e.akamai.net/assets.github.com/images/modules/logos_page/Octocat.png?1366128846" />
@@ -116,9 +117,15 @@
                     <i class="fa fa-users"></i>  Mis Contactos
                   </a>
               </li>
+              <li>
+                  <a ui-sref="home">
+                    <i class="fa fa-car"></i>  Autos para levantar
+                  </a>
+              </li>
                 
               <li data-toggle="collapse" data-target="#service" class="collapsed">
-                <a href="http://www.softeam1.com.ar/cotiwebdemo/"><i class="fa fa-globe fa-lg"></i> Seguros </a>
+                <a ui-sref="insuranceQuote">
+                  <i class="fa fa-globe fa-lg"></i> Seguros </a>
               </li>  
               <li data-toggle="collapse" data-target="#new" class="collapsed">
                   <a ui-sref="insuranceQuote">
