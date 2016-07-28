@@ -3,6 +3,7 @@ package com.miagencia.core.model;
 import java.sql.Timestamp;
 import java.util.Date;
 
+import javax.persistence.Column;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -14,15 +15,21 @@ import javax.persistence.Version;
 @MappedSuperclass
 public class PersistableEntity {
 	
+	
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
+	@Column(name="ID", nullable = false)
 	private Long id;
 	
-
+	@Column(name="CREATED_AT")
 	private Timestamp createdAt;
 	
 	@Version
+	@Column(name="UPDATED_TIME")
 	private Timestamp updatedTime;
+	
+	
 	
 	
 	

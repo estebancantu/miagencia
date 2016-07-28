@@ -2,6 +2,7 @@ package com.miagencia.core.model.operations;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
 
 import com.miagencia.core.model.Client;
@@ -18,14 +19,21 @@ import com.miagencia.core.model.Vehicle;
  *
  */
 @Entity
-@Table(name="Reservations")
+@Table(name="RESERVATIONS")
+@PrimaryKeyJoinColumn(name="VEHICLE_OPERATION_ID") 
 public class ReservationOperation extends VehicleOperation {
 	
-	@Column(nullable = false)
+	@Column(name="ADVANCE_PAYMENT", nullable = false)
 	private Long advancePayment;
 	
-	@Column(nullable = false)
+	@Column(name="DAYS_ON_HOLD", nullable = false)
 	private int daysOnHold;
+	
+	
+	// No usar. Lo necesita Hibernate.
+	public ReservationOperation() {
+		// TODO Auto-generated constructor stub
+	}
 
 	
 	public ReservationOperation(Vehicle vehicle, Client reservationHolder, Long advancePayment, int daysOnHold) {

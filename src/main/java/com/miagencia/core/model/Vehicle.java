@@ -7,7 +7,7 @@ import javax.persistence.Enumerated;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="Vehicles")
+@Table(name="VEHICLES")
 public class Vehicle extends PersistableEntity {
 	
 
@@ -15,15 +15,15 @@ public class Vehicle extends PersistableEntity {
 	
 	// Auto-Camión, Moto.
 	@Enumerated(EnumType.STRING)
-	@Column(nullable=false)
+	@Column(name="VEHICLE_TYPE", nullable=false)
 	private VehicleType vehicleType;
 	
 	// Marca
-	@Column(nullable=false)
+	@Column(name="MAKE_ID", nullable=false)
 	private int makeId;
 	
 	// Modelo
-	@Column(nullable=false)
+	@Column(name="MODEL_ID", nullable=false)
 	private int modelId;
 	
 	// Agencia concesionaria 
@@ -33,77 +33,84 @@ public class Vehicle extends PersistableEntity {
 	// lista de vehicles en dealer. despues vemos si la necesitamos a esta
 
 	// Año
-	@Column(nullable=false)
+	@Column(name="MODEL_YEAR", nullable=false)
 	private int modelYear;
 	
 	// Patente
-	@Column(nullable=false)
+	@Column(name="PLATE", nullable=false)
 	private String plate;
 	
 	//Color
-	@Column(nullable=false)
-	private String colour;
+	@Column(name="COLOR", nullable=false)
+	private String color;
 	
 	// Nro. de Chasis
+	@Column(name="CHASSIS_NUMBER")
 	private String chassisNumber;
 	
 	// Nro. de Motor
+	@Column(name="ENGINE_NUMBER")
 	private String engineNumber;
 	
 	// Kilometraje
-	@Column(nullable=false)
+	@Column(name="KILOMETERS", nullable=false)
 	private Long kilometers;
 	
 	// combustible
 	@Enumerated(EnumType.STRING)
-	@Column(nullable=false)
+	@Column(name="FUEL_TYPE", nullable=false)
 	private FuelType fuelType;
 	
 	// Trasmisión - Automática, Manual, No especificada
 	@Enumerated(EnumType.STRING)
-	@Column(nullable=false)
+	@Column(name="TRANSMISSION", nullable=false)
 	private Transmission transmission;
 		
 	// Descripción
+	@Column(name="DESCRIPTION")
 	private String description;
 		
 	// Ciudad. TODO Ver si se modela con un int
+	@Column(name="CITY")
 	private String city;
 	
-
+	@Column(name="PROVINCE_ID")
 	private int provinceId;
 		
 	// Condición - Nuevo o usado.
 	@Enumerated(EnumType.STRING)
+	@Column(name="VEHICLE_CONDITION", nullable=false)
 	private VehicleCondition vehicleCondition;
 	
-
+	@Column(name="IMAGE_URL")
 	private String imageUrl;
 	
-	
-	// Fotos?
-	
-	//documentación?
-	
 	// direccion - asistida - electronica - hidraulica - mecanica
-
-	
 	//Options
 	// cristales - manuales - electricos
 	//puede tener una lista de atributos, para que se dibujen en la publicacion, como en mercadolibre
-	// ej http://www.autotrader.com/
-	// ej nafta/disel - aire - levantavidrios - cant puertas etc
-	// ver en https://sell.autotrader.com/syc/car_details.jsf?conversationId=184283
+
+	//private List<String> features;
+	// o List<Feature> features;
+	// o List<Iteger> featureIds;
+	// es como lo de make and model solo que es una lista, estudiar la mejor opcion
+	
+
+	//documentación?
+	
+	
+
+	
 
 
 	
 	public Vehicle(){
-		// No-args constructor for Hibernate.
+	// No-args constructor for Hibernate.
 	}
 
 
 	public Vehicle(VehicleType vehicleType, int makeId, int modelId,
-			int modelYear, String plate, String colour, String chassisNumber,
+			int modelYear, String plate, String color, String chassisNumber,
 			String engineNumber, Long kilometers, FuelType fuelType,
 			Transmission transmission, String description, String city,
 			int provinceId, VehicleCondition vehicleCondition) {
@@ -114,7 +121,7 @@ public class Vehicle extends PersistableEntity {
 		this.modelId = modelId;
 		this.modelYear = modelYear;
 		this.plate = plate;
-		this.colour = colour;
+		this.color = color;
 		this.chassisNumber = chassisNumber;
 		this.engineNumber = engineNumber;
 		this.kilometers = kilometers;
@@ -144,12 +151,12 @@ public class Vehicle extends PersistableEntity {
 		this.plate = plate;
 	}
 
-	public String getColour() {
-		return colour;
+	public String getColor() {
+		return color;
 	}
 
-	public void setColour(String colour) {
-		this.colour = colour;
+	public void setColor(String color) {
+		this.color = color;
 	}
 
 	public String getChassisNumber() {
