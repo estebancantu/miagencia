@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.miagencia.core.service.VehicleService;
-import com.miagencia.rest.dto.VehicleDTO;
+import com.miagencia.rest.dto.VehicleDetailsDTO;
 import com.miagencia.rest.dto.VehicleSummaryDTO;
 
 
@@ -63,41 +63,24 @@ public class VehicleController {
 	
 	
 	@RequestMapping(value = "/{vehicleId}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-	public @ResponseBody ResponseEntity<VehicleDTO> getVehicleById(@PathVariable long vehicleId) {
+	public @ResponseBody ResponseEntity<VehicleDetailsDTO> getVehicleById(@PathVariable long vehicleId) {
 		
 		HttpHeaders responseHeaders = new HttpHeaders();
 	    responseHeaders.set("TestHeaderKey", "TestHeaderData");
 		
-	    VehicleDTO vehicleDto = null;
+	    VehicleDetailsDTO vehicleDetailsDto = null;
 	    System.out.println("Fetching Vehicle with id " + vehicleId);   
-		vehicleDto = vehicleService.find(vehicleId);
+		vehicleDetailsDto = vehicleService.find(vehicleId);
 
-		if(vehicleDto == null){
+		if(vehicleDetailsDto == null){
 			System.out.println("Vehicle with id " + vehicleId + " not found");
-			return new ResponseEntity<VehicleDTO>(responseHeaders, HttpStatus.NOT_FOUND);
+			return new ResponseEntity<VehicleDetailsDTO>(responseHeaders, HttpStatus.NOT_FOUND);
 		}
 		
-		return new ResponseEntity<VehicleDTO>(vehicleDto, responseHeaders, HttpStatus.OK);		
+		return new ResponseEntity<VehicleDetailsDTO>(vehicleDetailsDto, responseHeaders, HttpStatus.OK);		
 	}
 	
 	
-	// TODO puede ser un nuevo vehiculo que le vendieron a la agencia o una consignacion
-//	@RequestMapping(value = "/", method = RequestMethod.POST)
-//	public ResponseEntity<Void> addVehicle(@RequestBody Vehicle vehicle,  UriComponentsBuilder ucBuilder) {
-		
-	//	Client seller = vehicle.get
-		
-		// TODO revisar validacion, tal vez se pueda resolver con excepciones etc
-	//	if (vehicle == null || !validFields(vehicle)){
-//			System.out.println("Vehicle fields are incorrect"); 
-//			return new ResponseEntity<Void>( HttpStatus.BAD_REQUEST);
-			// TODO MEJORAR PARA QUE DIGA QUE ANDUVO MAL, creo que se puede hacer en un header
-	//	}
-	
-		
-//	}
-		
-	// 
 	
 
 }
