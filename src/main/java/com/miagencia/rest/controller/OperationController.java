@@ -11,8 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import com.miagencia.core.service.VehicleOperationService;
-import com.miagencia.rest.dto.operations.BuyVehicleRequestDTO;
-import com.miagencia.rest.dto.operations.ConsignVehicleRequestDTO;
+import com.miagencia.rest.dto.operations.NewVehicleRequestDTO;
 import com.miagencia.rest.dto.operations.ReserveVehicleRequestDTO;
 import com.miagencia.rest.dto.operations.SellVehicleRequestDTO;
 import com.miagencia.rest.dto.util.DTOValidator;
@@ -31,13 +30,43 @@ public class OperationController {
 	
 	
 	
-	
-	
 	/**
 	 * 
 	 * @param client
 	 * @return
 	 */
+	@RequestMapping(value = "/buyVehicle", method = RequestMethod.POST)
+	public ResponseEntity<Void> newVehicle(@RequestBody NewVehicleRequestDTO buyVehicleRequestDto,  UriComponentsBuilder ucBuilder) {
+		
+		
+		// TODO revisar validacion, tal vez se pueda resolver con excepciones etc
+		if (buyVehicleRequestDto == null || !DTOValidator.validate(buyVehicleRequestDto) ){
+			
+			System.out.println("Operation fields are incorrect"); 
+			return new ResponseEntity<Void>( HttpStatus.BAD_REQUEST);
+			// TODO MEJORAR PARA QUE DIGA QUE ANDUVO MAL, creo que se puede hacer en un header
+		}
+		
+		System.out.println("Creating New Vehicle Operation ");
+
+		
+		vehicleOperationService.newVehicle(buyVehicleRequestDto);
+
+		
+		HttpHeaders responseHeaders = new HttpHeaders();
+	  //  responseHeaders.setLocation(ucBuilder.path("/api/operations/{id}").buildAndExpand(client.getId()).toUri());
+	    
+		return new ResponseEntity<Void>(responseHeaders, HttpStatus.CREATED); // HTTP.201
+	}
+	
+	
+	
+	
+/*	*//**
+	 * 
+	 * @param client
+	 * @return
+	 *//*
 	@RequestMapping(value = "/buyVehicle", method = RequestMethod.POST)
 	public ResponseEntity<Void> buyVehicle(@RequestBody BuyVehicleRequestDTO buyRequestDto,  UriComponentsBuilder ucBuilder) {
 		
@@ -60,16 +89,16 @@ public class OperationController {
 	  //  responseHeaders.setLocation(ucBuilder.path("/api/operations/{id}").buildAndExpand(client.getId()).toUri());
 	    
 		return new ResponseEntity<Void>(responseHeaders, HttpStatus.CREATED); // HTTP.201
-	}
+	}*/
 	
 	
 	
 	
-	/**
+/*	*//**
 	 * 
 	 * @param client
 	 * @return
-	 */
+	 *//*
 	@RequestMapping(value = "/consignVehicle", method = RequestMethod.POST)
 	public ResponseEntity<Void> consignVehicle(@RequestBody ConsignVehicleRequestDTO consignRequestDto,  UriComponentsBuilder ucBuilder) {
 		
@@ -91,7 +120,7 @@ public class OperationController {
 	  //  responseHeaders.setLocation(ucBuilder.path("/api/operations/{id}").buildAndExpand(client.getId()).toUri());
 	    
 		return new ResponseEntity<Void>(responseHeaders, HttpStatus.CREATED); // HTTP.201
-	}
+	}*/
 	
 	
 	
