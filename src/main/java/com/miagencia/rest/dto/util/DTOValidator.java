@@ -2,6 +2,7 @@ package com.miagencia.rest.dto.util;
 
 import com.miagencia.rest.dto.ClientDTO;
 import com.miagencia.rest.dto.operations.BuyVehicleRequestDTO;
+import com.miagencia.rest.dto.operations.NewVehicleRequestDTO;
 
 public class DTOValidator {
 	
@@ -26,5 +27,21 @@ public class DTOValidator {
 		}
 		return false;
 	}
+	
+   /**
+    * 
+    * TODO: Solo valida que exista el cliente y el vehiculo. Validar otras propiedades internas.
+    * @param newVehicleRequestDto
+    * @return
+    */
+	public static boolean validate(NewVehicleRequestDTO newVehicleRequestDto){
+		
+		if( newVehicleRequestDto.getClientId() != null  && newVehicleRequestDto.getVehicleDto() != null ) {
+			return true;
+		}
+		return false;
+	}
+	
+	
 
 }
