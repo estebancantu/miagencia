@@ -1,12 +1,6 @@
-CREATE TABLE `Consignations` (
-  `id` bigint(20) NOT NULL AUTO_INCREMENT,
-  `createdAt` datetime DEFAULT NULL,
-  `updatedTime` datetime DEFAULT NULL,
-  `operationDate` datetime DEFAULT NULL,
-  `offeringPrice` int(11) NOT NULL,
-  `clientId` bigint(20) NOT NULL,
-  `vehicle_id` bigint(20) DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  KEY `FK7C4636FDD58A36FA` (`clientId`),
-  KEY `FK7C4636FDDC262A51` (`vehicle_id`)
+CREATE TABLE `CONSIGNMENTS` (
+  `DEAL_PRICE` int(11) NOT NULL,
+  `VEHICLE_OPERATION_ID` bigint(20) NOT NULL,
+  PRIMARY KEY (`VEHICLE_OPERATION_ID`),
+  KEY `FK4B29BFF6B180CD5A` (`VEHICLE_OPERATION_ID`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;

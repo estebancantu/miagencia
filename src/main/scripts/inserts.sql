@@ -1,8 +1,8 @@
 
 
 
-grant select on miagencia.client to miagencia@'localhost';
-grant insert on miagencia.client to miagencia@'localhost';
+// grant select on miagencia.client to miagencia@'localhost';
+// grant insert on miagencia.client to miagencia@'localhost';
 
 // acordarse del flush privileges;
 
@@ -11,8 +11,8 @@ grant insert on miagencia.client to miagencia@'localhost';
 
 
 
-INSERT INTO Clients (dni, firstName, lastName, email, telephone1, telephone2)
-VALUES ( 27528358, 'Esteban','Cantu','estebancantu@gmail.com','2215608507','4519011');
+// INSERT INTO Clients (dni, firstName, lastName, email, telephone1, telephone2)
+// VALUES ( 27528358, 'Esteban','Cantu','estebancantu@gmail.com','2215608507','4519011');
 
 
 

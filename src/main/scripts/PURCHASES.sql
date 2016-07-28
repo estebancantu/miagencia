@@ -1,13 +1,7 @@
-CREATE TABLE `Purchases` (
-  `id` bigint(20) NOT NULL AUTO_INCREMENT,
-  `createdAt` datetime DEFAULT NULL,
-  `updatedTime` datetime DEFAULT NULL,
-  `operationDate` datetime DEFAULT NULL,
-  `paidAmount` int(11) NOT NULL,
-  `paymentType` int(11) DEFAULT NULL,
-  `clientId` bigint(20) NOT NULL,
-  `vehicle_id` bigint(20) DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  KEY `FKCA9BB72D58A36FA` (`clientId`),
-  KEY `FKCA9BB72DC262A51` (`vehicle_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+CREATE TABLE `PURCHASES` (
+  `PAID_AMOUNT` int(11) NOT NULL,
+  `PAYMENT_TYPE` varchar(255) DEFAULT NULL,
+  `VEHICLE_OPERATION_ID` bigint(20) NOT NULL,
+  PRIMARY KEY (`VEHICLE_OPERATION_ID`),
+  KEY `FK3B4FAB72B180CD5A` (`VEHICLE_OPERATION_ID`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;

@@ -1,13 +1,7 @@
-CREATE TABLE `Reservations` (
-  `id` bigint(20) NOT NULL AUTO_INCREMENT,
-  `createdAt` datetime DEFAULT NULL,
-  `updatedTime` datetime DEFAULT NULL,
-  `operationDate` datetime DEFAULT NULL,
-  `advancePayment` int(11) NOT NULL,
-  `daysOnHold` int(11) NOT NULL,
-  `clientId` bigint(20) NOT NULL,
-  `vehicle_id` bigint(20) DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  KEY `FKC19E8A47D58A36FA` (`clientId`),
-  KEY `FKC19E8A47DC262A51` (`vehicle_id`)
+CREATE TABLE `RESERVATIONS` (
+  `ADVANCE_PAYMENT` bigint(20) NOT NULL,
+  `DAYS_ON_HOLD` int(11) NOT NULL,
+  `VEHICLE_OPERATION_ID` bigint(20) NOT NULL,
+  PRIMARY KEY (`VEHICLE_OPERATION_ID`),
+  KEY `FK41F21E27B180CD5A` (`VEHICLE_OPERATION_ID`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
