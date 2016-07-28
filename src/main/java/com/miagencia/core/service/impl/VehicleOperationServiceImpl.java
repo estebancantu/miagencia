@@ -12,14 +12,12 @@ import com.miagencia.core.model.Client;
 import com.miagencia.core.model.SaleItem;
 import com.miagencia.core.model.Vehicle;
 import com.miagencia.core.model.VehicleStatus;
-import com.miagencia.core.model.operations.BuyOperation;
-import com.miagencia.core.model.operations.ConsignmentOperation;
 import com.miagencia.core.model.operations.ReservationOperation;
 import com.miagencia.core.model.operations.SaleOperation;
+import com.miagencia.core.model.operations.VehicleOperation;
 import com.miagencia.core.service.VehicleOperationService;
 import com.miagencia.rest.dto.VehicleDTO;
-import com.miagencia.rest.dto.operations.BuyVehicleRequestDTO;
-import com.miagencia.rest.dto.operations.ConsignVehicleRequestDTO;
+import com.miagencia.rest.dto.operations.NewVehicleRequestDTO;
 import com.miagencia.rest.dto.operations.ReserveVehicleRequestDTO;
 import com.miagencia.rest.dto.operations.SellVehicleRequestDTO;
 import com.miagencia.rest.dto.util.EntityDTOTranslator;
@@ -44,13 +42,59 @@ public class VehicleOperationServiceImpl implements
 	VehicleDAO vehicleDao;
 	
 
+	
+	
+	
+	
+	@Override
+	@Transactional
+	public void newVehicle(NewVehicleRequestDTO newVehicleRequestDto) {
+		
+		VehicleDTO vehicleDto = newVehicleRequestDto.getVehicleDto();
+		Vehicle vehicle = EntityDTOTranslator.buildVehicle(vehicleDto); // TODO falta features
+		
+		
+		Client client = clientDao.find(newVehicleRequestDto.getClientId());
+		
+		VehicleOperation operation = null;
+		String opType = newVehicleRequestDto.getOperationType();
+		
+		if(opType.equals(VehicleOperation.BUY)){
+			
+			operation = EntityDTOTranslator.buildBuyOperation(newVehicleRequestDto, vehicle, client);
+
+		}
+		else if
+		   (opType.equals(VehicleOperation.CONSIGNMENT)) {
+			
+			operation = EntityDTOTranslator.buildConsignmentOperation(newVehicleRequestDto, vehicle, client);
+		}
+		// else tirar excepcion porque la operacion es invalida
+		
+
+	
+		operationDao.add(operation);
+		
+		
+		
+		SaleItem saleItem = new SaleItem(vehicle, newVehicleRequestDto.getSellingPrice(), 
+				newVehicleRequestDto.isHasRegistration(), newVehicleRequestDto.isHasDomainCertificate(),
+				newVehicleRequestDto.getTaxDebt(), newVehicleRequestDto.getTrafficTicketsDebt());
+		
+		saleItemDao.add(saleItem);
+		
+	}
+	
+	
 
 	
 	
 	
 	
 	
-	@Override
+	
+	
+/*	@Override
 	@Transactional
 	public void buyVehicle(BuyVehicleRequestDTO buyRequestDto) {
 		
@@ -80,11 +124,11 @@ public class VehicleOperationServiceImpl implements
 		SaleItem saleItem = new SaleItem(vehicle, buyRequestDto.getOfferingAmount());
 		saleItemDao.add(saleItem);
 		
-	}
+	}*/
 	
 	
 	
-	@Override
+/*	@Override
 	@Transactional
 	public void consignVehicle(ConsignVehicleRequestDTO consignRequestDto) {
 		
@@ -101,7 +145,7 @@ public class VehicleOperationServiceImpl implements
 		SaleItem saleItem = new SaleItem(vehicle, consignRequestDto.getOfferingPrice());
 		saleItemDao.add(saleItem);
 		
-	}
+	}*/
 	
 	
 	@Override
@@ -114,14 +158,17 @@ public class VehicleOperationServiceImpl implements
 		Long clientId = operationDto.getClientId();
 		Client sellerParty = clientDao.find(clientId);
 		
+		// TODO chequear que el vehiculo no este ya reservado o no este vendido, si es asi
+		// lanzar una excepcion
+		SaleItem saleItem = saleItemDao.getSaleItemByVehicleId(vehicle.getId());
+		saleItem.setStatus(VehicleStatus.RESERVED);
+		saleItemDao.edit(saleItem);
 		
 		ReservationOperation reservationOperation = EntityDTOTranslator.buildReservationOperation(operationDto, vehicle, sellerParty);
 	
 		operationDao.add(reservationOperation);
 		
-		SaleItem saleItem = saleItemDao.getSaleItemByVehicleId(vehicle.getId());
-		saleItem.setStatus(VehicleStatus.RESERVED);
-		saleItemDao.edit(saleItem);
+
 	}
 	
 	
@@ -135,15 +182,17 @@ public class VehicleOperationServiceImpl implements
 		
 		Long clientId = operationDto.getBuyerId();
 		Client sellerParty = clientDao.find(clientId);
-
+		
+		// TODO chequear que el auto no este vendido ya, si es asi tirar una excepcion
+		SaleItem saleItem = saleItemDao.getSaleItemByVehicleId(vehicle.getId());
+		saleItem.setStatus(VehicleStatus.SOLD);
+		saleItemDao.edit(saleItem);
 		
 		SaleOperation saleOperation = EntityDTOTranslator.buildSaleOperation(operationDto, vehicle, sellerParty);
 	
 		operationDao.add(saleOperation);
 		
-		SaleItem saleItem = saleItemDao.getSaleItemByVehicleId(vehicle.getId());
-		saleItem.setStatus(VehicleStatus.SOLD);
-		saleItemDao.edit(saleItem);
+
 	}
 	
 
