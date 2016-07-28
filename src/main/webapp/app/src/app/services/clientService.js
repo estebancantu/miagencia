@@ -6,7 +6,8 @@ cuando se usa
 
 clientService.factory('clientService', ['$resource',
   function($resource){
-    return $resource('http://localhost:8080/miagencia/api/clients/:id', {id:'@id'});
+   // return $resource('http://localhost:8080/miagencia/api/clients/:id', {id:'@id'});
+    return $resource('http://miagenciavirtual.com.ar:8080/miagencia/api/clients/:id', {id:'@id'});
   }]);
 
 clientService.config(function($resourceProvider) {

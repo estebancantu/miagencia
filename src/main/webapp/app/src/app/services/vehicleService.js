@@ -6,7 +6,8 @@ cuando se usa
 
 vehicleService.factory('vehicleService', ['$resource',
   function($resource){
-    return $resource('http://localhost:8080/miagencia/api/vehicles/:id', {id:'@id'});
+   // return $resource('http://localhost:8080/miagencia/api/vehicles/:id', {id:'@id'});
+    return $resource('http://miagenciavirtual.com.ar:8080/miagencia/api/vehicles/:id', {id:'@id'});
   }]);
 
 vehicleService.config(function($resourceProvider) {
