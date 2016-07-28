@@ -18,30 +18,17 @@ angular.module( 'ngBoilerplate.carDetails', [
 })
 
 .controller( 'carDetailsCtrl', function carDetailsCtrl( $scope, $stateParams, vehicleService ) {
-  // This is simple a demo for UI Boostrap.
+
  
   $scope.setInterval=5000;
+  $scope.slides = [];
 
-  $scope.car = vehicleService.get({id: $stateParams.carId});
+  $scope.carDetailsDto = vehicleService.get({id: $stateParams.carId}, function(response) {
 
-  $scope.slides = [
-  {
-    title:'Titulo uno',
-    image:'assets/img/foto1.jpg',
-    text:'Texto de prueba'
-  },
-  {
-    title:'Titulo uno',
-    image:'assets/img/foto2.jpg',
-    text:'Texto de prueba'
-  },
-  {
-    title:'Titulo uno',
-    image:'assets/img/foto3.jpg',
-    text:'Texto de prueba'
-  }
+      $scope.slides.push({image: response.vehicleDto.imageUrl});
+      $scope.slides.push({image: 'assets/img/logo.png'});
+  });
 
-  ];
 
 })
 

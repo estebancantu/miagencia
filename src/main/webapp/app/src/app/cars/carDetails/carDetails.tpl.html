@@ -1,14 +1,14 @@
 <div class="container-fluid padding-right-45">
 
 
-<div class="well">
+<div class="well well-shadow" ng-controller="carDetailsCtrl">
 	<div class="row">
 		<div class="col-sm-12">
 			<div class="well well-sm black-well">
 				<div class="container">
 					<div class="col-sm-8">
-						<h2><span class="title-make">Chevrolet</span>&nbsp;
-							<div class="title-model">Astra 2005 Gls 2.0</div>
+						<h2><span class="title-make">{{carDetailsDto.vehicleDto.makeString}}</span>&nbsp;
+							<div class="title-model">{{carDetailsDto.vehicleDto.modelString}}</div>
 						</h2>
 					</div>
 					<div class="col-sm-4">
@@ -21,13 +21,12 @@
 
 	<div class="row">
 			<div class="col-sm-8">
-				<carousel  interval="setInterval">
+				<carousel interval="setInterval">
 					<slide ng-repeat="slide in slides">
 						<div class="carousel-container img-polaroid">
 							<img class="carousel-image img-polaroid" ng-src="{{slide.image}}"/>
 								<div class="carousel-caption">
-									<h2>{{slide.title}}</h2>
-									<p>{{slide.text}}</p>
+
 								</div>
 						</div>
 					</slide>
@@ -43,7 +42,7 @@
 				&nbsp;
 
 				<!-- Panel de detalles del auto -->
-			    <div class="panel panel-default car-details-panel car-details-panel-first">
+			    <div class="panel panel-default panel-default-shadow car-details-panel car-details-panel-first">
 
 			        <div class="panel-heading">
 			        	<h4 class="car-details-panel-title">Datos del Veh&iacute;culo</h4>
@@ -56,32 +55,42 @@
 			                		<div class="col-md-4 no-padding m-b-md">
 										<div class="col-md-10 no-padding">
 											<small class="text-muted">Marca</small>
-											<div class="h4 no-margin-top fw-400">Citroen</div>
+											<div class="h4 no-margin-top fw-400">
+												{{carDetailsDto.vehicleDto.makeString}}
+											</div>
 										</div>
 									</div>
 									<div class="col-md-4 no-padding m-b-md">
 										<div class="col-md-10 no-padding">
 											<small class="text-muted">Modelo</small>
-											<div class="h4 no-margin-top fw-400">Picasso</div>
+											<div class="h4 no-margin-top fw-400">
+												{{carDetailsDto.vehicleDto.modelString}}
+											</div>
 										</div>
 									</div>
 									<div class="col-md-4 no-padding m-b-md">
 										<div class="col-md-10 no-padding">
 											<small class="text-muted">A&ntilde;o</small>
-											<div class="h4 no-margin-top fw-400">2012</div>
+											<div class="h4 no-margin-top fw-400">
+												{{carDetailsDto.vehicleDto.year}}
+											</div>
 										</div>
 									</div>
 								    <div class="col-md-4 no-padding m-b-md">
 										<div class="col-md-10 no-padding">
 											<small class="text-muted">Kilometraje</small>
-											<div class="h4 no-margin-top fw-400">20.000 Kms.</div>
+											<div class="h4 no-margin-top fw-400">
+												{{ carDetailsDto.vehicleDto.kilometers | number }} Km.
+											</div>
 										</div>
 									</div>
 									<div class="col-md-4 no-padding m-b-md">
 
 										<div class="col-md-10 no-padding">
 											<small class="text-muted">Color</small>
-											<div class="h4 no-margin-top fw-400">Rojo</div>
+											<div class="h4 no-margin-top fw-400">
+												Rojo {{carDetailsDto.vehicleDto.color}}
+											</div>
 										</div>
 									</div>
 			           			</div>
@@ -100,7 +109,7 @@
 
 
 
-				<div class="panel panel-default car-details-panel">
+				<div class="panel panel-default panel-default-shadow car-details-panel">
 			    	
 			        <div class="panel-heading">
 			        	<h4 class="car-details-panel-title">Datos del Vendedor</h4>
@@ -113,37 +122,50 @@
 			                		<div class="col-md-4 col-sm-6 col-xs-12 no-padding m-b-md">
 										<div class="col-md-10 no-padding">
 											<small class="text-muted">Nombre</small>
-											<div class="h4 no-margin-top fw-400">Lionel Messi</div>
+											<div class="h4 no-margin-top fw-400">
+												{{carDetailsDto.seller.firstName}}&nbsp;
+												{{carDetailsDto.seller.lastName}}
+											</div>
 										</div>
 									</div>
 									<div class="col-md-4 col-sm-6 col-xs-12 no-padding m-b-md">
 										<div class="col-md-10 no-padding">
 											<small class="text-muted">Direcci&oacute;n</small>
-											<div class="h4 no-margin-top fw-400">26 esq. 38 N301 3A</div>
+											<div class="h4 no-margin-top fw-400">
+												{{carDetailsDto.seller.address}}
+											</div>
 										</div>
 									</div>
 									<div class="col-md-4 col-sm-6 col-xs-12 no-padding m-b-md">
 										<div class="col-md-10 no-padding">
 											<small class="text-muted">Localidad</small>
-											<div class="h4 no-margin-top fw-400">La Plata</div>
+											<div class="h4 no-margin-top fw-400">
+												{{carDetailsDto.seller.city}}
+											</div>
 										</div>
 									</div>
 								    <div class="col-md-4 col-sm-6 col-xs-12 no-padding m-b-md">
 										<div class="col-md-10 no-padding">
 											<small class="text-info">Provincia</small>
-											<div class="h4 no-margin-top fw-400">Buenos Aires</div>
+											<div class="h4 no-margin-top fw-400">
+												{{carDetailsDto.seller.province}}
+											</div>
 										</div>
 									</div>
 									<div class="col-md-4 col-sm-6 col-xs-12 no-padding m-b-md">
 										<div class="col-md-10 no-padding">
 											<small class="text-muted">Tel&eacute;fono fijo</small>
-											<div class="h4 no-margin-top fw-400">(221)453-3435</div>
+											<div class="h4 no-margin-top fw-400">
+												{{carDetailsDto.seller.phone | tel }}
+											</div>
 										</div>
 									</div>
 									<div class="col-md-4 col-sm-6 col-xs-12 no-padding m-b-md">
 										<div class="col-md-10 no-padding">
 											<small class="text-muted">Tel&eacute;fono m&oacute;vil</small>
-											<div class="h4 no-margin-top fw-400">15434-8574</div>
+											<div class="h4 no-margin-top fw-400">
+												{{carDetailsDto.seller.mobile | tel }}
+											</div>
 										</div>
 									</div>
 			           			</div>
@@ -160,7 +182,7 @@
 			        </div>
 				</div>
 
-				<div class="panel panel-default car-details-panel car-details-panel-last">
+				<div class="panel panel-default panel-default-shadow car-details-panel car-details-panel-last">
 			    	
 			        <div class="panel-heading">
 			        	<h4 class="car-details-panel-title">Gastos sobre el Veh&iacute;culo</h4>
@@ -221,29 +243,36 @@
 						<div class="well price-well price-area">
 					    	<h1 class="text-center">
 					    		<div class="price-label-details">Precio</div>
-					    		<div class="price-details">$ 179.900</div>
+					    		<div class="price-details">$ 
+					    			{{carDetailsDto.sellingPrice | number }}
+					    		</div>
 					    	</h1>
 					    </div>
 					<div class="panel panel-default panel-details-right">
 					  <div class="panel-body">
-					    <a ui-sref="saleCar({carId:car.id})" ng-hide="car.isSold || car.isBooked" class="btn btn-danger btn-lg btn-block" role="button">
+					    <a ui-sref="sellCar({carId:carDetailsDto.vehicleDto.id})" ng-hide="carDetailsDto.sold" class="btn btn-danger btn-lg btn-block" role="button">
 					    	<div class="car-details-buttons">
 					    		<i class="fa fa-usd"></i>  Vender
 					    	</div>
 					    </a> 
-				        <a href="#" ng-hide="car.isBooked || car.isSold" class="btn btn-primary btn-lg btn-block" role="button">
+				        <a ui-sref="reserveCar({carId:carDetailsDto.vehicleDto.id})" ng-hide="carDetailsDto.booked || carDetailsDto.sold" class="btn btn-primary btn-lg btn-block" role="button">
 				        	<div class="car-details-buttons">
 				        		<i class="fa fa-lock"></i> Reservar
 				        	</div>
 				        </a>
-				        <a href="#" ng-hide="car.isSold || car.isBooked" class="btn btn-primary btn-lg btn-block" role="button">
+				        <a href="http://www.softeam1.com.ar/cotiwebdemo/" class="btn btn-primary btn-lg btn-block" role="button">
 				        	<div class="car-details-buttons">
 				        		<i class="fa fa-globe"></i> Calcular Seguro
 				        	</div>
 				        </a> 
-				        <a href="#" ng-hide="car.isSold || car.isBooked" class="btn btn-primary btn-lg btn-block" role="button">
+				        <a ui-sref="insuranceQuote" class="btn btn-primary btn-lg btn-block" role="button">
 				        	<div class="car-details-buttons">
 				        		<i class="fa fa-bar-chart"></i> Calcular Prenda
+				        	</div>
+				        </a>
+				        <a ng-hide="carDetailsDto.booked || carDetailsDto.sold" class="btn btn-primary btn-lg btn-block" role="button">
+				        	<div class="car-details-buttons">
+				        		<i class="fa fa-flag-o"></i> Publicar
 				        	</div>
 				        </a> 
 					  </div>
