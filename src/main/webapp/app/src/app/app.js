@@ -19,7 +19,8 @@ angular.module( 'ngBoilerplate', [
   'LocalStorageModule',
   'ngResource',
   'ngFileUpload',
-  'ngImgCrop'
+  'ngImgCrop',
+  'ui.utils.masks'
 
 ])
 

@@ -73,12 +73,13 @@ module.exports = {
       'vendor/angular-local-storage/dist/angular-local-storage.min.js',
       'vendor/angular-resource/angular-resource.min.js',
       'vendor/ng-file-upload/ng-file-upload-all.min.js',
-      'vendor/ng-img-crop/compile/minified/ng-img-crop.js'
+      'vendor/ng-img-crop-full-extended/compile/minified/ng-img-crop.js',
+      'vendor/angular-input-masks/angular-input-masks-standalone.js'
       
 
     ],
     css: [
-      'vendor/ng-img-crop/compile/minified/ng-img-crop.css'
+      'vendor/ng-img-crop-full-extended/compile/minified/ng-img-crop.css'
     ],
     assets: [
     ]
