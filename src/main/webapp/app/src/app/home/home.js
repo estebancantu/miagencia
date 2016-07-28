@@ -42,76 +42,9 @@ angular.module( 'ngBoilerplate.home', [
 
 
 
- /** $scope.cars = vehicleService.query(); **/
+ $scope.cars = vehicleService.query(); 
 
 
-
-
-
-  $scope.cars = [
-    {
-      image:'assets/img/foto2.jpg',
-      make: 'Peugeot',
-      model:'307',
-      description:'Peugeot 307 5ptas. 1.6 N Xt Premium (110cv)',
-      price:'120.000',
-      year:'2012',
-      kilometers:'150,500',
-      isSold:false,
-      isBooked:false
-    },
-    {
-      image:'assets/img/foto1.jpg',
-      make:'Chevrolet',
-      model:'Astra',
-      description:'Chevrolet Astra 2005 Gls 2.0',
-      price:'30.000',
-      year:'2012',
-      kilometers:'1,500',
-      isSold:false,
-      isBooked:false
-    },
-    {
-      image:'assets/img/foto3.jpg',
-      make:'Fiat',
-      model:'Palio',
-      description:'Chevrolet Astra 2005 Gls 2.0',
-      price:'30.000',
-      year:'2012',
-      kilometers:'1,500',
-      isSold:true,
-      isBooked:false
-    },
-    {
-      image:'assets/img/foto4.jpg',
-      make:'Chevrolet',
-      model:'Astra',
-      description:'Chevrolet Astra 2005 Gls 2.0',
-      price:'35.000',
-      year:'2012',
-      kilometers:'1,500',
-      isSold:false,
-      isBooked:true
-    },
-    {
-      image:'assets/img/foto1.jpg',
-      make:'Chevrolet',
-      model:'Astra',
-      description:'Chevrolet Astra 2005 Gls 2.0',
-      price:'87.000',
-      year:'2012',
-      kilometers:'1,500',
-      isSold:false,
-      isBooked:false
-    }
-  ];
-
-
-
-
-  $scope.isSold = function() {
-
-  };
 
 })
 
