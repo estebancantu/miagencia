@@ -154,14 +154,18 @@
 			<version>1.3.2</version>
 		</dependency>
 		
-		<!-- Social networls -->
+		<!-- Social networks -->
 		<dependency>
-	        <groupId>org.springframework.social</groupId>
-	        <artifactId>spring-social-facebook</artifactId>
-	        <version>2.0.3.RELEASE</version>
-	    </dependency>
-		
-				
+			<groupId>org.springframework.social</groupId>
+			<artifactId>spring-social-facebook</artifactId>
+			<version>2.0.3.RELEASE</version>
+		</dependency>
+
+		<dependency>
+			<groupId>com.mercadolibre</groupId>
+			<artifactId>sdk</artifactId>
+			<version>0.0.2-SNAPSHOT</version>
+		</dependency>
 	</dependencies>
 	
 	
@@ -173,7 +177,17 @@
 			<name>SpringSource Milestones Proxy</name>
 			<url>https://oss.sonatype.org/content/repositories/springsource-milestones</url>
 		</repository>
+		  <repository>
+                <id>mercadolibre-snapshots</id>
+                <url>https://github.com/mercadolibre/java-sdk-repo/raw/master/snapshots</url>
+        </repository>
 	</repositories>
+	
+	<dependency>
+    <groupId>sax</groupId>
+    <artifactId>sax</artifactId>
+    <version>2.0.1</version>
+</dependency>
 
 	<build>
 		<finalName>miagencia</finalName>

@@ -33,4 +33,30 @@ public class ShareController {
 		HttpHeaders responseHeaders = new HttpHeaders();
 		return new ResponseEntity<Void>(responseHeaders, HttpStatus.CREATED); 
 	}
+	
+	@RequestMapping(value = "/postMercadoLibre", method = RequestMethod.POST)
+	public ResponseEntity<Void> postMercadoLibre(@RequestBody ShareRequestDTO shareRequestDTO) throws IOException{
+		if (shareRequestDTO == null || !DTOValidator.validate(shareRequestDTO)){
+			System.out.println("Post MercadoLibre fields are incorrect"); 
+			return new ResponseEntity<Void>( HttpStatus.BAD_REQUEST);
+		}
+		
+		shareService.postMercadoLibre(shareRequestDTO);
+		
+		HttpHeaders responseHeaders = new HttpHeaders();
+		return new ResponseEntity<Void>(responseHeaders, HttpStatus.CREATED); 
+	}
+	
+	@RequestMapping(value = "/postOLX", method = RequestMethod.POST)
+	public ResponseEntity<Void> postOLX(@RequestBody ShareRequestDTO shareRequestDTO) throws IOException{
+		if (shareRequestDTO == null || !DTOValidator.validate(shareRequestDTO)){
+			System.out.println("Post MercadoLibre fields are incorrect"); 
+			return new ResponseEntity<Void>( HttpStatus.BAD_REQUEST);
+		}
+		
+		shareService.postOLX(shareRequestDTO);
+		
+		HttpHeaders responseHeaders = new HttpHeaders();
+		return new ResponseEntity<Void>(responseHeaders, HttpStatus.CREATED); 
+	}
 }

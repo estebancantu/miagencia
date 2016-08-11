@@ -1,6 +1,9 @@
 CREATE TABLE `Makes` (
-  `id` int(11) NOT NULL,
-  `vehicleType` int(11) NOT NULL,
+  `id` bigint(20) NOT NULL,
+  `CREATED_AT` datetime DEFAULT NULL,
+  `UPDATED_TIME` datetime DEFAULT NULL,
+  `vehicleType` varchar(255) NOT NULL,
   `name` varchar(255) DEFAULT NULL,
+  `OLX_ID` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;

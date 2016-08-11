@@ -1,10 +1,18 @@
 package com.miagencia.core.dao;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.transaction.annotation.Transactional;
+
+import com.miagencia.core.model.Vehicle;
+import com.miagencia.core.model.VehicleFeatureValue;
+import com.miagencia.core.model.mercadolibre.Attribute;
 
 
 
@@ -16,6 +24,24 @@ public class VehicleDAOTests {
 	@Autowired
 	private VehicleDAO vehicleDao;
 
+	@Test
+	@Transactional
+	public void testGetVehicle() {
+		Vehicle vehicle = vehicleDao.find(1l);
+		List<Attribute> list = new ArrayList<Attribute>();
+		for (VehicleFeatureValue featureValue : vehicle.getFeaturesValues()) {
+			Attribute attribute = new Attribute();
+			attribute.setId(featureValue.getFeature().getMercadoLibreId());
+			attribute.setName(featureValue.getFeature().getName());
+			attribute.setValue_id(featureValue.getMercadoLibreId());
+			attribute.setValue_name(featureValue.getValue());
+			attribute.setAttribute_group_id(featureValue.getFeature().getGroup().getMercadoLibreId());
+			list.add(attribute);
+		}
+		for (Attribute attribute : list) {
+			System.out.println(attribute.toString());
+		}
+	}
 //	@Test
 //	@Transactional
 //	public void testAddVehicle() {

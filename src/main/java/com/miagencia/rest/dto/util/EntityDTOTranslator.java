@@ -2,6 +2,7 @@ package com.miagencia.rest.dto.util;
 
 import com.miagencia.core.model.Client;
 import com.miagencia.core.model.FuelType;
+import com.miagencia.core.model.Location;
 import com.miagencia.core.model.PaymentType;
 import com.miagencia.core.model.SaleItem;
 import com.miagencia.core.model.Transmission;
@@ -26,9 +27,6 @@ import com.miagencia.rest.dto.operations.SellVehicleRequestDTO;
 
 public class EntityDTOTranslator {
 	
-	
-	
-	
 	public static Vehicle buildVehicle(VehicleDTO vehicleDto) {
 		
 		Vehicle vehicle = new Vehicle();
@@ -49,8 +47,6 @@ public class EntityDTOTranslator {
 		vehicle.setFuelType(FuelType.fromString(vehicleDto.getFuelType()));
 		vehicle.setTransmission(Transmission.fromString(vehicleDto.getTransmissionType()));
 		vehicle.setDescription(vehicleDto.getDescription());
-		vehicle.setCity(vehicleDto.getCity());
-		vehicle.setProvinceId(vehicleDto.getProvinceId());
 		vehicle.setVehicleCondition(VehicleCondition.fromString(vehicleDto.getVehicleCondition()));
 		vehicle.setImageUrl(vehicleDto.getImageUrl());
 		
@@ -79,8 +75,6 @@ public class EntityDTOTranslator {
 		vehicleDto.setFuelType(vehicle.getFuelType().getText());
 		vehicleDto.setTransmissionType(vehicle.getTransmission().getText());
 		vehicleDto.setDescription(vehicle.getDescription());
-		vehicleDto.setCity(vehicle.getCity());
-		vehicleDto.setProvinceId(vehicle.getProvinceId());
 		vehicleDto.setVehicleCondition(vehicle.getVehicleCondition().getText());
 		vehicleDto.setImageUrl(vehicle.getImageUrl());
 		
