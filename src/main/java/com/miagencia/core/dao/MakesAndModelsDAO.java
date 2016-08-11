@@ -2,14 +2,17 @@ package com.miagencia.core.dao;
 
 import java.util.Map;
 
+import com.miagencia.core.model.Make;
+import com.miagencia.core.model.Model;
+
 public interface MakesAndModelsDAO {
 	
 	public Map<Long, String> getAllMakesForVehicleType(Long vehicleType);
 	
 	public Map<Long, String> getAllModelsForMake(Long make);
 	
-	public String getMake(Long makeId);
+	public Make getMake(Long makeId);
 	
-	public String getModel(Long modelId);
+	public Model getModel(Long modelId);
 
 }

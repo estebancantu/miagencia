@@ -4,11 +4,17 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.miagencia.core.dao.CityDAO;
 import com.miagencia.core.dao.ClientDAO;
+import com.miagencia.core.dao.CountryDAO;
+import com.miagencia.core.dao.NeighborhoodDAO;
 import com.miagencia.core.dao.OperationDAO;
 import com.miagencia.core.dao.SaleItemDAO;
+import com.miagencia.core.dao.StateDAO;
 import com.miagencia.core.dao.VehicleDAO;
 import com.miagencia.core.model.Client;
+import com.miagencia.core.model.Location;
+import com.miagencia.core.model.Neighborhood;
 import com.miagencia.core.model.SaleItem;
 import com.miagencia.core.model.Vehicle;
 import com.miagencia.core.model.VehicleStatus;
@@ -41,9 +47,17 @@ public class VehicleOperationServiceImpl implements
 	@Autowired
 	VehicleDAO vehicleDao;
 	
-
+	@Autowired
+	CountryDAO countryDAO;
 	
+	@Autowired
+	StateDAO stateDAO;
 	
+	@Autowired
+	CityDAO cityDAO;
+	
+	@Autowired
+	NeighborhoodDAO neighborhoodDAO;
 	
 	
 	@Override
@@ -52,7 +66,28 @@ public class VehicleOperationServiceImpl implements
 		
 		VehicleDTO vehicleDto = newVehicleRequestDto.getVehicleDto();
 		Vehicle vehicle = EntityDTOTranslator.buildVehicle(vehicleDto); // TODO falta features
-		
+
+		if(newVehicleRequestDto.getLocationDTO() != null) {
+			Location location = new Location();
+			location.setAddressLine(newVehicleRequestDto.getLocationDTO().getAddress());
+			location.setZipCode(newVehicleRequestDto.getLocationDTO().getZipCode());
+			location.setLatitude(newVehicleRequestDto.getLocationDTO().getLatitude());
+			location.setLongitude(newVehicleRequestDto.getLocationDTO().getLongitude());
+			location.setOpenHours(newVehicleRequestDto.getLocationDTO().getOpenHours());
+			if(newVehicleRequestDto.getLocationDTO().getCountryId() != null){
+				location.setCountry(countryDAO.find(newVehicleRequestDto.getLocationDTO().getCountryId()));
+			}
+			if(newVehicleRequestDto.getLocationDTO().getStateId() != null){
+				location.setState(stateDAO.find(newVehicleRequestDto.getLocationDTO().getStateId()));
+			}
+			if(newVehicleRequestDto.getLocationDTO().getCityId() != null){
+				location.setCity(cityDAO.find(newVehicleRequestDto.getLocationDTO().getCityId()));
+			}
+			if(newVehicleRequestDto.getLocationDTO().getNeighborhoodId() != null){
+				location.setNeighborhood(neighborhoodDAO.find(newVehicleRequestDto.getLocationDTO().getNeighborhoodId()));
+			}
+			vehicle.setLocation(location);
+		}
 		
 		Client client = clientDao.find(newVehicleRequestDto.getClientId());
 		

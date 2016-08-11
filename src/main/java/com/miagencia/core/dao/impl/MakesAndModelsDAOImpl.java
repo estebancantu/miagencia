@@ -1,5 +1,6 @@
 package com.miagencia.core.dao.impl;
 
+import java.math.BigInteger;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -19,6 +20,9 @@ import org.springframework.stereotype.Repository;
 
 import com.miagencia.core.dao.MakesAndModelsDAO;
 import com.miagencia.core.model.Client;
+import com.miagencia.core.model.Make;
+import com.miagencia.core.model.Model;
+import com.miagencia.core.model.Vehicle;
 
 @Repository
 public class MakesAndModelsDAOImpl implements MakesAndModelsDAO {
@@ -38,7 +42,7 @@ public class MakesAndModelsDAOImpl implements MakesAndModelsDAO {
 		Iterator it = result.iterator();
 		while(it.hasNext()) {
 			Object[] makeObject= (Object[]) it.next();
-			makes.put(Long.valueOf((Integer)makeObject[0]), (String)makeObject[1]);
+			makes.put(((BigInteger)makeObject[0]).longValue(), (String)makeObject[1]);
 		}
 		
 		return makes;
@@ -55,7 +59,7 @@ public class MakesAndModelsDAOImpl implements MakesAndModelsDAO {
 		Iterator it = result.iterator();
 		while(it.hasNext()) {
 			Object[] modelObject= (Object[]) it.next();
-			models.put(Long.valueOf((Integer)modelObject[0]), (String)modelObject[1]);
+			models.put(((BigInteger)modelObject[0]).longValue(), (String)modelObject[1]);
 		}
 		
 		return models;
@@ -63,28 +67,17 @@ public class MakesAndModelsDAOImpl implements MakesAndModelsDAO {
 	}
 
 	@Override
-	public String getMake(Long makeId) {
-		
+	public Make getMake(Long makeId) {
 		if (makeId == null )
 			throw new IllegalArgumentException("makeId argument cannot be null");
-
-		
-		Query query = sessionFactory.getCurrentSession().createSQLQuery("select name from Makes m where m.id = :makeId").setParameter("makeId", makeId);;
-		return (String)query.uniqueResult();
-
-		
+		return (Make)sessionFactory.getCurrentSession().get(Make.class, makeId);
 	}
 
 	@Override
-	public String getModel(Long modelId) {
-		
+	public Model getModel(Long modelId) {
 		if (modelId == null )
 			throw new IllegalArgumentException("modelId argument cannot be null");
-
-		
-		Query query = sessionFactory.getCurrentSession().createSQLQuery("select name from Models m where m.id = :modelId").setParameter("modelId", modelId);;
-		return (String)query.uniqueResult();
-
+		return (Model)sessionFactory.getCurrentSession().get(Model.class, modelId);
 		
 	}
 

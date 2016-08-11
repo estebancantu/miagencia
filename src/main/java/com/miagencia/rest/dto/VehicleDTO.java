@@ -37,10 +37,6 @@ public class VehicleDTO {
 	
 	private String description;
 	
-	private String city;
-	
-	private int provinceId;
-	
 	private String vehicleCondition;
 	
 	private int price;
@@ -166,22 +162,6 @@ public class VehicleDTO {
 
 	public void setDescription(String description) {
 		this.description = description;
-	}
-
-	public String getCity() {
-		return city;
-	}
-
-	public void setCity(String city) {
-		this.city = city;
-	}
-
-	public int getProvinceId() {
-		return provinceId;
-	}
-
-	public void setProvinceId(int provinceId) {
-		this.provinceId = provinceId;
 	}
 
 	public String getVehicleCondition() {
