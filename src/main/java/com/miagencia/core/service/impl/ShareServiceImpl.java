@@ -146,12 +146,12 @@ public class ShareServiceImpl implements ShareService {
 		ad.setId("OLX-"+vehicle.getId());
 		
 		//TODO Set location of dealership
-		ad.setLocationNeighborhood("");
-		ad.setLocationCity("laplata.olx.com.ar");
-		ad.setLocationState("buenosaires.olx.com.ar");
-		ad.setLocationCountry("www.olx.com.ar");
-		ad.setLocationLatitud("-34.9985848");
-		ad.setLocationLongitude("-58.052689");
+		ad.setLocationNeighborhood(vehicle.getLocation().getNeighborhood().getOlxId());
+		ad.setLocationCity(vehicle.getLocation().getCity().getOlxId());
+		ad.setLocationState(vehicle.getLocation().getState().getOlxId());
+		ad.setLocationCountry(vehicle.getLocation().getCountry().getOlxId());
+		ad.setLocationLatitud(vehicle.getLocation().getLatitude());
+		ad.setLocationLongitude(vehicle.getLocation().getLongitude());
 		
 		SaleItem saleItem = saleItemDAO.getSaleItemByVehicleId(vehicle.getId());
 		if(saleItem != null){
@@ -227,6 +227,7 @@ public class ShareServiceImpl implements ShareService {
 	}
 	
 	private Attribute createMercadoLibreKmsAttribute(Vehicle vehicle){
+		//TODO El newCar deberia guardar esta Feature en vez del campo KM 
 		Attribute attribute = new Attribute();
 		attribute.setId("MLA1744-KMTS");
 		attribute.setName("Kilómetros");
