@@ -28,7 +28,7 @@ public class OperationDAOTests {
 	@Transactional
 	public void testAddPurchaseOperation() {
 		
-		Vehicle vehicle = new Vehicle(VehicleType.CAR_TRUCK, 1, 1, 2012, "AAA123", 
+		Vehicle vehicle = new Vehicle(VehicleType.CAR, 1, 1, 2012, "AAA123", 
 				"Verde", "12312378", "323432344", 140000l, FuelType.GASOLINE, 
 					Transmission.MANUAL, "Bastante bien", "La Plata", 3, VehicleCondition.NEW);
 		
