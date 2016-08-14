@@ -1,16 +1,22 @@
 package com.miagencia.core.service.impl;
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.inject.Inject;
+import javax.servlet.ServletContext;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
 import javax.xml.bind.Unmarshaller;
 import javax.xml.parsers.DocumentBuilderFactory;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.social.facebook.api.Facebook;
@@ -65,6 +71,8 @@ public class ShareServiceImpl implements ShareService {
 	private MakesAndModelsDAO makesAndModelsDAO;
 	@Inject
 	private SaleItemDAO saleItemDAO;
+	@Autowired(required=false)
+    ServletContext context;
 
 	@Override
 	public void shareFacebook(ShareRequestDTO shareRequestDTO) {
@@ -100,29 +108,39 @@ public class ShareServiceImpl implements ShareService {
 	
 	@Override
 	@Transactional
-	public void postOLX(ShareRequestDTO shareRequestDTO) {
+	public String postOLX(ShareRequestDTO shareRequestDTO) {
 		Vehicle vehicle = vehicleDAO.find(shareRequestDTO.getVehicleId());
+		String fileUrl = null;
 		if (vehicle != null) {
 			PublicationOLX publication = createOLXPublication(vehicle);
-			createOlxXML(publication);
+			fileUrl = createOlxXML(publication);
 		}
+		return fileUrl;
 	}
 	
-	private void createOlxXML(PublicationOLX publicationOLX){
+	public InputStream getOLXFile(String fileName){
+	    fileName = fileName + ".xml";
+        File file = new File(fileName);
+        InputStream is = null;
+        try {
+            is = new FileInputStream(file);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+        return is;
+	}
+	
+	private String createOlxXML(PublicationOLX publicationOLX){
 		  try {
 	            JAXBContext context = JAXBContext.newInstance(ADS.class);
 	            Marshaller m = context.createMarshaller();
-	            //for pretty-print XML in JAXB
 	            m.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
-
-	            // Write to System.out for debugging
-	            // m.marshal(emp, System.out);
-
-	            // Write to File
-	            m.marshal(publicationOLX.getADS(), new File("olx.xml"));
-	            
+	            String fileUrl = "OLX-"+new Date().getTime()+".xml";
+	            m.marshal(publicationOLX.getADS(), new File(fileUrl));
+	            return fileUrl;
 	        } catch (JAXBException e) {
 	            e.printStackTrace();
+	            return null;
 	        }
 	}
 	
@@ -236,4 +254,8 @@ public class ShareServiceImpl implements ShareService {
 		return attribute;
 	}
 
+	private String getOLXFileFolder(){
+	    String rootPath = System.getProperty("catalina.home");
+	    return rootPath + File.separator + "olx" + File.separator;
+	}
 }
