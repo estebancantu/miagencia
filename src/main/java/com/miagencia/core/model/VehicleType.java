@@ -2,7 +2,7 @@ package com.miagencia.core.model;
 
 public enum VehicleType {
 	
-	CAR_TRUCK("Auto"), MOTORBIKE("Moto");
+	CAR("Autos y camionetas"), TRUCK("Camiones"), MOTORBIKE("Motos");
 	
 	private String text;
 	
