@@ -6,6 +6,8 @@ public class MakeDTO {
 	
 	private Long id;
 	
+	private Long infoautoMake;
+	
 	private String name;
 	
 	private List<ModelDTO> models;
@@ -39,4 +41,12 @@ public class MakeDTO {
 		this.models = models;
 	}
 
+	public Long getInfoautoMake() {
+		return infoautoMake;
+	}
+
+	public void setInfoautoMake(Long infoautoMake) {
+		this.infoautoMake = infoautoMake;
+	}
+	
 }
