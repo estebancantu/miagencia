@@ -4,6 +4,8 @@ public class ModelDTO {
 	
 	private Long id;
 	
+	private Long codInfoauto;
+	
 	private String name;
 
 	public Long getId() {
@@ -25,6 +27,13 @@ public class ModelDTO {
 	public void setName(String name) {
 		this.name = name;
 	}
-	
+
+	public Long getCodInfoauto() {
+		return codInfoauto;
+	}
+
+	public void setCodInfoauto(Long codInfoauto) {
+		this.codInfoauto = codInfoauto;
+	}
 
 }
