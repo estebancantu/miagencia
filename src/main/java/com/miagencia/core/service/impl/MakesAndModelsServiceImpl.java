@@ -34,34 +34,9 @@ public class MakesAndModelsServiceImpl implements MakesAndModelsService {
 			VehicleTypeDTO vehicleTypeDto = new VehicleTypeDTO();
 			vehicleTypeDto.setId(Long.valueOf(type.ordinal()));
 			vehicleTypeDto.setName(type.getText());
-			vehicleTypeDto.setMakes(new ArrayList<MakeDTO>());
 			
-		
-			Map<Long, String> makes = makesAndModelsDao.getAllMakesForVehicleType(vehicleTypeDto.getId());
-			
-			for(Map.Entry<Long, String> make : makes.entrySet()) {
-				
-			
-				MakeDTO makeDto = new MakeDTO();
-				makeDto.setId(make.getKey());
-				makeDto.setName(make.getValue());
-				makeDto.setModels(new ArrayList<ModelDTO>());
-				
-			
-				Map<Long, String> models = makesAndModelsDao.getAllModelsForMake(make.getKey());
-				
-				for(Map.Entry<Long, String> model : models.entrySet()) {
-					
-					ModelDTO modelDto = new ModelDTO();
-					modelDto.setId(model.getKey());
-					modelDto.setName(model.getValue());
-					
-					makeDto.getModels().add(modelDto);
-				}
-				
-				vehicleTypeDto.getMakes().add(makeDto);
-			}
-
+			List<MakeDTO> makesAndModels = makesAndModelsDao.getAllMakesAndModels(vehicleTypeDto.getId());			
+			vehicleTypeDto.setMakes(makesAndModels);	
 			
 			vehicleTypesDto.add(vehicleTypeDto);
 			
