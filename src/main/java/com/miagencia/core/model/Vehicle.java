@@ -1,9 +1,19 @@
 package com.miagencia.core.model;
 
+import java.util.List;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
+import javax.persistence.JoinColumn;
 import javax.persistence.Table;
 
 @Entity
@@ -31,19 +41,15 @@ public class Vehicle extends PersistableEntity {
 	//private Dealership dealer;
 	// TODO por ahora no pongamos una relacion de doble conocimiento, pongamos solo la
 	// lista de vehicles en dealer. despues vemos si la necesitamos a esta
-
-	// Año
-	@Column(name="MODEL_YEAR", nullable=false)
-	private int modelYear;
+	
+	@OneToOne(cascade=CascadeType.ALL)
+	@JoinColumn(name = "LOCATION_ID")
+	private Location location;
 	
 	// Patente
 	@Column(name="PLATE", nullable=false)
 	private String plate;
-	
-	//Color
-	@Column(name="COLOR", nullable=false)
-	private String color;
-	
+
 	// Nro. de Chasis
 	@Column(name="CHASSIS_NUMBER")
 	private String chassisNumber;
@@ -51,6 +57,23 @@ public class Vehicle extends PersistableEntity {
 	// Nro. de Motor
 	@Column(name="ENGINE_NUMBER")
 	private String engineNumber;
+	
+	// Descripción
+	@Column(name="DESCRIPTION")
+	private String description;
+		
+	@Column(name="IMAGE_URL")
+	private String imageUrl;
+
+	// Los campos a partir de acá se pueden reemplazar con features
+	// Año
+	@Column(name="MODEL_YEAR", nullable=false)
+	private int modelYear;
+	
+	//Color
+	@Column(name="COLOR", nullable=false)
+	private String color;
+
 	
 	// Kilometraje
 	@Column(name="KILOMETERS", nullable=false)
@@ -66,24 +89,10 @@ public class Vehicle extends PersistableEntity {
 	@Column(name="TRANSMISSION", nullable=false)
 	private Transmission transmission;
 		
-	// Descripción
-	@Column(name="DESCRIPTION")
-	private String description;
-		
-	// Ciudad. TODO Ver si se modela con un int
-	@Column(name="CITY")
-	private String city;
-	
-	@Column(name="PROVINCE_ID")
-	private int provinceId;
-		
 	// Condición - Nuevo o usado.
 	@Enumerated(EnumType.STRING)
 	@Column(name="VEHICLE_CONDITION", nullable=false)
 	private VehicleCondition vehicleCondition;
-	
-	@Column(name="IMAGE_URL")
-	private String imageUrl;
 	
 	// direccion - asistida - electronica - hidraulica - mecanica
 	//Options
@@ -99,6 +108,14 @@ public class Vehicle extends PersistableEntity {
 	//documentación?
 	
 	
+
+
+	@ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+	@JoinTable(name = "VEHICLE_FEATURE_VALUE", catalog = "miagencia", joinColumns = { 
+			@JoinColumn(name = "VEHICLE_ID", nullable = false, updatable = false) }, 
+			inverseJoinColumns = { @JoinColumn(name = "FEATURE_VALUE_ID", 
+					nullable = false, updatable = false) })
+	private List<VehicleFeatureValue> featuresValues;
 
 	
 
@@ -128,8 +145,6 @@ public class Vehicle extends PersistableEntity {
 		this.fuelType = fuelType;
 		this.transmission = transmission;
 		this.description = description;
-		this.city = city;
-		this.provinceId = provinceId;
 		this.vehicleCondition = vehicleCondition;
 
 	}
@@ -207,14 +222,6 @@ public class Vehicle extends PersistableEntity {
 		this.description = description;
 	}
 
-	public String getCity() {
-		return city;
-	}
-
-	public void setCity(String city) {
-		this.city = city;
-	}
-
 
 	public int getMakeId() {
 		return makeId;
@@ -233,16 +240,6 @@ public class Vehicle extends PersistableEntity {
 
 	public void setModelId(int modelId) {
 		this.modelId = modelId;
-	}
-
-
-	public int getProvinceId() {
-		return provinceId;
-	}
-
-
-	public void setProvinceId(int provinceId) {
-		this.provinceId = provinceId;
 	}
 
 
@@ -274,6 +271,45 @@ public class Vehicle extends PersistableEntity {
 	public void setImageUrl(String imageUrl) {
 		this.imageUrl = imageUrl;
 	}
-	
 
+
+	public List<VehicleFeatureValue> getFeaturesValues() {
+		return featuresValues;
+	}
+
+
+	public void setFeaturesValues(List<VehicleFeatureValue> featuresValues) {
+		this.featuresValues = featuresValues;
+	}
+	
+	
+	
+	public Location getLocation() {
+		return location;
+	}
+
+
+	public void setLocation(Location location) {
+		this.location = location;
+	}
+
+
+	public String getOlxIdByFeature(String feature){
+		for (VehicleFeatureValue vehicleFeatureValue : featuresValues) {
+			if(vehicleFeatureValue.getFeature().getName().equals(feature)){
+				return vehicleFeatureValue.getOlxId();
+			}
+		}
+		return null;
+	}
+	
+	public String getMercadoLibreIdByFeature(String feature){
+		for (VehicleFeatureValue vehicleFeatureValue : featuresValues) {
+			if(vehicleFeatureValue.getFeature().getName().equals(feature)){
+				return vehicleFeatureValue.getMercadoLibreId();
+			}
+		}
+		return null;
+	}
+	
 }

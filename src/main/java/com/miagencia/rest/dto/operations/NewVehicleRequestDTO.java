@@ -1,5 +1,6 @@
 package com.miagencia.rest.dto.operations;
 
+import com.miagencia.rest.dto.LocationDTO;
 import com.miagencia.rest.dto.VehicleDTO;
 
 
@@ -24,6 +25,11 @@ public class NewVehicleRequestDTO {
     * DTO del nuevo vehículo.
     */
 	private VehicleDTO vehicleDto;
+	
+	/**
+	  * DTO de la ubicación del vehiculo.
+	*/
+	private LocationDTO locationDTO;
 	
    /**
     * Para compra, es el id del vendedor.
@@ -159,5 +165,15 @@ public class NewVehicleRequestDTO {
 	public void setHasDomainCertificate(boolean hasDomainCertificate) {
 		this.hasDomainCertificate = hasDomainCertificate;
 	}
+
+	public LocationDTO getLocationDTO() {
+		return locationDTO;
+	}
+
+	public void setLocationDTO(LocationDTO locationDTO) {
+		this.locationDTO = locationDTO;
+	}
+	
+	
 
 }

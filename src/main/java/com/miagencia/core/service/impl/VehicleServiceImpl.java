@@ -13,6 +13,8 @@ import com.miagencia.core.dao.MakesAndModelsDAO;
 import com.miagencia.core.dao.OperationDAO;
 import com.miagencia.core.dao.SaleItemDAO;
 import com.miagencia.core.dao.VehicleDAO;
+import com.miagencia.core.model.Make;
+import com.miagencia.core.model.Model;
 import com.miagencia.core.model.SaleItem;
 import com.miagencia.core.model.Vehicle;
 import com.miagencia.core.model.operations.BuyOperation;
@@ -77,8 +79,10 @@ public class VehicleServiceImpl implements VehicleService {
 			
 		}
 		
-		String makeString = makesAndModelsDao.getMake( new Long(vehicle.getMakeId()));
-		String modelString = makesAndModelsDao.getModel( new Long(vehicle.getModelId()));
+		Make make = makesAndModelsDao.getMake( new Long(vehicle.getMakeId()));
+		String makeString = make.getName();
+		Model model = makesAndModelsDao.getModel( new Long(vehicle.getModelId()));
+		String modelString = model.getName();
 		
 		SaleItem saleItem = saleItemDao.getSaleItemByVehicleId(vehicleId);
 
@@ -102,11 +106,14 @@ public class VehicleServiceImpl implements VehicleService {
 			
 			Vehicle vehicle = (Vehicle) iterator.next();	
 			
-			String make = makesAndModelsDao.getMake( new Long(vehicle.getMakeId()));
-			String model = makesAndModelsDao.getModel( new Long(vehicle.getModelId()));
+			Make make = makesAndModelsDao.getMake( new Long(vehicle.getMakeId()));
+			String makeString = make.getName();
+			Model model = makesAndModelsDao.getModel( new Long(vehicle.getModelId()));
+			String modelString = model.getName();
+			
 			SaleItem saleItem = saleItemDao.getSaleItemByVehicleId(vehicle.getId());
 			
-			VehicleSummaryDTO vehicleDto = EntityDTOTranslator.buildVehicleSummaryDTO(vehicle, saleItem, make, model);
+			VehicleSummaryDTO vehicleDto = EntityDTOTranslator.buildVehicleSummaryDTO(vehicle, saleItem, makeString, modelString);
 			
 			vehiclesDto.add(vehicleDto);
 		}

@@ -10,6 +10,8 @@ public class MakeDTO {
 	
 	private String name;
 	
+	private String olxId;  
+	
 	private List<ModelDTO> models;
 
 	
@@ -48,5 +50,14 @@ public class MakeDTO {
 	public void setInfoautoMake(Long infoautoMake) {
 		this.infoautoMake = infoautoMake;
 	}
+
+	public String getOlxId() {
+		return olxId;
+	}
+
+	public void setOlxId(String olxId) {
+		this.olxId = olxId;
+	}
 	
+
 }

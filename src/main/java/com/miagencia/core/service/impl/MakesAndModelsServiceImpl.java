@@ -9,11 +9,13 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.miagencia.core.dao.MakesAndModelsDAO;
+import com.miagencia.core.model.Make;
 import com.miagencia.core.model.VehicleType;
 import com.miagencia.core.service.MakesAndModelsService;
 import com.miagencia.rest.dto.MakeDTO;
 import com.miagencia.rest.dto.ModelDTO;
 import com.miagencia.rest.dto.VehicleTypeDTO;
+import com.miagencia.rest.dto.util.EntityDTOTranslator;
 
 @Service
 public class MakesAndModelsServiceImpl implements MakesAndModelsService {
@@ -35,8 +37,17 @@ public class MakesAndModelsServiceImpl implements MakesAndModelsService {
 			vehicleTypeDto.setId(Long.valueOf(type.ordinal()));
 			vehicleTypeDto.setName(type.getText());
 			
-			List<MakeDTO> makesAndModels = makesAndModelsDao.getAllMakesAndModels(vehicleTypeDto.getId());			
-			vehicleTypeDto.setMakes(makesAndModels);	
+			List<Make> makesAndModels = makesAndModelsDao.getAllMakesAndModels(type);		
+			List<MakeDTO> makesAndModelsDtos = new ArrayList<MakeDTO>();
+			
+			for(Make make: makesAndModels) {
+				
+				MakeDTO makeDto = EntityDTOTranslator.buildMakeDTO(make);
+				makesAndModelsDtos.add(makeDto);
+				
+			}
+
+			vehicleTypeDto.setMakes(makesAndModelsDtos);	
 			
 			vehicleTypesDto.add(vehicleTypeDto);
 			

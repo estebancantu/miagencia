@@ -1,6 +1,7 @@
 package com.miagencia.rest.dto.util;
 
 import com.miagencia.rest.dto.ClientDTO;
+import com.miagencia.rest.dto.ShareRequestDTO;
 import com.miagencia.rest.dto.operations.BuyVehicleRequestDTO;
 import com.miagencia.rest.dto.operations.NewVehicleRequestDTO;
 
@@ -43,5 +44,10 @@ public class DTOValidator {
 	}
 	
 	
+	public static boolean validate(ShareRequestDTO shareRequestDTO){
+		return (shareRequestDTO.getToken() != null &&
+				!shareRequestDTO.getToken().isEmpty() && 
+					shareRequestDTO.getVehicleId() != null);
+	}
 
 }

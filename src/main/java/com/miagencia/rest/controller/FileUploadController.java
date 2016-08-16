@@ -36,7 +36,7 @@ import com.miagencia.rest.dto.ImageUploadResponseDTO;
 public class FileUploadController {
 	
 	
-	@Autowired
+	@Autowired(required=false)
     ServletContext context;
 	
 	
