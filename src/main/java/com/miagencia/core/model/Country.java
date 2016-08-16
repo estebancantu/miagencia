@@ -15,6 +15,8 @@ public class Country extends PersistableEntity {
 
 	@Column(name="MERCADO_LIBRE_ID", nullable=false)
     private String mercadolibreId;
+	@Column(name="OLX_ID", nullable=false)
+    private String olxId;
     @Column(name="NAME", nullable=false)
     private String name;
     
@@ -29,6 +31,15 @@ public class Country extends PersistableEntity {
 
 	public void setStateList(List<State> stateList) {
 		this.stateList = stateList;
+	}
+	
+
+	public String getOlxId() {
+		return olxId;
+	}
+
+	public void setOlxId(String olxId) {
+		this.olxId = olxId;
 	}
 
 	/**

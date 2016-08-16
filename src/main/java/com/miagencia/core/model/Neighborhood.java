@@ -14,6 +14,8 @@ public class Neighborhood extends PersistableEntity{
 
 	@Column(name="MERCADO_LIBRE_ID", nullable=false)
     private String mercadolibreId;
+	@Column(name="OLX_ID")
+    private String olxId;
 	@Column(name="NAME", nullable=false)
 	private String name;
 	@ManyToOne(fetch = FetchType.EAGER)
@@ -35,6 +37,16 @@ public class Neighborhood extends PersistableEntity{
 
 	public void setMercadolibreId(String mercadolibreId) {
 		this.mercadolibreId = mercadolibreId;
+	}
+	
+	
+
+	public String getOlxId() {
+		return olxId;
+	}
+
+	public void setOlxId(String olxId) {
+		this.olxId = olxId;
 	}
 
 	/**

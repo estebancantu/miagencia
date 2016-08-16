@@ -1,5 +1,7 @@
 package com.miagencia.core.service;
 
+import java.io.InputStream;
+
 import com.miagencia.rest.dto.ShareRequestDTO;
 
 public interface ShareService {
@@ -8,6 +10,8 @@ public interface ShareService {
 	
 	void postMercadoLibre(ShareRequestDTO shareRequestDTO);
 
-	void postOLX(ShareRequestDTO shareRequestDTO);
+	String postOLX(ShareRequestDTO shareRequestDTO);
+	
+	InputStream getOLXFile(String fileName);
 
 }

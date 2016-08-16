@@ -107,9 +107,6 @@ public class Vehicle extends PersistableEntity {
 
 	//documentación?
 	
-	
-
-
 	@ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	@JoinTable(name = "VEHICLE_FEATURE_VALUE", catalog = "miagencia", joinColumns = { 
 			@JoinColumn(name = "VEHICLE_ID", nullable = false, updatable = false) }, 

@@ -50,7 +50,7 @@ public class AccountDAOImpl implements AccountDAO {
 	public Account find(Long accountId) {
 		
 		if (accountId == null) throw new IllegalArgumentException("Account id argument cannot be null");
-		return (Account)sessionFactory.getCurrentSession().get(Client.class, accountId);
+		return (Account)sessionFactory.getCurrentSession().get(Account.class, accountId);
 	}
 
 }
