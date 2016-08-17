@@ -1,8 +1,13 @@
 package com.miagencia.rest.dto.util;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com.miagencia.core.model.Client;
 import com.miagencia.core.model.FuelType;
 import com.miagencia.core.model.Location;
+import com.miagencia.core.model.Make;
+import com.miagencia.core.model.Model;
 import com.miagencia.core.model.PaymentType;
 import com.miagencia.core.model.SaleItem;
 import com.miagencia.core.model.Transmission;
@@ -16,6 +21,8 @@ import com.miagencia.core.model.operations.ReservationOperation;
 import com.miagencia.core.model.operations.SaleOperation;
 import com.miagencia.rest.dto.ClientDTO;
 import com.miagencia.rest.dto.ClientSummaryDTO;
+import com.miagencia.rest.dto.MakeDTO;
+import com.miagencia.rest.dto.ModelDTO;
 import com.miagencia.rest.dto.VehicleDTO;
 import com.miagencia.rest.dto.VehicleDetailsDTO;
 import com.miagencia.rest.dto.VehicleSummaryDTO;
@@ -255,6 +262,51 @@ public class EntityDTOTranslator {
 		SaleOperation saleOperation = new SaleOperation(vehicle, buyer, paidAmount, paymentType);
 		
 		return saleOperation;
+	}
+	
+	
+	
+	public static MakeDTO buildMakeDTO(Make make ){
+		
+		
+		MakeDTO makeDto = new MakeDTO();
+		
+		makeDto.setId(make.getId());
+		makeDto.setInfoautoMake(make.getInfoautoMake());
+		makeDto.setName(make.getName());
+		makeDto.setOlxId(make.getOlxId());
+		
+		
+		List<ModelDTO> modelsDto = new ArrayList<ModelDTO>(); 
+		List<Model> models = make.getModels();
+		
+		for( Model model: models) {
+		
+			ModelDTO modelDto = buildModelDTO(model);
+			modelsDto.add(modelDto);
+			
+		}
+		
+		makeDto.setModels(modelsDto);
+		
+		
+		return makeDto;
+	}
+	
+	
+	
+	public static ModelDTO buildModelDTO(Model model) {
+		
+		ModelDTO modelDto = new ModelDTO();
+		
+		modelDto.setId(model.getId());
+		modelDto.setCodInfoauto(model.getCodInfoauto());
+		modelDto.setName(model.getName());
+		modelDto.setMercadoLibreId(model.getMercadoLibreId());
+		modelDto.setOlxId(model.getOlxId());
+		
+		return modelDto;
+		
 	}
 
 }

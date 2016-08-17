@@ -65,7 +65,7 @@ public class Vehicle extends PersistableEntity {
 	@Column(name="IMAGE_URL")
 	private String imageUrl;
 
-	// Los campos a partir de ac� se pueden reemplazar con features
+	// Los campos a partir de acá se pueden reemplazar con features
 	// Año
 	@Column(name="MODEL_YEAR", nullable=false)
 	private int modelYear;

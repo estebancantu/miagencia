@@ -2,7 +2,9 @@ package com.miagencia.core.model;
 
 public enum VehicleType {
 	
-	CAR_TRUCK("Auto", "MLA1744","378"), MOTORBIKE("Moto", "MLA1763","379");
+
+	CAR("Autos y camionetas", "MLA1744","378"), TRUCK("Camiones", "MLA1744","378"), MOTORBIKE("Motos", "MLA1763","379");
+
 	
 	private String text;
 	private String mercadoLibreId;

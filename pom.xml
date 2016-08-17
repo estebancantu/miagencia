@@ -166,6 +166,12 @@
 			<artifactId>sdk</artifactId>
 			<version>0.0.2-SNAPSHOT</version>
 		</dependency>
+
+		<dependency>
+			<groupId>sax</groupId>
+			<artifactId>sax</artifactId>
+			<version>2.0.1</version>
+		</dependency>
 	</dependencies>
 	
 	
@@ -183,11 +189,6 @@
         </repository>
 	</repositories>
 	
-	<dependency>
-    <groupId>sax</groupId>
-    <artifactId>sax</artifactId>
-    <version>2.0.1</version>
-</dependency>
 
 	<build>
 		<finalName>miagencia</finalName>

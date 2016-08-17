@@ -27,7 +27,7 @@ public class NewVehicleRequestDTO {
 	private VehicleDTO vehicleDto;
 	
 	/**
-	  * DTO de la ubicación del vehiculo.
+	  * DTO de la ubicaciÃ³n del vehiculo.
 	*/
 	private LocationDTO locationDTO;
 	

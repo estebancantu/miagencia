@@ -10,20 +10,30 @@ import javax.persistence.Table;
 @Entity
 @Table(name="MODELS")
 public class Model extends PersistableEntity {
-
+ 
+	
+	
+	
 	@Column(name="NAME", nullable=false)
 	private String name;
 	
 	@Column(name="MERCADO_LIBRE_ID", nullable=false)
 	private String mercadoLibreId;
 	
+	@Column(name="COD_INFOAUTO", nullable=false)
+	private Long codInfoauto;
 	
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "MAKE", nullable = false)
+	@JoinColumn(name = "MAKE_ID", nullable = false)
 	private Make make;
 
 	@Column(name="OLX_ID", nullable=false)
 	private String olxId;  
+	
+	
+	
+	
+	
 	
 	
 	public String getName() {
@@ -64,8 +74,16 @@ public class Model extends PersistableEntity {
 	public void setOlxId(String olxId) {
 		this.olxId = olxId;
 	}
-	
-	
+
+
+	public Long getCodInfoauto() {
+		return codInfoauto;
+	}
+
+
+	public void setCodInfoauto(Long codInfoauto) {
+		this.codInfoauto = codInfoauto;
+	}
 	
 	
 }
