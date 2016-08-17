@@ -10,9 +10,9 @@
 INSERT INTO `miagencia`.`account` (`ID`, `USERNAME`, `PASSWORD`, `ACTIVE`, `DEALERSHIP_ID`) VALUES ('1', 'agustin', '123456', '1', '1');
 INSERT INTO `miagencia`.`dealership` (`ID`, `NAME`, `LOCATION_ID`, `ACCOUNT_ID`) VALUES ('1', 'Agencia 1', '1', '1');
 INSERT INTO `miagencia`.`location` (`ID`, `ADDRESS_LINE`, `ZIP_CODE`, `COUNTRY_ID`, `STATE_ID`, `CITY_ID`, `NEIGHBORHOOD_ID`, `LATITUDE`, `LONGITUDE`, `OPEN_HOURS`) VALUES ('1', '13 n659', '1900', '1', '1', '1', '1', '-21.2332323', '-23.323232', '10 a 20');
-INSERT INTO `miagencia`.`country` (`ID`, `NAME`, `MERCADO_LIBRE_ID`) VALUES ('1', 'Argentina', 'AR');
-INSERT INTO `miagencia`.`state` (`ID`, `COUNTRY_ID`, `NAME`, `MERCADO_LIBRE_ID`) VALUES ('1', '1', 'Bs.As. G.B.A. Sur', 'TUxBUEdSQXJlMDNm');
-INSERT INTO `miagencia`.`city` (`ID`, `STATE_ID`, `NAME`, `MERCADO_LIBRE_ID`) VALUES ('1', '1', 'La Plata', 'TUxBQ0xBUGxhdGE');
+INSERT INTO `miagencia`.`country` (`ID`, `NAME`, `MERCADO_LIBRE_ID`) VALUES ('1', 'Argentina', 'AR','www.olx.com.ar');
+INSERT INTO `miagencia`.`state` (`ID`, `COUNTRY_ID`, `NAME`, `MERCADO_LIBRE_ID`) VALUES ('1', '1', 'Bs.As. G.B.A. Sur', 'TUxBUEdSQXJlMDNm', 'buenosaires.olx.com.ar');
+INSERT INTO `miagencia`.`city` (`ID`, `STATE_ID`, `NAME`, `MERCADO_LIBRE_ID`) VALUES ('1', '1', 'La Plata', 'TUxBQ0xBUGxhdGE','laplata.olx.com.ar');
 INSERT INTO `miagencia`.`neighborhood` (`ID`, `NAME`, `MERCADO_LIBRE_ID`, `CITY_ID`) VALUES ( '1', 'La Plata', 'TUxBQkxBUDgzNjRa', '1');
 
 
