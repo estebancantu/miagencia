@@ -1,18 +1,23 @@
 package com.miagencia.core.dao;
 
+import java.util.List;
 import java.util.Map;
 
 import com.miagencia.core.model.Make;
 import com.miagencia.core.model.Model;
+import com.miagencia.core.model.VehicleType;
+
 
 public interface MakesAndModelsDAO {
 	
-	public Map<Long, String> getAllMakesForVehicleType(Long vehicleType);
+	@Deprecated
+	public Map<Long, String> getAllMakesForVehicleType(VehicleType vehicleType);
 	
-	public Map<Long, String> getAllModelsForMake(Long make);
+	public List<Make> getAllMakesAndModels(VehicleType vehicleType);
 	
 	public Make getMake(Long makeId);
 	
 	public Model getModel(Long modelId);
+
 
 }

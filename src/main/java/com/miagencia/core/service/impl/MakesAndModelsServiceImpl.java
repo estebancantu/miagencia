@@ -9,11 +9,13 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.miagencia.core.dao.MakesAndModelsDAO;
+import com.miagencia.core.model.Make;
 import com.miagencia.core.model.VehicleType;
 import com.miagencia.core.service.MakesAndModelsService;
 import com.miagencia.rest.dto.MakeDTO;
 import com.miagencia.rest.dto.ModelDTO;
 import com.miagencia.rest.dto.VehicleTypeDTO;
+import com.miagencia.rest.dto.util.EntityDTOTranslator;
 
 @Service
 public class MakesAndModelsServiceImpl implements MakesAndModelsService {
@@ -34,34 +36,18 @@ public class MakesAndModelsServiceImpl implements MakesAndModelsService {
 			VehicleTypeDTO vehicleTypeDto = new VehicleTypeDTO();
 			vehicleTypeDto.setId(Long.valueOf(type.ordinal()));
 			vehicleTypeDto.setName(type.getText());
-			vehicleTypeDto.setMakes(new ArrayList<MakeDTO>());
 			
-		
-			Map<Long, String> makes = makesAndModelsDao.getAllMakesForVehicleType(vehicleTypeDto.getId());
+			List<Make> makesAndModels = makesAndModelsDao.getAllMakesAndModels(type);		
+			List<MakeDTO> makesAndModelsDtos = new ArrayList<MakeDTO>();
 			
-			for(Map.Entry<Long, String> make : makes.entrySet()) {
+			for(Make make: makesAndModels) {
 				
-			
-				MakeDTO makeDto = new MakeDTO();
-				makeDto.setId(make.getKey());
-				makeDto.setName(make.getValue());
-				makeDto.setModels(new ArrayList<ModelDTO>());
+				MakeDTO makeDto = EntityDTOTranslator.buildMakeDTO(make);
+				makesAndModelsDtos.add(makeDto);
 				
-			
-				Map<Long, String> models = makesAndModelsDao.getAllModelsForMake(make.getKey());
-				
-				for(Map.Entry<Long, String> model : models.entrySet()) {
-					
-					ModelDTO modelDto = new ModelDTO();
-					modelDto.setId(model.getKey());
-					modelDto.setName(model.getValue());
-					
-					makeDto.getModels().add(modelDto);
-				}
-				
-				vehicleTypeDto.getMakes().add(makeDto);
 			}
 
+			vehicleTypeDto.setMakes(makesAndModelsDtos);	
 			
 			vehicleTypesDto.add(vehicleTypeDto);
 			

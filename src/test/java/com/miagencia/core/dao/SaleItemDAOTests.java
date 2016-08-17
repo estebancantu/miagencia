@@ -30,7 +30,7 @@ public class SaleItemDAOTests {
 	@Transactional
 	public void testAddSaleItem() {
 		
-		Vehicle newVehicle = new Vehicle(VehicleType.CAR_TRUCK, 1, 1, 2016, "ABC123", 
+		Vehicle newVehicle = new Vehicle(VehicleType.CAR, 1, 1, 2016, "ABC123", 
 			"Rojo", "12345678", "323432344", 140000l, FuelType.GASOLINE, 
 				Transmission.MANUAL, "Un lindo auto", "Buenos Aires", 3, VehicleCondition.NEW);
 		

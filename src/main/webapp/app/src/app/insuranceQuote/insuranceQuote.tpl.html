@@ -1,10 +1,52 @@
-<div class="container-fluid padding-right-45">
+<div class="container-fluid padding-right-100">
 	<div class="row">
-    	<div class="col-md-7 col-md-offset-2" ng-controller="InsuranceQuoteCtrl">
+	<div class="col-md-7"></div>
+    	<div class="col-md-5" ng-controller="InsuranceQuoteCtrl">
     		<h2 class="page-header new-client-header"><i class="fa fa-bar-chart fa-lg"></i>  Cotizaci&oacute;n</h2>
-			<form class="form-horizontal well" name="insuranceQuoteForm" role="form" novalidate>
+			<form class="form-horizontal well" name="insuranceQuoteForm" action="http://www.softeam1.com.ar/cotiwebdemo/hWklogGet.aspx" role="form" method="post" novalidate target="_blank">
+
+			<!-- campos hidden -->
+			<!-- ESTOS CAMPOS SON FIJOS PERO DEBE IR SIEMPRE EN EL POST -->
+				<INPUT type="hidden" name="SESSIS" value="WKF">
+				<INPUT type="hidden" name="CANID" value="15">
+				<INPUT type="hidden" name="OFICOD" value="15001">
+				<INPUT type="hidden" name="ASECOD" value="0">
+				<INPUT type="hidden" name="SUBPROD" value="0">
+				<INPUT type="hidden" name="WKPROCID" value="27">
+				<INPUT type="hidden" name="WKESTID" value="0">
+				<INPUT type="hidden" name="WKROLID" value="10">
+				<INPUT type="hidden" name="WKINST" value="0">
+				<INPUT type="hidden" name="FIRMA" value="HVmtPOYO">
+				<INPUT type="hidden" name="CAMPANIA" value="0">
+				 <INPUT type="hidden" name="WKTASKID" value="13">
+				 <INPUT type="hidden" name="WKEMPCOD" value="15"> <!-- ECODIGO DE MPRESA-->
+				 <INPUT type="hidden" name="WKORIGEN" value="MENGONIPABLO"> <!-- SITIO DE ORIGEN DEL POST -->
+				<INPUT type="hidden" name="WKSERVICIOID" value="1"> <!-- SERVICIO COTIZACION DE AUTO -->
+				<INPUT type="hidden" name="USRCOD" value="MPPABLO"> 
+				<INPUT type="hidden" name="ASUSRCOD" value="COTIWEB"> 
+				<INPUT type="hidden" name="ASUSRTOKEN" value="COTIWEB"> 
+
+			<!-- ESTOS SON DATOS PROPIOS DEL VEHICULO Y PREFERENCIA DE COTIZACION -->
+				<INPUT type="hidden" name="AU0KM" value="0"> 
+				<INPUT type="hidden" name="AUTGNCSINO" value="0"> 
+				<INPUT type="hidden" name="AUTGNCVALOR" value="0"> 
+				<INPUT type="hidden" name="AUUSOCOD" value="1">  <!-- 1=PARTICULAR 2=COMERCIAL -->
+				<INPUT type="hidden" name="COBGZOSINO" value="1">  <!-- 1=CON GRANIZO 0=SIN GRANIZO -->
+
+			 <!-- DATOS DEL CLIENTE, PUEDEN SER POR DEFECTO O PEDIRLOS EN PANTALLA -->
+				<INPUT type="hidden" name="CLIIVA" value="4"> 
+				<INPUT type="hidden" name="CLIIIBB" value="3"> 
+				<INPUT type="hidden" name="FORMAPAGO" value="2">   <!-- 1=EFECTIVO 2=TARJETA -->
+				<INPUT type="hidden" name="SEXO" value="M">	  <!-- M=MASCULINO F=FEMENINO -->
+				<INPUT type="hidden" name="TIPOPERSONA" value="F">  <!-- J=JURIDICA F=FISICA -->
+				<INPUT type="hidden" name="CLIFECNAC" value="08/04/1971"> 
+				<INPUT type="hidden" name="CLIEDAD" value="45"> 
+				<INPUT type="hidden" name="TIPODOC" value="DNI"> 
+				<INPUT type="hidden" name="NRODOC" value="21921998"> 
+
+			
 				
-				<div class="panel panel-info">
+				<div class="panel panel-info panel-info-insurance-quote">
 				<div class="panel-heading">Tipo de Veh&iacute;culo</div>
 					<div class="panel-body">
 						<div class="form-group">
@@ -31,16 +73,19 @@
 							  <option value="">A&ntilde;o</option>
 							</select>
 						</div>
+						<!TODO -- importante -- falta completar los ceros a la izquierda para enviar cod -->
+						{{ newCar.model.codInfoauto}}
+						<input type="hidden" size="60" name="AUTCODEXT" value= {{ newCar.model.codInfoauto}}></td>
 					</div>
 				</div>
 				
 				<div class="row">
-			      <div class="col-sm-6 col-sm-offset-4">
+			      <div class="col-sm-7 col-sm-offset-5">
 			        <div class="form-group">
 			          <div class="col-sm-offset-2 col-sm-10 insurance-quote-buttons">
 			            <div class="pull-right">
-			              <button type="submit" class="btn btn-default">Cancelar</button>
-			              <button type="submit" class="btn btn-primary" ng-click="quote()">Cotizar </button>
+			              <button type="submit" class="btn btn-default">Cancelar</button> <!--- TODO aca limpiar los campos, se puede preguntar primero -->
+			              <button type="submit" class="btn btn-primary">Cotizar </button>
 			            </div>
 			          </div>
 			        </div>

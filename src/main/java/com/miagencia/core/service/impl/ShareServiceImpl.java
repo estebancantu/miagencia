@@ -248,7 +248,7 @@ public class ShareServiceImpl implements ShareService {
 		//TODO El newCar deberia guardar esta Feature en vez del campo KM 
 		Attribute attribute = new Attribute();
 		attribute.setId("MLA1744-KMTS");
-		attribute.setName("Kilómetros");
+		attribute.setName("KilÃ³metros");
 		attribute.setValue_name(vehicle.getKilometers().toString());
 		attribute.setAttribute_group_id("FIND");
 		return attribute;

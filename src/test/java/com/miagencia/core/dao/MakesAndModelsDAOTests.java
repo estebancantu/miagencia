@@ -26,7 +26,7 @@ public class MakesAndModelsDAOTests {
 	public void testGetAllMakesAndModels() {
 		
 		
-		Map<Long, String> makes = makesAndModelsDao.getAllMakesForVehicleType(Long.valueOf(VehicleType.CAR_TRUCK.ordinal()));
+		Map<Long, String> makes = makesAndModelsDao.getAllMakesForVehicleType(Long.valueOf(VehicleType.CAR.ordinal()));
 		
 	}
 
