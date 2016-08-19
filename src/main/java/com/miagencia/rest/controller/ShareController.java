@@ -45,6 +45,7 @@ public class ShareController {
 		shareService.shareFacebook(shareRequestDTO);
 		
 		HttpHeaders responseHeaders = new HttpHeaders();
+		responseHeaders.set("Access-Control-Allow-Origin", "http://www.miagenciavirtual.com.ar:8080");
 		return new ResponseEntity<Void>(responseHeaders, HttpStatus.CREATED); 
 	}
 	
@@ -58,6 +59,7 @@ public class ShareController {
 		shareService.postMercadoLibre(shareRequestDTO);
 		
 		HttpHeaders responseHeaders = new HttpHeaders();
+		responseHeaders.set("Access-Control-Allow-Origin", "http://www.miagenciavirtual.com.ar:8080");
 		return new ResponseEntity<Void>(responseHeaders, HttpStatus.CREATED); 
 	}
 	

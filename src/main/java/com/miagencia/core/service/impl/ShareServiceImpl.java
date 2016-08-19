@@ -75,6 +75,7 @@ public class ShareServiceImpl implements ShareService {
     ServletContext context;
 
 	@Override
+	@Transactional
 	public void shareFacebook(ShareRequestDTO shareRequestDTO) {
 		Facebook facebook = new FacebookTemplate(shareRequestDTO.getToken(), FACEBOOK_NAMESPACE, FACEBOOK_APP_ID);
 		Vehicle vehicle = vehicleDAO.find(shareRequestDTO.getVehicleId());

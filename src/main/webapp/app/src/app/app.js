@@ -21,7 +21,6 @@ angular.module( 'ngBoilerplate', [
   'ngFileUpload',
   'ngImgCrop',
   'ui.utils.masks'
-
 ])
 
 .config(['localStorageServiceProvider', function(localStorageServiceProvider) {
@@ -32,8 +31,44 @@ angular.module( 'ngBoilerplate', [
   $urlRouterProvider.otherwise( '/home' );
 })
 
-.run( function run () {
-})
+.run( ['$rootScope', '$window',
+       function($rootScope, $window) {
+		$rootScope.user = {};
+
+		// Facebook Init
+		$window.fbAsyncInit = function() {
+			// Executed when the SDK is loaded
+			FB.init({
+				appId: '1607953992831087',
+				channelUrl: 'app/channel.html',
+				status: true,
+				cookie: true,
+				xfbml: true
+			});
+
+		};
+
+		(function(d){
+			var js,
+			id = 'facebook-jssdk',
+			ref = d.getElementsByTagName('script')[0];
+
+			if (d.getElementById(id)) {
+				return;
+			}
+
+			js = d.createElement('script');
+			js.id = id;
+			js.async = true;
+			js.src = "//connect.facebook.net/en_US/all.js";
+			ref.parentNode.insertBefore(js, ref);
+		}(document));
+	
+		// MercadoLibre Init
+		MELI.init({client_id: 4108975373321744});
+		
+		
+	}])
 
 .controller( 'AppCtrl', function AppCtrl ( $scope, $location ) {
 
