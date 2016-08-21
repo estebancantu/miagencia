@@ -76,7 +76,7 @@
 											</div>
 										</div>
 									</div>
-								    <div class="col-md-4 no-padding m-b-md">
+								   	 <div class="col-md-4 no-padding m-b-md">
 										<div class="col-md-10 no-padding">
 											<small class="text-muted">Kilometraje</small>
 											<div class="h4 no-margin-top fw-400">
@@ -89,7 +89,16 @@
 										<div class="col-md-10 no-padding">
 											<small class="text-muted">Color</small>
 											<div class="h4 no-margin-top fw-400">
-												Rojo {{carDetailsDto.vehicleDto.color}}
+												{{carDetailsDto.vehicleDto.color}}
+											</div>
+										</div>
+									</div>
+									<div class="col-md-4 no-padding m-b-md">
+
+										<div class="col-md-10 no-padding">
+											<small class="text-muted">Código de Info Auto</small>
+											<div class="h4 no-margin-top fw-400">
+												{{carDetailsDto.vehicleDto.codInfoauto}}
 											</div>
 										</div>
 									</div>
@@ -260,12 +269,12 @@
 				        		<i class="fa fa-lock"></i> Reservar
 				        	</div>
 				        </a>
-				        <a href="http://www.softeam1.com.ar/cotiwebdemo/" class="btn btn-primary btn-lg btn-block" role="button">
+				        <a ui-sref="insuranceQuote({carId:carDetailsDto.vehicleDto.id})"  class="btn btn-primary btn-lg btn-block" role="button">
 				        	<div class="car-details-buttons">
 				        		<i class="fa fa-globe"></i> Calcular Seguro
 				        	</div>
 				        </a> 
-				        <a ui-sref="insuranceQuote" class="btn btn-primary btn-lg btn-block" role="button">
+				        <a ui-sref="insuranceQuote" class="btn btn-primary btn-lg btn-block" role="button" target="_blank">
 				        	<div class="car-details-buttons">
 				        		<i class="fa fa-bar-chart"></i> Calcular Prenda
 				        	</div>
