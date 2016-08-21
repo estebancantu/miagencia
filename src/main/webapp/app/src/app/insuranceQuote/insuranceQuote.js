@@ -1,11 +1,12 @@
 angular.module( 'ngBoilerplate.insuranceQuote', [
   'ui.router',
-  'makeAndModelsServices'
+  'makeAndModelsServices',
+    'vehicleService'
 ])
 
 .config(function config( $stateProvider ) {
   $stateProvider.state( 'insuranceQuote', {
-    url: '/insuranceQuote',
+    url: '/insuranceQuote/:carId',
     views: {
       "main": {
         controller: 'InsuranceQuoteCtrl',
@@ -16,13 +17,64 @@ angular.module( 'ngBoilerplate.insuranceQuote', [
   });
 })
 
-.controller( 'InsuranceQuoteCtrl', function InsuranceQuoteController( $scope, MakesAndModels ) {
+.controller( 'InsuranceQuoteCtrl', function InsuranceQuoteController( $scope,  $stateParams,   vehicleService, MakesAndModels ) {
 
 
-          $scope.availableVehicles = MakesAndModels.query();
+        $scope.vehicle = {
+                    vehicleType:"",
+                    vehicleMake:"",
+                    vehicleModel:"",
+                    year:""
+        };
+
+        $scope.availableVehicles = MakesAndModels.query( function( av) {
 
 
-          $scope.years = [
+                         if ($stateParams.carId !== "" ) {
+
+                                              $scope.vehicleDetailsDto = vehicleService.get({id: $stateParams.carId}, function(result) {
+
+
+                                                      for(var j = 0;  j  < av.length;  j++ ) {
+
+                                                            if (av[j].name === result.vehicleDto.vehicleType) {
+
+                                                                        $scope.vehicle.vehicleType = av[j];
+                                                            }
+                                                      }
+
+
+                                                      for(var k = 0;  k < $scope.vehicle.vehicleType.makes.length ; k++) {
+
+                                                          if($scope.vehicle.vehicleType.makes[k].id === result.vehicleDto.make) {
+
+                                                                        $scope.vehicle.vehicleMake = $scope.vehicle.vehicleType.makes[k];
+                                                          }
+
+                                                      }
+
+
+
+                                                      for(var l = 0;  l < $scope.vehicle.vehicleMake.models.length ; l++) {
+
+                                                          if($scope.vehicle.vehicleMake.models[l].id === result.vehicleDto.model) {
+
+                                                                        $scope.vehicle.vehicleModel = $scope.vehicle.vehicleMake.models[l];
+                                                          }
+
+                                                      }
+
+                                                      $scope.vehicle.year = result.vehicleDto.year.toString();
+
+
+                                              });
+                        }
+
+        });
+
+
+
+         $scope.years = [
             "2016",
             "2015",
             "2014",
@@ -51,6 +103,8 @@ angular.module( 'ngBoilerplate.insuranceQuote', [
             "1991"
 
           ];
+
+
 
 })
 
