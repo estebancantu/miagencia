@@ -2,6 +2,7 @@ package com.miagencia.core.model;
 
 import java.util.List;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
@@ -18,9 +19,17 @@ import javax.persistence.Table;
 public class Dealership extends PersistableEntity {
 	
 
+	
 	// byte[]	getImage() 
 	
+	@Column(name="NAME", nullable=false)
 	private String name;
+	
+	@Column(name="E_MAIL", nullable=false)
+	private String email;
+	
+	@Column(name="PHONE")
+	private String phone;
 	
 	@OneToOne
 	@JoinColumn(name="ACCOUNT_ID")
@@ -35,6 +44,13 @@ public class Dealership extends PersistableEntity {
 	@OneToOne
 	@JoinColumn(name="LOCATION_ID")
 	private Location location;
+	
+
+
+	
+	
+	
+	
 	
 	public Dealership() {
 	}
