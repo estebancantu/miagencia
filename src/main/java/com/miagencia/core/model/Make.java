@@ -10,8 +10,6 @@ import javax.persistence.FetchType;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-import com.miagencia.rest.dto.ModelDTO;
-
 @Entity
 @Table(name="MAKES")
 public class Make extends PersistableEntity {
