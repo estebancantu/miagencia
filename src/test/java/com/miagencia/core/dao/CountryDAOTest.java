@@ -24,17 +24,17 @@ public class CountryDAOTest {
 	@Test
 	@Transactional
 	public void testGetAllMakesAndModels() {
-		Country country = countryDAO.find(1l);
-		System.out.println("Country -----"+country.getName());
-		for (State state : country.getStateList()) {
-			System.out.println("State -----"+state.getName());
-			for (City city: state.getCityList()) {
-				System.out.println("City -----"+city.getName());
-				for (Neighborhood neighborhood : city.getNeighborhoodList()) {
-					System.out.println("Neighborhood -----"+neighborhood.getName());
-				}
-			}
-		}
+//		Country country = countryDAO.find(1l);
+//		System.out.println("Country -----"+country.getName());
+//		for (State state : country.getStateList()) {
+//			System.out.println("State -----"+state.getName());
+//			for (City city: state.getCityList()) {
+//				System.out.println("City -----"+city.getName());
+//				for (Neighborhood neighborhood : city.getNeighborhoodList()) {
+//					System.out.println("Neighborhood -----"+neighborhood.getName());
+//				}
+//			}
+//		}
 		
 	}
 
