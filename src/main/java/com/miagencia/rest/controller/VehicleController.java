@@ -67,7 +67,7 @@ public class VehicleController {
 		
 		HttpHeaders responseHeaders = new HttpHeaders();
 	    responseHeaders.set("TestHeaderKey", "TestHeaderData");
-		
+		responseHeaders.set("Access-Control-Allow-Origin", "http://www.miagenciavirtual.com.ar:8080");
 	    VehicleDetailsDTO vehicleDetailsDto = null;
 	    System.out.println("Fetching Vehicle with id " + vehicleId);   
 		vehicleDetailsDto = vehicleService.find(vehicleId);

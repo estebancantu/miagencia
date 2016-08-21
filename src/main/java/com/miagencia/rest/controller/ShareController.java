@@ -45,6 +45,7 @@ public class ShareController {
 		shareService.shareFacebook(shareRequestDTO);
 		
 		HttpHeaders responseHeaders = new HttpHeaders();
+		responseHeaders.set("Access-Control-Allow-Origin", "http://www.miagenciavirtual.com.ar:8080");
 		return new ResponseEntity<Void>(responseHeaders, HttpStatus.CREATED); 
 	}
 	
@@ -58,6 +59,7 @@ public class ShareController {
 		shareService.postMercadoLibre(shareRequestDTO);
 		
 		HttpHeaders responseHeaders = new HttpHeaders();
+		responseHeaders.set("Access-Control-Allow-Origin", "http://www.miagenciavirtual.com.ar:8080");
 		return new ResponseEntity<Void>(responseHeaders, HttpStatus.CREATED); 
 	}
 	
@@ -71,14 +73,12 @@ public class ShareController {
 		String fileUrl = shareService.postOLX(shareRequestDTO);
 		
 		HttpHeaders responseHeaders = new HttpHeaders();
-		//return new ResponseEntity<OlxFileDTO>(new OlxFileDTO("http://miagenciavirtual.com.ar:8080/miagencia/api/share/olx/"+fileUrl), HttpStatus.CREATED); 
-		//return new ResponseEntity<OlxFileDTO>(new OlxFileDTO("http://localhost:8080/miagencia/api/share/olx/"+fileUrl), HttpStatus.CREATED);
 		return new ResponseEntity<OlxFileDTO>(new OlxFileDTO("http://"+request.getServerName()+":"+request.getServerPort()+"/miagencia/api/share/olx/"+fileUrl), HttpStatus.CREATED);
 	}
 	
 	@RequestMapping(value = "/olx/{fileName}", method = RequestMethod.GET)
     public ResponseEntity<byte[]> getOLX(@PathVariable String fileName) throws IOException{
-        
+        //TODO Agregar autenticacion para los archivos
         InputStream is = shareService.getOLXFile(fileName);
 
         final HttpHeaders headers = new HttpHeaders();
