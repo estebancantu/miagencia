@@ -104,5 +104,34 @@ angular.module( 'ngBoilerplate', [
     };
 })
 
+
+
+
+.filter('infoAutoCompletarCeros', function() {
+
+      return function completar (input) {
+
+                // TODO chequear tambien que el numero de entrada sea por lo menos de cinco digitos
+                if (isNaN(input) || input.length < 4) {
+                              return input;
+                } else {
+
+                       // completar con ceros
+                       if (input.toString().length == 5) {
+
+                                return '00' + input;
+
+                       } else if (input.toString().length == 6) {
+
+                                return '0' + input;
+
+                       } else if (input.toString().length  > 6) {
+
+                                return + input;
+                       }
+                }
+      };
+}) 
+
 ;
 

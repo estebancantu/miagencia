@@ -10,7 +10,9 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.miagencia.core.model.Make;
 import com.miagencia.core.model.VehicleType;
+import com.miagencia.rest.dto.VehicleTypeDTO;
 
 
 @RunWith( SpringJUnit4ClassRunner.class )
@@ -26,7 +28,7 @@ public class MakesAndModelsDAOTests {
 	public void testGetAllMakesAndModels() {
 		
 		
-		Map<Long, String> makes = makesAndModelsDao.getAllMakesForVehicleType(Long.valueOf(VehicleType.CAR.ordinal()));
+		List<Make> makes = makesAndModelsDao.getAllMakesAndModels(VehicleType.CAR);
 		
 	}
 

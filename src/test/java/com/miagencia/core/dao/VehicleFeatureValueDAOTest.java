@@ -23,10 +23,10 @@ public class VehicleFeatureValueDAOTest {
 	@Test
 	@Transactional
 	public void testGetFeatureValue() {
-		List<VehicleFeatureValue> value = vehicleFeatureValueDAO.findValueByName("Color");
-		for (VehicleFeatureValue vehicleFeatureValue : value) {
-			System.out.println(vehicleFeatureValue.getOlxId());
-		}
+//		List<VehicleFeatureValue> value = vehicleFeatureValueDAO.findValueByName("Color");
+//		for (VehicleFeatureValue vehicleFeatureValue : value) {
+//			System.out.println(vehicleFeatureValue.getOlxId());
+//		}
 		
 	}
 

@@ -118,7 +118,7 @@ public class EntityDTOTranslator {
 	
 	
 	
-	public static VehicleDetailsDTO buildVehicleDetailsDTO(Vehicle vehicle, Client seller, SaleItem saleItem, String makeString, String modelString) {
+	public static VehicleDetailsDTO buildVehicleDetailsDTO(Vehicle vehicle, Client seller, SaleItem saleItem, String makeString, String modelString, Long codInfoauto) {
 		
 		VehicleDetailsDTO vehicleDetailsDto = new VehicleDetailsDTO();
 		
@@ -126,6 +126,7 @@ public class EntityDTOTranslator {
 		
 		vehicleDto.setMakeString(makeString);
 		vehicleDto.setModelString(modelString);
+		vehicleDto.setCodInfoauto(codInfoauto);
 		
 		ClientDTO clientDto = buildClientDTO(seller);
 		

@@ -84,10 +84,12 @@ public class VehicleServiceImpl implements VehicleService {
 		Model model = makesAndModelsDao.getModel( new Long(vehicle.getModelId()));
 		String modelString = model.getName();
 		
+		Long codInfoauto = model.getCodInfoauto();
+		
 		SaleItem saleItem = saleItemDao.getSaleItemByVehicleId(vehicleId);
 
 
-		VehicleDetailsDTO vehicleDetailsDto = EntityDTOTranslator.buildVehicleDetailsDTO(vehicle, newVehicleOperation.getClient(), saleItem, makeString, modelString);
+		VehicleDetailsDTO vehicleDetailsDto = EntityDTOTranslator.buildVehicleDetailsDTO(vehicle, newVehicleOperation.getClient(), saleItem, makeString, modelString, codInfoauto);
 
 		return vehicleDetailsDto;
 	}

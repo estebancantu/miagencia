@@ -27,20 +27,20 @@ public class VehicleDAOTests {
 	@Test
 	@Transactional
 	public void testGetVehicle() {
-		Vehicle vehicle = vehicleDao.find(1l);
-		List<Attribute> list = new ArrayList<Attribute>();
-		for (VehicleFeatureValue featureValue : vehicle.getFeaturesValues()) {
-			Attribute attribute = new Attribute();
-			attribute.setId(featureValue.getFeature().getMercadoLibreId());
-			attribute.setName(featureValue.getFeature().getName());
-			attribute.setValue_id(featureValue.getMercadoLibreId());
-			attribute.setValue_name(featureValue.getValue());
-			attribute.setAttribute_group_id(featureValue.getFeature().getGroup().getMercadoLibreId());
-			list.add(attribute);
-		}
-		for (Attribute attribute : list) {
-			System.out.println(attribute.toString());
-		}
+//		Vehicle vehicle = vehicleDao.find(1l);
+//		List<Attribute> list = new ArrayList<Attribute>();
+//		for (VehicleFeatureValue featureValue : vehicle.getFeaturesValues()) {
+//			Attribute attribute = new Attribute();
+//			attribute.setId(featureValue.getFeature().getMercadoLibreId());
+//			attribute.setName(featureValue.getFeature().getName());
+//			attribute.setValue_id(featureValue.getMercadoLibreId());
+//			attribute.setValue_name(featureValue.getValue());
+//			attribute.setAttribute_group_id(featureValue.getFeature().getGroup().getMercadoLibreId());
+//			list.add(attribute);
+//		}
+//		for (Attribute attribute : list) {
+//			System.out.println(attribute.toString());
+//		}
 	}
 //	@Test
 //	@Transactional

@@ -21,16 +21,16 @@ public class AccountDAOTest {
 	@Test
 	@Transactional
 	public void testAccount() {
-		Account account = accountDAO.find(1l);
-		System.out.println("Account -----"+account.getUsername());
-		System.out.println("Dealership -----"+account.getDealership().getName());
-		System.out.println("Location Address -----"+account.getDealership().getLocation().getAddressLine());
-		System.out.println("Location Country -----"+account.getDealership().getLocation().getCountry().getName());
-		System.out.println("Location State Country -----"+account.getDealership().getLocation().getState().getCountry().getName());
-		System.out.println("Location State -----"+account.getDealership().getLocation().getState().getName());
-		System.out.println("Location City -----"+account.getDealership().getLocation().getCity().getName());
-		System.out.println("Location Neighborhood -----"+account.getDealership().getLocation().getNeighborhood().getName());
-		
+//		Account account = accountDAO.find(1l);
+//		System.out.println("Account -----"+account.getUsername());
+//		System.out.println("Dealership -----"+account.getDealership().getName());
+//		System.out.println("Location Address -----"+account.getDealership().getLocation().getAddressLine());
+//		System.out.println("Location Country -----"+account.getDealership().getLocation().getCountry().getName());
+//		System.out.println("Location State Country -----"+account.getDealership().getLocation().getState().getCountry().getName());
+//		System.out.println("Location State -----"+account.getDealership().getLocation().getState().getName());
+//		System.out.println("Location City -----"+account.getDealership().getLocation().getCity().getName());
+//		System.out.println("Location Neighborhood -----"+account.getDealership().getLocation().getNeighborhood().getName());
+//		
 	}
 
 }
