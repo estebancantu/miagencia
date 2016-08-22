@@ -54,7 +54,7 @@ angular.module( 'ngBoilerplate.reserveCar', [
     $http({
                 method: 'POST',
               //  url: 'http://localhost:8080/miagencia/api/operations/reserveVehicle/',
-                url: 'http://miagenciavirtual.com.ar:8080/miagencia/api/operations/reserveVehicle/',
+                url: 'http://www.miagenciavirtual.com.ar:8080/miagencia/api/operations/reserveVehicle/',
                 data: reserveVehicleRequestDto,
                 headers: {
                     "Content-Type": "application/json",
