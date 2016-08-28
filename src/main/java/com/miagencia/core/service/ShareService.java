@@ -8,9 +8,11 @@ public interface ShareService {
 	
 	void shareFacebook(ShareRequestDTO shareRequestDTO);
 	
-	void postMercadoLibre(ShareRequestDTO shareRequestDTO);
-
+	void postMercadoLibre(ShareRequestDTO shareRequestDTO)  throws Exception;
+	
 	String postOLX(ShareRequestDTO shareRequestDTO);
+	
+	void postAutocosmos(ShareRequestDTO shareRequestDTO);
 	
 	InputStream getOLXFile(String fileName);
 

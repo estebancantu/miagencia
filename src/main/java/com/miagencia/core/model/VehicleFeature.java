@@ -20,7 +20,11 @@ public class VehicleFeature extends PersistableEntity{
 
 	public static final String COLOR = "Color";
 	public static final String FUEL = "Combustible";
-	
+	public static final String KILOMETER_MERCADOLIBRE_ID = "MLA1744-KMTS";
+	public static final String COLOR_MERCADOLIBRE_ID = "MLA1744-COLOREXT";
+	public static final String FUEL_MERCADOLIBRE_ID = "MLA1744-COMBUS";
+    public static final String DOOR_MERCADOLIBRE_ID = "MLA1744-DOOR";
+    public static final String YEAR_MERCADOLIBRE_ID = "MLA1744-YEAR";
 	
 	@Column(name="NAME", nullable=false)
 	private String name;

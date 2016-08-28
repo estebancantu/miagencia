@@ -27,7 +27,7 @@ angular.module( 'ngBoilerplate.carDetails', [
 
   $scope.carDetailsDto = vehicleService.get({id: $stateParams.carId}, function(response) {
 
-      $scope.slides.push({image: response.vehicleDto.imageUrl});
+      $scope.slides.push({image: "http://www.miagenciavirtual.com.ar:8080/miagencia/pics/"+response.vehicleDto.imageUrl});
       $scope.slides.push({image: 'assets/img/logo.png'});
   });
   
@@ -36,27 +36,19 @@ angular.module( 'ngBoilerplate.carDetails', [
 angular.module('ngBoilerplate.carDetails').controller('shareModalCtrl', function ($scope, $uibModal) {
 	
 	$scope.successTextAlert = '';
-	$scope.showSuccessAlert = false;
-	
-	$scope.switchBool = function(value) {
-		$scope[value] = !$scope[value];
-		if(!value){
-			$scope.cancel();
-		}
-	};
 	$scope.animationsEnabled = true;
 	
 	$scope.open = function () {
 
 	var modalInstance = $uibModal.open({
 			animation: $scope.animationsEnabled,
-			templateUrl: 'myModalContent.html',
+			ariaLabelledBy: 'modal-title',
+			ariaDescribedBy: 'modal-body',
+			templateUrl: 'shareModal.html',
+			size: 'sm',
 			controller: 'shareModalInstanceCtrl'
 		});
 
-		modalInstance.result.then(function (selectedItem) {}, function () {
-			console.log('Modal dismissed at: ' + new Date());
-		});
 		
 		};
 
@@ -64,12 +56,22 @@ angular.module('ngBoilerplate.carDetails').controller('shareModalCtrl', function
 			$scope.animationsEnabled = !$scope.animationsEnabled;
 		};
 
-	});
+});
 
-	// Please note that $uibModalInstance represents a modal window (instance) dependency.
-	// It is not the same as the $uibModal service used above.
+	
+angular.module('ngBoilerplate.carDetails').controller('shareSuccessModalInstanceCtrl', ['$scope', '$uibModalInstance', function ($scope, $uibModalInstance) {
+	
+	$scope.cancelSuccess = function () {
+		$uibModalInstance.dismiss('cancel');
+	};
+	
+	
+}]);
 
-angular.module('ngBoilerplate.carDetails').controller('shareModalInstanceCtrl', ['$scope', '$uibModalInstance', '$http', '$stateParams', function ($scope, $uibModalInstance, $http, $stateParams) {
+// Please note that $uibModalInstance represents a modal window (instance) dependency.
+// It is not the same as the $uibModal service used above.
+
+angular.module('ngBoilerplate.carDetails').controller('shareModalInstanceCtrl', ['$scope', '$uibModalInstance', '$http', '$stateParams', '$uibModal', function ($scope, $uibModalInstance, $http, $stateParams, $uibModal) {
   
 		
 		$scope.cancel = function () {
@@ -94,13 +96,16 @@ angular.module('ngBoilerplate.carDetails').controller('shareModalInstanceCtrl', 
 			})
 			.then(function(response) {
 				if (response.status < 400) {
-					$scope.showSuccessAlert = true;
 					$scope.successTextAlert = 'El vehiculo se publicó en Facebook';
-					} else {
-						$scope.cancel();
-					}
+				} else {
+					$scope.successTextAlert = 'Error al publicar en Facebook.';
+				}
+				$scope.openSuccess('sm');
+				}, function(data){
+					$scope.successTextAlert = 'Error al publicar en Facebook.';
+					$scope.openSuccess('sm');
 				});
-
+			
 			};
 			
 		$scope.loginFacebook = function() {
@@ -159,13 +164,55 @@ angular.module('ngBoilerplate.carDetails').controller('shareModalInstanceCtrl', 
 			})
 			.then(function(response) {
 				if (response.status < 400) {
-					$scope.showSuccessAlert = true;
 					$scope.successTextAlert = 'El vehiculo se publicó en MercadoLibre';
-					} else {
-						$scope.cancel();
-					}
+				} else {
+					$scope.successTextAlert = 'Error al publicar en MercadoLibre.';
+				}
+				$scope.openSuccess('sm');
+				}, function(data){
+					$scope.successTextAlert = 'Error al publicar en MercadoLibre.';
+					$scope.openSuccess('sm');
 				});
-
+				
 			};
+			
+			$scope.postOLX = function() {
+				var shareDTO = {
+					vehicleId: $stateParams.carId
+				};
+
+
+				$http({
+					method: 'POST',
+					url: 'http://www.miagenciavirtual.com.ar:8080/miagencia/api/share/olx/',
+					data: shareDTO
+				})
+				.then(function(response) {
+					if (response.status < 400) {
+						$scope.successTextAlert = 'El vehiculo se publicó en OLX. Copia el siguiente link: '+response.data.fileUrl;
+					} else {
+						$scope.successTextAlert = 'Error al publicar en OLX.';
+					}
+					$scope.openSuccess('lg');
+					}, function(data){
+						$scope.successTextAlert = 'Error al publicar en OLX.';
+						$scope.openSuccess('lg');
+					});
+				};
+				
+
+				$scope.openSuccess = function (size) {
+
+					var modalInstance = $uibModal.open({
+							ariaLabelledBy: 'modal-title',
+							ariaDescribedBy: 'modal-body',
+							templateUrl: 'shareSuccessContent.html',
+							size: size,
+							scope: $scope,
+							controller: 'shareSuccessModalInstanceCtrl'
+						});
+				
+				};
+				
 
 }]);

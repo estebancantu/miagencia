@@ -17,9 +17,6 @@ public class VehicleFeatureValue extends PersistableEntity{
 	@Column(name="MERCADO_LIBRE_ID", nullable=false)
 	private String mercadoLibreId;
 	
-	@Column(name="OLX_ID", nullable=false)
-	private String olxId;
-	
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "FEATURE_ID", nullable = false)
 	private VehicleFeature feature;
@@ -43,15 +40,6 @@ public class VehicleFeatureValue extends PersistableEntity{
 	public void setFeature(VehicleFeature feature) {
 		this.feature = feature;
 	}
-	public String getOlxId() {
-		return olxId;
-	}
-	public void setOlxId(String olxId) {
-		this.olxId = olxId;
-	}
-	
-	
-	
 	
 
 }

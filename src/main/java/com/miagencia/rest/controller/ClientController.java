@@ -18,6 +18,7 @@ import org.springframework.web.util.UriComponentsBuilder;
 import com.miagencia.core.service.ClientService;
 import com.miagencia.rest.dto.ClientDTO;
 import com.miagencia.rest.dto.ClientSummaryDTO;
+import com.miagencia.rest.dto.util.CustomResponseHeaders;
 import com.miagencia.rest.dto.util.DTOValidator;
 
 
@@ -64,14 +65,11 @@ public class ClientController {
 		
 		List<ClientSummaryDTO> clients = clientService.getAllClients();
 		
-		HttpHeaders responseHeaders = new HttpHeaders();
-	    responseHeaders.set("TestHeaderKey", "TestHeaderData");
-	    
 		if(clients == null || clients.isEmpty()) {
-			return new ResponseEntity<List<ClientSummaryDTO>>(responseHeaders, HttpStatus.NO_CONTENT);
+			return new ResponseEntity<List<ClientSummaryDTO>>(new CustomResponseHeaders(), HttpStatus.NO_CONTENT);
 		}
 
-		return new ResponseEntity<List<ClientSummaryDTO>>(clients, responseHeaders, HttpStatus.OK);	
+		return new ResponseEntity<List<ClientSummaryDTO>>(clients, new CustomResponseHeaders(), HttpStatus.OK);	
 		
 	}
 

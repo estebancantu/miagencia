@@ -30,7 +30,8 @@ public class Model extends PersistableEntity {
 	@Column(name="OLX_ID", nullable=false)
 	private String olxId;  
 	
-	
+	@Column(name="AUTOCOSMOS_ID", nullable=false)
+    private String autocosmosId;  
 	
 	
 	
@@ -84,6 +85,16 @@ public class Model extends PersistableEntity {
 	public void setCodInfoauto(Long codInfoauto) {
 		this.codInfoauto = codInfoauto;
 	}
+
+
+    public String getAutocosmosId() {
+        return autocosmosId;
+    }
+
+
+    public void setAutocosmosId(String autocosmosId) {
+        this.autocosmosId = autocosmosId;
+    }
 	
 	
 }

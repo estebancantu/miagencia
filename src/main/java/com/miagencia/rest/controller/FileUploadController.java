@@ -64,6 +64,7 @@ public class FileUploadController {
 
         final HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.IMAGE_JPEG);
+        headers.set("Access-Control-Allow-Origin", "http://www.miagenciavirtual.com.ar:8080");
 
         return new ResponseEntity<byte[]>(IOUtils.toByteArray(is), headers, HttpStatus.CREATED);
     }
@@ -78,7 +79,7 @@ public class FileUploadController {
 		
 		
 		HttpHeaders responseHeaders = new HttpHeaders();
-		
+		responseHeaders.set("Access-Control-Allow-Origin", "http://www.miagenciavirtual.com.ar:8080");
 		if (name.contains("/")) {
 			responseHeaders.set("message", "Folder separators not allowed");
 			return new ResponseEntity<ImageUploadResponseDTO>(responseHeaders, HttpStatus.BAD_REQUEST);
@@ -146,7 +147,6 @@ public class FileUploadController {
 			return new ResponseEntity<ImageUploadResponseDTO>(responseHeaders, HttpStatus.BAD_REQUEST);
 
 		}
-
 		
 		return new ResponseEntity<ImageUploadResponseDTO>( responseDto ,responseHeaders, HttpStatus.CREATED);	
 	}

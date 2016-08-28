@@ -37,10 +37,9 @@ public class Vehicle extends PersistableEntity {
 	private int modelId;
 	
 	// Agencia concesionaria 
-	// @ManyToOne not null
-	//private Dealership dealer;
-	// TODO por ahora no pongamos una relacion de doble conocimiento, pongamos solo la
-	// lista de vehicles en dealer. despues vemos si la necesitamos a esta
+	@ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "DEALER_ID", nullable = false)
+    private Dealership dealer;
 	
 	@OneToOne(cascade=CascadeType.ALL)
 	@JoinColumn(name = "LOCATION_ID")
@@ -67,12 +66,19 @@ public class Vehicle extends PersistableEntity {
 
 	// Los campos a partir de acá se pueden reemplazar con features
 	// Año
+	@Enumerated(EnumType.STRING)
 	@Column(name="MODEL_YEAR", nullable=false)
-	private int modelYear;
+	private Year modelYear;
 	
 	//Color
+	@Enumerated(EnumType.STRING)
 	@Column(name="COLOR", nullable=false)
-	private String color;
+	private Color color;
+	
+	//Door
+    @Enumerated(EnumType.STRING)
+    @Column(name="DOOR_QUANTITY", nullable=false)
+    private Door doorQuantity;
 
 	
 	// Kilometraje
@@ -124,7 +130,7 @@ public class Vehicle extends PersistableEntity {
 
 
 	public Vehicle(VehicleType vehicleType, int makeId, int modelId,
-			int modelYear, String plate, String color, String chassisNumber,
+			Year modelYear, String plate, Color color, String chassisNumber,
 			String engineNumber, Long kilometers, FuelType fuelType,
 			Transmission transmission, String description, String city,
 			int provinceId, VehicleCondition vehicleCondition) {
@@ -147,28 +153,43 @@ public class Vehicle extends PersistableEntity {
 	}
 
 
-	public int getModelYear() {
-		return modelYear;
-	}
 
-	public void setModelYear(int modelYear) {
-		this.modelYear = modelYear;
-	}
+	public Year getModelYear() {
+        return modelYear;
+    }
 
-	public String getPlate() {
+
+    public void setModelYear(Year modelYear) {
+        this.modelYear = modelYear;
+    }
+
+
+    public Color getColor() {
+        return color;
+    }
+
+
+    public void setColor(Color color) {
+        this.color = color;
+    }
+
+
+    public Door getDoorQuantity() {
+        return doorQuantity;
+    }
+
+
+    public void setDoorQuantity(Door doorQuantity) {
+        this.doorQuantity = doorQuantity;
+    }
+
+
+    public String getPlate() {
 		return plate;
 	}
 
 	public void setPlate(String plate) {
 		this.plate = plate;
-	}
-
-	public String getColor() {
-		return color;
-	}
-
-	public void setColor(String color) {
-		this.color = color;
 	}
 
 	public String getChassisNumber() {
@@ -289,24 +310,15 @@ public class Vehicle extends PersistableEntity {
 	public void setLocation(Location location) {
 		this.location = location;
 	}
+	
+
+	public Dealership getDealer() {
+        return dealer;
+    }
 
 
-	public String getOlxIdByFeature(String feature){
-		for (VehicleFeatureValue vehicleFeatureValue : featuresValues) {
-			if(vehicleFeatureValue.getFeature().getName().equals(feature)){
-				return vehicleFeatureValue.getOlxId();
-			}
-		}
-		return null;
-	}
-	
-	public String getMercadoLibreIdByFeature(String feature){
-		for (VehicleFeatureValue vehicleFeatureValue : featuresValues) {
-			if(vehicleFeatureValue.getFeature().getName().equals(feature)){
-				return vehicleFeatureValue.getMercadoLibreId();
-			}
-		}
-		return null;
-	}
-	
+    public void setDealer(Dealership dealer) {
+        this.dealer = dealer;
+    }
+
 }

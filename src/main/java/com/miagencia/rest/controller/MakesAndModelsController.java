@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.miagencia.core.service.MakesAndModelsService;
 import com.miagencia.rest.dto.VehicleTypeDTO;
+import com.miagencia.rest.dto.util.CustomResponseHeaders;
 
 
 
@@ -29,11 +30,7 @@ public class MakesAndModelsController {
 		
 		List<VehicleTypeDTO> makesAndModels = makesAndModelsService.getAllMakesAndModels();
 		
-		HttpHeaders responseHeaders = new HttpHeaders();
-	    responseHeaders.set("TestHeaderKey", "TestHeaderData");
-
-
-		return new ResponseEntity<List<VehicleTypeDTO>>(makesAndModels, responseHeaders, HttpStatus.OK);	
+		return new ResponseEntity<List<VehicleTypeDTO>>(makesAndModels, new CustomResponseHeaders(), HttpStatus.OK);	
 		
 	}
 	

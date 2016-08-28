@@ -8,12 +8,14 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.miagencia.core.model.Client;
+import com.miagencia.core.model.Color;
 import com.miagencia.core.model.FuelType;
 import com.miagencia.core.model.PaymentType;
 import com.miagencia.core.model.Transmission;
 import com.miagencia.core.model.Vehicle;
 import com.miagencia.core.model.VehicleCondition;
 import com.miagencia.core.model.VehicleType;
+import com.miagencia.core.model.Year;
 import com.miagencia.core.model.operations.BuyOperation;
 
 
@@ -28,8 +30,8 @@ public class OperationDAOTests {
 	@Transactional
 	public void testAddPurchaseOperation() {
 		
-		Vehicle vehicle = new Vehicle(VehicleType.CAR, 1, 1, 2012, "AAA123", 
-				"Verde", "12312378", "323432344", 140000l, FuelType.GASOLINE, 
+		Vehicle vehicle = new Vehicle(VehicleType.CAR, 1, 1, Year.DOS_MIL_CINCO, "AAA123", 
+				Color.VERDE, "12312378", "323432344", 140000l, FuelType.GASOLINE, 
 					Transmission.MANUAL, "Bastante bien", "La Plata", 3, VehicleCondition.NEW);
 		
 		

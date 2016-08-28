@@ -19,7 +19,7 @@ public class VehicleDTO {
 	
 	private Long codInfoauto;
 	
-	private int year;
+	private String year;
 	
 	private String plate;
 	
@@ -84,11 +84,11 @@ public class VehicleDTO {
 		this.model = model;
 	}
 
-	public int getYear() {
+	public String getYear() {
 		return year;
 	}
 
-	public void setYear(int year) {
+	public void setYear(String year) {
 		this.year = year;
 	}
 	

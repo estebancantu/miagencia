@@ -3,13 +3,10 @@ package com.miagencia.core.model.mercadolibre;
 
 import java.util.ArrayList;
 import java.util.List;
-import javax.annotation.Generated;
 
 import com.miagencia.core.model.PersistableEntity;
-import com.miagencia.core.model.VehicleFeature;
 
-@Generated("org.jsonschema2pojo")
-public class Publication extends PersistableEntity{
+public class PublicationMercadoLibre extends PersistableEntity{
 
     private String site_id = "MLA";
     private String title;

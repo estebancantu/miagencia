@@ -20,9 +20,11 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.mercadolibre.sdk.MeliException;
 import com.miagencia.core.service.ShareService;
 import com.miagencia.rest.dto.OlxFileDTO;
 import com.miagencia.rest.dto.ShareRequestDTO;
+import com.miagencia.rest.dto.util.CustomResponseHeaders;
 import com.miagencia.rest.dto.util.DTOValidator;
 
 @RestController
@@ -44,13 +46,11 @@ public class ShareController {
 		
 		shareService.shareFacebook(shareRequestDTO);
 		
-		HttpHeaders responseHeaders = new HttpHeaders();
-		responseHeaders.set("Access-Control-Allow-Origin", "http://www.miagenciavirtual.com.ar:8080");
-		return new ResponseEntity<Void>(responseHeaders, HttpStatus.CREATED); 
+		return new ResponseEntity<Void>(new CustomResponseHeaders(), HttpStatus.CREATED); 
 	}
 	
 	@RequestMapping(value = "/mercadoLibre", method = RequestMethod.POST)
-	public ResponseEntity<Void> postMercadoLibre(@RequestBody ShareRequestDTO shareRequestDTO) throws IOException{
+	public ResponseEntity<Void> postMercadoLibre(@RequestBody ShareRequestDTO shareRequestDTO) throws Exception{
 		if (shareRequestDTO == null || !DTOValidator.validate(shareRequestDTO)){
 			System.out.println("Post MercadoLibre fields are incorrect"); 
 			return new ResponseEntity<Void>( HttpStatus.BAD_REQUEST);
@@ -58,27 +58,23 @@ public class ShareController {
 		
 		shareService.postMercadoLibre(shareRequestDTO);
 		
-		HttpHeaders responseHeaders = new HttpHeaders();
-		responseHeaders.set("Access-Control-Allow-Origin", "http://www.miagenciavirtual.com.ar:8080");
-		return new ResponseEntity<Void>(responseHeaders, HttpStatus.CREATED); 
+		return new ResponseEntity<Void>(new CustomResponseHeaders(), HttpStatus.CREATED); 
 	}
 	
 	@RequestMapping(value = "/olx", method = RequestMethod.POST)
 	public @ResponseBody ResponseEntity<OlxFileDTO> postOLX(@RequestBody ShareRequestDTO shareRequestDTO, HttpServletRequest request, HttpServletResponse response) throws IOException{
-		if (shareRequestDTO == null || !DTOValidator.validate(shareRequestDTO)){
+		if (shareRequestDTO == null || shareRequestDTO.getVehicleId() == null){
 			System.out.println("Post OLX fields are incorrect"); 
 			return new ResponseEntity<OlxFileDTO>( HttpStatus.BAD_REQUEST);
 		}
 		
 		String fileUrl = shareService.postOLX(shareRequestDTO);
 		
-		HttpHeaders responseHeaders = new HttpHeaders();
 		return new ResponseEntity<OlxFileDTO>(new OlxFileDTO("http://"+request.getServerName()+":"+request.getServerPort()+"/miagencia/api/share/olx/"+fileUrl), HttpStatus.CREATED);
 	}
 	
 	@RequestMapping(value = "/olx/{fileName}", method = RequestMethod.GET)
     public ResponseEntity<byte[]> getOLX(@PathVariable String fileName) throws IOException{
-        //TODO Agregar autenticacion para los archivos
         InputStream is = shareService.getOLXFile(fileName);
 
         final HttpHeaders headers = new HttpHeaders();
