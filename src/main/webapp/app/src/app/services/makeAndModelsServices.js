@@ -7,7 +7,7 @@ cuando se usa
 makesAndModelsServices.factory('MakesAndModels', ['$resource',
   function($resource){
    // return $resource('http://localhost:8080/miagencia/api/makesAndModels/');
-    return $resource('http://miagenciavirtual.com.ar:8080/miagencia/api/makesAndModels/');
+    return $resource('http://www.miagenciavirtual.com.ar:8080/miagencia/api/makesAndModels/');
   }]);
 
 makesAndModelsServices.config(function($resourceProvider) {

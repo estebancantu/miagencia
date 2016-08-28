@@ -146,7 +146,7 @@ angular.module('ngBoilerplate.newCar', [
     $http({
         method: 'POST',
        // url: 'http://localhost:8080/miagencia/api/operations/buyVehicle/',
-        url: 'http://miagenciavirtual.com.ar:8080/miagencia/api/operations/buyVehicle/',
+        url: 'http://www.miagenciavirtual.com.ar:8080/miagencia/api/operations/buyVehicle/',
         data: newVehicleRequestDto,
         headers: {
           "Content-Type": "application/json",
@@ -175,14 +175,14 @@ angular.module('ngBoilerplate.newCar', [
     Upload.upload({
       method: 'POST',
      // url: 'http://localhost:8080/miagencia/pics/upload/',
-      url: 'http://miagenciavirtual.com.ar:8080/miagencia/pics/upload/',
+      url: 'http://www.miagenciavirtual.com.ar:8080/miagencia/pics/upload/',
       data: {
         name: name,
         file: Upload.dataUrltoBlob(dataUrl, name)
       }
     }).then(function(response) {
-    //  $scope.imageUrl = 'http://localhost:8080/miagencia/pics/' + response.data.imageUrl;
-      $scope.imageUrl = 'http://miagenciavirtual.com.ar:8080/miagencia/pics/' + response.data.imageUrl;
+      //$scope.imageUrl = 'http://localhost:8080/miagencia/pics/' + response.data.imageUrl;
+      $scope.imageUrl = 'http://www.miagenciavirtual.com.ar:8080/miagencia/pics/' + response.data.imageUrl;
 
 
     }, function(response) {

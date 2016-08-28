@@ -55,7 +55,7 @@ angular.module( 'ngBoilerplate.sellCar', [
     $http({
                 method: 'POST',
               //  url: 'http://localhost:8080/miagencia/api/operations/sellVehicle/',
-                url: 'http://miagenciavirtual.com.ar:8080/miagencia/api/operations/sellVehicle/',
+                url: 'http://www.miagenciavirtual.com.ar:8080/miagencia/api/operations/sellVehicle/',
                 data: sellVehicleRequestDto,
                 headers: {
                     "Content-Type": "application/json",
