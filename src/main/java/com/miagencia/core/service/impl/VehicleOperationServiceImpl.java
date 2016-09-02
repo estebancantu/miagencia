@@ -67,28 +67,6 @@ public class VehicleOperationServiceImpl implements
 		VehicleDTO vehicleDto = newVehicleRequestDto.getVehicleDto();
 		Vehicle vehicle = EntityDTOTranslator.buildVehicle(vehicleDto); // TODO falta features
 
-		if(newVehicleRequestDto.getLocationDTO() != null) {
-			Location location = new Location();
-			location.setAddressLine(newVehicleRequestDto.getLocationDTO().getAddress());
-			location.setZipCode(newVehicleRequestDto.getLocationDTO().getZipCode());
-			location.setLatitude(newVehicleRequestDto.getLocationDTO().getLatitude());
-			location.setLongitude(newVehicleRequestDto.getLocationDTO().getLongitude());
-			location.setOpenHours(newVehicleRequestDto.getLocationDTO().getOpenHours());
-			if(newVehicleRequestDto.getLocationDTO().getCountryId() != null){
-				location.setCountry(countryDAO.find(newVehicleRequestDto.getLocationDTO().getCountryId()));
-			}
-			if(newVehicleRequestDto.getLocationDTO().getStateId() != null){
-				location.setState(stateDAO.find(newVehicleRequestDto.getLocationDTO().getStateId()));
-			}
-			if(newVehicleRequestDto.getLocationDTO().getCityId() != null){
-				location.setCity(cityDAO.find(newVehicleRequestDto.getLocationDTO().getCityId()));
-			}
-			if(newVehicleRequestDto.getLocationDTO().getNeighborhoodId() != null){
-				location.setNeighborhood(neighborhoodDAO.find(newVehicleRequestDto.getLocationDTO().getNeighborhoodId()));
-			}
-			vehicle.setLocation(location);
-		}
-		
 		Client client = clientDao.find(newVehicleRequestDto.getClientId());
 		
 		VehicleOperation operation = null;

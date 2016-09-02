@@ -166,11 +166,19 @@ angular.module('ngBoilerplate.carDetails').controller('shareModalInstanceCtrl', 
 				if (response.status < 400) {
 					$scope.successTextAlert = 'El vehiculo se publicó en MercadoLibre';
 				} else {
-					$scope.successTextAlert = 'Error al publicar en MercadoLibre.';
+					if(response.status == 500) {
+						$scope.successTextAlert = 'Error al publicar en Mercadolibre.';
+					} else  {
+						$scope.successTextAlert = 'El vehiculo no se encuentra cargado. Por favor, contacte a su administrador';
+					}
 				}
 				$scope.openSuccess('sm');
 				}, function(data){
-					$scope.successTextAlert = 'Error al publicar en MercadoLibre.';
+					if(data.status == 500) {
+						$scope.successTextAlert = 'Error al publicar en Mercadolibre.';
+					} else  {
+						$scope.successTextAlert = 'El vehiculo no se encuentra cargado. Por favor, contacte a su administrador';
+					}
 					$scope.openSuccess('sm');
 				});
 				
@@ -190,15 +198,62 @@ angular.module('ngBoilerplate.carDetails').controller('shareModalInstanceCtrl', 
 				.then(function(response) {
 					if (response.status < 400) {
 						$scope.successTextAlert = 'El vehiculo se publicó en OLX. Copia el siguiente link: '+response.data.fileUrl;
-					} else {
-						$scope.successTextAlert = 'Error al publicar en OLX.';
-					}
-					$scope.openSuccess('lg');
-					}, function(data){
-						$scope.successTextAlert = 'Error al publicar en OLX.';
 						$scope.openSuccess('lg');
+					} else {
+						if(response.status == 500) {
+							$scope.successTextAlert = 'Error al publicar en OLX.';
+						} else  {
+							$scope.successTextAlert = 'El vehiculo no se encuentra cargado. Por favor, contacte a su administrador';
+						}
+						$scope.openSuccess('sm');
+					}
+					}, function(data){
+						if(data.status == 500) {
+							$scope.successTextAlert = 'Error al publicar en OLX.';
+						} else  {
+							$scope.successTextAlert = 'El vehiculo no se encuentra cargado. Por favor, contacte a su administrador';
+						}
+						$scope.openSuccess('sm');
 					});
 				};
+				
+				$scope.postAutocosmos = function() {
+					var shareDTO = {
+						vehicleId: $stateParams.carId,
+						token: $scope.mercadoLibreToken
+					};
+
+
+					$http({
+						method: 'POST',
+						url: 'http://www.miagenciavirtual.com.ar:8080/miagencia/api/share/autocosmos/',
+						data: shareDTO,
+						headers: {
+							"Content-Type": "application/json",
+							"Accept": "text/plain"
+						}
+					})
+					.then(function(response) {
+						if (response.status < 400) {
+							$scope.successTextAlert = 'El vehiculo se publicó en Autocosmos';
+						} else {
+							if(response.status == 500) {
+								$scope.successTextAlert = 'Error al publicar en Autocosmos.';
+							} else  {
+								$scope.successTextAlert = 'El vehiculo no se encuentra cargado. Por favor, contacte a su administrador';
+							}
+						}
+						$scope.openSuccess('sm');
+						}, function(data){
+							if(data.status == 500) {
+								$scope.successTextAlert = 'Error al publicar en Autocosmos.';
+							} else  {
+								$scope.successTextAlert = 'El vehiculo no se encuentra cargado. Por favor, contacte a su administrador';
+							}
+							$scope.openSuccess('sm');
+						});
+						
+					};
 				
 
 				$scope.openSuccess = function (size) {

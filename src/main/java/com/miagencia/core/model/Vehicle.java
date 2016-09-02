@@ -41,10 +41,7 @@ public class Vehicle extends PersistableEntity {
     @JoinColumn(name = "DEALER_ID", nullable = false)
     private Dealership dealer;
 	
-	@OneToOne(cascade=CascadeType.ALL)
-	@JoinColumn(name = "LOCATION_ID")
-	private Location location;
-	
+
 	// Patente
 	@Column(name="PLATE", nullable=false)
 	private String plate;
@@ -302,16 +299,6 @@ public class Vehicle extends PersistableEntity {
 	
 	
 	
-	public Location getLocation() {
-		return location;
-	}
-
-
-	public void setLocation(Location location) {
-		this.location = location;
-	}
-	
-
 	public Dealership getDealer() {
         return dealer;
     }

@@ -1,32 +1,47 @@
 package com.miagencia.core.service.impl;
 
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.io.InputStream;
+import java.io.ObjectOutputStream;
+import java.io.UnsupportedEncodingException;
+import java.security.InvalidKeyException;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import javax.crypto.Mac;
+import javax.crypto.spec.SecretKeySpec;
 import javax.inject.Inject;
 import javax.servlet.ServletContext;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
 
+import org.apache.commons.codec.binary.Base64;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.PropertySource;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.converter.HttpMessageConverter;
+import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.social.facebook.api.Facebook;
 import org.springframework.social.facebook.api.PostData;
 import org.springframework.social.facebook.api.impl.FacebookTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.LinkedMultiValueMap;
+import org.springframework.util.MultiValueMap;
+import org.springframework.web.client.RestTemplate;
 
 import com.google.gson.Gson;
-import com.google.gson.annotations.SerializedName;
 import com.mercadolibre.sdk.Meli;
-import com.mercadolibre.sdk.MeliException;
 import com.miagencia.core.dao.MakesAndModelsDAO;
 import com.miagencia.core.dao.SaleItemDAO;
 import com.miagencia.core.dao.VehicleDAO;
@@ -51,6 +66,8 @@ import com.miagencia.core.model.olx.AD;
 import com.miagencia.core.model.olx.ADS;
 import com.miagencia.core.model.olx.PublicationOLX;
 import com.miagencia.core.service.ShareService;
+import com.miagencia.core.service.exceptions.LocationDoesNotExistException;
+import com.miagencia.core.service.exceptions.VehicleDoesNotExistException;
 import com.miagencia.rest.dto.ShareRequestDTO;
 import com.ning.http.client.FluentStringsMap;
 import com.ning.http.client.Response;
@@ -59,6 +76,22 @@ import com.ning.http.client.Response;
 @PropertySource("classpath:/config_share.properties")
 public class ShareServiceImpl implements ShareService {
 	
+    
+    private static final String CONTENT_TYPE_JSON = "application/json";
+    private static final String HTTP_METHOD_AUTOCOSMOS = "PUT";
+    private static final String SEPARATOR_AUTOCOSMOS = "\n";
+    private static final String URL_AUTOCOSMOS = "http://www.autocosmos.com.ar/api2";
+    private static final String URI_AUTOCOSMOS = "/ClasificadosUsados";
+    private static final String HEADER_CONTENT_TYPE = "Content-Type";
+    private static final String HEADER_DATE = "Date";
+    private static final String HEADER_CONTENT_MD5 = "Content-Md5";
+    private static final String HEADER_CONTENT_AUTHORIZATION =  "Authorization";
+    private static final String URL_MI_AGENCIA =  "http://www.miagenciavirtual.com.ar:8080/miagencia/";
+    private static final String AUTOCOSMOS_APP_KEY =  "93c2f0719aee492e85c4ff79e57e1070";
+    private static final String AUTOCOSMOS_APP_SECRET =  "7758bb7418eb4c48a179893af27ca5d0";
+    
+   
+    
 	@Value("${facebook.namespace}")
 	private static String FACEBOOK_NAMESPACE;
 	@Value("${facebook.app.id}")
@@ -80,8 +113,21 @@ public class ShareServiceImpl implements ShareService {
 	private SaleItemDAO saleItemDAO;
 	@Autowired(required=false)
     ServletContext context;
+	@Inject
+	private RestTemplate restTemplate;
+	
+	private SimpleDateFormat sdf = new SimpleDateFormat("EEE, dd MMM yyyy hh:mm:ss 'GMT'");
+	
+	@Inject
+	public ShareServiceImpl(RestTemplate restTemplate) {
+        super();
+        this.restTemplate = restTemplate;
+        List<HttpMessageConverter<?>> converters = new ArrayList<HttpMessageConverter<?>>();
+        converters.add(new MappingJackson2HttpMessageConverter());
+        restTemplate.setMessageConverters(converters);
+    }
 
-	@Override
+    @Override
 	@Transactional
 	public void shareFacebook(ShareRequestDTO shareRequestDTO) {
 		Facebook facebook = new FacebookTemplate(shareRequestDTO.getToken(), FACEBOOK_NAMESPACE, FACEBOOK_APP_ID);
@@ -90,7 +136,7 @@ public class ShareServiceImpl implements ShareService {
         Model model = makesAndModelsDAO.getModel(new Long(vehicle.getModelId()));
 		if(vehicle != null){
 			facebook.feedOperations().post(new PostData("me").message("En venta: "+ makesAndModelsDAO.getMake(new Long(vehicle.getMakeId())).getName() + " " + makesAndModelsDAO.getModel(new Long(vehicle.getModelId())).getName())
-			    .link("http://www.miagenciavirtual.com.ar:8080/miagencia/app/index.html#/carDetails/"+vehicle.getId(), "http://www.miagenciavirtual.com.ar:8080/miagencia/pics/"+vehicle.getImageUrl(), make.getName()+" "+model.getName(), 
+			    .link(URL_MI_AGENCIA.concat("app/index.html#/carDetails/"+vehicle.getId()), URL_MI_AGENCIA.concat("pics/"+vehicle.getImageUrl()), make.getName()+" "+model.getName(), 
 			            make.getName()+" "+model.getName(), vehicle.getDescription()));
 		}
 		
@@ -131,18 +177,90 @@ public class ShareServiceImpl implements ShareService {
         Vehicle vehicle = vehicleDAO.find(shareRequestDTO.getVehicleId());
         if (vehicle != null) {
             PublicationAutocosmos publication = createAutocosmosPublication(vehicle);
-            String auth = createAuthAutocosmos();
-            doPostAutocosmos(publication, auth);
+            String date = sdf.format(new Date());
+            String auth = null;
+            String md5 = null;
+            try {
+                md5 = getContentMD5Header(null);
+                auth = createAuthAutocosmos(date, md5);
+            } catch (InvalidKeyException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            } catch (UnsupportedEncodingException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            } catch (NoSuchAlgorithmException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
+            doPostAutocosmos(publication, auth, date, md5);
         }
     }
 	
-	private void doPostAutocosmos(PublicationAutocosmos publication, String auth) {
-        // TODO https://spring.io/guides/gs/consuming-rest/
+	private void doPostAutocosmos(PublicationAutocosmos publication, String auth, String date, String md5) {
+	    MultiValueMap<String, String> headers = new LinkedMultiValueMap<String, String>();
+	    headers.add(HEADER_CONTENT_AUTHORIZATION, "ACS-H "+AUTOCOSMOS_APP_KEY+":"+auth+"");
+	    headers.add(HEADER_CONTENT_MD5, md5);
+	    headers.add(HEADER_DATE, date);
+	    headers.add(HEADER_CONTENT_TYPE, CONTENT_TYPE_JSON);
+	    HttpEntity<PublicationAutocosmos> request = new HttpEntity<PublicationAutocosmos>(publication, headers);
+	    PublicationAutocosmos a = null;
+	   
+	    try{
+	        a = restTemplate.postForObject(URL_AUTOCOSMOS.concat(URI_AUTOCOSMOS), request, PublicationAutocosmos.class);
+	    }catch (Exception e){
+	        System.err.println(e.getMessage());
+	    }
+	   
     }
 
-    private String createAuthAutocosmos() {
-	    // TODO: http://www.autocosmos.com.ar/developers/help/hmac
-	    return null;
+    private String createAuthAutocosmos(String date, String md5) throws InvalidKeyException, UnsupportedEncodingException, NoSuchAlgorithmException {
+        String httpMethod = HTTP_METHOD_AUTOCOSMOS.concat(SEPARATOR_AUTOCOSMOS);
+        String md5Header = md5.concat(SEPARATOR_AUTOCOSMOS);
+        String contentType = CONTENT_TYPE_JSON.concat(SEPARATOR_AUTOCOSMOS); 
+        String dateHeader = date.concat(SEPARATOR_AUTOCOSMOS);
+        String URI = URI_AUTOCOSMOS.concat(SEPARATOR_AUTOCOSMOS);
+	    return getSignature(httpMethod.concat(md5Header).concat(contentType).concat(dateHeader).concat(URI));
+    }
+    
+    private String getSignature(String canonical) throws UnsupportedEncodingException, NoSuchAlgorithmException, InvalidKeyException {
+        String result = new String(java.nio.charset.Charset.forName("UTF-8").encode(canonical).array());
+        Mac sha256_HMAC = Mac.getInstance("HmacSHA256");
+        SecretKeySpec secret_key = new SecretKeySpec(AUTOCOSMOS_APP_SECRET.getBytes("UTF-8"), "HmacSHA256");
+        sha256_HMAC.init(secret_key);
+
+        return Base64.encodeBase64String(sha256_HMAC.doFinal(result.getBytes("UTF-8")));
+    }
+    
+    private String getContentMD5Header(PublicationAutocosmos publicationAutocosmos) {
+        try {
+            ByteArrayOutputStream baos = new ByteArrayOutputStream();
+            ObjectOutputStream oos = null;
+            try {
+                oos = new ObjectOutputStream(baos);
+            } catch (IOException e1) {
+                // TODO Auto-generated catch block
+                e1.printStackTrace();
+            }
+            try {
+                oos.writeObject(publicationAutocosmos);
+            } catch (IOException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
+            try {
+                oos.close();
+            } catch (IOException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
+            MessageDigest instance = MessageDigest.getInstance("MD5");
+            String contentMD5 = new String(Base64.encodeBase64(instance.digest(baos.toByteArray())));
+            return contentMD5;
+        } catch (NoSuchAlgorithmException e) {
+            // Errorhandling. Should not happen though!
+        }
+        return null;
     }
 
     private PublicationAutocosmos createAutocosmosPublication(Vehicle vehicle){
@@ -150,11 +268,13 @@ public class ShareServiceImpl implements ShareService {
 	    publication.setExternalId(vehicle.getId().toString());
 	    publication.setEmail(vehicle.getDealer().getEmail());
 	    Model model = makesAndModelsDAO.getModel(new Long(vehicle.getModelId()));
-	    publication.setModel(new com.miagencia.core.model.autocosmos.Model(model.getAutocosmosId(), model.getName()));
-	    // TODO Verificar si es requerido
+	    if(model != null && model.getAutocosmosId() != null   && !model.getAutocosmosId().isEmpty()) {
+	        publication.setModel(new com.miagencia.core.model.autocosmos.Model(model.getAutocosmosId(), model.getName()));
+	    } else {
+	        throw new VehicleDoesNotExistException();
+	    }
 	    publication.setVersion(model.getName());
 	    publication.setYear(Integer.getInteger(vehicle.getModelYear().getText()));
-	    // Mando descripcion o location?
 	    publication.setColor(vehicle.getColor().getAutocosmosId());
 	    publication.setPlate(vehicle.getPlate());
 	    publication.setKilometers(vehicle.getKilometers());
@@ -165,9 +285,12 @@ public class ShareServiceImpl implements ShareService {
         }
         publication.setTransmission(vehicle.getTransmission().getText());
         publication.setFuel(vehicle.getFuelType().getText());
-        String[] urls = {"http://www.miagenciavirtual.com.ar:8080/miagencia/pics/"+vehicle.getImageUrl()};
+        String[] urls = {URL_MI_AGENCIA.concat("pics/"+vehicle.getImageUrl())};
         publication.setImages(urls);
-	    publication.setLocation(vehicle.getLocation().getCity().getAutocosmosId());
+        if(vehicle.getDealer().getLocation().getCity() != null && vehicle.getDealer().getLocation().getCity().getAutocosmosId() != null
+                && !vehicle.getDealer().getLocation().getCity().getAutocosmosId().isEmpty()) {
+            publication.setLocation(vehicle.getDealer().getLocation().getCity().getAutocosmosId());
+        }
 	    return publication;
 	}
 	
@@ -207,7 +330,7 @@ public class ShareServiceImpl implements ShareService {
 		ad.setContactEmail(vehicle.getDealer().getEmail());
 		ad.setContactPhone(vehicle.getDealer().getPhone());
 		ad.setContactName(vehicle.getDealer().getName());
-		String[] urls = {"http://www.miagenciavirtual.com.ar:8080/miagencia/pics/"+vehicle.getImageUrl()};
+		String[] urls = {URL_MI_AGENCIA.concat("pics/"+vehicle.getImageUrl())};
 		ad.setImageUrl(urls);
 				
 		//TODO validate title and description values
@@ -216,20 +339,51 @@ public class ShareServiceImpl implements ShareService {
 		
 		ad.setId("OLX-"+vehicle.getId());
 		
-		ad.setLocationNeighborhood(vehicle.getLocation().getNeighborhood().getOlxId());
-		ad.setLocationCity(vehicle.getLocation().getCity().getOlxId());
-		ad.setLocationState(vehicle.getLocation().getState().getOlxId());
-		ad.setLocationCountry(vehicle.getLocation().getCountry().getOlxId());
-		ad.setLocationLatitud(vehicle.getLocation().getLatitude());
-		ad.setLocationLongitude(vehicle.getLocation().getLongitude());
+		if(vehicle.getDealer().getLocation().getNeighborhood() != null && vehicle.getDealer().getLocation().getNeighborhood().getOlxId() != null
+		            && !vehicle.getDealer().getLocation().getNeighborhood().getOlxId().isEmpty()) {
+		    ad.setLocationNeighborhood(vehicle.getDealer().getLocation().getNeighborhood().getOlxId());
+		} else {
+		    if(vehicle.getDealer().getLocation().getNeighborhood() != null){
+		        throw new LocationDoesNotExistException();
+		    }
+		}
+		if(vehicle.getDealer().getLocation().getCity() != null && vehicle.getDealer().getLocation().getCity().getOlxId() != null
+                && !vehicle.getDealer().getLocation().getCity().getOlxId().isEmpty()) {
+		ad.setLocationCity(vehicle.getDealer().getLocation().getCity().getOlxId());
+		} else {
+		    throw new LocationDoesNotExistException();
+		}
+		
+		if(vehicle.getDealer().getLocation().getState() != null && vehicle.getDealer().getLocation().getState().getOlxId() != null
+                && !vehicle.getDealer().getLocation().getState().getOlxId().isEmpty()) {
+		ad.setLocationState(vehicle.getDealer().getLocation().getState().getOlxId());
+		} else {
+		    throw new LocationDoesNotExistException();
+		}
+		if(vehicle.getDealer().getLocation().getCountry() != null && vehicle.getDealer().getLocation().getCountry().getOlxId() != null
+                && !vehicle.getDealer().getLocation().getCountry().getOlxId().isEmpty()) {
+		ad.setLocationCountry(vehicle.getDealer().getLocation().getCountry().getOlxId());
+		} else {
+		    throw new LocationDoesNotExistException();
+		}
+		ad.setLocationLatitud(vehicle.getDealer().getLocation().getLatitude());
+		ad.setLocationLongitude(vehicle.getDealer().getLocation().getLongitude());
 		
 		SaleItem saleItem = saleItemDAO.getSaleItemByVehicleId(vehicle.getId());
 		if(saleItem != null){
 			ad.setPrice(String.valueOf(saleItem.getSellingPrice()));
 		}
 		ad.setPriceCurrency("ARS");
-		ad.setVehicleMake(make.getOlxId());
-		ad.setVehicleModel(model.getOlxId());
+		if(make.getOlxId() != null && !make.getOlxId().isEmpty()){
+		    ad.setVehicleMake(make.getOlxId());
+		} else {
+		    throw new VehicleDoesNotExistException();
+		}
+		if(model.getOlxId() != null && !model.getOlxId().isEmpty()){
+		    ad.setVehicleModel(model.getOlxId());
+		} else {
+		    throw new VehicleDoesNotExistException();
+		}
 		ad.setVehicleMileage(vehicle.getKilometers().toString());
 		ad.setVehicleYear(vehicle.getModelYear().getText());
 		
@@ -247,33 +401,49 @@ public class ShareServiceImpl implements ShareService {
 		Make make = makesAndModelsDAO.getMake(new Long(vehicle.getMakeId()));
 		Model model = makesAndModelsDAO.getModel(new Long(vehicle.getModelId()));
 		publication.setTitle(make.getName() + " " + model.getName());
+		if(model.getMercadoLibreId() == null || model.getMercadoLibreId().isEmpty()){
+		    throw new VehicleDoesNotExistException();
+		}
 		publication.setCategory_id(model.getMercadoLibreId());
 		SaleItem saleItem = saleItemDAO.getSaleItemByVehicleId(vehicle.getId());
 		if(saleItem != null){
 			publication.setPrice(saleItem.getSellingPrice());
 		}
 		publication.setCondition(vehicle.getVehicleCondition().getMercadoLibreId());
-		publication.getPictures().add(new Picture("http://www.miagenciavirtual.com.ar:8080/miagencia/pics/"+vehicle.getImageUrl()));
+		publication.getPictures().add(new Picture(URL_MI_AGENCIA.concat("pics/"+vehicle.getImageUrl())));
 		publication.setAttributes(createMercadoLibreAttributes(vehicle));
 		
 		Location location = new Location();
-		location.setAddress_line(vehicle.getLocation().getAddressLine());
-		location.setZip_code(vehicle.getLocation().getZipCode());
-		location.setLatitude(vehicle.getLocation().getLatitude());
-		location.setLongitude(vehicle.getLocation().getLongitude());
-		location.setOpen_hours(vehicle.getLocation().getOpenHours());
-		if(vehicle.getLocation().getCountry() != null){
-			location.setCountry(new Country(vehicle.getLocation().getCountry().getMercadolibreId(), vehicle.getLocation().getCountry().getName()));
+		location.setAddress_line(vehicle.getDealer().getLocation().getAddressLine());
+		location.setZip_code(vehicle.getDealer().getLocation().getZipCode());
+		location.setLatitude(vehicle.getDealer().getLocation().getLatitude());
+		location.setLongitude(vehicle.getDealer().getLocation().getLongitude());
+		location.setOpen_hours(vehicle.getDealer().getLocation().getOpenHours());
+		if(vehicle.getDealer().getLocation().getCountry() != null && vehicle.getDealer().getLocation().getCountry().getMercadolibreId() != null &&
+		        !vehicle.getDealer().getLocation().getCountry().getMercadolibreId().isEmpty()){
+			location.setCountry(new Country(vehicle.getDealer().getLocation().getCountry().getMercadolibreId(), vehicle.getDealer().getLocation().getCountry().getName()));
+		} else {
+		    throw new LocationDoesNotExistException();
 		}
-		if(vehicle.getLocation().getState() != null){
-			location.setState(new State(vehicle.getLocation().getState().getMercadolibreId(), vehicle.getLocation().getState().getName()));
-		}
-		if(vehicle.getLocation().getCity() != null ){
-			location.setCity(new City(vehicle.getLocation().getCity().getMercadolibreId(), vehicle.getLocation().getCity().getName()));
-		}
-		if(vehicle.getLocation().getNeighborhood() != null){
-			location.setNeighborhood(new Neighborhood(vehicle.getLocation().getNeighborhood().getMercadolibreId(), vehicle.getLocation().getNeighborhood().getName()));
-		}
+		if(vehicle.getDealer().getLocation().getState() != null && vehicle.getDealer().getLocation().getState().getMercadolibreId() != null &&
+                !vehicle.getDealer().getLocation().getState().getMercadolibreId().isEmpty()){
+			location.setState(new State(vehicle.getDealer().getLocation().getState().getMercadolibreId(), vehicle.getDealer().getLocation().getState().getName()));
+		} else {
+            throw new LocationDoesNotExistException();
+        }
+		if(vehicle.getDealer().getLocation().getCity() != null && vehicle.getDealer().getLocation().getCity().getMercadolibreId() != null &&
+                !vehicle.getDealer().getLocation().getCity().getMercadolibreId().isEmpty()){
+			location.setCity(new City(vehicle.getDealer().getLocation().getCity().getMercadolibreId(), vehicle.getDealer().getLocation().getCity().getName()));
+		} else {
+            throw new LocationDoesNotExistException();
+        }
+		if(vehicle.getDealer().getLocation().getNeighborhood() != null){
+		    if(vehicle.getDealer().getLocation().getNeighborhood().getMercadolibreId() != null && !vehicle.getDealer().getLocation().getNeighborhood().getMercadolibreId().isEmpty()){
+		        location.setNeighborhood(new Neighborhood(vehicle.getDealer().getLocation().getNeighborhood().getMercadolibreId(), vehicle.getDealer().getLocation().getNeighborhood().getName()));
+		    } else {
+	            throw new LocationDoesNotExistException();
+	        }
+		} 
 		publication.setLocation(location);
 		return publication;		
 	}
