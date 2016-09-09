@@ -15,6 +15,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.TimeZone;
 
 import javax.crypto.Mac;
 import javax.crypto.spec.SecretKeySpec;
@@ -25,6 +26,7 @@ import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
 
 import org.apache.commons.codec.binary.Base64;
+import org.apache.commons.codec.digest.DigestUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.PropertySource;
@@ -38,8 +40,11 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
+import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.Gson;
 import com.mercadolibre.sdk.Meli;
 import com.miagencia.core.dao.MakesAndModelsDAO;
@@ -78,13 +83,17 @@ public class ShareServiceImpl implements ShareService {
 	
     
     private static final String CONTENT_TYPE_JSON = "application/json";
-    private static final String HTTP_METHOD_AUTOCOSMOS = "PUT";
+    private static final String HTTP_METHOD_AUTOCOSMOS = "POST";
     private static final String SEPARATOR_AUTOCOSMOS = "\n";
-    private static final String URL_AUTOCOSMOS = "http://www.autocosmos.com.ar/api2";
-    private static final String URI_AUTOCOSMOS = "/ClasificadosUsados";
+    private static final String URL_AUTOCOSMOS = "http://www.autocosmos.com.ar";
+    private static final String URI_AUTOCOSMOS = "/api2/ClasificadosUsados";
     private static final String HEADER_CONTENT_TYPE = "Content-Type";
+    private static final String HEADER_USER_SIGNATURE = "X-ACS-User-Signature";
+    private static final String USER_SIGNATURE = "Y1w2VkMO+YtHdQENZRm5wQ==";
+    
+    
     private static final String HEADER_DATE = "Date";
-    private static final String HEADER_CONTENT_MD5 = "Content-Md5";
+    private static final String HEADER_CONTENT_MD5 = "Content-MD5";
     private static final String HEADER_CONTENT_AUTHORIZATION =  "Authorization";
     private static final String URL_MI_AGENCIA =  "http://www.miagenciavirtual.com.ar:8080/miagencia/";
     private static final String AUTOCOSMOS_APP_KEY =  "93c2f0719aee492e85c4ff79e57e1070";
@@ -116,7 +125,7 @@ public class ShareServiceImpl implements ShareService {
 	@Inject
 	private RestTemplate restTemplate;
 	
-	private SimpleDateFormat sdf = new SimpleDateFormat("EEE, dd MMM yyyy hh:mm:ss 'GMT'");
+	private SimpleDateFormat sdf = new SimpleDateFormat("EEE, dd MMM yyyy HH:mm:ss z");
 	
 	@Inject
 	public ShareServiceImpl(RestTemplate restTemplate) {
@@ -130,14 +139,18 @@ public class ShareServiceImpl implements ShareService {
     @Override
 	@Transactional
 	public void shareFacebook(ShareRequestDTO shareRequestDTO) {
-		Facebook facebook = new FacebookTemplate(shareRequestDTO.getToken(), FACEBOOK_NAMESPACE, FACEBOOK_APP_ID);
+		Facebook facebook = new FacebookTemplate(shareRequestDTO.getToken(), FACEBOOK_NAMESPACE);
+		//FACEBOOK_APP_ID
 		Vehicle vehicle = vehicleDAO.find(shareRequestDTO.getVehicleId());
 		Make make = makesAndModelsDAO.getMake(new Long(vehicle.getMakeId()));
         Model model = makesAndModelsDAO.getModel(new Long(vehicle.getModelId()));
 		if(vehicle != null){
 			facebook.feedOperations().post(new PostData("me").message("En venta: "+ makesAndModelsDAO.getMake(new Long(vehicle.getMakeId())).getName() + " " + makesAndModelsDAO.getModel(new Long(vehicle.getModelId())).getName())
-			    .link(URL_MI_AGENCIA.concat("app/index.html#/carDetails/"+vehicle.getId()), URL_MI_AGENCIA.concat("pics/"+vehicle.getImageUrl()), make.getName()+" "+model.getName(), 
-			            make.getName()+" "+model.getName(), vehicle.getDescription()));
+			    .link(URL_MI_AGENCIA.concat("app/index.html#/carDetails/"+vehicle.getId()))
+			    .picture(URL_MI_AGENCIA.concat("pics/"+vehicle.getImageUrl()))
+			    .caption( make.getName()+" "+model.getName())
+			    .name( make.getName()+" "+model.getName())
+			    .description(vehicle.getDescription()));
 		}
 		
 	}
@@ -153,7 +166,7 @@ public class ShareServiceImpl implements ShareService {
 			params.add("access_token", shareRequestDTO.getToken());
 			Response r =m.post("/items", params, new Gson().toJson(publication));
 			if(r.getStatusCode() != 201){
-			    throw new Exception("Error posting to MercadoLibre");
+			    throw new Exception("Error posting to MercadoLibre"+ r.getResponseBody());
 			}
 		}
 	}
@@ -177,39 +190,41 @@ public class ShareServiceImpl implements ShareService {
         Vehicle vehicle = vehicleDAO.find(shareRequestDTO.getVehicleId());
         if (vehicle != null) {
             PublicationAutocosmos publication = createAutocosmosPublication(vehicle);
+            sdf.setTimeZone(java.util.TimeZone.getTimeZone("GMT"));
             String date = sdf.format(new Date());
             String auth = null;
             String md5 = null;
             try {
-                md5 = getContentMD5Header(null);
+                ObjectMapper mapper = new ObjectMapper();
+                md5 = getContentMD5Header(mapper.writeValueAsString(publication));
                 auth = createAuthAutocosmos(date, md5);
-            } catch (InvalidKeyException e) {
+            } catch (Exception e) {
                 // TODO Auto-generated catch block
                 e.printStackTrace();
-            } catch (UnsupportedEncodingException e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
-            } catch (NoSuchAlgorithmException e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
-            }
+            } 
             doPostAutocosmos(publication, auth, date, md5);
         }
     }
 	
-	private void doPostAutocosmos(PublicationAutocosmos publication, String auth, String date, String md5) {
+    private void doPostAutocosmos(PublicationAutocosmos publication, String auth, String date, String md5) {
 	    MultiValueMap<String, String> headers = new LinkedMultiValueMap<String, String>();
-	    headers.add(HEADER_CONTENT_AUTHORIZATION, "ACS-H "+AUTOCOSMOS_APP_KEY+":"+auth+"");
+	    headers.add(HEADER_CONTENT_AUTHORIZATION, "ACS-H "+AUTOCOSMOS_APP_KEY+":"+auth);
+	    System.out.println("Authorization - "+ headers.get(HEADER_CONTENT_AUTHORIZATION));
 	    headers.add(HEADER_CONTENT_MD5, md5);
 	    headers.add(HEADER_DATE, date);
+	    System.out.println("Date - "+ headers.get(HEADER_DATE));
 	    headers.add(HEADER_CONTENT_TYPE, CONTENT_TYPE_JSON);
+	    headers.add(HEADER_USER_SIGNATURE, USER_SIGNATURE);
+	    System.out.println("UserSignature - "+ headers.get(HEADER_USER_SIGNATURE));
 	    HttpEntity<PublicationAutocosmos> request = new HttpEntity<PublicationAutocosmos>(publication, headers);
 	    PublicationAutocosmos a = null;
-	   
 	    try{
 	        a = restTemplate.postForObject(URL_AUTOCOSMOS.concat(URI_AUTOCOSMOS), request, PublicationAutocosmos.class);
-	    }catch (Exception e){
-	        System.err.println(e.getMessage());
+	    }catch (HttpClientErrorException e){
+	        System.err.println(e.getResponseBodyAsString());
+	        System.err.println(e.getResponseHeaders());
+	        System.err.println(e.getStackTrace());
+	        throw e;
 	    }
 	   
     }
@@ -219,54 +234,38 @@ public class ShareServiceImpl implements ShareService {
         String md5Header = md5.concat(SEPARATOR_AUTOCOSMOS);
         String contentType = CONTENT_TYPE_JSON.concat(SEPARATOR_AUTOCOSMOS); 
         String dateHeader = date.concat(SEPARATOR_AUTOCOSMOS);
-        String URI = URI_AUTOCOSMOS.concat(SEPARATOR_AUTOCOSMOS);
-	    return getSignature(httpMethod.concat(md5Header).concat(contentType).concat(dateHeader).concat(URI));
+        String URI = URI_AUTOCOSMOS;
+        String userSignature = HEADER_USER_SIGNATURE.toLowerCase().concat(":").concat(USER_SIGNATURE).concat(SEPARATOR_AUTOCOSMOS);
+	    return getSignature(httpMethod.concat(md5Header).concat(contentType).concat(dateHeader).concat(userSignature).concat(URI));
     }
     
     private String getSignature(String canonical) throws UnsupportedEncodingException, NoSuchAlgorithmException, InvalidKeyException {
+        System.out.println("Canonical - "+canonical);
         String result = new String(java.nio.charset.Charset.forName("UTF-8").encode(canonical).array());
         Mac sha256_HMAC = Mac.getInstance("HmacSHA256");
         SecretKeySpec secret_key = new SecretKeySpec(AUTOCOSMOS_APP_SECRET.getBytes("UTF-8"), "HmacSHA256");
         sha256_HMAC.init(secret_key);
-
-        return Base64.encodeBase64String(sha256_HMAC.doFinal(result.getBytes("UTF-8")));
+        String base64Result = Base64.encodeBase64String(sha256_HMAC.doFinal(result.getBytes()));
+        System.out.println("BASE64 HMAC-SHA256 - "+base64Result);
+        return base64Result;
     }
     
-    private String getContentMD5Header(PublicationAutocosmos publicationAutocosmos) {
+    private String getContentMD5Header(String publicationAutocosmos) {
         try {
-            ByteArrayOutputStream baos = new ByteArrayOutputStream();
-            ObjectOutputStream oos = null;
-            try {
-                oos = new ObjectOutputStream(baos);
-            } catch (IOException e1) {
-                // TODO Auto-generated catch block
-                e1.printStackTrace();
-            }
-            try {
-                oos.writeObject(publicationAutocosmos);
-            } catch (IOException e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
-            }
-            try {
-                oos.close();
-            } catch (IOException e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
-            }
-            MessageDigest instance = MessageDigest.getInstance("MD5");
-            String contentMD5 = new String(Base64.encodeBase64(instance.digest(baos.toByteArray())));
+            System.out.println("Data - "+publicationAutocosmos);
+            String contentMD5 = DigestUtils.md5Hex(publicationAutocosmos);
+            System.out.println("MD5 - " + contentMD5);
             return contentMD5;
-        } catch (NoSuchAlgorithmException e) {
-            // Errorhandling. Should not happen though!
+        } catch (Exception e) {
         }
         return null;
     }
 
     private PublicationAutocosmos createAutocosmosPublication(Vehicle vehicle){
 	    PublicationAutocosmos publication = new PublicationAutocosmos();
-	    publication.setExternalId(vehicle.getId().toString());
-	    publication.setEmail(vehicle.getDealer().getEmail());
+	    /*publication.setExternalId("MiAgenciaVirtual-"+vehicle.getId().toString());
+	    //publication.setEmail(vehicle.getDealer().getEmail());
+	    publication.setEmail("agustinbala@gmail.com");
 	    Model model = makesAndModelsDAO.getModel(new Long(vehicle.getModelId()));
 	    if(model != null && model.getAutocosmosId() != null   && !model.getAutocosmosId().isEmpty()) {
 	        publication.setModel(new com.miagencia.core.model.autocosmos.Model(model.getAutocosmosId(), model.getName()));
@@ -275,7 +274,7 @@ public class ShareServiceImpl implements ShareService {
 	    }
 	    publication.setVersion(model.getName());
 	    publication.setYear(Integer.getInteger(vehicle.getModelYear().getText()));
-	    publication.setColor(vehicle.getColor().getAutocosmosId());
+	    publication.setColor(vehicle.getColor().getText());
 	    publication.setPlate(vehicle.getPlate());
 	    publication.setKilometers(vehicle.getKilometers());
 	    publication.setComment(vehicle.getDescription());
@@ -290,7 +289,7 @@ public class ShareServiceImpl implements ShareService {
         if(vehicle.getDealer().getLocation().getCity() != null && vehicle.getDealer().getLocation().getCity().getAutocosmosId() != null
                 && !vehicle.getDealer().getLocation().getCity().getAutocosmosId().isEmpty()) {
             publication.setLocation(vehicle.getDealer().getLocation().getCity().getAutocosmosId());
-        }
+        }*/
 	    return publication;
 	}
 	

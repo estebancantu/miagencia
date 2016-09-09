@@ -1,41 +1,42 @@
 package com.miagencia.core.model.autocosmos;
 
-import com.google.gson.annotations.SerializedName;
+import java.io.Serializable;
 
-public class PublicationAutocosmos {
+import com.fasterxml.jackson.annotation.JsonProperty;
 
-    @SerializedName("ExternalId")
-    private String externalId;
-    @SerializedName("Email")
-    private String email;
-    @SerializedName("Modelo")
-    private Model model;
-    @SerializedName("Version")
-    private String version;
-    @SerializedName("Anio")
-    private Integer year;
-    @SerializedName("Color")
-    private String color;
-    @SerializedName("Patente")
-    private String plate;
-    @SerializedName("Kilometraje")
-    private Long kilometers;
-    @SerializedName("Comentario")
-    private String comment;
-    @SerializedName("Moneda")
-    private String currency = "http://www.autocosmos.com.ar/api2/monedas/1";
-    @SerializedName("Precio")
-    private Integer price;
-    @SerializedName("Transmision")
-    private String transmission;
-    @SerializedName("Combustible")
-    private String fuel;
-    @SerializedName("Imagenes")
-    private String[] images;
-    @SerializedName("Opciones")
-    private String[] options;
-    @SerializedName("_location")
-    private String location;
+public class PublicationAutocosmos implements Serializable{
+
+    @JsonProperty("ExternalId")
+    private String externalId = "MXP-004";
+    @JsonProperty("Email")
+    private String email = "rsilvera@liricus.com.ar";
+    @JsonProperty("Modelo")
+    private Model model = new Model("http://www.autocosmos.com.ar/api2/modelos/2506");
+    @JsonProperty("Version")
+    private String version="xDrive 28iA";
+    @JsonProperty("Anio")
+    private Integer year= 2010;
+    @JsonProperty("Color")
+    private String color = "Bronce";
+    @JsonProperty("Patente")
+    private String plate = "LML-234";
+    @JsonProperty("Kilometraje")
+    private Long kilometers = 450000l;
+    @JsonProperty("Comentario")
+    private String comment = "Esto es una publicación de prueba";
+    @JsonProperty("Moneda")
+    private String currency = "ARS";
+    @JsonProperty("Precio")
+    private Integer price = 230000;
+    @JsonProperty("Transmision")
+    private String transmission = "AT";
+    @JsonProperty("Combustible")
+    private String fuel = "gasolina";
+    @JsonProperty("Imagenes")
+    private String[] images = {"http://mlm-s1-p.mlstatic.com/bmw-x1-2010-5p-xdrive-28ia-top-line-aut-13077-MLM6062016880_032014-O.jpg"};
+    @JsonProperty("Opciones")
+    private String[] options = {"DVD Player","Aire Acondicionado","Rines deportivos"};
+    
 
     public String getExternalId() {
         return externalId;
@@ -157,12 +158,5 @@ public class PublicationAutocosmos {
         this.options = options;
     }
 
-    public String getLocation() {
-        return location;
-    }
-
-    public void setLocation(String location) {
-        this.location = location;
-    }
 
 }

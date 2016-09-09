@@ -1,30 +1,23 @@
 package com.miagencia.core.model.autocosmos;
 
-import com.google.gson.annotations.SerializedName;
+import java.io.Serializable;
 
-public class Model {
+import com.fasterxml.jackson.annotation.JsonProperty;
+
+public class Model implements Serializable {
     
-    @SerializedName("_location")
-    private String location;
-    @SerializedName("_title")
-    private String title;
+    @JsonProperty("_location")
+    private String location = "http://www.autocosmos.com.ar/api2/modelos/2506";
     
-    public Model(String location, String title) {
+    public Model(String location) {
         super();
         this.location = location;
-        this.title = title;
     }
     public String getLocation() {
         return location;
     }
     public void setLocation(String location) {
         this.location = location;
-    }
-    public String getTitle() {
-        return title;
-    }
-    public void setTitle(String title) {
-        this.title = title;
     }
     
     

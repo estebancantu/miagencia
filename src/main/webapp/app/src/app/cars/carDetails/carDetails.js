@@ -133,7 +133,7 @@ angular.module('ngBoilerplate.carDetails').controller('shareModalInstanceCtrl', 
 					$scope.mercadoLibreToken = data.authorization_info.access_token;
 					$scope.postMercadoLibre();
 				} else {
-					MELI.login(function (data){
+					MELI.login(function (){
 						MELI.getLoginStatus(function (data){
 							if(data.state === 'AUTHORIZED'){
 								$scope.mercadoLibreToken = data.authorization_info.access_token;
@@ -147,6 +147,7 @@ angular.module('ngBoilerplate.carDetails').controller('shareModalInstanceCtrl', 
 		};	
 
 		$scope.postMercadoLibre = function() {
+			console.log('POSTMERCADOLIBRE');
 			var shareDTO = {
 				vehicleId: $stateParams.carId,
 				token: $scope.mercadoLibreToken
