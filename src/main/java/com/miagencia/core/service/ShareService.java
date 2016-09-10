@@ -12,7 +12,7 @@ public interface ShareService {
 	
 	String postOLX(ShareRequestDTO shareRequestDTO);
 	
-	void postAutocosmos(ShareRequestDTO shareRequestDTO);
+	void postAutocosmos(ShareRequestDTO shareRequestDTO) throws Exception;
 	
 	InputStream getOLXFile(String fileName);
 

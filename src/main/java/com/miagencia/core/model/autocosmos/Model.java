@@ -7,7 +7,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 public class Model implements Serializable {
     
     @JsonProperty("_location")
-    private String location = "http://www.autocosmos.com.ar/api2/modelos/2506";
+    private String location;
     
     public Model(String location) {
         super();

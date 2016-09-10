@@ -134,6 +134,7 @@ public class ShareServiceImpl implements ShareService {
         List<HttpMessageConverter<?>> converters = new ArrayList<HttpMessageConverter<?>>();
         converters.add(new MappingJackson2HttpMessageConverter());
         restTemplate.setMessageConverters(converters);
+        sdf.setTimeZone(java.util.TimeZone.getTimeZone("GMT"));
     }
 
     @Override
@@ -184,24 +185,16 @@ public class ShareServiceImpl implements ShareService {
 	}
 	
 	
-	@Override
+    @Override
     @Transactional
-    public void postAutocosmos(ShareRequestDTO shareRequestDTO) {
+    public void postAutocosmos(ShareRequestDTO shareRequestDTO) throws Exception {
         Vehicle vehicle = vehicleDAO.find(shareRequestDTO.getVehicleId());
         if (vehicle != null) {
             PublicationAutocosmos publication = createAutocosmosPublication(vehicle);
-            sdf.setTimeZone(java.util.TimeZone.getTimeZone("GMT"));
             String date = sdf.format(new Date());
-            String auth = null;
-            String md5 = null;
-            try {
-                ObjectMapper mapper = new ObjectMapper();
-                md5 = getContentMD5Header(mapper.writeValueAsString(publication));
-                auth = createAuthAutocosmos(date, md5);
-            } catch (Exception e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
-            } 
+            ObjectMapper mapper = new ObjectMapper();
+            String md5 = DigestUtils.md5Hex(mapper.writeValueAsString(publication));
+            String auth = createAuthAutocosmos(date, md5);
             doPostAutocosmos(publication, auth, date, md5);
         }
     }
@@ -209,21 +202,15 @@ public class ShareServiceImpl implements ShareService {
     private void doPostAutocosmos(PublicationAutocosmos publication, String auth, String date, String md5) {
 	    MultiValueMap<String, String> headers = new LinkedMultiValueMap<String, String>();
 	    headers.add(HEADER_CONTENT_AUTHORIZATION, "ACS-H "+AUTOCOSMOS_APP_KEY+":"+auth);
-	    System.out.println("Authorization - "+ headers.get(HEADER_CONTENT_AUTHORIZATION));
 	    headers.add(HEADER_CONTENT_MD5, md5);
 	    headers.add(HEADER_DATE, date);
-	    System.out.println("Date - "+ headers.get(HEADER_DATE));
 	    headers.add(HEADER_CONTENT_TYPE, CONTENT_TYPE_JSON);
 	    headers.add(HEADER_USER_SIGNATURE, USER_SIGNATURE);
-	    System.out.println("UserSignature - "+ headers.get(HEADER_USER_SIGNATURE));
 	    HttpEntity<PublicationAutocosmos> request = new HttpEntity<PublicationAutocosmos>(publication, headers);
-	    PublicationAutocosmos a = null;
 	    try{
-	        a = restTemplate.postForObject(URL_AUTOCOSMOS.concat(URI_AUTOCOSMOS), request, PublicationAutocosmos.class);
+	        restTemplate.postForObject(URL_AUTOCOSMOS.concat(URI_AUTOCOSMOS), request, PublicationAutocosmos.class);
 	    }catch (HttpClientErrorException e){
 	        System.err.println(e.getResponseBodyAsString());
-	        System.err.println(e.getResponseHeaders());
-	        System.err.println(e.getStackTrace());
 	        throw e;
 	    }
 	   
@@ -240,35 +227,21 @@ public class ShareServiceImpl implements ShareService {
     }
     
     private String getSignature(String canonical) throws UnsupportedEncodingException, NoSuchAlgorithmException, InvalidKeyException {
-        System.out.println("Canonical - "+canonical);
         String result = new String(java.nio.charset.Charset.forName("UTF-8").encode(canonical).array());
         Mac sha256_HMAC = Mac.getInstance("HmacSHA256");
         SecretKeySpec secret_key = new SecretKeySpec(AUTOCOSMOS_APP_SECRET.getBytes("UTF-8"), "HmacSHA256");
         sha256_HMAC.init(secret_key);
         String base64Result = Base64.encodeBase64String(sha256_HMAC.doFinal(result.getBytes()));
-        System.out.println("BASE64 HMAC-SHA256 - "+base64Result);
         return base64Result;
-    }
-    
-    private String getContentMD5Header(String publicationAutocosmos) {
-        try {
-            System.out.println("Data - "+publicationAutocosmos);
-            String contentMD5 = DigestUtils.md5Hex(publicationAutocosmos);
-            System.out.println("MD5 - " + contentMD5);
-            return contentMD5;
-        } catch (Exception e) {
-        }
-        return null;
     }
 
     private PublicationAutocosmos createAutocosmosPublication(Vehicle vehicle){
 	    PublicationAutocosmos publication = new PublicationAutocosmos();
-	    /*publication.setExternalId("MiAgenciaVirtual-"+vehicle.getId().toString());
-	    //publication.setEmail(vehicle.getDealer().getEmail());
-	    publication.setEmail("agustinbala@gmail.com");
+	    publication.setExternalId("MiAgenciaVirtual-"+vehicle.getId().toString());
+	    publication.setEmail(vehicle.getDealer().getEmail());
 	    Model model = makesAndModelsDAO.getModel(new Long(vehicle.getModelId()));
 	    if(model != null && model.getAutocosmosId() != null   && !model.getAutocosmosId().isEmpty()) {
-	        publication.setModel(new com.miagencia.core.model.autocosmos.Model(model.getAutocosmosId(), model.getName()));
+	        publication.setModel(new com.miagencia.core.model.autocosmos.Model(model.getAutocosmosId()));
 	    } else {
 	        throw new VehicleDoesNotExistException();
 	    }
@@ -286,10 +259,6 @@ public class ShareServiceImpl implements ShareService {
         publication.setFuel(vehicle.getFuelType().getText());
         String[] urls = {URL_MI_AGENCIA.concat("pics/"+vehicle.getImageUrl())};
         publication.setImages(urls);
-        if(vehicle.getDealer().getLocation().getCity() != null && vehicle.getDealer().getLocation().getCity().getAutocosmosId() != null
-                && !vehicle.getDealer().getLocation().getCity().getAutocosmosId().isEmpty()) {
-            publication.setLocation(vehicle.getDealer().getLocation().getCity().getAutocosmosId());
-        }*/
 	    return publication;
 	}
 	

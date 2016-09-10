@@ -7,35 +7,35 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 public class PublicationAutocosmos implements Serializable{
 
     @JsonProperty("ExternalId")
-    private String externalId = "MXP-004";
+    private String externalId;
     @JsonProperty("Email")
-    private String email = "rsilvera@liricus.com.ar";
+    private String email;
     @JsonProperty("Modelo")
-    private Model model = new Model("http://www.autocosmos.com.ar/api2/modelos/2506");
+    private Model model;
     @JsonProperty("Version")
-    private String version="xDrive 28iA";
+    private String version;
     @JsonProperty("Anio")
-    private Integer year= 2010;
+    private Integer year;
     @JsonProperty("Color")
-    private String color = "Bronce";
+    private String color;
     @JsonProperty("Patente")
-    private String plate = "LML-234";
+    private String plate;
     @JsonProperty("Kilometraje")
-    private Long kilometers = 450000l;
+    private Long kilometers;
     @JsonProperty("Comentario")
-    private String comment = "Esto es una publicación de prueba";
+    private String comment;
     @JsonProperty("Moneda")
-    private String currency = "ARS";
+    private String currency;
     @JsonProperty("Precio")
-    private Integer price = 230000;
+    private Integer price;
     @JsonProperty("Transmision")
-    private String transmission = "AT";
+    private String transmission;
     @JsonProperty("Combustible")
-    private String fuel = "gasolina";
+    private String fuel;
     @JsonProperty("Imagenes")
-    private String[] images = {"http://mlm-s1-p.mlstatic.com/bmw-x1-2010-5p-xdrive-28ia-top-line-aut-13077-MLM6062016880_032014-O.jpg"};
+    private String[] images;
     @JsonProperty("Opciones")
-    private String[] options = {"DVD Player","Aire Acondicionado","Rines deportivos"};
+    private String[] options;
     
 
     public String getExternalId() {
