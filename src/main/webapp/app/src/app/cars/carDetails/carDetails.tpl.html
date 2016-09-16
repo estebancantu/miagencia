@@ -311,9 +311,13 @@
 								</script>
 								<script type="text/ng-template" id="shareSuccessContent.html">
 								   	  <div style="padding:25px 10px 10px 10px" >
-									  	<strong>{{successTextAlert}}</strong> 
+									  	<strong>{{successTextAlert}}</strong> <br>
+										<label ng-hide="hideOLXCopyLink"><strong>{{oLXLink}}</strong> </label>
 									    <div class="modal-footer" style="margin-top:20px; padding:10px 10px 0px">
-								      	<button class="btn btn-warning" type="button" ng-click="cancelSuccess()">Aceptar</button>
+										<button ng-hide="hideOLXCopyLink" class="btn btn-warning" ng-click="goToOLX()">
+    										Ir a OLX
+										</button>
+								      	<button  class="btn btn-warning" type="button" ng-click="cancelSuccess()">Aceptar</button>
   									  </div>		
 									</div>
 								</script>

@@ -59,10 +59,15 @@ angular.module('ngBoilerplate.carDetails').controller('shareModalCtrl', function
 });
 
 	
-angular.module('ngBoilerplate.carDetails').controller('shareSuccessModalInstanceCtrl', ['$scope', '$uibModalInstance', function ($scope, $uibModalInstance) {
+angular.module('ngBoilerplate.carDetails').controller('shareSuccessModalInstanceCtrl', ['$window','$scope', '$uibModalInstance', function ($window, $scope, $uibModalInstance) {
 	
 	$scope.cancelSuccess = function () {
 		$uibModalInstance.dismiss('cancel');
+	};
+	
+	$scope.goToOLX = function () {
+		//$window.location.href = 'http://help.olx.com.ar/hc/es-419/requests/new?ticket_form_id=104613';
+		$window.open('http://help.olx.com.ar/hc/es-419/requests/new?ticket_form_id=104613', '_blank');
 	};
 	
 	
@@ -73,6 +78,7 @@ angular.module('ngBoilerplate.carDetails').controller('shareSuccessModalInstance
 
 angular.module('ngBoilerplate.carDetails').controller('shareModalInstanceCtrl', ['$scope', '$uibModalInstance', '$http', '$stateParams', '$uibModal', function ($scope, $uibModalInstance, $http, $stateParams, $uibModal) {
   
+		$scope.hideOLXCopyLink = true;
 		
 		$scope.cancel = function () {
 			$uibModalInstance.dismiss('cancel');
@@ -95,6 +101,7 @@ angular.module('ngBoilerplate.carDetails').controller('shareModalInstanceCtrl', 
 				}
 			})
 			.then(function(response) {
+				$scope.hideOLXCopyLink= true;
 				if (response.status < 400) {
 					$scope.successTextAlert = 'El vehiculo se publicó en Facebook';
 				} else {
@@ -102,6 +109,7 @@ angular.module('ngBoilerplate.carDetails').controller('shareModalInstanceCtrl', 
 				}
 				$scope.openSuccess('sm');
 				}, function(data){
+					$scope.hideOLXCopyLink = true;
 					$scope.successTextAlert = 'Error al publicar en Facebook.';
 					$scope.openSuccess('sm');
 				});
@@ -164,6 +172,7 @@ angular.module('ngBoilerplate.carDetails').controller('shareModalInstanceCtrl', 
 				}
 			})
 			.then(function(response) {
+				$scope.hideOLXCopyLink = true;
 				if (response.status < 400) {
 					$scope.successTextAlert = 'El vehiculo se publicó en MercadoLibre';
 				} else {
@@ -175,6 +184,7 @@ angular.module('ngBoilerplate.carDetails').controller('shareModalInstanceCtrl', 
 				}
 				$scope.openSuccess('sm');
 				}, function(data){
+					$scope.hideOLXCopyLink = true;
 					if(data.status == 500) {
 						$scope.successTextAlert = 'Error al publicar en Mercadolibre.';
 					} else  {
@@ -198,9 +208,12 @@ angular.module('ngBoilerplate.carDetails').controller('shareModalInstanceCtrl', 
 				})
 				.then(function(response) {
 					if (response.status < 400) {
-						$scope.successTextAlert = 'El vehiculo se publicó en OLX. Copia el siguiente link: '+response.data.fileUrl;
-						$scope.openSuccess('lg');
+						$scope.hideOLXCopyLink = false;
+						$scope.oLXLink = response.data.fileUrl;
+						$scope.successTextAlert = 'El vehiculo se publicó en OLX. Copia el siguiente link: ';
+						$scope.openSuccess('');
 					} else {
+						$scope.hideOLXCopyLink = false;
 						if(response.status == 500) {
 							$scope.successTextAlert = 'Error al publicar en OLX.';
 						} else  {
@@ -209,6 +222,7 @@ angular.module('ngBoilerplate.carDetails').controller('shareModalInstanceCtrl', 
 						$scope.openSuccess('sm');
 					}
 					}, function(data){
+						$scope.hideOLXCopyLink = false;
 						if(data.status == 500) {
 							$scope.successTextAlert = 'Error al publicar en OLX.';
 						} else  {
@@ -235,6 +249,7 @@ angular.module('ngBoilerplate.carDetails').controller('shareModalInstanceCtrl', 
 						}
 					})
 					.then(function(response) {
+						$scope.hideOLXCopyLink = false;
 						if (response.status < 400) {
 							$scope.successTextAlert = 'El vehiculo se publicó en Autocosmos';
 						} else {
@@ -246,6 +261,7 @@ angular.module('ngBoilerplate.carDetails').controller('shareModalInstanceCtrl', 
 						}
 						$scope.openSuccess('sm');
 						}, function(data){
+							$scope.hideOLXCopyLink = false;
 							if(data.status == 500) {
 								$scope.successTextAlert = 'Error al publicar en Autocosmos.';
 							} else  {
