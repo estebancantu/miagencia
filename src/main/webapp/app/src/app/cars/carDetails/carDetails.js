@@ -79,6 +79,7 @@ angular.module('ngBoilerplate.carDetails').controller('shareSuccessModalInstance
 angular.module('ngBoilerplate.carDetails').controller('shareModalInstanceCtrl', ['$scope', '$uibModalInstance', '$http', '$stateParams', '$uibModal', function ($scope, $uibModalInstance, $http, $stateParams, $uibModal) {
   
 		$scope.hideOLXCopyLink = true;
+		$scope.dialogSize = '';
 		
 		$scope.cancel = function () {
 			$uibModalInstance.dismiss('cancel');
@@ -213,7 +214,7 @@ angular.module('ngBoilerplate.carDetails').controller('shareModalInstanceCtrl', 
 						$scope.successTextAlert = 'El vehiculo se publicó en OLX. Copia el siguiente link: ';
 						$scope.openSuccess('');
 					} else {
-						$scope.hideOLXCopyLink = false;
+						$scope.hideOLXCopyLink = true;
 						if(response.status == 500) {
 							$scope.successTextAlert = 'Error al publicar en OLX.';
 						} else  {
@@ -222,7 +223,7 @@ angular.module('ngBoilerplate.carDetails').controller('shareModalInstanceCtrl', 
 						$scope.openSuccess('sm');
 					}
 					}, function(data){
-						$scope.hideOLXCopyLink = false;
+						$scope.hideOLXCopyLink = true;
 						if(data.status == 500) {
 							$scope.successTextAlert = 'Error al publicar en OLX.';
 						} else  {
@@ -274,7 +275,7 @@ angular.module('ngBoilerplate.carDetails').controller('shareModalInstanceCtrl', 
 				
 
 				$scope.openSuccess = function (size) {
-
+					$scope.dialogSize = size;
 					var modalInstance = $uibModal.open({
 							ariaLabelledBy: 'modal-title',
 							ariaDescribedBy: 'modal-body',

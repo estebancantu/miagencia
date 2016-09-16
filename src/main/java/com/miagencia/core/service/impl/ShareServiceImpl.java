@@ -146,7 +146,7 @@ public class ShareServiceImpl implements ShareService {
 		Make make = makesAndModelsDAO.getMake(new Long(vehicle.getMakeId()));
         Model model = makesAndModelsDAO.getModel(new Long(vehicle.getModelId()));
 		if(vehicle != null){
-			facebook.feedOperations().post(new PostData("me").message("En venta: "+ makesAndModelsDAO.getMake(new Long(vehicle.getMakeId())).getName() + " " + makesAndModelsDAO.getModel(new Long(vehicle.getModelId())).getName())
+			facebook.feedOperations().post(new PostData("me").message("En venta: " + makesAndModelsDAO.getModel(new Long(vehicle.getModelId())).getName())
 			    .link(URL_MI_AGENCIA.concat("app/index.html#/carDetails/"+vehicle.getId()))
 			    .picture(URL_MI_AGENCIA.concat("pics/"+vehicle.getImageUrl()))
 			    .caption( make.getName()+" "+model.getName())
@@ -368,7 +368,7 @@ public class ShareServiceImpl implements ShareService {
 		PublicationMercadoLibre publication = new PublicationMercadoLibre();
 		Make make = makesAndModelsDAO.getMake(new Long(vehicle.getMakeId()));
 		Model model = makesAndModelsDAO.getModel(new Long(vehicle.getModelId()));
-		publication.setTitle(make.getName() + " " + model.getName());
+		publication.setTitle(model.getName());
 		if(model.getMercadoLibreId() == null || model.getMercadoLibreId().isEmpty()){
 		    throw new VehicleDoesNotExistException();
 		}

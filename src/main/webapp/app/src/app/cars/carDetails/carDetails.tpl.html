@@ -285,7 +285,7 @@
 									  <div class="modal-header">
             							<h4 style="color: black">Seleccione</h4>
        								 </div>
-                                      <div class="modal-body">
+                                      <div class="modal-body modal-options">
 										<a id="facebookBtn" role="button" ng-click="loginFacebook()"
 											class="btn btn-block btn-social btn-facebook"> 
 											<span class="fa fa-facebook"></span> Facebook
@@ -304,21 +304,27 @@
 											<span class=""></span> Autocosmos
 										</a>
 										</div>
-										  <div class="modal-footer" style="margin-top:0px">
+										  <div class="modal-footer" style="margin-top:0px; text-align=right;">
 								            <button class="btn btn-warning" type="button" ng-click="cancel()">Cancelar</button>
 								         </div>		
-									</div>
+										</div>
 								</script>
 								<script type="text/ng-template" id="shareSuccessContent.html">
-								   	  <div style="padding:25px 10px 10px 10px" >
+								   	  <div class="modal-success-{{dialogSize}}" style="padding:25px 10px 10px 10px" >
 									  	<strong>{{successTextAlert}}</strong> <br>
 										<label ng-hide="hideOLXCopyLink"><strong>{{oLXLink}}</strong> </label>
-									    <div class="modal-footer" style="margin-top:20px; padding:10px 10px 0px">
-										<button ng-hide="hideOLXCopyLink" class="btn btn-warning" ng-click="goToOLX()">
-    										Ir a OLX
-										</button>
-								      	<button  class="btn btn-warning" type="button" ng-click="cancelSuccess()">Aceptar</button>
-  									  </div>		
+									    <div class="modal-footer"   style="margin-top:20px; padding:10px 10px 5px 0px">
+											<div style="float:left">
+											<img  src="./assets/logo_mini.png"  style="margin-right:5px"/> 
+											<label style="font-weight: normal; font-size:small; margin-top:5px; margin-left:5px;margin-right: 20px;" aling="left">AGENCIA <strong>VIRTUAL</strong></label>
+											</div>
+											<div style="float:right">
+											<button ng-hide="hideOLXCopyLink" type="button" class="btn btn-warning" ng-click="goToOLX()">
+    											Ir a OLX
+											</button>
+								      		<button  class="btn btn-warning" type="button" ng-click="cancelSuccess()">Aceptar</button>
+											</div>
+  									 	 </div>		
 									</div>
 								</script>
 							</div>
