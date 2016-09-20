@@ -169,7 +169,11 @@ public class ShareServiceImpl implements ShareService {
 			if(r.getStatusCode() != 201){
 			    throw new Exception("Error posting to MercadoLibre"+ r.getResponseBody());
 			}
-			//m.put("/items/{ITEM_ID}/description", params, "{\"text\":\""+vehicle.getDescription()+"\"}");
+			String[] locations=r.getHeader("Location").split("/");
+			r = m.put("/items/"+locations[locations.length - 1]+"/description", params, "{\"text\":\""+vehicle.getDescription()+"\"}");
+			if(r.getStatusCode() != 200){
+                throw new Exception("Error posting to MercadoLibre"+ r.getResponseBody());
+            }
 		}
 	}
 	
