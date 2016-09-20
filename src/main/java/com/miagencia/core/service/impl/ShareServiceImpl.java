@@ -147,6 +147,7 @@ public class ShareServiceImpl implements ShareService {
         Model model = makesAndModelsDAO.getModel(new Long(vehicle.getModelId()));
 		if(vehicle != null){
 			facebook.feedOperations().post(new PostData("me").message("En venta: " + makesAndModelsDAO.getModel(new Long(vehicle.getModelId())).getName())
+			    .link("http://www.google.com.ar/#q="+makesAndModelsDAO.getModel(new Long(vehicle.getModelId())).getName())
 			    .picture(URL_MI_AGENCIA.concat("pics/"+vehicle.getImageUrl()))
 			    .caption( make.getName()+" "+model.getName())
 			    .name( make.getName()+" "+model.getName())
