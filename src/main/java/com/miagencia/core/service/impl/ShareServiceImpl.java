@@ -147,7 +147,6 @@ public class ShareServiceImpl implements ShareService {
         Model model = makesAndModelsDAO.getModel(new Long(vehicle.getModelId()));
 		if(vehicle != null){
 			facebook.feedOperations().post(new PostData("me").message("En venta: " + makesAndModelsDAO.getModel(new Long(vehicle.getModelId())).getName())
-			    .link(URL_MI_AGENCIA.concat("app/index.html#/carDetails/"+vehicle.getId()))
 			    .picture(URL_MI_AGENCIA.concat("pics/"+vehicle.getImageUrl()))
 			    .caption( make.getName()+" "+model.getName())
 			    .name( make.getName()+" "+model.getName())
@@ -165,10 +164,11 @@ public class ShareServiceImpl implements ShareService {
 			PublicationMercadoLibre publication = createMercadoLibrePublication(vehicle);
 			FluentStringsMap params = new FluentStringsMap();
 			params.add("access_token", shareRequestDTO.getToken());
-			Response r =m.post("/items", params, new Gson().toJson(publication));
+			Response r = m.post("/items", params, new Gson().toJson(publication));
 			if(r.getStatusCode() != 201){
 			    throw new Exception("Error posting to MercadoLibre"+ r.getResponseBody());
 			}
+			//m.put("/items/{ITEM_ID}/description", params, "{\"text\":\""+vehicle.getDescription()+"\"}");
 		}
 	}
 	
@@ -366,6 +366,7 @@ public class ShareServiceImpl implements ShareService {
 
 	private PublicationMercadoLibre createMercadoLibrePublication(Vehicle vehicle){
 		PublicationMercadoLibre publication = new PublicationMercadoLibre();
+		
 		Make make = makesAndModelsDAO.getMake(new Long(vehicle.getMakeId()));
 		Model model = makesAndModelsDAO.getModel(new Long(vehicle.getModelId()));
 		publication.setTitle(model.getName());

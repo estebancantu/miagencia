@@ -45,6 +45,7 @@ angular.module('ngBoilerplate.carDetails').controller('shareModalCtrl', function
 			ariaLabelledBy: 'modal-title',
 			ariaDescribedBy: 'modal-body',
 			templateUrl: 'shareModal.html',
+			windowClass: 'model-select',
 			size: 'sm',
 			controller: 'shareModalInstanceCtrl'
 		});
