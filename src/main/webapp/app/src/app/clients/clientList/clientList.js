@@ -17,10 +17,41 @@ angular.module( 'ngBoilerplate.clientList', [
   });
 })
 
-.controller( 'ClientListCtrl', function ClientListCtrl( $scope, clientService ) {
+.controller( 'ClientListCtrl', function ClientListCtrl( $scope, $uibModal, $location, clientService ) {
 
 
+  $scope.locationService = $location; 
   $scope.clients = clientService.query();
+
+
+
+
+    $scope.deleteClientModal = function (client) {
+
+        var modalInstance = $uibModal.open({
+            animation: true,
+            templateUrl: 'deleteClientModal.html',
+            scope: $scope,
+            controller: 'deleteClientModalInstanceCtrl',
+            resolve: {
+                client: function() { return client; }
+            }
+        });
+    };
+
+
+
+
+
+
+    $scope.saveSuccessModal = function () {
+
+      var modalInstance = $uibModal.open({
+        animation: true,
+        templateUrl: 'saveSuccessModal.html',
+        controller: 'saveSuccessModalInstanceCtrl'
+      });
+    };
 
 
 
@@ -74,9 +105,59 @@ angular.module( 'ngBoilerplate.clientList', [
 
         return (country + " (" + city + ") " + number).trim();
     };
-})
+});
 
 
 
 
-;
+angular.module('ngBoilerplate.clientList').controller('deleteClientModalInstanceCtrl', function ( $scope, $uibModalInstance, $location, $http, client, SERVER_URL ) {
+
+              $scope.cancel = function () {
+                      $uibModalInstance.dismiss('cancel');
+              };
+
+              $scope.deleteClient = function () {
+
+                
+                console.log(client);
+                console.log(client.firstName);
+              
+                    $http({
+                            method: 'DELETE',
+                            url: SERVER_URL + 'clients/' + client.id,
+                            data: client,
+                            headers: {
+                                "Content-Type": "application/json",
+                                "Accept": "text/plain"
+                            }
+                        })
+                .then(function (response) {
+                            if (response.status == 204) {  
+
+                                console.log("Client deleted successfuly.");
+                                $scope.locationService.path('/clientList'); 
+                                $scope.saveSuccessModal();
+                                // If everything went ok, remove old client from list
+                                // TODO alternative: refresh the page
+                                $scope.clients.splice($scope.clients.indexOf(client), 1);
+                                $uibModalInstance.dismiss('ok');
+                                  // TODO cambiar por deleteSuccess / se ha eliminado con exito
+                            }
+                            else {
+                              /*  $scope.vm.errorMessages = [];
+                                $scope.vm.errorMessages.push({description: response.data}); */
+                                console.log("failed operation creation: " + response.status + " - " + response.statusText );
+                                $location.path('/newClient');
+                            }
+                        });
+
+                        // esto no tiene que estar, al recargar la pagina tiene que traer lo que quedo
+                          //       $scope.clients.splice($scope.clients.indexOf(client), 1);
+                           //      $uibModalInstance.dismiss('ok');
+                          };
+
+  });
+
+
+
+
