@@ -1,13 +1,13 @@
-var vehicleService = angular.module('vehicleService', ['ngResource']);
+var vehicleService = angular.module('vehicleService', ['ngResource', 'ngBoilerplate']);
 
 /* ponerle services tambien al nombre del tipo para que se entienda que es un servicio
 cuando se usa
 */
 
-vehicleService.factory('vehicleService', ['$resource',
-  function($resource){
-   //  return $resource('http://localhost:8080/miagencia/api/vehicles/:id', {id:'@id'});
-    return $resource('http://www.miagenciavirtual.com.ar:8080/miagencia/api/vehicles/:id', {id:'@id'});
+vehicleService.factory('vehicleService', ['$resource', 'SERVER_URL',
+  function($resource, SERVER_URL){
+     return $resource(SERVER_URL + 'vehicles/:id', {id:'@id'});
+   // return $resource('http://www.miagenciavirtual.com.ar:8080/miagencia/api/vehicles/:id', {id:'@id'});
   }]);
 
 vehicleService.config(function($resourceProvider) {
