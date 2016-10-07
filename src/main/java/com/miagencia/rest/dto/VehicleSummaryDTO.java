@@ -21,6 +21,8 @@ public class VehicleSummaryDTO {
 	private boolean isSold;
 	
 	private boolean isBooked;
+	
+	private int imageCount;
 
 	
 	// images cant, para la camarita que dice cuantas fotos tiene
@@ -97,6 +99,14 @@ public class VehicleSummaryDTO {
 
 	public void setBooked(boolean isBooked) {
 		this.isBooked = isBooked;
+	}
+
+	public int getImageCount() {
+		return imageCount;
+	}
+
+	public void setImageCount(int imageCount) {
+		this.imageCount = imageCount;
 	}
 
 }
