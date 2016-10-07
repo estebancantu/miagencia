@@ -1,0 +1,19 @@
+<script type="text/ng-template" id="deleteCarModal.html">
+
+	<div class="modal-content">
+		<div class="modal-header">
+			<h4 class="modal-title">Eliminar Veh&iacute;culo</h4>	
+		</div>
+		<div class="modal-body">
+		</br>
+			<label>
+				<p class="success-modal-message">&nbsp;IMPORTANTE: Si elimina este veh&iacute;culo se eliminar&aacute; tambi&eacute;n toda la informaci&oacute;n relacionada, incluidas todas las operaciones hist&oacute;ricas (compra, venta, reserva etc.) sobre este veh&iacute;culo.</p>
+				<p class="success-modal-message">&nbsp;Est&aacute; seguro que desea eliminar el veh&iacute;culo?</p>
+			</label>
+		</div>
+		<div class="modal-footer">
+			<button class="btn btn-default" type="button" ng-click="cancel()">Cancelar</button>
+		            <button type="submit" class="btn btn-danger" ng-click="deleteCar()">Eliminar </button>
+		</div>
+	</div>
+</script>
