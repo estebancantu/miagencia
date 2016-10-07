@@ -25,6 +25,7 @@
         <mapping class="com.miagencia.core.model.operations.ConsignmentOperation" />
         <mapping class="com.miagencia.core.model.operations.ReservationOperation" />
         <mapping class="com.miagencia.core.model.operations.SaleOperation" />
+        <mapping class="com.miagencia.core.model.Expense" />
         
     </session-factory>         
 </hibernate-configuration>
