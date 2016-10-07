@@ -81,7 +81,7 @@ public class ShareServiceImpl implements ShareService {
 		Vehicle vehicle = vehicleDAO.find(shareRequestDTO.getVehicleId());
 		if(vehicle != null){
 			facebook.feedOperations().post(new PostData("me").message("En venta: "+ makesAndModelsDAO.getMake(new Long(vehicle.getMakeId())).getName() + " " + makesAndModelsDAO.getModel(new Long(vehicle.getModelId())).getName())
-			    .link("http://miagenciavirtual.com.ar:8080/miagencia/app/index.html#/carDetails/"+vehicle.getId(), vehicle.getImageUrl(), null, 
+			    .link("http://miagenciavirtual.com.ar:8080/miagencia/app/index.html#/carDetails/"+vehicle.getId(), vehicle.getImageUrls().get(0), null, 
 			    		null, vehicle.getDescription()));
 		}
 		

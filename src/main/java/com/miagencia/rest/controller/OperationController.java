@@ -29,6 +29,7 @@ public class OperationController {
 	
 	
 	
+	// TODO validar con Spring validation o algo asi
 	
 	/**
 	 * 
@@ -36,11 +37,11 @@ public class OperationController {
 	 * @return
 	 */
 	@RequestMapping(value = "/buyVehicle", method = RequestMethod.POST)
-	public ResponseEntity<Void> newVehicle(@RequestBody NewVehicleRequestDTO buyVehicleRequestDto,  UriComponentsBuilder ucBuilder) {
+	public ResponseEntity<Void> newVehicle(@RequestBody NewVehicleRequestDTO newVehicleRequestDto,  UriComponentsBuilder ucBuilder) {
 		
 		
 		// TODO revisar validacion, tal vez se pueda resolver con excepciones etc
-		if (buyVehicleRequestDto == null || !DTOValidator.validate(buyVehicleRequestDto) ){
+		if (newVehicleRequestDto == null || !DTOValidator.validate(newVehicleRequestDto) ){
 			
 			System.out.println("Operation fields are incorrect"); 
 			return new ResponseEntity<Void>( HttpStatus.BAD_REQUEST);
@@ -50,7 +51,7 @@ public class OperationController {
 		System.out.println("Creating New Vehicle Operation ");
 
 		
-		vehicleOperationService.newVehicle(buyVehicleRequestDto);
+		vehicleOperationService.newVehicle(newVehicleRequestDto);
 
 		
 		HttpHeaders responseHeaders = new HttpHeaders();

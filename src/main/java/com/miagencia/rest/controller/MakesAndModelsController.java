@@ -16,7 +16,7 @@ import com.miagencia.rest.dto.VehicleTypeDTO;
 
 
 
-@RestController
+@RestController // NOTA teoricamente al usar REST CONTROLLER, no necesitamos poner @ResponseBody en cada metodo, probar.
 @RequestMapping("/api/makesAndModels")
 public class MakesAndModelsController {
 	

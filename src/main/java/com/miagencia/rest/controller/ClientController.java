@@ -126,11 +126,13 @@ public class ClientController {
         }
 		
 		
-		clientService.add(client);
+		Long clientId = clientService.add(client);
 
 		
 		HttpHeaders responseHeaders = new HttpHeaders();
-	    responseHeaders.setLocation(ucBuilder.path("/api/clients/{id}").buildAndExpand(client.getId()).toUri());
+		
+		responseHeaders.set("entity_id", clientId.toString());
+	    responseHeaders.setLocation(ucBuilder.path("/api/clients/{id}").buildAndExpand(clientId).toUri());
 	    
 		return new ResponseEntity<Void>(responseHeaders, HttpStatus.CREATED); // HTTP.201
 	}
@@ -142,21 +144,16 @@ public class ClientController {
 	 * @param client
 	 * @return
 	 */
-	@RequestMapping(value = "/{clientId}", method = RequestMethod.PUT, headers="Accept=application/json")
-	public ResponseEntity<ClientDTO> updateClient(@RequestBody ClientDTO client) {
+	@RequestMapping(value = "/", method = RequestMethod.PUT)
+	public ResponseEntity<Void> updateClient(@RequestBody ClientDTO client) {
 		
-		ClientDTO existingClient = clientService.find(client.getId());
-		
-		if (existingClient == null) {
-			System.out.println("Client with id " + client.getId() + " not found");
-            return new ResponseEntity<ClientDTO>(HttpStatus.NOT_FOUND);
-		}
-		
-		
+		System.out.println("Updating Client " + client.getFirstName() + " " + client.getLastName());
+
 		clientService.edit(client);
-		return new ResponseEntity<ClientDTO>(existingClient, HttpStatus.OK);
 		
-		
+		HttpHeaders responseHeaders = new HttpHeaders();
+		return new ResponseEntity<Void>(responseHeaders, HttpStatus.OK);
+				
 	}
 
 
@@ -166,19 +163,19 @@ public class ClientController {
 	 * @param clientId
 	 * @return
 	 */
-	@RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
-	public ResponseEntity<ClientDTO> deleteClient(@PathVariable long clientId) {
+	@RequestMapping(value = "/{clientId}", method = RequestMethod.DELETE)
+	public ResponseEntity<Void> deleteClient(@PathVariable long clientId) {
 		  
 		System.out.println("Fetching & Deleting User with id " + clientId);
 		  
         ClientDTO client = clientService.find(clientId);
         if (client == null) {
             System.out.println("Unable to delete. Client with id " + clientId + " not found");
-            return new ResponseEntity<ClientDTO>(HttpStatus.NOT_FOUND);
+            return new ResponseEntity<Void>(HttpStatus.NOT_FOUND);
         }
         
         clientService.delete(clientId);
-        return new ResponseEntity<ClientDTO>(HttpStatus.NO_CONTENT);
+        return new ResponseEntity<Void>(HttpStatus.NO_CONTENT);
 	}
 	
 
