@@ -1,8 +1,12 @@
 package com.miagencia.rest.dto;
 
+import java.util.ArrayList;
+import java.util.List;
+
 
 
 public class VehicleDTO {
+	
 	
 	
 	private Long id;
@@ -43,7 +47,7 @@ public class VehicleDTO {
 	
 	private int price;
 	
-	private String imageUrl;
+	private List<String> imageUrls = new ArrayList<String>();
 	
 	// TODO falta implementar
 	//private List<String> features;
@@ -182,13 +186,6 @@ public class VehicleDTO {
 		this.price = price;
 	}
 
-	public String getImageUrl() {
-		return imageUrl;
-	}
-
-	public void setImageUrl(String imageUrl) {
-		this.imageUrl = imageUrl;
-	}
 
 	public String getMakeString() {
 		return makeString;
@@ -212,6 +209,14 @@ public class VehicleDTO {
 
 	public void setCodInfoauto(Long codInfoauto) {
 		this.codInfoauto = codInfoauto;
+	}
+
+	public List<String> getImageUrls() {
+		return imageUrls;
+	}
+
+	public void setImageUrls(List<String> imageUrls) {
+		this.imageUrls = imageUrls;
 	}
 	
 }
