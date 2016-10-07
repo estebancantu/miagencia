@@ -11,5 +11,7 @@ public interface OperationDAO {
 	public VehicleOperation find(Long operationId);
 	
 	public List<VehicleOperation> findOperationsByVehicleId(Long vehicleId);
+	
+	public void delete(Long operationId);
 
 }

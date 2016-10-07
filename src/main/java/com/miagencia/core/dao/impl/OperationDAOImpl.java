@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.miagencia.core.dao.OperationDAO;
+import com.miagencia.core.model.Client;
 import com.miagencia.core.model.operations.VehicleOperation;
 
 @Repository
@@ -40,6 +41,17 @@ public class OperationDAOImpl implements OperationDAO {
 		Query query = sessionFactory.getCurrentSession().createQuery("from VehicleOperation vo where vo.vehicle.id = :vehicleId");
 		query.setParameter("vehicleId", vehicleId);
 		return query.list();
+	}
+	
+
+	@Override
+	public void delete(Long operationId) {
+		
+		if (operationId == null) throw new IllegalArgumentException("Operation id argument cannot be null");
+		VehicleOperation operation = (VehicleOperation)sessionFactory.getCurrentSession().load(VehicleOperation.class, operationId);
+		
+		if (operation == null) throw new IllegalArgumentException("There is no Operation record for id " + operationId);
+		sessionFactory.getCurrentSession().delete(operation);
 	}
 
 }
