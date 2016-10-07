@@ -12,6 +12,8 @@ angular.module( 'ngBoilerplate', [
   'ngBoilerplate.sellCar',
   'ngBoilerplate.reserveCar',
   'ngBoilerplate.insuranceQuote',
+  'ngBoilerplate.carExpenses',
+  'ngBoilerplate.modals',
   'ui.router',
   'ngAnimate',
   'flow',
@@ -65,7 +67,7 @@ angular.module( 'ngBoilerplate', [
 		}(document));
 	
 		// MercadoLibre Init
-		MELI.init({client_id: 4108975373321744});
+		//MELI.init({client_id: 4108975373321744});
 		
 		
 	}])
@@ -85,6 +87,10 @@ angular.module( 'ngBoilerplate', [
     
   $scope.toggleState = function() {
       $scope.state = !$scope.state;
+  };
+
+    $scope.showSidebar = function() {
+      $scope.state = true;
   };
 
 })
@@ -131,7 +137,19 @@ angular.module( 'ngBoilerplate', [
                        }
                 }
       };
-}) 
+})
 
+
+.filter('capitalize', function() {
+    return function(input) {
+        return (!!input) ? input.split(' ').map(function(wrd){return wrd.charAt(0).toUpperCase() + wrd.substr(1).toLowerCase();}).join(' ') : '';
+    };
+})
+
+.constant('SERVER_URL', 'http://localhost:8080/miagencia/api/')
+.constant('CDN_URL', 'http://localhost:8080/miagencia/pics/')
+/*
+.constant('SERVER_URL', 'http://www.miagenciavirtual.com.ar:8080/miagencia/api/')
+*/
 ;
 
