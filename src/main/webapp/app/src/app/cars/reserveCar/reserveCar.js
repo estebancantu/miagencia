@@ -18,9 +18,13 @@ angular.module( 'ngBoilerplate.reserveCar', [
 })
 
 
-.controller( 'reserveCarCtrl', function AboutCtrl( $scope, $http, clientService, $stateParams, vehicleService) {
+.controller( 'reserveCarCtrl', function AboutCtrl( $scope, $http, clientService, $stateParams, vehicleService, $uibModal, $location, SERVER_URL, CDN_URL) {
 
 
+
+  $scope.locationService = $location;
+
+  $scope.reserveForm = CDN_URL + "forms/reserve-form.jpg";
 
   $scope.carDetailsDto = vehicleService.get({id: $stateParams.carId});
   $scope.selectedClientId = null;
@@ -53,8 +57,7 @@ angular.module( 'ngBoilerplate.reserveCar', [
 
     $http({
                 method: 'POST',
-              //  url: 'http://localhost:8080/miagencia/api/operations/reserveVehicle/',
-                url: 'http://www.miagenciavirtual.com.ar:8080/miagencia/api/operations/reserveVehicle/',
+                url: SERVER_URL + 'operations/reserveVehicle/',
                 data: reserveVehicleRequestDto,
                 headers: {
                     "Content-Type": "application/json",
@@ -62,8 +65,12 @@ angular.module( 'ngBoilerplate.reserveCar', [
                 }
             })
     .then(function (response) {
-                if (response.status == 200) {
-                    $scope.login($scope.vm.userName, $scope.vm.password);
+
+                if (response.status == 201) {
+                   
+                    $scope.locationService.path('/home');
+                    $scope.saveSuccessModal();
+
                 }
                 else {
                   /*  $scope.vm.errorMessages = [];
@@ -73,6 +80,29 @@ angular.module( 'ngBoilerplate.reserveCar', [
             });
 
   };
+
+
+
+
+      $scope.cancelModal = function () {
+
+      var modalInstance = $uibModal.open({
+        animation: true,
+        templateUrl: 'cancelConfirmationModal.html',
+        controller: 'cancelConfirmationModalInstanceCtrl'
+      });
+    };
+
+
+        $scope.saveSuccessModal = function () {
+
+      var modalInstance = $uibModal.open({
+        animation: true,
+        templateUrl: 'saveSuccessModal.html',
+        controller: 'saveSuccessModalInstanceCtrl'
+      });
+    };
+
 
 
 

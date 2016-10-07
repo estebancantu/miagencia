@@ -14,7 +14,7 @@
 											{{carDetailsDto.vehicleDto.makeString}}
 										</span>
 										<div class="vehicle-excerpt-horizontal-title-model">&nbsp;
-											{{carDetailsDto.vehicleDto.modelString}}
+											{{carDetailsDto.vehicleDto.modelString | capitalize }}
 										</div>
 									</h3>
 								</div>
@@ -67,7 +67,7 @@
 			        	<div class="row">
 			        		<div class="col-md-12">
 					        	<fieldset class="form-group container-fluid">
-									<h4 class="control-label sell-car-form-label">Comprador</h4>
+									<h4 class="control-label sell-car-form-label">Seleccione el comprador</h4>
 									<select class="form-control" name="repeatSelect" id="clientSelect" ng-model="selectedBuyerId">
 					      				<option ng-repeat="option in buyerList" value="{{option.id}}">{{option.firstName}}&nbsp;{{option.lastName}}</option>
 					    			</select>
@@ -78,10 +78,10 @@
 						<div class="row">
 							<div class="col-md-12">	
 								<fieldset class="form-group container-fluid" ng-class="{'has-error': sellVehicleForm.sellingPrice.$invalid}">
-									<h4 class="control-label sell-car-form-label">Valor de venta del Veh&iacute;culo</h4>
+									<h4 class="control-label sell-car-form-label">Precio de venta</h4>
 										<div class="input-group">
 										  <div class="input-group-addon">$</div>
-										  <input type="text" name="sellingPrice" class="form-control" id="exampleInputAmount" placeholder="Valor de venta para este ve&iacute;culo" ng-model="salePrice" required ui-number-mask="0">
+										  <input type="text" name="sellingPrice" class="form-control" id="exampleInputAmount" placeholder="Valor al que se vende el ve&iacute;culo" ng-model="salePrice" required ui-number-mask="0">
 										 <div class="input-group-addon">.00</div>
 									 	</div> 
 									 <span class="help-block" 
@@ -97,17 +97,20 @@
 			                    <div class="form-group">
 			                      <div class="sell-car-buttons">
 			                      	<!-- <a href="http://localhost:8080/miagencia/pics/legalDocument/boleto-compra-venta-automotor.pdf" type="submit" class="btn btn-default"> -->
-			                     <a href="http://miagenciavirtual.com.ar:8080/miagencia/pics/legalDocument/boleto-compra-venta-automotor.pdf" type="submit" class="btn btn-default"> 
+			                     <a href={{sellForm}} class="btn btn-default"> 
 			                      	Imprimir boleto</a>
 			                        <div class="pull-right">
-			                          <button type="submit" class="btn btn-default">Cancelar</button>
+			                          <button type="submit" class="btn btn-default" ng-click="cancelModal()">Cancelar</button>
 			                          <button type="submit" class="btn btn-primary" ng-click="sellCar()">Vender </button>
 			                        </div>
 			                      </div>
 			                    </div>
 			                  </div>
 			                </div>
-					</form>
+			</form>
+
+				<ng-include src="'modals/cancelConfirmation.tpl.html'" ></ng-include>
+    				<ng-include src="'modals/saveSuccessModal.tpl.html'" ></ng-include>
 					
 				 
 
