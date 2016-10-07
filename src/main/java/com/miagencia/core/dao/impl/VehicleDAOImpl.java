@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.miagencia.core.dao.VehicleDAO;
+import com.miagencia.core.model.Client;
 import com.miagencia.core.model.Vehicle;
 
 /**
@@ -35,6 +36,21 @@ public class VehicleDAOImpl implements VehicleDAO {
 	@Override
 	public List<Vehicle> getAllVehicles() {
 		return sessionFactory.getCurrentSession().createQuery("from Vehicle").list();
+	}
+
+
+
+
+	@Override
+	public void deleteVehicle(Long vehicleId) {
+		
+
+		if (vehicleId == null) throw new IllegalArgumentException("Vehicle id argument cannot be null");
+		Vehicle vehicle = (Vehicle)sessionFactory.getCurrentSession().load(Vehicle.class, vehicleId);
+		
+		if (vehicle == null) throw new IllegalArgumentException("There is no Vehicle record for id " + vehicleId);
+		sessionFactory.getCurrentSession().delete(vehicle);
+		
 	}
 
 }
