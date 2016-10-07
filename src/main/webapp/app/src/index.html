@@ -23,15 +23,13 @@
 
     <link rel="shortcut icon" href="assets/img/favicon.ico" type="image/x-icon">
     <link rel="icon" href="assets/img/favicon.ico" type="image/x-icon">
-    
 
 
 
 
     <!-- font awesome from BootstrapCDN -->
     <link href="http://netdna.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.css" rel="stylesheet">
-	<link href="assets/bootstrap-social.css" rel="stylesheet">
-	<script type="text/javascript" src="http://static.mlstatic.com/org-img/sdk/mercadolibre-1.0.4.js"></script>
+
  
     <!-- compiled CSS --><% styles.forEach( function ( file ) { %>
     <link rel="stylesheet" type="text/css" href="<%= file %>" /><% }); %>
@@ -59,14 +57,6 @@
         <div id="navbar" class="navbar-collapse collapse"> 
           <ul class="nav navbar-nav navbar-right">
             <li>
-              <div class="span12">
-                  <form id="custom-search-form" class="form-search form-horizontal pull-right">
-                      <div class="input-append span12">
-                        <input type="text" ng-model="query" class="search-query" placeholder="Buscar..">
-                        <button type="submit" class="btn"><i class="fa fa-search"></i></button>
-                      </div>
-                  </form>
-              </div>
             </li>
             <li>
               <a class="user-menu" href="#"><i class="fa fa-user fa-lg user-avatar"></i>&nbsp;&nbsp;&nbsp;Zingaro Automotores</a>
@@ -86,8 +76,8 @@
       
         <!-- sidebar -->
         <!--<div class="sidebar" sidebar-directive="state"> -->
-        <div class="sidebar" ng-class="{'show' : state }">
-            <a id="navigation-toggle" ng-click="toggleState()"><i class="fa fa-2x"
+        <div class="sidebar" ng-class="{'show' : state }" ng-mouseleave="toggleState()">
+            <a id="navigation-toggle" ng-mouseover="showSidebar()"><i class="fa fa-2x"
               ng-class="{'fa-angle-double-left' : state, 'fa-angle-double-right' : !state}"></i></a>
             <div class="brand">
               <a href="#menu-toggle" style="visibility:hidden;" class="btn btn-default" id="menu-toggle">Toggle Menu</a>
