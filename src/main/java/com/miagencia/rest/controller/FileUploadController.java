@@ -155,7 +155,7 @@ public class FileUploadController {
 	
 	
 	
-    @RequestMapping(value = "/legalDocument/{documentName}", method = RequestMethod.GET)
+    @RequestMapping(value = "/forms/{documentName}", method = RequestMethod.GET)
     public ResponseEntity<byte[]> getLegalDocument(@PathVariable String documentName) throws IOException {
     	
     	
