@@ -1,6 +1,6 @@
-<div class="container-fluid padding-right-45">
+<div class="container-fluid padding-right-45" ng-controller="carDetailsCtrl">
 
-	<div class="well well-shadow" ng-controller="carDetailsCtrl">
+	<div>
 		<div class="row">
 			<div class="col-sm-12">
 				<div class="well well-sm black-well">
@@ -8,7 +8,7 @@
 						<div class="col-sm-8">
 							<h2>
 								<span class="title-make">{{carDetailsDto.vehicleDto.makeString}}</span>&nbsp;
-								<div class="title-model">{{carDetailsDto.vehicleDto.modelString}}</div>
+								<div class="title-model">{{carDetailsDto.vehicleDto.modelString | capitalize}}</div>
 							</h2>
 						</div>
 						<div class="col-sm-4">
@@ -53,14 +53,14 @@
 										<div class="col-md-10 no-padding">
 											<small class="text-muted">Marca</small>
 											<div class="h4 no-margin-top fw-400">
-												{{carDetailsDto.vehicleDto.makeString}}</div>
+												{{carDetailsDto.vehicleDto.makeString | capitalize}}</div>
 										</div>
 									</div>
 									<div class="col-md-4 no-padding m-b-md">
 										<div class="col-md-10 no-padding">
 											<small class="text-muted">Modelo</small>
 											<div class="h4 no-margin-top fw-400">
-												{{carDetailsDto.vehicleDto.modelString}}</div>
+												{{carDetailsDto.vehicleDto.modelString | capitalize}}</div>
 										</div>
 									</div>
 									<div class="col-md-4 no-padding m-b-md">
@@ -115,8 +115,7 @@
 
 
 
-				<div
-					class="panel panel-default panel-default-shadow car-details-panel">
+				<div class="panel panel-default panel-default-shadow car-details-panel">
 
 					<div class="panel-heading">
 						<h4 class="car-details-panel-title">Datos del Vendedor</h4>
@@ -183,64 +182,8 @@
 						</div>
 					</div>
 				</div>
-
-				<div
-					class="panel panel-default panel-default-shadow car-details-panel car-details-panel-last">
-
-					<div class="panel-heading">
-						<h4 class="car-details-panel-title">Gastos sobre el
-							Veh&iacute;culo</h4>
-					</div>
-
-					<div class="panel-body">
-
-						<div class="col-md-10">
-							<table class="table table-striped">
-								<thead>
-									<tr>
-										<th>Fecha</th>
-										<th>Concepto</th>
-										<th>Monto</th>
-									</tr>
-								</thead>
-								<tbody>
-									<tr>
-										<td>12/6/2015</td>
-										<td>Reparacion tren delantero</td>
-										<td>$4.500</td>
-									</tr>
-									<tr>
-										<td>16/6/2015</td>
-										<td>Pago de seguro cuota 3</td>
-										<td>$1.500</td>
-									</tr>
-								</tbody>
-							</table>
-							<div class="text-right">Total</div>
-							<div>$15.200</div>
-							<div class="text-right">Margen de ganancia</div>
-							<div>$25.000</div>
-							<div class="row">
-								<div class="col-sm-6 col-sm-offset-6">
-									<div class="form-group">
-										<div class="col-sm-offset-2 col-sm-10 new-expenditure-buttons">
-											<div class="pull-right">
-												<button type="submit" class="btn btn-primary"
-													ng-click="newExpenditure()">Nuevo Gasto</button>
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
-						</div>
-
-
-					</div>
-				</div>
-
-
-
-
+					
+				
 			</div>
 
 			<div class="col-sm-4">
@@ -319,7 +262,38 @@
 			</div>
 		</div>
 
+
+	<div class="row">
+
+		<div class="col-md-12">
+			<div class="panel panel-default panel-default-shadow car-details-panel car-details-panel-last">
+
+				<div class="panel-heading">
+					<h4 class="car-details-panel-title">Gastos del
+						Veh&iacute;culo</h4>
+				</div>
+
+				<div class="panel-body">
+					<ng-include src="'cars/carExpenses/carExpenses.tpl.html'" ></ng-include>
+
+				</div>
+			</div>
+		</div>
 	</div>
+	<div class="row">
+	                  <div class="col-sm-8 col-sm-offset-4">
+	                    <div class="form-group">
+	                      <div class="car-details-crud-buttons">
+	                        <div class="pull-right">
+	                          <button type="submit" ui-sref="newCar({carId:carDetailsDto.vehicleDto.id})" class="btn btn-lg btn-primary"><span class="fa fa-pencil"></span>&nbsp;Editar</button>
+	                          <button type="submit" class="btn btn-lg btn-danger" ng-disabled="newClientForm.$invalid" ng-click="deleteCarModal()"><span class="fa fa-trash-o"></span>&nbsp;Eliminar Veh&iacute;culo</button>
+	                        </div>
+	                      </div>
+	                    </div>
+	                  </div>
+	</div>
+
+	<ng-include src="'cars/carDetails/deleteCar.tpl.html'" ></ng-include>
 
 </div>
 </div>
