@@ -1,8 +1,13 @@
 <div class="container-fluid padding-right-100">
 	<div class="row">
-	<div class="col-md-7"></div>
+	<div class="col-md-7">
+		<div class="iq-image-container">
+			<img src="assets/img/insurance_quote_img.jpg">
+		</div>
+	</div>
     	<div class="col-md-5" ng-controller="InsuranceQuoteCtrl">
-    		<h2 class="page-header new-client-header"><i class="fa fa-bar-chart fa-lg"></i>  Cotizaci&oacute;n</h2>
+	<div class="insurance-quote-form-container">
+    		<h2><i class="fa fa-bar-chart fa-lg"></i>  Cotizaci&oacute;n</h2>
 			<form class="form-horizontal well insurance-quote-form" name="insuranceQuoteForm" action="http://www.softeam1.com.ar/cotiwebdemo/hWklogGet.aspx" role="form" method="post" novalidate target="_blank">
 
 			<!-- campos hidden -->
@@ -62,13 +67,13 @@
 						</div>
 						<div class="form-group">
 							<select class="form-control" ng-model="vehicle.vehicleMake" 
-								ng-options="make.name for make in vehicle.vehicleType.makes">
+								ng-options="make.name for make in vehicle.vehicleType.makes | orderBy: 'name'">
 							  <option value="">Marca</option>
 							</select>
 						</div>
 						<div class="form-group">
 							<select class="form-control" ng-model="vehicle.vehicleModel" 
-								ng-options="model.name for model in vehicle.vehicleMake.models">
+								ng-options="model.name for model in vehicle.vehicleMake.models | orderBy: 'name'">
 							  <option value="">Modelo</option>
 							</select>
 							<input type="hidden" size="60" name="AUTCODEXT" value="{{ vehicle.vehicleModel.codInfoauto | infoAutoCompletarCeros}}">
@@ -102,6 +107,7 @@
 
 			</form>
 		</div>
+	</div>
 	</div>
 
 </div>	
