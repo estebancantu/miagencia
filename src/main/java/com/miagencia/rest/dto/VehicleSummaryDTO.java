@@ -10,7 +10,7 @@ public class VehicleSummaryDTO {
 	
 	private String model;
 	
-	private int year;
+	private String year;
 	
 	private Long kilometers;
 	
@@ -53,11 +53,11 @@ public class VehicleSummaryDTO {
 		this.model = model;
 	}
 
-	public int getYear() {
+	public String getYear() {
 		return year;
 	}
 
-	public void setYear(int year) {
+	public void setYear(String year) {
 		this.year = year;
 	}
 

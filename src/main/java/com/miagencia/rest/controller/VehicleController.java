@@ -17,6 +17,7 @@ import com.miagencia.core.service.VehicleService;
 import com.miagencia.rest.dto.ClientDTO;
 import com.miagencia.rest.dto.VehicleDetailsDTO;
 import com.miagencia.rest.dto.VehicleSummaryDTO;
+import com.miagencia.rest.dto.util.CustomResponseHeaders;
 
 
 @RestController
@@ -49,14 +50,11 @@ public class VehicleController {
 		
 		List<VehicleSummaryDTO> vehiclesDto = vehicleService.getAllVehicles();
 		
-		HttpHeaders responseHeaders = new HttpHeaders();
-	    responseHeaders.set("TestHeaderKey", "TestHeaderData");
-		
 		if(vehiclesDto == null || vehiclesDto.isEmpty()){
-			return new ResponseEntity<List<VehicleSummaryDTO>>(responseHeaders, HttpStatus.NO_CONTENT);
+			return new ResponseEntity<List<VehicleSummaryDTO>>(new CustomResponseHeaders(), HttpStatus.NO_CONTENT);
 		}
 		
-		return new ResponseEntity<List<VehicleSummaryDTO>>(vehiclesDto, responseHeaders, HttpStatus.OK);
+		return new ResponseEntity<List<VehicleSummaryDTO>>(vehiclesDto, new CustomResponseHeaders(), HttpStatus.OK);
 	}
 	
 	
@@ -66,19 +64,16 @@ public class VehicleController {
 	@RequestMapping(value = "/{vehicleId}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	public @ResponseBody ResponseEntity<VehicleDetailsDTO> getVehicleById(@PathVariable long vehicleId) {
 		
-		HttpHeaders responseHeaders = new HttpHeaders();
-	    responseHeaders.set("TestHeaderKey", "TestHeaderData");
-		responseHeaders.set("Access-Control-Allow-Origin", "http://www.miagenciavirtual.com.ar:8080");
 	    VehicleDetailsDTO vehicleDetailsDto = null;
 	    System.out.println("Fetching Vehicle with id " + vehicleId);   
 		vehicleDetailsDto = vehicleService.find(vehicleId);
 
 		if(vehicleDetailsDto == null){
 			System.out.println("Vehicle with id " + vehicleId + " not found");
-			return new ResponseEntity<VehicleDetailsDTO>(responseHeaders, HttpStatus.NOT_FOUND);
+			return new ResponseEntity<VehicleDetailsDTO>(new CustomResponseHeaders(), HttpStatus.NOT_FOUND);
 		}
 		
-		return new ResponseEntity<VehicleDetailsDTO>(vehicleDetailsDto, responseHeaders, HttpStatus.OK);		
+		return new ResponseEntity<VehicleDetailsDTO>(vehicleDetailsDto, new CustomResponseHeaders(), HttpStatus.OK);		
 	}
 	
 	

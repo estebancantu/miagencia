@@ -26,4 +26,10 @@ public class VehicleFeatureValueDAOImpl implements VehicleFeatureValueDAO {
 		return (List<VehicleFeatureValue>) sessionFactory.getCurrentSession().createQuery("from VehicleFeatureValue where feature.name = '"+valueName+"'").uniqueResult();
 	}
 
+
+    @Override
+    public VehicleFeatureValue findMercadoLibreFeatureByValue(String value) {
+        return (VehicleFeatureValue) sessionFactory.getCurrentSession().createQuery("from VehicleFeatureValue where value='"+value+"'").uniqueResult();
+    }
+    
 }

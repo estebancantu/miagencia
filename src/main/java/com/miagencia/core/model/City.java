@@ -19,6 +19,8 @@ public class City extends PersistableEntity{
     private String mercadolibreId;
 	@Column(name="OLX_ID", nullable=false)
     private String olxId;
+	@Column(name="AUTOCOSMOS_ID", nullable=false)
+    private String autocosmosId;
 	@Column(name="NAME", nullable=false)
 	private String name;
 	@ManyToOne(fetch = FetchType.EAGER)
@@ -80,5 +82,15 @@ public class City extends PersistableEntity{
     public void setName(String name) {
         this.name = name;
     }
+
+    public String getAutocosmosId() {
+        return autocosmosId;
+    }
+
+    public void setAutocosmosId(String autocosmosId) {
+        this.autocosmosId = autocosmosId;
+    }
+    
+    
 
 }

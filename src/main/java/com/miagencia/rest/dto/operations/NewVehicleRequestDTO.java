@@ -26,11 +26,6 @@ public class NewVehicleRequestDTO {
     */
 	private VehicleDTO vehicleDto;
 	
-	/**
-	  * DTO de la ubicación del vehiculo.
-	*/
-	private LocationDTO locationDTO;
-	
    /**
     * Para compra, es el id del vendedor.
     * Para concesión, es el id del cliente que deja su vehículo en concesión.
@@ -165,15 +160,5 @@ public class NewVehicleRequestDTO {
 	public void setHasDomainCertificate(boolean hasDomainCertificate) {
 		this.hasDomainCertificate = hasDomainCertificate;
 	}
-
-	public LocationDTO getLocationDTO() {
-		return locationDTO;
-	}
-
-	public void setLocationDTO(LocationDTO locationDTO) {
-		this.locationDTO = locationDTO;
-	}
-	
-	
 
 }
