@@ -15,6 +15,7 @@ angular.module('ngBoilerplate.carExpenses').controller('expensesCtrl', function 
 	$scope.expenses = [];
 
 	$scope.carId = "";
+	$scope.profit = "";
 
 	$scope.$on('carIdEvent', function(){
 
@@ -23,6 +24,13 @@ angular.module('ngBoilerplate.carExpenses').controller('expensesCtrl', function 
 		$scope.expenses = expenseService.get({vehicleId:$scope.carId}, function() {
 			console.log("anduvo");
 		});  
+	});
+
+	$scope.$on('initialProfitEvent', function(){
+
+		$scope.profit = broadcastService.initialProfit;
+
+
 	});
 
 
@@ -62,6 +70,21 @@ angular.module('ngBoilerplate.carExpenses').controller('expensesCtrl', function 
 		}
 		return total;
 	};
+
+
+	$scope.totalProfit = function(){
+
+		var total = $scope.profit;
+		for(count=0;count<$scope.expenses.length;count++){
+
+			if($scope.expenses[count].paid) {
+				total = total - $scope.expenses[count].cost;
+			}
+		}
+		return total;
+	};
+
+
 
 
 	$scope.newExpenseModal = function () {
