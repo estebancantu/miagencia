@@ -22,6 +22,7 @@ import com.miagencia.core.model.operations.BuyOperation;
 import com.miagencia.core.model.operations.ConsignmentOperation;
 import com.miagencia.core.model.operations.ReservationOperation;
 import com.miagencia.core.model.operations.SaleOperation;
+import com.miagencia.core.model.operations.VehicleOperation;
 import com.miagencia.rest.dto.ClientDTO;
 import com.miagencia.rest.dto.ClientSummaryDTO;
 import com.miagencia.rest.dto.ExpenseDTO;
@@ -139,7 +140,10 @@ public class EntityDTOTranslator {
 	
 	
 	
-	public static VehicleDetailsDTO buildVehicleDetailsDTO(Vehicle vehicle, Client seller, SaleItem saleItem, String makeString, String modelString, Long codInfoauto) {
+	public static VehicleDetailsDTO buildVehicleDetailsDTO(Vehicle vehicle, VehicleOperation operation, SaleItem saleItem, String makeString, String modelString, Long codInfoauto) {
+		
+		
+		
 		
 		VehicleDetailsDTO vehicleDetailsDto = new VehicleDetailsDTO();
 		
@@ -149,10 +153,18 @@ public class EntityDTOTranslator {
 		vehicleDto.setModelString(modelString);
 		vehicleDto.setCodInfoauto(codInfoauto);
 		
-		ClientDTO clientDto = buildClientDTO(seller);
+		ClientDTO clientDto = buildClientDTO(operation.getClient());
 		
 		
 		vehicleDetailsDto.setSellingPrice(saleItem.getSellingPrice());
+		
+		if(operation instanceof BuyOperation ) {
+			vehicleDetailsDto.setDealPrice(((BuyOperation)operation).getPaidAmount());
+		}
+		
+		if(operation instanceof ConsignmentOperation ) {
+			vehicleDetailsDto.setDealPrice(((ConsignmentOperation)operation).getDealPrice());
+		}
 		
 		// TODO chequear otros estados, delivered etc
 		if (saleItem.getStatus().equals(VehicleStatus.SOLD)) {
