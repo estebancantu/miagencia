@@ -33,6 +33,8 @@ angular.module( 'ngBoilerplate.carDetails', [
 	var urls = [];
 	urls = response.vehicleDto.imageUrls;
 
+	broadcastService.postInitialProfit(response.sellingPrice - response.dealPrice);
+
 	if (urls.length === 0 ) {
 		$scope.slides.push({image: 'assets/img/logo.png'});
 
@@ -44,10 +46,11 @@ angular.module( 'ngBoilerplate.carDetails', [
 		}
 	}
 
-
   });
 
 broadcastService.broadcast($stateParams.carId);
+
+
 
 
 
