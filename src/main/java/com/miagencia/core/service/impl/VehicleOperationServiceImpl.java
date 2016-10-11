@@ -13,6 +13,7 @@ import com.miagencia.core.dao.SaleItemDAO;
 import com.miagencia.core.dao.StateDAO;
 import com.miagencia.core.dao.VehicleDAO;
 import com.miagencia.core.model.Client;
+import com.miagencia.core.model.Expense;
 import com.miagencia.core.model.Location;
 import com.miagencia.core.model.Neighborhood;
 import com.miagencia.core.model.SaleItem;
@@ -21,7 +22,9 @@ import com.miagencia.core.model.VehicleStatus;
 import com.miagencia.core.model.operations.ReservationOperation;
 import com.miagencia.core.model.operations.SaleOperation;
 import com.miagencia.core.model.operations.VehicleOperation;
+import com.miagencia.core.service.ExpenseService;
 import com.miagencia.core.service.VehicleOperationService;
+import com.miagencia.rest.dto.ExpenseDTO;
 import com.miagencia.rest.dto.VehicleDTO;
 import com.miagencia.rest.dto.operations.NewVehicleRequestDTO;
 import com.miagencia.rest.dto.operations.ReserveVehicleRequestDTO;
@@ -59,6 +62,8 @@ public class VehicleOperationServiceImpl implements
 	@Autowired
 	NeighborhoodDAO neighborhoodDAO;
 	
+	@Autowired
+	ExpenseService expenseService;
 	
 	@Override
 	@Transactional
@@ -95,6 +100,30 @@ public class VehicleOperationServiceImpl implements
 				newVehicleRequestDto.getTaxDebt(), newVehicleRequestDto.getTrafficTicketsDebt());
 		
 		saleItemDao.add(saleItem);
+		
+		
+		
+		// Por último si el vehiculo tiene deuda de patentes y multas, agregarlo como gasto pendiente
+		if (newVehicleRequestDto.getTaxDebt() != 0) {
+			
+			ExpenseDTO expenseTaxDebt = new ExpenseDTO();
+			expenseTaxDebt.setCost(newVehicleRequestDto.getTaxDebt());
+			expenseTaxDebt.setName("Deuda de patentes");
+			expenseTaxDebt.setPaid(false);
+			
+			expenseService.add(expenseTaxDebt, vehicle.getId());
+			
+		}
+		if (newVehicleRequestDto.getTrafficTicketsDebt() != 0) {
+			
+			ExpenseDTO expenseTrafficTicketsDebt = new ExpenseDTO();
+			expenseTrafficTicketsDebt.setCost(newVehicleRequestDto.getTrafficTicketsDebt());
+			expenseTrafficTicketsDebt.setName("Multas adeudadas");
+			expenseTrafficTicketsDebt.setPaid(false);
+			
+			expenseService.add(expenseTrafficTicketsDebt, vehicle.getId());
+			
+		}
 		
 	}
 	
