@@ -1,6 +1,5 @@
 package com.miagencia.rest.dto.operations;
 
-import com.miagencia.rest.dto.LocationDTO;
 import com.miagencia.rest.dto.VehicleDTO;
 
 

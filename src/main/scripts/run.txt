@@ -1,0 +1,5 @@
+
+/*  Para correr todos los scripts a la vez, ejecutar este comando en el directorio scripts desde la linea de comando.
+	Cambiar usuario y pasword por el esquema que corresponda. */
+
+cat *.sql | mysql -u miagencia -p miagencia
