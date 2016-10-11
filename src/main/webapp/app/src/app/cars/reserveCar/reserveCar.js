@@ -23,10 +23,17 @@ angular.module( 'ngBoilerplate.reserveCar', [
 
 
   $scope.locationService = $location;
+  $scope.imageUrl = " ";
 
   $scope.reserveForm = CDN_URL + "forms/reserve-form.jpg";
 
-  $scope.carDetailsDto = vehicleService.get({id: $stateParams.carId});
+  $scope.carDetailsDto = vehicleService.get({id: $stateParams.carId}, function(response) {
+
+          $scope.imageUrl = response.vehicleDto.imageUrls[0];
+
+    });
+
+
   $scope.selectedClientId = null;
   $scope.advancePayment = null;
   $scope.daysOnHold = null;

@@ -21,9 +21,12 @@ angular.module( 'ngBoilerplate.sellCar', [
 .controller( 'sellCarCtrl', function AboutCtrl( $scope, $http, clientService, $stateParams, vehicleService, $uibModal, $location, SERVER_URL, CDN_URL) {
 
 
+
+
   $scope.carDetailsDto = vehicleService.get({id: $stateParams.carId}, function(result) {
 
       $scope.salePrice = result.sellingPrice;
+       $scope.imageUrl = result.vehicleDto.imageUrls[0];
 
   });
 
