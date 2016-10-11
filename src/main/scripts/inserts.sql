@@ -1,28 +1,26 @@
 
+/*
 
-// TODO - como se cambio la estructura de todas las tablas, no corren.
-// mirar con Agustin y armarlos bien denuevo.
+ grant select on miagencia.client to miagencia@'localhost';
+ grant insert on miagencia.client to miagencia@'localhost';
 
-
-// grant select on miagencia.client to miagencia@'localhost';
-// grant insert on miagencia.client to miagencia@'localhost';
-
-// acordarse del flush privileges;
+ acordarse del flush privileges;
+ 
+ */
 
 
 INSERT INTO `miagencia`.`account` (`ID`, `USERNAME`, `PASSWORD`, `ACTIVE`, `DEALERSHIP_ID`) VALUES ('1', 'agustin', '123456', '1', '1');
 INSERT INTO `miagencia`.`dealership` (`ID`, `NAME`, `LOCATION_ID`, `ACCOUNT_ID`) VALUES ('1', 'Agencia 1', '1', '1');
 INSERT INTO `miagencia`.`location` (`ID`, `ADDRESS_LINE`, `ZIP_CODE`, `COUNTRY_ID`, `STATE_ID`, `CITY_ID`, `NEIGHBORHOOD_ID`, `LATITUDE`, `LONGITUDE`, `OPEN_HOURS`) VALUES ('1', '13 n659', '1900', '1', '1', '1', '1', '-21.2332323', '-23.323232', '10 a 20');
-INSERT INTO `miagencia`.`country` (`ID`, `NAME`, `MERCADO_LIBRE_ID`) VALUES ('1', 'Argentina', 'AR','www.olx.com.ar');
-INSERT INTO `miagencia`.`state` (`ID`, `COUNTRY_ID`, `NAME`, `MERCADO_LIBRE_ID`) VALUES ('1', '1', 'Bs.As. G.B.A. Sur', 'TUxBUEdSQXJlMDNm', 'buenosaires.olx.com.ar');
-INSERT INTO `miagencia`.`city` (`ID`, `STATE_ID`, `NAME`, `MERCADO_LIBRE_ID`, `AUTOCOSMOS_ID`) VALUES ('1', '1', 'La Plata', 'TUxBQ0xBUGxhdGE','laplata.olx.com.ar','http://www.autocosmos.com.ar/api2/ciudades/505');
-INSERT INTO `miagencia`.`neighborhood` (`ID`, `NAME`, `MERCADO_LIBRE_ID`, `CITY_ID`) VALUES ( '1', 'La Plata', 'TUxBQkxBUDgzNjRa', '1');
+/* INSERT INTO `miagencia`.`country` (`ID`, `NAME`, `MERCADO_LIBRE_ID`) VALUES ('1', 'Argentina', 'AR','www.olx.com.ar'); */
+/* INSERT INTO `miagencia`.`state` (`ID`, `COUNTRY_ID`, `NAME`, `MERCADO_LIBRE_ID`) VALUES ('1', '1', 'Bs.As. G.B.A. Sur', 'TUxBUEdSQXJlMDNm', 'buenosaires.olx.com.ar'); */
+/* INSERT INTO `miagencia`.`city` (`ID`, `STATE_ID`, `NAME`, `MERCADO_LIBRE_ID`, `AUTOCOSMOS_ID`) VALUES ('1', '1', 'La Plata', 'TUxBQ0xBUGxhdGE','laplata.olx.com.ar','http://www.autocosmos.com.ar/api2/ciudades/505'); */
+INSERT INTO `miagencia`.`neighborhood` (`ID`, `NAME`, `MERCADO_LIBRE_ID`, `CITY_ID`) VALUES ( '1', 'La Plata', 'TUxBQkxBUDgzNjRa', '1'); 
 
 
 
- INSERT INTO Clients (dni, FIRST_NAME, LAST_NAME, E_MAIL, MOBILE, PHONE)
- VALUES ( 27528358, 'Esteban','Cantu','estebancantu@gmail.com','2215608507','4519011');
 
+/* TODO esto hay que sacarlo, incluso hay cosas que ya no corren porque la estructura de las tablas se actualizo
 
 INSERT INTO `miagencia`.`vehicles`
 (`ID`,`CREATED_AT`,`UPDATED_TIME`,`CHASSIS_NUMBER`,`COLOR`,`DESCRIPTION`,`ENGINE_NUMBER`,`FUEL_TYPE`,`IMAGE_URL`,`KILOMETERS`,`MAKE_ID`,`MODEL_ID`,`MODEL_YEAR`,`PLATE`,`TRANSMISSION`,`VEHICLE_CONDITION`,`VEHICLE_TYPE`, `LOCATION_ID`)
@@ -37,6 +35,7 @@ INSERT INTO `miagencia`.`vehicle_feature_value` (`VEHICLE_ID`, `FEATURE_VALUE_ID
 INSERT INTO `miagencia`.`sale_items`(`ID`,`CREATED_AT`,`UPDATED_TIME`,`DAYS_IN_DEALERSHIP`,`HAS_DOMAIN_CERTIFICATE`,`HAS_REGISTRATION`,`SELLING_PRICE`,`STATUS`,`TAX_DEBT`,`TRAFFIC_TICKETS_DEBT`,`VEHICLE_ID`)
 VALUES (1, null, null, 1,1,1,100000, 'AVAILABLE', 10000,10000,1);
 
+*/
 
 INSERT INTO `miagencia`.`feature_group` (`id`, `name`, `MERCADO_LIBRE_ID`) VALUES ('1', 'Adicionales', 'ADICIONALES');
 INSERT INTO `miagencia`.`feature_group` (`id`, `name`, `MERCADO_LIBRE_ID`) VALUES ('2', 'Confort', 'CONFORT');
@@ -112,6 +111,8 @@ INSERT INTO `miagencia`.`feature` (`id`, `name`, `GROUP_ID`, `MERCADO_LIBRE_ID`,
 INSERT INTO `miagencia`.`feature` (`id`, `name`, `GROUP_ID`, `MERCADO_LIBRE_ID`, `MERCADO_LIBRE_TYPE`) VALUES ('64', 'Tarjeta SD', '6', 'MLA1744-TARJETASD', 'boolean');
 INSERT INTO `miagencia`.`feature` (`id`, `name`, `GROUP_ID`, `MERCADO_LIBRE_ID`, `MERCADO_LIBRE_TYPE`) VALUES ('65', 'Entrada USB', '6', 'MLA1744-USB', 'boolean');
 update miagencia.feature set mercado_libre_type = 'BOOLEAN' where mercado_libre_type = 'boolean'
+
+/* NO ANDA, EL CAMPO OLX_ID NO EXISTE EN LA TABLA
 INSERT INTO `miagencia`.`feature_value` (`id`, `VALUE`, `FEATURE_ID`, `MERCADO_LIBRE_ID`, `OLX_ID`) VALUES ('1', 'Amarillo', '2', 'MLA1744-COLOREXT-AMARILLO','14');
 INSERT INTO `miagencia`.`feature_value` (`id`, `VALUE`, `FEATURE_ID`, `MERCADO_LIBRE_ID`, `OLX_ID`) VALUES ('2', 'Azul', '2', 'MLA1744-COLOREXT-AZUL','3');
 INSERT INTO `miagencia`.`feature_value` (`id`, `VALUE`, `FEATURE_ID`, `MERCADO_LIBRE_ID`, `OLX_ID`) VALUES ('3', 'Beige', '2', 'MLA1744-COLOREXT-BEIGE','15');
@@ -128,6 +129,8 @@ INSERT INTO `miagencia`.`feature_value` (`id`, `VALUE`, `FEATURE_ID`, `MERCADO_L
 INSERT INTO `miagencia`.`feature_value` (`id`, `VALUE`, `FEATURE_ID`, `MERCADO_LIBRE_ID`, `OLX_ID`) VALUES ('14', 'Rosado', '2', 'MLA1744-COLOREXT-ROSADO','1');
 INSERT INTO `miagencia`.`feature_value` (`id`, `VALUE`, `FEATURE_ID`, `MERCADO_LIBRE_ID`, `OLX_ID`) VALUES ('15', 'Verde', '2', 'MLA1744-COLOREXT-VERDE','8');
 INSERT INTO `miagencia`.`feature_value` (`id`, `VALUE`, `FEATURE_ID`, `MERCADO_LIBRE_ID`, `OLX_ID`) VALUES ('16', 'Otro', '2', 'MLA1744-COLOREXT-OTRO','1');
+/*
+
 
 INSERT INTO `miagencia`.`feature_value` (`id`, `VALUE`, `FEATURE_ID`, `MERCADO_LIBRE_ID`) VALUES ('17', 'Asistida', '3', 'MLA1744-DIREC-ASISTIDA');
 INSERT INTO `miagencia`.`feature_value` (`id`, `VALUE`, `FEATURE_ID`, `MERCADO_LIBRE_ID`) VALUES ('18', 'Hidr�ulica', '3', 'MLA1744-DIREC-HIDRAULICA');
