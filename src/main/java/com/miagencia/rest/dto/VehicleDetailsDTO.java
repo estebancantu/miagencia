@@ -9,6 +9,8 @@ public class VehicleDetailsDTO {
 	
 	private int sellingPrice;
 	
+	private int dealPrice;
+	
 	private boolean isSold;
 	
 	private boolean isBooked;
@@ -58,6 +60,16 @@ public class VehicleDetailsDTO {
 	public void setBooked(boolean isBooked) {
 		this.isBooked = isBooked;
 	}
+
+	public int getDealPrice() {
+		return dealPrice;
+	}
+
+	public void setDealPrice(int dealPrice) {
+		this.dealPrice = dealPrice;
+	}
+	
+	
 	
 
 }
