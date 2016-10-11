@@ -38,9 +38,10 @@ public class Vehicle extends PersistableEntity {
 	@Column(name="MODEL_ID", nullable=false)
 	private int modelId;
 	
+	// TODO hacer not null una vez que este lo de Dealership
 	// Agencia concesionaria 
 	@ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "DEALER_ID", nullable = false)
+    @JoinColumn(name = "DEALER_ID")
     private Dealership dealer;
 	
 
