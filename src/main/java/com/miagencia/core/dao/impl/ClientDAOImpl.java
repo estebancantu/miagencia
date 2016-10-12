@@ -14,10 +14,12 @@ import java.util.List;
 
 
 
+
 import org.hibernate.Query;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+
 import com.miagencia.core.dao.ClientDAO;
 import com.miagencia.core.model.Client;
 
@@ -29,22 +31,18 @@ public class ClientDAOImpl implements ClientDAO {
 	private SessionFactory sessionFactory;
 
 	@Override
-	public void add(Client client) {
+	public Long add(Client client) {
 		
 		if (client == null) throw new IllegalArgumentException("Client argument cannot be null");
-		sessionFactory.getCurrentSession().save(client);	
+		return (Long) sessionFactory.getCurrentSession().save(client);	
 	}
 
 	@Override
 	public void edit(Client client) {
 		
-		
-		// TODO aca me parece que hay que usar merge() en lugar de update(), porque si client es una 
-		// instancia detached, update va a tirar non unique exception. habria que usar merge(), y 
-		// quedarse con la instancia de client que devuelve merge y devolverla en el metodo, porque
-		// esa es la instancia persistent, no la que va como parametro que queda siempre detached.
-		
-		if (client == null) throw new IllegalArgumentException("Client argument cannot be null");
+		if (client == null) throw new IllegalArgumentException("Client argument cannot be null");	
+		if (client.getId() == null) throw new IllegalArgumentException("Client id argument cannot be null");
+
 		sessionFactory.getCurrentSession().update(client);
 	}
 

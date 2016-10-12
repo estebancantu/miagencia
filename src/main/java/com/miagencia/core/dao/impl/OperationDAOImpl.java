@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
 
 import com.miagencia.core.dao.OperationDAO;
 import com.miagencia.core.model.operations.BuyOperation;
+import com.miagencia.core.model.Client;
 import com.miagencia.core.model.operations.SaleOperation;
 import com.miagencia.core.model.operations.VehicleOperation;
 
@@ -43,6 +44,7 @@ public class OperationDAOImpl implements OperationDAO {
 		query.setParameter("vehicleId", vehicleId);
 		return query.list();
 	}
+	
 
     @Override
     public BuyOperation findBuyOperationsByVehicleId(Long vehicleId) {

@@ -122,15 +122,15 @@ public class ShareServiceImpl implements ShareService {
 	private SaleItemDAO saleItemDAO;
 	@Autowired(required=false)
     ServletContext context;
-	@Inject
+	//@Inject
 	private RestTemplate restTemplate;
 	
 	private SimpleDateFormat sdf = new SimpleDateFormat("EEE, dd MMM yyyy HH:mm:ss z");
 	
-	@Inject
-	public ShareServiceImpl(RestTemplate restTemplate) {
+	//@Inject
+	public ShareServiceImpl() {
         super();
-        this.restTemplate = restTemplate;
+        this.restTemplate = new RestTemplate();
         List<HttpMessageConverter<?>> converters = new ArrayList<HttpMessageConverter<?>>();
         converters.add(new MappingJackson2HttpMessageConverter());
         restTemplate.setMessageConverters(converters);
@@ -148,7 +148,7 @@ public class ShareServiceImpl implements ShareService {
 		if(vehicle != null){
 			facebook.feedOperations().post(new PostData("me").message("En venta: " + makesAndModelsDAO.getModel(new Long(vehicle.getModelId())).getName())
 			    .link("http://www.google.com.ar/#q="+makesAndModelsDAO.getModel(new Long(vehicle.getModelId())).getName())
-			    .picture(URL_MI_AGENCIA.concat("pics/"+vehicle.getImageUrl()))
+			    .picture(URL_MI_AGENCIA.concat("pics/"+vehicle.getImageUrls().get(0)))
 			    .caption( make.getName()+" "+model.getName())
 			    .name( make.getName()+" "+model.getName())
 			    .description(vehicle.getDescription()));
@@ -262,7 +262,7 @@ public class ShareServiceImpl implements ShareService {
         }
         publication.setTransmission(vehicle.getTransmission().getText());
         publication.setFuel(vehicle.getFuelType().getText());
-        String[] urls = {URL_MI_AGENCIA.concat("pics/"+vehicle.getImageUrl())};
+        String[] urls = {URL_MI_AGENCIA.concat("pics/"+vehicle.getImageUrls().get(0))};
         publication.setImages(urls);
 	    return publication;
 	}
@@ -303,7 +303,7 @@ public class ShareServiceImpl implements ShareService {
 		ad.setContactEmail(vehicle.getDealer().getEmail());
 		ad.setContactPhone(vehicle.getDealer().getPhone());
 		ad.setContactName(vehicle.getDealer().getName());
-		String[] urls = {URL_MI_AGENCIA.concat("pics/"+vehicle.getImageUrl())};
+		String[] urls = {URL_MI_AGENCIA.concat("pics/"+vehicle.getImageUrls().get(0))};
 		ad.setImageUrl(urls);
 				
 		//TODO validate title and description values
@@ -384,7 +384,7 @@ public class ShareServiceImpl implements ShareService {
 			publication.setPrice(saleItem.getSellingPrice());
 		}
 		publication.setCondition(vehicle.getVehicleCondition().getMercadoLibreId());
-		publication.getPictures().add(new Picture(URL_MI_AGENCIA.concat("pics/"+vehicle.getImageUrl())));
+		publication.getPictures().add(new Picture(URL_MI_AGENCIA.concat("pics/"+vehicle.getImageUrls().get(0))));
 		publication.setAttributes(createMercadoLibreAttributes(vehicle));
 		
 		Location location = new Location();
@@ -434,7 +434,7 @@ public class ShareServiceImpl implements ShareService {
 			attribute.setAttribute_group_id(featureValue.getFeature().getGroup().getMercadoLibreId());
 			list.add(attribute);
 		}*/
-		//TODO Guardar feature en vez de tener campo estático
+		//TODO Guardar feature en vez de tener campo estï¿½tico
 		list.add(createMercadoLibreKmsAttribute(vehicle));
 		list.add(createMercadoLibreAttribute(vehicle.getColor().getText()));
 		list.add(createMercadoLibreAttribute(vehicle.getFuelType().getText()));

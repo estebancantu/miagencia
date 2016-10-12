@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.miagencia.core.service.VehicleService;
+import com.miagencia.rest.dto.ClientDTO;
 import com.miagencia.rest.dto.VehicleDetailsDTO;
 import com.miagencia.rest.dto.VehicleSummaryDTO;
 import com.miagencia.rest.dto.util.CustomResponseHeaders;
@@ -75,6 +76,17 @@ public class VehicleController {
 		return new ResponseEntity<VehicleDetailsDTO>(vehicleDetailsDto, new CustomResponseHeaders(), HttpStatus.OK);		
 	}
 	
+	
+	
+	@RequestMapping(value = "/{vehicleId}", method = RequestMethod.DELETE)
+	public @ResponseBody ResponseEntity<Void> deleteVehicle(@PathVariable long vehicleId) {
+		  
+		System.out.println("Fetching & Deleting Vehicle with id " + vehicleId);
+
+      
+      vehicleService.delete(vehicleId);
+      return new ResponseEntity<Void>(HttpStatus.NO_CONTENT);
+	}
 	
 	
 

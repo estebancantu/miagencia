@@ -1,19 +1,21 @@
 package com.miagencia.core.model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.CascadeType;
+import javax.persistence.CollectionTable;
 import javax.persistence.Column;
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
+import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
-import javax.persistence.JoinColumn;
 import javax.persistence.Table;
 
 @Entity
@@ -58,10 +60,12 @@ public class Vehicle extends PersistableEntity {
 	@Column(name="DESCRIPTION")
 	private String description;
 		
+	// Lista de imagenes
+	@ElementCollection
+	@CollectionTable(name="IMAGE_URLS", joinColumns=@JoinColumn(name="VEHICLE_ID"))
 	@Column(name="IMAGE_URL")
-	private String imageUrl;
+	private List<String> imageUrls = new ArrayList<String>();
 
-	// Los campos a partir de acá se pueden reemplazar con features
 	// Año
 	@Enumerated(EnumType.STRING)
 	@Column(name="MODEL_YEAR", nullable=false)
@@ -84,12 +88,12 @@ public class Vehicle extends PersistableEntity {
 	
 	// combustible
 	@Enumerated(EnumType.STRING)
-	@Column(name="FUEL_TYPE", nullable=false)
+	@Column(name="FUEL_TYPE")
 	private FuelType fuelType;
 	
 	// Trasmisión - Automática, Manual, No especificada
 	@Enumerated(EnumType.STRING)
-	@Column(name="TRANSMISSION", nullable=false)
+	@Column(name="TRANSMISSION")
 	private Transmission transmission;
 		
 	// Condición - Nuevo o usado.
@@ -102,11 +106,6 @@ public class Vehicle extends PersistableEntity {
 	// cristales - manuales - electricos
 	//puede tener una lista de atributos, para que se dibujen en la publicacion, como en mercadolibre
 
-	//private List<String> features;
-	// o List<Feature> features;
-	// o List<Iteger> featureIds;
-	// es como lo de make and model solo que es una lista, estudiar la mejor opcion
-	
 
 	//documentación?
 	
@@ -277,17 +276,6 @@ public class Vehicle extends PersistableEntity {
 		this.vehicleCondition = vehicleCondition;
 	}
 
-
-	public String getImageUrl() {
-		return imageUrl;
-	}
-
-
-	public void setImageUrl(String imageUrl) {
-		this.imageUrl = imageUrl;
-	}
-
-
 	public List<VehicleFeatureValue> getFeaturesValues() {
 		return featuresValues;
 	}
@@ -307,5 +295,27 @@ public class Vehicle extends PersistableEntity {
     public void setDealer(Dealership dealer) {
         this.dealer = dealer;
     }
+
+
+	
+	public String getMercadoLibreIdByFeature(String feature){
+		for (VehicleFeatureValue vehicleFeatureValue : featuresValues) {
+			if(vehicleFeatureValue.getFeature().getName().equals(feature)){
+				return vehicleFeatureValue.getMercadoLibreId();
+			}
+		}
+		return null;
+	}
+
+
+	public List<String> getImageUrls() {
+		return imageUrls;
+	}
+
+
+	public void setImageUrls(List<String> imageUrls) {
+		this.imageUrls = imageUrls;
+	}
+
 
 }

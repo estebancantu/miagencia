@@ -18,7 +18,7 @@ angular.module( 'ngBoilerplate.sellCar', [
 })
 
 
-.controller( 'sellCarCtrl', function AboutCtrl( $scope, $http, clientService, $stateParams, vehicleService) {
+.controller( 'sellCarCtrl', function AboutCtrl( $scope, $http, clientService, $stateParams, vehicleService, $uibModal, $location, SERVER_URL, CDN_URL) {
 
 
   $scope.carDetailsDto = vehicleService.get({id: $stateParams.carId}, function(result) {
@@ -26,11 +26,17 @@ angular.module( 'ngBoilerplate.sellCar', [
       $scope.salePrice = result.sellingPrice;
 
   });
+
   $scope.selectedBuyerId = null;
 
 
+  $scope.sellForm = CDN_URL + "forms/sell-form.pdf";
+
   $scope.buyerList = clientService.query();
 
+
+
+    $scope.locationService = $location;
 
 
   // Saves new sale
@@ -54,8 +60,7 @@ angular.module( 'ngBoilerplate.sellCar', [
 
     $http({
                 method: 'POST',
-              //  url: 'http://localhost:8080/miagencia/api/operations/sellVehicle/',
-                url: 'http://www.miagenciavirtual.com.ar:8080/miagencia/api/operations/sellVehicle/',
+                url: SERVER_URL + 'operations/sellVehicle/',
                 data: sellVehicleRequestDto,
                 headers: {
                     "Content-Type": "application/json",
@@ -63,8 +68,11 @@ angular.module( 'ngBoilerplate.sellCar', [
                 }
             })
     .then(function (response) {
-                if (response.status == 200) {
-                    $scope.login($scope.vm.userName, $scope.vm.password);
+
+                if (response.status == 201) {
+
+                   $scope.locationService.path('/home');
+                    $scope.saveSuccessModal();
                 }
                 else {
                   /*  $scope.vm.errorMessages = [];
@@ -74,6 +82,30 @@ angular.module( 'ngBoilerplate.sellCar', [
             });
 
   };
+
+
+
+
+
+
+      $scope.cancelModal = function () {
+
+      var modalInstance = $uibModal.open({
+        animation: true,
+        templateUrl: 'cancelConfirmationModal.html',
+        controller: 'cancelConfirmationModalInstanceCtrl'
+      });
+    };
+
+
+        $scope.saveSuccessModal = function () {
+
+      var modalInstance = $uibModal.open({
+        animation: true,
+        templateUrl: 'saveSuccessModal.html',
+        controller: 'saveSuccessModalInstanceCtrl'
+      });
+    };
 
 
 

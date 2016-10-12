@@ -9,7 +9,7 @@ angular.module('ngBoilerplate.newCar', [
 
 .config(function config($stateProvider) {
   $stateProvider.state('newCar', {
-    url: '/newCar',
+    url: '/newCar/:carId',
     views: {
       "main": {
         controller: 'newCarCtrl',
@@ -23,20 +23,23 @@ angular.module('ngBoilerplate.newCar', [
 })
 
 
-.controller('newCarCtrl', function AboutCtrl($scope, $http, MakesAndModels, clientService, Upload, $timeout) {
+.controller('newCarCtrl', function AboutCtrl($scope, $http, MakesAndModels, clientService, Upload, $timeout, $uibModal, $location, $stateParams, SERVER_URL, CDN_URL) {
 
+
+
+  // Initializations
 
   $scope.cars = [];
 
+  $scope.locationService = $location;
+
   $scope.newCar = null;
+
   $scope.seller = null;
 
-  $scope.opType = 'buy';
-
+  $scope.opType = 'BUY';
 
   $scope.availableVehicles = MakesAndModels.query();
-
-
 
   $scope.vehicleConditions = [
     "Nuevo", 
@@ -105,11 +108,11 @@ angular.module('ngBoilerplate.newCar', [
     "No especificada"
   ];
 
-
   $scope.clientList = clientService.query();
 
 
 
+  $scope.imageUrl = [];
 
   
 
@@ -124,29 +127,28 @@ angular.module('ngBoilerplate.newCar', [
 
     var newVehicleRequestDto = {
 
-        vehicleDto: $scope.newCar,
-        clientId: $scope.selectedClientId,
-        operationType: $scope.opType,
-        dealPrice: $scope.dealPrice,
-        sellingPrice: $scope.sellingPrice,
-        // paymentType, falta implementar
-        hasRegistration: $scope.hasRegistration,
-        hasDomainCertificate: $scope.hasDomainCertificate,
-        paymentType: "CASH",
-        taxDebt: $scope.taxDebt,
-        trafficTicketsDebt: $scope.trafficTicketsDebt
+                vehicleDto: $scope.newCar,
+                clientId: $scope.selectedClientId,
+                operationType: $scope.opType,
+                dealPrice: $scope.dealPrice,
+                sellingPrice: $scope.sellingPrice,
+                // paymentType, falta implementar
+                hasRegistration: $scope.hasRegistration,
+                hasDomainCertificate: $scope.hasDomainCertificate,
+                paymentType: "CASH",
+                taxDebt: $scope.taxDebt,
+                trafficTicketsDebt: $scope.trafficTicketsDebt
         
     };
 
-
-    newVehicleRequestDto.vehicleDto.imageUrl = $scope.imageUrl;
+    // TODO modificar para que sea una lista
+    newVehicleRequestDto.vehicleDto.imageUrls = $scope.imageUrl;
 
 
 
     $http({
         method: 'POST',
-       // url: 'http://localhost:8080/miagencia/api/operations/buyVehicle/',
-        url: 'http://www.miagenciavirtual.com.ar:8080/miagencia/api/operations/buyVehicle/',
+        url:  SERVER_URL + 'operations/buyVehicle/',
         data: newVehicleRequestDto,
         headers: {
           "Content-Type": "application/json",
@@ -154,12 +156,18 @@ angular.module('ngBoilerplate.newCar', [
         }
       })
       .then(function(response) {
-        if (response.status == 200) {
-          $scope.login($scope.vm.userName, $scope.vm.password);
+
+        if (response.status == 201) { 
+
+                $scope.locationService.path('/home');
+                $scope.saveSuccessModal();
+
         } else {
+
+            // TODO aca tiene que abrir modal que muestre que hubo un error
           /*  $scope.vm.errorMessages = [];
             $scope.vm.errorMessages.push({description: response.data}); */
-          console.log("failed operation creation: " + response.data);
+          console.log("failed operation creation: " + response.statusText);
         }
       });
 
@@ -170,19 +178,21 @@ angular.module('ngBoilerplate.newCar', [
 
 
 
-
   $scope.upload = function(dataUrl, name) {
     Upload.upload({
       method: 'POST',
-     // url: 'http://localhost:8080/miagencia/pics/upload/',
-      url: 'http://www.miagenciavirtual.com.ar:8080/miagencia/pics/upload/',
+      url: CDN_URL + 'upload/',
+      // url: 'http://www.miagenciavirtual.com.ar:8080/miagencia/pics/upload/',
       data: {
         name: name,
         file: Upload.dataUrltoBlob(dataUrl, name)
       }
     }).then(function(response) {
-      //$scope.imageUrl = 'http://localhost:8080/miagencia/pics/' + response.data.imageUrl;
-      $scope.imageUrl = 'http://www.miagenciavirtual.com.ar:8080/miagencia/pics/' + response.data.imageUrl;
+
+      image = CDN_URL + response.data.imageUrl;
+      $scope.imageUrl.push(image);
+     // $scope.imageUrl = 'http://localhost:8080/miagencia/pics/' + response.data.imageUrl;
+      // $scope.imageUrl = 'http://www.miagenciavirtual.com.ar:8080/miagencia/pics/' + response.data.imageUrl;
 
 
     }, function(response) {
@@ -196,8 +206,39 @@ angular.module('ngBoilerplate.newCar', [
 
 
 
+    $scope.animationsEnabled = true;
 
 
-})
 
-;
+
+
+    $scope.cancelModal = function () {
+
+      var modalInstance = $uibModal.open({
+        animation: $scope.animationsEnabled,
+        templateUrl: 'cancelConfirmationModal.html',
+        controller: 'cancelConfirmationModalInstanceCtrl'
+      });
+    };
+
+
+        $scope.saveSuccessModal = function () {
+
+      var modalInstance = $uibModal.open({
+        animation: $scope.animationsEnabled,
+        templateUrl: 'saveSuccessModal.html',
+        controller: 'saveSuccessModalInstanceCtrl'
+      });
+    };
+
+
+});
+
+
+
+
+
+
+
+
+

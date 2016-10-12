@@ -1,13 +1,8 @@
-var makesAndModelsServices = angular.module('makeAndModelsServices', ['ngResource']);
+var makesAndModelsServices = angular.module('makeAndModelsServices', ['ngResource', 'ngBoilerplate']);
 
-/* ponerle services tambien al nombre del tipo para que se entienda que es un servicio
-cuando se usa
-*/
-
-makesAndModelsServices.factory('MakesAndModels', ['$resource',
-  function($resource){
-   // return $resource('http://localhost:8080/miagencia/api/makesAndModels/');
-    return $resource('http://www.miagenciavirtual.com.ar:8080/miagencia/api/makesAndModels/');
+makesAndModelsServices.factory('MakesAndModels', ['$resource', 'SERVER_URL',
+  function($resource, SERVER_URL){
+    return $resource(SERVER_URL + 'makesAndModels/');
   }]);
 
 makesAndModelsServices.config(function($resourceProvider) {
@@ -15,17 +10,3 @@ makesAndModelsServices.config(function($resourceProvider) {
 });
 
 
-/*
-
-En algun momento va a haber que pasarle un context con la dir del server asi
-
-var Owner = ['$resource','context', function($resource, context) {
- return $resource(context + '/api/owners/:id');
-
-fijarse en 
-https://spring.io/blog/2015/08/19/migrating-a-spring-web-mvc-application-from-jsp-to-angularjs
-
-
-}];
- 
- */

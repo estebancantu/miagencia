@@ -10,7 +10,7 @@ import com.miagencia.rest.dto.ClientSummaryDTO;
 public interface ClientService {
 	
 	
-	public void add(ClientDTO client);
+	public Long add(ClientDTO client);
 	
 	public void edit(ClientDTO client);
 	

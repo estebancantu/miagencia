@@ -68,7 +68,7 @@ html {
 
 
 body {
-  background-image: url("transparent-background.png");
+  background-image: url("img/transparent-background.png");
   padding-top: 50px !important;
   margin: 0px;
   padding: 0px;
@@ -106,6 +106,10 @@ h2 {
 }
 
 
+/* links de las navbars negras en blanco, (por defecto son grises) */
+.navbar-inverse .navbar-nav > li > a {
+    color: #fff;
+}
 
 
 .user-menu {
@@ -169,8 +173,13 @@ h2 {
 }
 
 
+.page-title {
+    margin-top: 37px;
+}
 
-
+.no-elements {
+    margin-top: -9px;
+}
 
   .social {
     float: right;
@@ -622,42 +631,10 @@ form .progress {
 
 // Barra de busqueda principal
     #custom-search-form {
-        position: relative;
-        margin:0;
-        margin-top:9px;
-        padding: 0;
-        margin-right: 285px;
-    }
+        position: relative;  
+      }
  
-    #custom-search-form .search-query {
-        width: 300px;
-        padding: 3px;
-        padding-left: 5px;
-        /* IE7-8 doesn't have border-radius, so don't indent the padding */
- 
-        margin-bottom: 0;
-        margin-right: 40px;
-        -webkit-border-radius: 5px;
-        -moz-border-radius: 5px;
-        border-radius: 5px;
-    }
- 
-    #custom-search-form button {
-        border: 0;
-        background: none;
-        position: absolute;
-        top: 2px;
-        left: 275px;
-        /** belows styles are working good */
-        padding: 2px 5px;
-        margin-top: 0px;
-        /* IE7-8 doesn't have border-radius, so don't indent the padding */
-        margin-bottom: 0;
-        margin-right: 40px;
-        -webkit-border-radius: 3px;
-        -moz-border-radius: 3px;
-        border-radius: 3px;
-    }
+
  
     .search-query:focus + button {
         z-index: 3;   
@@ -779,6 +756,7 @@ form .progress {
 
 @import '../app/home/home.less';
 @import '../app/cars/carDetails/carDetails.less';
+@import '../app/cars/carExpenses/carExpenses.less';
 @import '../app/clients/clientDetails/clientDetails.less';
 @import '../app/clients/newClient/newClient.less';
 @import '../app/clients/clientList/clientList.less';
@@ -786,5 +764,6 @@ form .progress {
 @import '../app/cars/reserveCar/reserveCar.less';
 @import '../app/cars/sellCar/sellCar.less';
 @import '../app/insuranceQuote/insuranceQuote.less';
+
 
 

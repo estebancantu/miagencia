@@ -123,4 +123,28 @@ public class VehicleServiceImpl implements VehicleService {
 		return vehiclesDto;
 	}
 
+
+
+	@Override
+	@Transactional
+	public void delete(Long vehicleId) {
+		
+		
+		// primero borrar sale item. Por cascade se borran las Expenses
+			SaleItem saleItem = saleItemDao.getSaleItemByVehicleId(vehicleId);
+			saleItemDao.delete(saleItem.getId());
+			
+		// borrar las operaciones asociadas
+			List<VehicleOperation> operations = operationDao.findOperationsByVehicleId(vehicleId);
+			
+			for( VehicleOperation operation: operations ) {
+				operationDao.delete(operation.getId());
+			}
+			
+			// no es necesario borrar el vehiculo explicitamente, ya que la VehicleOperation tiene
+			// cascade all en su miembro vehicle, si eventualmente esto cambia recordar que hay que 
+			// borrar el vehiculo aca usando el vehicleDao.delete(vehicleId);
+		
+	}
+
 }

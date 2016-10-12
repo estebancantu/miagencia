@@ -1,48 +1,130 @@
-
 <div class="container-fluid padding-right-45">
-  </br>
-  <div class="row">
-    <div class="col-md-12 col-md-offset-2">
-      <a ui-sref="newClient" id="button-new" class="btn btn-lg btn-new"><i class="fa fa-user-plus"></i> Nuevo</a>
+    </br>
+
+
+    <div class="row">
+                      <div class="useful-links-container">
+                  <div class="btn-group pull-right useful-links-buttons">
+                          <div class="dropdown pull-left button-margin-right">
+                                  <button class="btn btn-default dropdown-toggle useful-links-button" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                                    Documentos&nbsp;
+                                    <span class="caret"></span>
+                                  </button>
+                                  <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                                    <li><a href="https://www.infraccionesba.net/webInfractor.do?method=consultaInfracciones"  target="_blank">Boleto de Compraventa</a></li>
+                                    <li role="separator" class="divider"></li>
+                                    <li><a href="http://www.buenosaires.gob.ar/consulta-de-infracciones" target="_blank">Boleto de Reserva</a></li>
+                                  </ul>
+                          </div>
+                          <div class="dropdown pull-right">
+                                  <button class="btn btn-default dropdown-toggle useful-links-button" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                                    Informaci&oacute;n &uacute;til&nbsp;
+                                    <span class="caret"></span>
+                                  </button>
+                                  <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                                    <li><a href="https://www.infraccionesba.net/webInfractor.do?method=consultaInfracciones" target="_blank">Consulta infracciones Prov. Buenos Aires</a></li>
+                                    <li role="separator" class="divider"></li>
+                                    <li><a href="http://www.buenosaires.gob.ar/consulta-de-infracciones" target="_blank">Consulta infracciones Capital Federal</a></li>
+                                    <li role="separator" class="divider"></li>
+                                    <li><a href="http://hitman.arba.gov.ar/AvisoDeudas/?imp=1" target="_blank">Deuda patentes Prov. Buenos Aires</a></li>
+                                    <li role="separator" class="divider"></li>
+                                    <li><a href="https://lbserver02.agip.gob.ar/ConsultaPat/" target="_blank">Deuda patentes Capital Federal</a></li>
+                                    <li role="separator" class="divider"></li>
+                                    <li><a href="http://www.dnrpa.gov.ar/portal_dnrpa/radicacion.php" target="_blank">Radicaci&oacute;n de patentes</a></li>
+                                    <li role="separator" class="divider"></li>
+                                    <li><a href="http://www.dnrpa.gov.ar/guia_calles/guia_cons_1.php?tipo_registro_seccional=A" target="_blank">Registro por domicilio</a></li>
+                                    <li role="separator" class="divider"></li>
+                                    <li><a href="http://www.dnrpa.gov.ar/portal_dnrpa/guiatramites.php" target="_blank">Gu&iacute;a de tramites</a></li>
+                                    <li role="separator" class="divider"></li>
+                                    <li><a href="http://www.dnrpa.gov.ar/portal_dnrpa/pverificadoras.php" target="_blank">Consulta de planta verificadora</a></li>
+                                    <li role="separator" class="divider"></li>
+                                    <li><a href="https://auth.afip.gob.ar/contribuyente_/login.xhtml" target="_blank">AFIP</a></li>
+                                    <li role="separator" class="divider"></li>
+                                  </ul>
+                          </div>
+                    </div>
+            </div>
     </div>
-  </div>
+
+        <!-- filter/search bar -->
+    <div class="row">
+        <nav class="navbar navbar-default navbar-inverse">
+          <div class="container-fluid">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+            </div>
+
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse navbar-new-car" id="bs-example-navbar-collapse-1">
+               <a ui-sref="newClient" id="button-new" class="btn btn-lg btn-new pull-left"><i class="fa fa-user-plus"></i>Nuevo</a>
+              <form id="custom-search-form" class="form-search form-horizontal navbar-form navbar-left">
+                      <div class="input-append span12">
+                        <input type="text" ng-model="clientQuery" class="form-control" placeholder="Buscar..">
+                        <button type="submit" class="btn"><i class="fa fa-search"></i></button>
+                      </div>
+              </form>
+              <ul class="nav navbar-nav navbar-right">
+                <li class="dropdown">
+                  <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Ordenar&nbsp;<span class="caret"></span></a>
+                  <ul class="dropdown-menu">
+                    <li><a href="#">Últimos</a></li>
+                    <li role="separator" class="divider"></li>
+                    <li><a href="#">Vendidos</a></li>
+                    <li role="separator" class="divider"></li>
+                    <li><a href="#">Reservados</a></li>
+                  </ul>
+                </li>
+              </ul>
+            </div><!-- /.navbar-collapse -->
+          </div><!-- /.container-fluid -->
+        </nav>
+    </div>
+
+
   <div class="row">
-    <br/>
-    <div class="col-md-8 col-md-offset-2">
-      <h2 class="client-list-page-title">Mis Contactos</h2>
+      <h2 class="page-title">Mis Contactos</h2>
       <div class="table-responsive">
 
                     
-        <table ng-show="clients.length > 0" id="clients-table" class="table table-bordred table-striped table-hover">
-                         
-          <thead>
-           
-            <th><input style="visibility:hidden;" type="checkbox" id="checkall" /></th>
-            <th class="client-list-table-item-name">Nombre</th>
-            <th class="client-list-table-item-name text-center">Tel&eacute;fono</th>
-            <th class="client-list-table-item-name text-center">e-mail</th>
+        <table ng-show="clients.length > 0" id="clients-table" class="table table-bordred table-striped table-hover">            
+            <thead>
+                  <tr>
+                      <th class="client-list-table-item-name">Nombre</th>
+                      <th class="client-list-table-item-name text-center">Tel&eacute;fono</th>
+                      <th class="client-list-table-item-name text-center">e-mail</th>
+                      <th class="cell-center">Editar</th>
+                      <th class="cell-center">Borrar</th>
+                  </tr>
           </thead>
-
-
           <tbody>
-              <tr ng-repeat="client in clients">
-              <td><i style="visibility:hidden;" class="fa fa-pencil-square-o"/></i></td>
-              <td><a class="client-list-table-item-data" ui-sref="clientDetails({clientId:client.id})">{{client.firstName}}&nbsp;{{client.lastName}}</a></td>
-              <td ng-show="client.phone != null && client.phone !=''" class="text-center">{{client.phone | tel }}</td>
-              <td ng-show="client.phone == null || client.phone ==''" class="text-center">-</td>
-              <td ng-show="client.email != null && client.email !=''" class="text-center">{{client.email}}</td>
-              <td ng-show="client.email == null || client.email ==''" class="text-center">-</td>
+              <tr ng-repeat="client in clients | filter:clientQuery">
+                  <td><a class="client-list-table-item-data" ui-sref="clientDetails({clientId:client.id})">{{client.firstName}}&nbsp;{{client.lastName}}</a></td>
+                  <td ng-show="client.phone != null && client.phone !=''" class="text-center">{{client.phone | tel }}</td>
+                  <td ng-show="client.phone == null || client.phone ==''" class="text-center">-</td>
+                  <td ng-show="client.email != null && client.email !=''" class="text-center">{{client.email}}</td>
+                  <td ng-show="client.email == null || client.email ==''" class="text-center">-</td>
+                  <td class="cell-center"><p data-placement="top" data-toggle="tooltip" title="" data-original-title="Edit"><button class="btn btn-primary btn-md" ui-sref="newClient({clientId:client.id})"><span class="fa fa-pencil"></span></button></p></td>
+            <td class="cell-center"><p data-placement="top" data-toggle="tooltip" title="" data-original-title="Delete"><button class="btn btn-danger btn-md" ng-click="deleteClientModal(client)"><span class="fa fa-trash-o"></span></button></p></td>
               </tr>
-          </tbody>
-              
+          </tbody>      
         </table>
 
 
         <div class="clearfix"></div>
-        <div>
-          <h3 ng-show="clients.length == 0" class="text-muted">
+      </div>
+      <div ng-show="clients.length == 0">
+          <h3 class="text-muted no-elements">
               No hay contactos para mostrar.
           </h3>
+      </div>
+
+      <ng-include src="'clients/clientList/deleteClient.tpl.html'" ></ng-include>
 
         <!--pagination -->
         <ul ng-show="clients.length > 8" class="pagination pull-right">
@@ -62,8 +144,7 @@
             </a>
           </li>
         </ul>
-                    
-      </div>
+
                 
     </div>
     <div class="col-md-1">
@@ -71,7 +152,7 @@
   </div>
 
 </div>
-
+</div>
 
 
 <!--

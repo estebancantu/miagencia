@@ -39,7 +39,7 @@ public abstract class VehicleOperation extends PersistableEntity {
 	private Vehicle vehicle;
 
 	
-	@ManyToOne(fetch=FetchType.EAGER, cascade = CascadeType.ALL)
+	@ManyToOne(fetch=FetchType.EAGER)
 	@JoinColumn(name="CLIENT_ID", nullable=false)
 	private Client client;
 

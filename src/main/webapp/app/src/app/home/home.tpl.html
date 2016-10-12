@@ -1,34 +1,100 @@
 <div class="container-fluid padding-right-45">
     </br>
-    <!-- First row: New car button -->
-    <div class="row">
-      <div class="col-md-12">
-        <a ui-sref="newCar" id="button-new" class="btn btn-lg btn-new"><i class="fa fa-cloud-upload"></i>Nuevo auto</a>
-      </div>
-    </div>
-    <!-- End of first row -->
-      
-    <!-- Row section label and filters -->
-    <div class="row">
-      <br/>
-      <div class="col-md-6">
-        <h2 class="home-page-title">Mis autos</h2>
-      </div>
-      <div class="col-md-6">
-        <div style="visibility:hidden;" class="btn-group car-filter">
-          <button type="button" class="btn">Ordenar por</button>
-          <button type="button" class="btn btn-primary"
-          onclick="BirdWatch.sortBy('latest')">Ultimos</button>
-          <button type="button" class="btn btn-primary"
-          onclick="BirdWatch.sortBy('latest')">Reservados</button>
-          <button type="button" class="btn btn-primary"
-          onclick="BirdWatch.sortBy('followers')">Vendidos</button>
-        </div>
-      </div>
-    </div>
+
 
     <div class="row">
 
+            <div class="useful-links-container">
+                  <div class="btn-group pull-right useful-links-buttons">
+                          <div class="dropdown pull-left button-margin-right">
+                                  <button class="btn btn-default dropdown-toggle useful-links-button" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                                    Documentos&nbsp;
+                                    <span class="caret"></span>
+                                  </button>
+                                  <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                                    <li><a href="https://www.infraccionesba.net/webInfractor.do?method=consultaInfracciones"  target="_blank">Boleto de Compraventa</a></li>
+                                    <li role="separator" class="divider"></li>
+                                    <li><a href="http://www.buenosaires.gob.ar/consulta-de-infracciones" target="_blank">Boleto de Reserva</a></li>
+                                  </ul>
+                          </div>
+                          <div class="dropdown pull-right">
+                                  <button class="btn btn-default dropdown-toggle useful-links-button" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                                    Informaci&oacute;n &uacute;til&nbsp;
+                                    <span class="caret"></span>
+                                  </button>
+                                  <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                                    <li><a href="https://www.infraccionesba.net/webInfractor.do?method=consultaInfracciones" target="_blank">Consulta infracciones Prov. Buenos Aires</a></li>
+                                    <li role="separator" class="divider"></li>
+                                    <li><a href="http://www.buenosaires.gob.ar/consulta-de-infracciones" target="_blank">Consulta infracciones Capital Federal</a></li>
+                                    <li role="separator" class="divider"></li>
+                                    <li><a href="http://hitman.arba.gov.ar/AvisoDeudas/?imp=1" target="_blank">Deuda patentes Prov. Buenos Aires</a></li>
+                                    <li role="separator" class="divider"></li>
+                                    <li><a href="https://lbserver02.agip.gob.ar/ConsultaPat/" target="_blank">Deuda patentes Capital Federal</a></li>
+                                    <li role="separator" class="divider"></li>
+                                    <li><a href="http://www.dnrpa.gov.ar/portal_dnrpa/radicacion.php" target="_blank">Radicaci&oacute;n de patentes</a></li>
+                                    <li role="separator" class="divider"></li>
+                                    <li><a href="http://www.dnrpa.gov.ar/guia_calles/guia_cons_1.php?tipo_registro_seccional=A" target="_blank">Registro por domicilio</a></li>
+                                    <li role="separator" class="divider"></li>
+                                    <li><a href="http://www.dnrpa.gov.ar/portal_dnrpa/guiatramites.php" target="_blank">Gu&iacute;a de tramites</a></li>
+                                    <li role="separator" class="divider"></li>
+                                    <li><a href="http://www.dnrpa.gov.ar/portal_dnrpa/pverificadoras.php" target="_blank">Consulta de planta verificadora</a></li>
+                                    <li role="separator" class="divider"></li>
+                                    <li><a href="https://auth.afip.gob.ar/contribuyente_/login.xhtml" target="_blank">AFIP</a></li>
+                                    <li role="separator" class="divider"></li>
+                                  </ul>
+                          </div>
+                    </div>
+            </div>
+
+    </div>
+
+    <!-- filter/search bar -->
+    <div class="row">
+        <nav class="navbar navbar-default navbar-inverse">
+          <div class="container-fluid">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+            </div>
+
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse navbar-new-car" id="bs-example-navbar-collapse-1">
+               <a ui-sref="newCar" id="button-new" class="btn btn-lg btn-new pull-left"><i class="fa fa-car"></i>Nuevo</a>
+              <form id="custom-search-form" class="form-search form-horizontal navbar-form navbar-left">
+                      <div class="input-append span12">
+                        <input type="text" ng-model="query" class="form-control" placeholder="Buscar..">
+                        <button type="submit" class="btn"><i class="fa fa-search"></i></button>
+                      </div>
+              </form>
+              <ul class="nav navbar-nav navbar-right">
+                <li class="dropdown">
+                  <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Ordenar&nbsp;<span class="caret"></span></a>
+                  <ul class="dropdown-menu">
+                    <li><a href="#">Últimos</a></li>
+                    <li role="separator" class="divider"></li>
+                    <li><a href="#">Vendidos</a></li>
+                    <li role="separator" class="divider"></li>
+                    <li><a href="#">Reservados</a></li>
+                  </ul>
+                </li>
+              </ul>
+            </div><!-- /.navbar-collapse -->
+          </div><!-- /.container-fluid -->
+        </nav>
+    </div>
+
+
+
+
+
+
+    <div class="row">
+      <h2 class="page-title">Mis Autos</h2>
       <div ng-repeat="car in cars | filter:query" class="col-xs-12 col-sm-4 col-md-3 padding-3">
 
         <!-- vehicle item -->
@@ -40,7 +106,7 @@
               <img ng-src={{car.imageUrl}} alt=""> 
               <div class="overlay-container">
                 <div class="camera-count">
-                  <i class="fa fa-camera"></i> 1
+                  <i class="fa fa-camera"></i> {{car.imageCount}}
                 </div>
               </div>
             </div>
@@ -48,12 +114,12 @@
 
           <div class="make-model-area">
             <div class="make-area">
-              <div class="make">{{car.make}}</div>
+              <div class="make">{{car.make | capitalize }}</div>
               <div ng-show="car.sold" class="label label-success status-label">Vendido</div>
               <div ng-show="car.booked" class="label label-primary status-label">Reservado</div>
             </div>
             <div class="model-area">
-              <strong class="model">{{car.model}}</strong>
+              <strong class="model">{{car.model | capitalize }}</strong>
             </div>
           </div>
 
@@ -75,9 +141,9 @@
 
         </div>   
       </div>
-      <div ng-show="cars.length == 0" class="col-md-6">
-        <h3  class="text-muted">
-            No hay autos para mostrar.
+      <div ng-show="cars.length == 0">
+        <h3  class="text-muted no-elements">
+            No tiene autos para mostrar.
         </h3>
       </div>
     </div>

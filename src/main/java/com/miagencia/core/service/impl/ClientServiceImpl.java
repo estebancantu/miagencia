@@ -29,10 +29,10 @@ public class ClientServiceImpl implements ClientService {
 	
 	@Override
 	@Transactional
-	public void add(ClientDTO client) {
+	public Long add(ClientDTO client) {
 		
 		Client newClient = EntityDTOTranslator.buildClient(client);
-		clientDao.add(newClient);
+		return clientDao.add(newClient);
 
 	}
 
@@ -70,9 +70,13 @@ public class ClientServiceImpl implements ClientService {
 	@Transactional
 	public ClientDTO find(Long clientId) {
 		
+		ClientDTO clientDto = null;
 		Client client = clientDao.find(clientId);
 		
-		ClientDTO clientDto = EntityDTOTranslator.buildClientDTO(client);
+		
+		if (client != null) {
+			clientDto = EntityDTOTranslator.buildClientDTO(client);
+		}
 		
 		return clientDto;
 	}

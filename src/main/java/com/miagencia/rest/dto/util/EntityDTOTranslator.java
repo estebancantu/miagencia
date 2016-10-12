@@ -6,8 +6,8 @@ import java.util.List;
 import com.miagencia.core.model.Client;
 import com.miagencia.core.model.Color;
 import com.miagencia.core.model.Door;
+import com.miagencia.core.model.Expense;
 import com.miagencia.core.model.FuelType;
-import com.miagencia.core.model.Location;
 import com.miagencia.core.model.Make;
 import com.miagencia.core.model.Model;
 import com.miagencia.core.model.PaymentType;
@@ -24,13 +24,12 @@ import com.miagencia.core.model.operations.ReservationOperation;
 import com.miagencia.core.model.operations.SaleOperation;
 import com.miagencia.rest.dto.ClientDTO;
 import com.miagencia.rest.dto.ClientSummaryDTO;
+import com.miagencia.rest.dto.ExpenseDTO;
 import com.miagencia.rest.dto.MakeDTO;
 import com.miagencia.rest.dto.ModelDTO;
 import com.miagencia.rest.dto.VehicleDTO;
 import com.miagencia.rest.dto.VehicleDetailsDTO;
 import com.miagencia.rest.dto.VehicleSummaryDTO;
-import com.miagencia.rest.dto.operations.BuyVehicleRequestDTO;
-import com.miagencia.rest.dto.operations.ConsignVehicleRequestDTO;
 import com.miagencia.rest.dto.operations.NewVehicleRequestDTO;
 import com.miagencia.rest.dto.operations.ReserveVehicleRequestDTO;
 import com.miagencia.rest.dto.operations.SellVehicleRequestDTO;
@@ -59,7 +58,7 @@ public class EntityDTOTranslator {
 		vehicle.setTransmission(Transmission.fromString(vehicleDto.getTransmissionType()));
 		vehicle.setDescription(vehicleDto.getDescription());
 		vehicle.setVehicleCondition(VehicleCondition.fromString(vehicleDto.getVehicleCondition()));
-		vehicle.setImageUrl(vehicleDto.getImageUrl());
+		vehicle.setImageUrls(vehicleDto.getImageUrls());
 		
 		return vehicle;
 	}
@@ -84,11 +83,25 @@ public class EntityDTOTranslator {
 		vehicleDto.setChassisNumber(vehicle.getChassisNumber());
 		vehicleDto.setEngineNumber(vehicle.getEngineNumber());
 		vehicleDto.setKilometers(vehicle.getKilometers());
-		vehicleDto.setFuelType(vehicle.getFuelType().getText());
-		vehicleDto.setTransmissionType(vehicle.getTransmission().getText());
+		
+		if (vehicle.getFuelType() != null) { // fuel type is not mandatory
+			vehicleDto.setFuelType(vehicle.getFuelType().getText());
+		}
+		else {
+			vehicleDto.setFuelType(FuelType.NOT_SPECIFIED.getText());
+		}
+		
+		if ( vehicle.getTransmission() != null ) { // transmission is not mandatory
+			vehicleDto.setTransmissionType(vehicle.getTransmission().getText());
+		} else {
+			vehicleDto.setTransmissionType(Transmission.NOT_SPECIFIED.getText());
+		}
+		
 		vehicleDto.setDescription(vehicle.getDescription());
-		vehicleDto.setVehicleCondition(vehicle.getVehicleCondition().getText());
-		vehicleDto.setImageUrl(vehicle.getImageUrl());
+		
+		for(String imageUrl: vehicle.getImageUrls()) {
+			vehicleDto.getImageUrls().add(imageUrl);
+		}
 		
 		return vehicleDto;
 	}
@@ -106,7 +119,10 @@ public class EntityDTOTranslator {
 		vehicleDto.setYear(vehicle.getModelYear().toString());
 		vehicleDto.setKilometers(vehicle.getKilometers());
 		vehicleDto.setPrice(saleItem.getSellingPrice());
-		vehicleDto.setImageUrl(vehicle.getImageUrl());
+		// devolvemos solo la primera imagen, que es la imagen destacada que se va a mostrar en el home
+		vehicleDto.setImageUrl(vehicle.getImageUrls().get(0));
+		vehicleDto.setImageCount(vehicle.getImageUrls().size());
+	
 		
 		// TODO chequear otros estados, delivered etc
 		if (saleItem.getStatus().equals(VehicleStatus.SOLD)) {
@@ -313,6 +329,34 @@ public class EntityDTOTranslator {
 		
 		return modelDto;
 		
+	}
+	
+	public static Expense buildExpense(ExpenseDTO expenseDto) {
+		
+		Expense expense = new Expense();
+		
+		expense.setId(expenseDto.getId());
+		expense.setCost(expenseDto.getCost());
+		expense.setName(expenseDto.getName());
+		expense.setPaid(expenseDto.isPaid());
+
+
+		return expense;
+	}
+	
+	
+	public static ExpenseDTO buildExpenseDTO(Expense expense) {
+		
+		ExpenseDTO expenseDto = new ExpenseDTO();
+		
+		expenseDto.setId(expense.getId());
+		expenseDto.setDate(expense.getUpdatedTime()); // TODO cuando ande cambiar por CREATED_AT
+		expenseDto.setCost(expense.getCost());
+		expenseDto.setName(expense.getName());
+		expenseDto.setPaid(expense.isPaid());
+
+
+		return expenseDto;
 	}
 
 }

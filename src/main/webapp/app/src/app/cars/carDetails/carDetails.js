@@ -1,5 +1,6 @@
 angular.module( 'ngBoilerplate.carDetails', [
   'vehicleService',
+  'broadcastService',
   'ui.router',
   'broadcastService',
   'placeholders',
@@ -20,15 +21,16 @@ angular.module( 'ngBoilerplate.carDetails', [
   });
 })
 
-.controller( 'carDetailsCtrl', function carDetailsCtrl( $scope, $stateParams, vehicleService, $http) {
+.controller( 'carDetailsCtrl', function carDetailsCtrl( $scope, $stateParams, vehicleService, $http, $uibModal, broadcastService) {
 
  
   $scope.setInterval=5000;
   $scope.slides = [];
 
-  $scope.carDetailsDto = vehicleService.get({id: $stateParams.carId}, function(response) {
 
-     var urls = [];
+
+  $scope.carDetailsDto = vehicleService.get({id: $stateParams.carId}, function(response) {
+    var urls = [];
 	urls = response.vehicleDto.imageUrls;
 
 	if (urls.length === 0 ) {
@@ -50,6 +52,7 @@ angular.module( 'ngBoilerplate.carDetails', [
 			method: 'GET',
 			url: 'http://www.miagenciavirtual.com.ar:8080//miagencia/file/salesContract/'+$stateParams.carId,
 			headers: {
+				
 				"Content-Type": "application/json",
 				"Accept": "application/msword"
 			}
@@ -82,6 +85,8 @@ angular.module( 'ngBoilerplate.carDetails', [
 	};
 })
 .$inject = ['$scope', 'broadcastService'];
+
+  
 
 angular.module('ngBoilerplate.carDetails').controller('shareModalCtrl', function ($scope, $uibModal) {
 	
@@ -344,9 +349,6 @@ angular.module('ngBoilerplate.carDetails').controller('shareModalInstanceCtrl', 
 }]);
 
 
-
-
-
 angular.module('ngBoilerplate.carDetails').controller('deleteCarModalInstanceCtrl', function ( $scope, $uibModalInstance, $location, $http, SERVER_URL, carId ) {
 
               $scope.cancel = function () {
@@ -383,6 +385,13 @@ angular.module('ngBoilerplate.carDetails').controller('deleteCarModalInstanceCtr
             };
 
   });
+
+
+
+
+
+
+
 
 
 

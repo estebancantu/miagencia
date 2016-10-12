@@ -63,6 +63,7 @@ module.exports = {
   vendor_files: {
     js: [
       'vendor/jquery/dist/jquery.min.js',
+      'vendor/bootstrap/dist/js/bootstrap.min.js',
       'vendor/angular/angular.js',
       'vendor/angular-animate/angular-animate.min.js',
       'vendor/angular-bootstrap/ui-bootstrap-tpls.min.js',
@@ -79,9 +80,14 @@ module.exports = {
 
     ],
     css: [
-      'vendor/ng-img-crop-full-extended/compile/minified/ng-img-crop.css'
+      'vendor/ng-img-crop-full-extended/compile/minified/ng-img-crop.css',
+      'vendor/bootstrap/dist/css/bootstrap.min.css'
     ],
     assets: [
+      'vendor/bootstrap/dist/fonts/glyphicons-halflings-regular.eot',
+      'vendor/bootstrap/dist/fonts/glyphicons-halflings-regular.svg',
+      'vendor/bootstrap/dist/fonts/glyphicons-halflings-regular.ttf',
+      'vendor/bootstrap/dist/fonts/glyphicons-halflings-regular.woff'
     ]
   },
 };

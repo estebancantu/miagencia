@@ -1,122 +1,127 @@
 <div class="container-fluid padding-right-45">
   <div class="row">
-    <div class="col-md-7 col-md-offset-2" ng-controller="newCarCtrl">
-    <h2 class="page-header new-client-header"><i class="fa fa-car"></i>  Nuevo Auto</h2>
+    <div class="col-md-8 col-md-offset-2" ng-controller="newCarCtrl">
+    <h2 class="page-header">&nbsp;<i class="fa fa-car"></i>  Nuevo Auto</h2>
+    	<div class="well well-shadow">
 		<form name="newVehicleForm" role="form" novalidate>
-			<div class="panel panel-info panel-default-shadow">
-				<div class="panel-heading">Tipo de Veh&iacute;culo</div>
-				<div class="panel-body">
-					<div class="form-group">
-						<select class="form-control" ng-model="newCar.vehicleType" 
-							ng-options="vehicleType.name for vehicleType in availableVehicles">
-						  <option value="">Tipo</option>
+			<fieldset>
+				<legend class="new-vehicle-legend">Paso 1<strong> : Tipo de Veh&iacute;culo</strong></legend>
+				    <div class="new-vehicle-fields">
+					<div class="form-group" ng-class="{'has-error': newVehicleForm.vehicleTypeSelect.$invalid && newVehicleForm.vehicleTypeSelect.$touched}">
+						<select name="vehicleTypeSelect" class="form-control" ng-model="newCar.vehicleType" 
+							ng-options="vehicleType.name for vehicleType in availableVehicles" required>
+						  <option value="">Tipo..</option>
 						</select>
+											<div class="help-block" 
+         					ng-show="newVehicleForm.vehicleTypeSelect.$error.required && newVehicleForm.vehicleTypeSelect.$touched">Debe seleccionar un tipo de veh&iacute;culo</div>
 					</div>
-					<div class="form-group">
-						<select class="form-control" ng-model="newCar.make" 
-							ng-options="make.name for make in newCar.vehicleType.makes">
-						  <option value="">Marca</option>
+
+					<div class="form-group" ng-class="{'has-error': newVehicleForm.makeSelect.$invalid && newVehicleForm.makeSelect.$touched}">
+						<select name="makeSelect" class="form-control" ng-model="newCar.make" 
+							ng-options="make.name for make in newCar.vehicleType.makes | orderBy: 'name'" required>
+						  <option value="">Marca..</option>
 						</select>
+					<div class="help-block" 
+         					ng-show="newVehicleForm.makeSelect.$error.required && newVehicleForm.makeSelect.$touched">Debe seleccionar una marca</div>
 					</div>
-					<div class="form-group">
-						<select class="form-control" ng-model="newCar.model" 
-							ng-options="model.name for model in newCar.make.models">
-						  <option value="">Modelo</option>
+					
+					<div class="form-group" ng-class="{'has-error': newVehicleForm.modelSelect.$invalid && newVehicleForm.modelSelect.$touched}">
+						<select name="modelSelect" class="form-control" ng-model="newCar.model" 
+							ng-options="model.name for model in newCar.make.models | orderBy: 'name'" required>
+						  <option value="">Modelo..</option>
 						</select>
+					<div class="help-block" 
+         					ng-show="newVehicleForm.modelSelect.$error.required && newVehicleForm.modelSelect.$touched">Debe seleccionar un modelo</div>
 					</div>
-					<!--<div flow-init
-					     flow-files-submitted="$flow.upload()"
-					     flow-file-success="$file.msg = $message" class="ng-scope">
-
-
-					  <span class="btn btn-default" flow-btn>
-					  	Upload File
-					  	<input type="file" multiple="multiple" style="visibility:hidden; position:absolute;"/>
-					  </span>
-
-					  <table>
-					    <tr ng-repeat="file in $flow.files">
-					        <td>{{$index+1}}</td>
-					        <td>{{file.name}}</td>
-					        <td>{{file.msg}}</td>
-					    </tr>
-					  </table>
-					  <img flow-img="$flow.files[0]" />
-					</div> -->
-					<div class="form-group">
-						<select class="form-control" ng-model="newCar.vehicleCondition" 
-							ng-options="condition for condition in vehicleConditions">
-						  <option value="">Condicion</option>
+					
+				
+					<div class="form-group" ng-class="{'has-error': newVehicleForm.conditionSelect.$invalid && newVehicleForm.conditionSelect.$touched}">
+						<select name="conditionSelect" class="form-control" ng-model="newCar.vehicleCondition" 
+							ng-options="condition for condition in vehicleConditions" required>
+						  <option value="">Condici&oacute;n..</option>
 						</select>
+					<div class="help-block" 
+         					ng-show="newVehicleForm.conditionSelect.$error.required && newVehicleForm.conditionSelect.$touched">Debe seleccionar un modelo</div>
 					</div>
 				  	<div class="form-group">
 						<select class="form-control" ng-model="newCar.fuelType" 
 							ng-options="fuel for fuel in fuelTypes">
-						  <option value="">Combustible</option>
+						  <option value="">Combustible..</option>
 						</select>
 					</div>
 					<div class="form-group">
 						<select class="form-control" ng-model="newCar.doors" 
 							ng-options="door for door in doors">
-						  <option value="">Cantidad de Puertas</option>
+						  <option value="">Cantidad de Puertas..</option>
 						</select>
 					</div>
 					<div class="form-group">
 						<select class="form-control" ng-model="newCar.color" 
 							ng-options="color for color in colors">
-						  <option value="">Color</option>
+						  <option value="">Color..</option>
 						</select>
 					</div>
 					<div class="form-group">
 						<select class="form-control" ng-model="newCar.transmissionType" 
 							ng-options="transmission for transmission in transmissionTypes">
-						  <option value="">Transmisi&oacute;n</option>
+						  <option value="">Transmisi&oacute;n..</option>
 						</select>
 					</div>
-				</div>
-			</div>
-
-
-
-			<div class="panel panel-info panel-default-shadow">
-				<div class="panel-heading">Detalles del Veh&iacute;culo</div>
-				<div class="panel-body">
-					<div class="form-group">
-						<label for="exampleInputEmail1">A&ntilde;o</label>
-						<select class="form-control" ng-model="newCar.year" 
-							ng-options="year for year in years">
-						  <option value="">A&ntilde;o</option>
+				     </div>
+			</fieldset>
+			<br/>
+			<fieldset>
+				<legend class="new-vehicle-legend">Paso 2<strong> : Detalles</strong></legend>
+				<div class="new-vehicle-fields">
+					<div class="form-group" ng-class="{'has-error': newVehicleForm.yearSelect.$invalid && newVehicleForm.yearSelect.$touched}">
+						<label class="control-label" for="exampleInputEmail1">A&ntilde;o</label>
+						<select name="yearSelect" class="form-control" ng-model="newCar.year" 
+							ng-options="year for year in years" required>
+						  <option value="">A&ntilde;o..</option>
 						</select>
+						<span class="help-block" 
+         					ng-show="newVehicleForm.yearSelect.$error.required && newVehicleForm.yearSelect.$touched">Debe seleccionar un año</span>
 					</div>
-					<div class="form-group" ng-class="{'has-error': newVehicleForm.kilometers.$invalid}">
-					  <label for="exampleInputEmail1">Kil&oacute;metros</label>
+					
+					<div class="form-group" ng-class="{'has-error': newVehicleForm.kilometers.$invalid && newVehicleForm.kilometers.$touched}">
+					  <label class="control-label" for="exampleInputEmail1">Kil&oacute;metros</label>
 					  <input type="text" name="kilometers" class="form-control" id="exampleInputEmail1" placeholder="Cantidad de kilometros del vehiculo" ng-model="newCar.kilometers" required ui-number-mask="0">
 					  <span class="help-block" 
-         					ng-show="newVehicleForm.kilometers.$error.required">El campo es requerido</span>
+         					ng-show="newVehicleForm.kilometers.$error.required && newVehicleForm.kilometers.$touched">El campo es requerido</span>
 					</div>
-					<div class="form-group" ng-class="{'has-error': newVehicleForm.plate.$invalid}">
-					  <label for="exampleInputEmail1">Nro. de patente</label>
+					<div class="form-group" ng-class="{'has-error': newVehicleForm.plate.$invalid && newVehicleForm.plate.$touched}">
+					  <label class="control-label" for="exampleInputEmail1">Patente</label>
 					  <input type="text" name="plate" class="form-control" id="exampleInputEmail1" placeholder="N&uacute;mero de patente" ng-model="newCar.plate" required>
 					  <span class="help-block" 
-         					ng-show="newVehicleForm.plate.$error.required">El campo es requerido</span>
+         					ng-show="newVehicleForm.plate.$error.required && newVehicleForm.plate.$touched">El campo es requerido</span>
 					</div>
 					<div class="form-group">
-					  <label for="exampleInputEmail1">Nro. de motor</label>
+					  <label class="control-label" for="exampleInputEmail1">Nro. de motor</label>
 					  <input type="text" class="form-control" id="exampleInputEmail1" placeholder="N&uacute;mero de motor del vehiculo" ng-model="newCar.engineNumber">
 					</div>
 					<div class="form-group">
-					  <label for="exampleInputEmail1">Nro. de chassis</label>
+					  <label class="control-label" for="exampleInputEmail1">Nro. de chassis</label>
 					  <input type="text" class="form-control" id="exampleInputEmail1" placeholder="N&uacute;mero de chassis del vehiculo" ng-model="newCar.chassisNumber">
 					</div>
+					</br>
 					<fieldset class="form-group">
-				    	<label for="exampleTextarea">Descripci&oacute;n</label>
-				    	<textarea class="form-control" id="exampleTextarea" rows="3" ng-model="newCar.description" maxlength="350"></textarea>
+				    	<label class="control-label" for="publicDescription">Descripci&oacute;n pública</label>
+				    	<textarea class="form-control" id="publicDescription" rows="3" ng-model="newCar.description" ng-maxlength="350"></textarea>
+				    	<!-- esto mejorarlo o sacarlo, nunca va a pasar -->
 				    	<span class="help-block" 
-         					ng-show="newVehicleForm.exampleTextarea.$error.maxlength">El texto debe ser de 250 car&aacute;cteres de longitud como m&aacute;ximo</span>
+         					ng-show="newVehicleForm.publicDescription.$error.maxlength">El texto debe ser de 250 car&aacute;cteres de longitud como m&aacute;ximo</span>
+		  			</fieldset>
+		  			</br>
+		  			<fieldset class="form-group">
+				    	<label class="control-label" for="privateDescription">Descripci&oacute;n interna</label>
+				    	<textarea class="form-control" id="privateDescription" rows="3" ng-model="newCar.description" ng-maxlength="350"></textarea>
+				    	<!-- esto mejorarlo o sacarlo, nunca va a pasar -->
+				    	<span class="help-block" 
+         					ng-show="newVehicleForm.privateDescription.$error.maxlength">El texto debe ser de 250 car&aacute;cteres de longitud como m&aacute;ximo</span>
 		  			</fieldset>
 				</div>
-			</div>
-
+			
+			</fieldset>
 
 
 			<!--
@@ -151,169 +156,227 @@
 
 
 
-			<form name="myForm">
+			<!--<form name="myForm"> -->
 				
-					<div class="row">
-						<div class="col-md-12">
-				        	<h4>Elija una imagen del veh&iacute;culo</h4>
+				<div class="row">
+					<div class="col-md-12">
+					<legend class="new-vehicle-legend">Paso 3<strong> : Elegir im&aacute;genes</strong></legend>
 				        </div>
 				    </div>
 				    <div class="row">
 				    	<div class="col-md-12">
-				    		<button class="btn btn-default btn-select-pic" ngf-select ng-model="picFile" accept="image/*">Seleccionar</button>
+				    		<button class="btn btn-danger btn-select-pic" ngf-select ng-model="picFile" accept="image/*">Seleccionar...</button>
 				    	</div>
 				    </div>
 			        
-			        <div class="row well well-shadow upload-vehicle-image-container">
+			        <div class="row upload-vehicle-image-container">
 				    	<div class="col-md-12">
 					        <div ngf-drop ng-model="picFile" ngf-pattern="image/*"
 					             class="cropArea">
-					            <img-crop image="picFile  | ngfDataUrl" 
-					             area-type="rectangle" aspect-ratio="1.7" result-image-size='{w: 340,h: 200}' result-image="croppedDataUrl" ng-init="croppedDataUrl=''">
+					            <img-crop image="picFile | ngfDataUrl" 
+					             area-type="rectangle" aspect-ratio="1.33" result-image-size='{w: 500,h: 375}' result-image="croppedDataUrl" ng-init="croppedDataUrl=''">
 					            </img-crop>
 					        </div>
-					        <div class="row cropped-image-container">
-								<div class="col-md-4 col-md-offset-4 padding:0px">
+					</div>
+				</div>
+
+
+				<div class="row cropped-image-container">	
+					<div class="col-md-9">
 					            	<img ng-src="{{croppedDataUrl}}" />
-					            </div>
-					       	</div>
-					         <button class="btn btn-default pull-right btn-save-pic" ng-click="upload(croppedDataUrl, picFile.name)">Subir</button> 
-					     </div>
-					 </div>
+					</div>
+					<div class="col-md-3">
+						<button type="submit" class="btn btn-danger pull-right btn-save-pic pull-left" ng-click="upload(croppedDataUrl, picFile.name)" ng-disabled="picFile === undefined">Subir</button> 
+					</div>
+				</div>
 			       
 			            
 			        <span class="progress upload-progress" ng-show="progress >= 0">
 			          <div style="width:{{progress}}%" ng-bind="progress + '%'"></div>
 			        </span>
-			        <span ng-show="result">La imagen se ha subido exitosamente.</span>
+			        <div class="success-upload-legend" ng-show="progress == 100">La imagen se ha subido exitosamente.</div>
 			        <span class="err" ng-show="errorMsg">{{errorMsg}}</span>
-		    </form>
+
+			        <div class="row car-thumbs">
+			        	<legend class="uploaded-images-legend">Im&aacute;genes subidas</legend>
+			        	<div class="car-thumbs-container">
+				            <div class="col-lg-4 col-md-4 col-xs-4 thumb">
+				                <a class="thumbnail" href="{{imageUrl[0]}}">
+				                    <img class="img-responsive" src="{{imageUrl[0]}}" alt="http://placehold.it/400x300">
+				                </a>
+				            </div>
+				            <div class="col-lg-4 col-md-4 col-xs-4 thumb">
+				                <a class="thumbnail" href="{{imageUrl[1]}}">
+				                    <img class="img-responsive" src="{{imageUrl[1]}}" alt="">
+				                </a>
+				            </div>
+				            <div class="col-lg-4 col-md-4 col-xs-4 thumb">
+				                <a class="thumbnail" href="{{imageUrl[2]}}">
+				                    <img class="img-responsive" src="{{imageUrl[2]}}" alt="">
+				                </a>
+				            </div>
+				            	<div class="col-lg-4 col-md-4 col-xs-4 thumb">
+				                <a class="thumbnail" href="#">
+				                    <img class="img-responsive" src="{{imageUrl[3]}}" alt="">
+				                </a>
+				            </div>
+				            	<div class="col-lg-4 col-md-4 col-xs-4 thumb">
+				                <a class="thumbnail" href="#">
+				                    <img class="img-responsive" src="{{imageUrl[4]}}" alt="">
+				                </a>
+				            </div>
+				            <div class="col-lg-4 col-md-4 col-xs-4 thumb">
+				                <a class="thumbnail" href="#">
+				                    <img class="img-responsive" src=src="{{imageUrl[5]}}" alt="">
+				                </a>
+				            </div>
+				      </div>
+			        </div>
+		    <!-- </form> -->
 
 
-		    <div class="panel panel-info panel-default-shadow">
-				<div class="panel-heading">Tipo de Operaci&oacute;n</div>
-					<div class="panel-body operation-type-choose-body">
-						
-						<div class="radio">
-		  					<label><input type="radio" name="optradio" value="BUY" ng-model="opType" /><div class="buy-operation-type">Compra</div><p class="help-block operation-type-help-block">El veh&iacute;culo es comprado por esta agencia.</p></label>
+
+			<fieldset>
+		    
+		    		<legend class="new-vehicle-legend">Paso 4<strong> : Operaci&oacute;n</strong></legend>
+		    		<div class="new-vehicle-fields">
+					<div class="form-group">
+					  <label class="control-label" for="exampleInputEmail1">Seleccione el tipo de Operaci&oacute;n</label>
+					  <div class="radio">
+		  					<label><input type="radio" name="optradio" value="BUY" ng-model="opType" /><div class="buy-operation-type">Compra</div><p class="help-block operation-type-help-block">El veh&iacute;culo es adquirido por esta agencia.</p></label>
 						</div>
 
 
 						<div class="radio">
 		  					<label><input type="radio" name="optradio" value="CONSIGNMENT" ng-model="opType" />Consignaci&oacute;n   <span class="help-block operation-type-help-block">El veh&iacute;culo se toma en consignaci&oacute;n.</span></label>
 						</div>
-					
 					</div>
-			</div>
-
-			<div class="panel panel-info panel-default-shadow"> 
-				<div class="panel-heading">Vendedor</div>
-				<div class="panel-body">
-					<select name="repeatSelect" id="clientSelect" ng-model="selectedClientId">
-	      				<option ng-repeat="client in clientList" value="{{client.id}}">{{client.firstName}}&nbsp;{{client.lastName}}</option>
-	    			</select>
+					</br>
+					</br>
+					<div class="form-group">
+					 <label class="control-label" for="exampleInputEmail1">Seleccione el Vendedor</label>
+					</br>
+					 <select name="repeatSelect" id="clientSelect" ng-model="selectedClientId" required>
+			      			<option ng-repeat="client in clientList" value="{{client.id}}">{{client.firstName}}&nbsp;{{client.lastName}}</option>
+			    		</select>
+			    		</div>
+					</br>
+					</br>
+					<div class="form-group">
+						 <label class="control-label" for="exampleInputEmail1">Documentaci&oacute;n del Veh&iacute;culo</label>
+						</br>
+						<div class="checkbox">
+							    <label>
+							      <input type="checkbox"> Posee deuda de patentes
+							    </label>
+						</div>	
+						 <div class="form-group">			    		
+							      <div class="input-group new-vehicle-input-amount">
+							      	<div class="input-group-addon">$</div>
+							      	<input type="text" class="form-control" id="exampleInputAmount" placeholder="Monto adeudado en concepto de patentes" ng-model="taxDebt" ui-number-mask="0">
+							    	<div class="input-group-addon">.00</div>
+							      </div>
+							 </div>
+							 </br>
+							 <div class="checkbox">
+							    <label>
+							      <input type="checkbox"> Posee multas impagas
+							    </label>
+							 </div>
+							 <div class="form-group">
+							      <div class="input-group new-vehicle-input-amount">
+							      	<div class="input-group-addon">$</div>
+							      	<input type="text" class="form-control" id="exampleInputAmount" placeholder="Monto adeudado en concepto de multas impagas" ng-model="trafficTicketsDebt" ui-number-mask="0">
+							    	<div class="input-group-addon">.00</div>
+							      </div>
+							 </div>	
+							 <div class="checkbox">
+							</br>
+							    <label>
+							      <input type="checkbox" ng-model="hasRegistration"> Posee T&iacute;tulo
+							    </label>
+							 </div>	
+							 <div class="checkbox">
+							    <label>
+							      <input type="checkbox" ng-model="hasDomainCertificate"> Posee Certificado de Dominio
+							    </label>
+							 </div>	
+					</div>
 				</div>
-			</div>
+			</fieldset>
 
+			<fieldset>
+		    
+		    		<legend class="new-vehicle-legend">Paso 5<strong> : Precio</strong></legend>
+		    		<div class="new-vehicle-fields">
+		    			</br>
+					<div class="form-group" ng-class="{'has-error': newVehicleForm.buyingPrice.$invalid && newVehicleForm.buyingPrice.$touched}">
+						<label ng-show="opType == 'BUY'" class="control-label" for="exampleInputEmail1">Valor al que se compra el Veh&iacute;culo</label>
+						<label ng-show="opType == 'CONSIGNMENT'" class="control-label" for="exampleInputEmail1">Monto que recibe el vendedor</label>
+						<div class="input-group new-vehicle-input-amount">
+				      			<div class="input-group-addon">$</div>
+				      			<input type="text" name="buyingPrice" class="form-control" id="exampleInputAmount" ng-model="dealPrice" required ui-number-mask="0">
+				    			<div class="input-group-addon">.00</div>
+				      		</div>
+				      		<span class="help-block" 
+	     					ng-show="newVehicleForm.buyingPrice.$error.required && newVehicleForm.buyingPrice.$touched">El campo es requerido</span>
+					</div>
 
+					</br>
+					<div class="form-group" ng-class="{'has-error': newVehicleForm.sellingPrice.$invalid && newVehicleForm.sellingPrice.$touched}">
+						<label class="control-label" for="exampleInputEmail1">Valor de venta del Veh&iacute;culo</label>
+						<div class="input-group new-vehicle-input-amount">
+				      			<div class="input-group-addon">$</div>
+				      			<input type="text" name="sellingPrice" class="form-control" id="exampleInputAmount" ng-model="sellingPrice" ui-number-mask="0" placeholder="Precio al que se pone a la venta a este ve&iacute;culo" required>
+				    			<div class="input-group-addon">.00</div>
+				      		</div>
+				      		<span class="help-block" 
+	     					ng-show="newVehicleForm.sellingPrice.$error.required && newVehicleForm.sellingPrice.$touched">El campo es requerido</span>
+					</div>
+					</br>
+					<div class="form-group col-md-9 revenue-title">
+					<label for="exampleInputEmail1">Margen de ganancia</br>  
+					</div>
+					<div class="form-group revenue-container">
 
-
-			<div class="panel panel-info panel-default-shadow">
-				<div class="panel-heading">Documentaci&oacute;n</div>
-				<div class="panel-body">
-					<div class="checkbox">
-					    <label>
-					      <input type="checkbox"> Posee deuda de patentes
-					    </label>
-					 </div>		
-					 <div class="form-group">			    		
-					      <div class="input-group">
-					      	<div class="input-group-addon">$</div>
-					      	<input type="text" class="form-control" id="exampleInputAmount" placeholder="Monto adeudado en concepto de patentes" ng-model="taxDebt" ui-number-mask="0">
-					    	<div class="input-group-addon">.00</div>
-					      </div>
-					 </div>
-					 <div class="checkbox">
-					    <label>
-					      <input type="checkbox"> Tiene multas impagas
-					    </label>
-					 </div>
-					 <div class="form-group">
-					      <div class="input-group">
-					      	<div class="input-group-addon">$</div>
-					      	<input type="text" class="form-control" id="exampleInputAmount" placeholder="Monto adeudado en concepto de multas impagas" ng-model="trafficTicketsDebt" ui-number-mask="0">
-					    	<div class="input-group-addon">.00</div>
-					      </div>
-					 </div>	
-					 <div class="checkbox">
-					    <label>
-					      <input type="checkbox" ng-model="hasRegistration"> Posee T&iacute;tulo
-					    </label>
-					 </div>	
-					 <div class="checkbox">
-					    <label>
-					      <input type="checkbox" ng-model="hasDomainCertificate"> Posee Certificado de Dominio
-					    </label>
-					 </div>	
-				</div>
-			</div>
-
-
-		<div class="panel panel-info panel-default-shadow">
-			<div ng-show="opType == 'buy'" class="panel-heading">Valor de compra del Veh&iacute;culo</div>
-			<div ng-show="opType == 'consignment'" class="panel-heading">Monto acordado que recibe el vendedor</div>
-				<div class="panel-body">
-				  <div class="form-group" ng-class="{'has-error': newVehicleForm.buyingPrice.$invalid}">
-				      <div class="input-group">
-				      	<div class="input-group-addon">$</div>
-				      	<input type="text" name="dealPrice" class="form-control" id="exampleInputAmount" ng-model="dealPrice" required ui-number-mask="0">
-				    	<div class="input-group-addon">.00</div>
-				      </div>
-				      <span class="help-block" 
-	     			ng-show="newVehicleForm.buyingPrice.$error.required">El campo es requerido</span>
-				  </div>
-				</div>
-		 </div>
-
-		 <div class="panel panel-info panel-default-shadow">
-			<div class="panel-heading">Valor de venta del Veh&iacute;culo</div>
-				<div class="panel-body">
-				  <div class="form-group" ng-class="{'has-error': newVehicleForm.sellingPrice.$invalid}">
-				      <div class="input-group">
-				      	<div class="input-group-addon">$</div>
-				      	<input type="text" name="sellingPrice" class="form-control" id="exampleInputAmount" placeholder="Precio al que se pone a la venta a este ve&iacute;culo" ng-model="sellingPrice" required ui-number-mask="0">
-				    	<div class="input-group-addon">.00</div>
-				      </div>
-				      <span class="help-block" 
-	     			ng-show="newVehicleForm.sellingPrice.$error.required">El campo es requerido</span>
-				  </div>
-				</div>
-		 </div>
-
-		 <div class="well well-shadow">
-		 	Margen de ganancia: $ {{ sellingPrice - dealPrice | number }}
-		 </div>
-
-
-
-
-		
-							<div class="row">
-			                  <div class="col-md-12">
+						
+						<div class="col-md-6 text-center">
+						<div class="revenue-area-first well">
+							<span ng-class="{'revenue color-negative-revenue': marginPrice < 0, 'revenue color-zero-revenue': marginPrice == 0, 'revenue color-positive-revenue': marginPrice > 0, 'revenue hidden-no-revenue': sellingPrice == undefined && dealPrice == undefined}">$&nbsp;{{ marginPrice = sellingPrice - dealPrice | number }}
+							</span>
+						</div>
+						</div>  
+						<div class="col-md-6">
+						<div class="revenue-area-last well">
+							<span ng-class="{'revenue color-negative-revenue': marginPrice < 0, 'revenue color-zero-revenue': marginPrice == 0, 'revenue color-positive-revenue': marginPrice > 0, 'revenue hidden-no-revenue': sellingPrice == undefined && dealPrice == undefined}">%&nbsp;{{(sellingPrice - dealPrice) * 100 / dealPrice | number:2}}&nbsp;
+							</span>
+						</div>
+						</div>
+						</label>
+					</div>
+		    		</div>
+		    	
+				</br>		
+				<div class="row">
+			                  <div class="col-sm-6 col-sm-offset-4">
 			                    <div class="form-group">
-			                      <div class="new-car-buttons">
+			                      <div class="col-sm-offset-2 col-sm-10 new-car-buttons">
 			                        <div class="pull-right">
-			                          <button type="submit" class="btn btn-default">Cancelar</button>
-			                          <button type="submit" class="btn btn-primary" ng-click="saveNewCar()">Guardar </button>
+			                          <button type="submit" ng-click="cancelModal()" class="btn btn-default">Cancelar</button>
+			                          <button type="submit" class="btn btn-danger" ng-disabled="newVehicleForm.$invalid" ng-click="saveNewCar()">Guardar </button>
 			                        </div>
 			                      </div>
 			                    </div>
 			                  </div>
-			                </div>
+			            	</div>
 
-
-
+			</fieldset>
 		</form>
+
+		<ng-include src="'modals/cancelConfirmation.tpl.html'" ></ng-include>
+		<ng-include src="'modals/saveSuccessModal.tpl.html'" ></ng-include>
+
+
 
 	</div>
 	<div class="col-md-3"></div>
