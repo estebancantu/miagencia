@@ -1,6 +1,7 @@
 angular.module( 'ngBoilerplate.carDetails', [
   'vehicleService',
   'ui.router',
+  'broadcastService',
   'placeholders',
   'ui.bootstrap',
   'ngAnimate'
@@ -27,11 +28,60 @@ angular.module( 'ngBoilerplate.carDetails', [
 
   $scope.carDetailsDto = vehicleService.get({id: $stateParams.carId}, function(response) {
 
-      $scope.slides.push({image: "http://www.miagenciavirtual.com.ar:8080/miagencia/pics/"+response.vehicleDto.imageUrl});
-      $scope.slides.push({image: 'assets/img/logo.png'});
+     var urls = [];
+	urls = response.vehicleDto.imageUrls;
+
+	if (urls.length === 0 ) {
+		$scope.slides.push({image: 'assets/img/logo.png'});
+
+	} 
+	else {
+
+		for( i = 0; i < urls.length; i++ ) {
+			$scope.slides.push({image: urls[i]});
+		}
+	}
   });
   
-});
+  broadcastService.broadcast($stateParams.carId);
+  
+  $scope.downloadReceipt = function () {
+		$http({
+			method: 'GET',
+			url: 'http://www.miagenciavirtual.com.ar:8080//miagencia/file/salesContract/'+$stateParams.carId,
+			headers: {
+				"Content-Type": "application/json",
+				"Accept": "application/msword"
+			}
+		}).success(function(data){
+		}).error(function(){
+		});
+		
+		};
+		
+	$scope.deleteCarModal = function () {
+
+		var modalInstance = $uibModal.open({
+			animation: true,
+			templateUrl: 'deleteCarModal.html',
+			controller: 'deleteCarModalInstanceCtrl',
+			scope: $scope,
+			resolve: {
+				carId: function() { return $stateParams.carId; }
+			}
+		});
+	};
+	
+	$scope.saveSuccessModal = function () {
+
+		var modalInstance = $uibModal.open({
+			animation: true,
+			templateUrl: 'saveSuccessModal.html',
+			controller: 'saveSuccessModalInstanceCtrl'
+		});
+	};
+})
+.$inject = ['$scope', 'broadcastService'];
 
 angular.module('ngBoilerplate.carDetails').controller('shareModalCtrl', function ($scope, $uibModal) {
 	
@@ -56,6 +106,8 @@ angular.module('ngBoilerplate.carDetails').controller('shareModalCtrl', function
 		$scope.toggleAnimation = function () {
 			$scope.animationsEnabled = !$scope.animationsEnabled;
 		};
+		
+	
 
 });
 
@@ -290,3 +342,48 @@ angular.module('ngBoilerplate.carDetails').controller('shareModalInstanceCtrl', 
 				
 
 }]);
+
+
+
+
+
+angular.module('ngBoilerplate.carDetails').controller('deleteCarModalInstanceCtrl', function ( $scope, $uibModalInstance, $location, $http, SERVER_URL, carId ) {
+
+              $scope.cancel = function () {
+                      $uibModalInstance.dismiss('cancel');
+              };
+
+              $scope.deleteCar = function () {
+
+               
+              
+                    $http({
+                            method: 'DELETE',
+                            url: SERVER_URL + 'vehicles/' + carId,
+                            headers: {
+                                "Content-Type": "application/json",
+                                "Accept": "text/plain"
+                            }
+                        })
+                .then(function (response) {
+                            if (response.status == 204) {  
+
+                                console.log("Vehicle deleted successfuly.");
+                                $location.path('/home'); 
+                                $scope.saveSuccessModal();
+                                $uibModalInstance.dismiss('ok');
+                            }
+                            else {
+                            // TODO hacer modal de error
+                                console.log("failed operation creation: " + response.status + " - " + response.statusText );
+                            }
+                        });
+
+
+            };
+
+  });
+
+
+
+
