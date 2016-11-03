@@ -21,11 +21,11 @@ angular.module( 'ngBoilerplate.reserveCar', [
 .controller( 'reserveCarCtrl', function AboutCtrl( $scope, $http, clientService, $stateParams, vehicleService, $uibModal, $location, SERVER_URL, CDN_URL) {
 
 
-
+  $scope.disablePrintLink = true;
   $scope.locationService = $location;
 
-  $scope.reserveForm = CDN_URL + "forms/reserve-form.jpg";
-
+  //$scope.reserveForm = CDN_URL + "forms/reserve-form.jpg";
+  $scope.reserveForm = 'http://www.miagenciavirtual.com.ar:8080/miagencia/file/receipt/'+$stateParams.carId;
   $scope.carDetailsDto = vehicleService.get({id: $stateParams.carId});
   $scope.selectedClientId = null;
   $scope.advancePayment = null;
@@ -67,7 +67,7 @@ angular.module( 'ngBoilerplate.reserveCar', [
     .then(function (response) {
 
                 if (response.status == 201) {
-                   
+                	$scope.disablePrintLink = false;
                     $scope.locationService.path('/home');
                     $scope.saveSuccessModal();
 

@@ -18,6 +18,8 @@ import org.apache.poi.xwpf.usermodel.ParagraphAlignment;
 import org.apache.poi.xwpf.usermodel.XWPFDocument;
 import org.apache.poi.xwpf.usermodel.XWPFParagraph;
 import org.apache.poi.xwpf.usermodel.XWPFRun;
+import org.apache.poi.xwpf.usermodel.XWPFTable;
+import org.apache.poi.xwpf.usermodel.XWPFTableRow;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Service;
@@ -35,6 +37,7 @@ import com.miagencia.core.model.Model;
 import com.miagencia.core.model.SaleItem;
 import com.miagencia.core.model.Vehicle;
 import com.miagencia.core.model.operations.BuyOperation;
+import com.miagencia.core.model.operations.ReservationOperation;
 import com.miagencia.core.model.operations.SaleOperation;
 import com.miagencia.core.model.operations.VehicleOperation;
 import com.miagencia.core.service.FileService;
@@ -85,7 +88,7 @@ public class FileServiceImpl implements FileService {
             createParagraph(word,"El señor: "+buyOperation.getClient().getFirstName()+" "+buyOperation.getClient().getLastName()+" vende un: "+vehicle.getVehicleType().getText()+"  en las condiciones vistas.", ParagraphAlignment.LEFT);
             createParagraphWithBorder(word, "Marca: "+make.getName()+" Modelo: "+model.getName()+" Tipo: "+vehicle.getVehicleType().getText()+" Año: "+vehicle.getModelYear().getText()+
                     " Motor Nº "+vehicle.getEngineNumber()+" Chasis Nº "+vehicle.getChassisNumber()+" Dominio: "+vehicle.getPlate(), ParagraphAlignment.LEFT , false);
-            createParagraph(word,"En la suma total de pesos: _____________________________________________",ParagraphAlignment.LEFT);
+            createParagraph(word,"En la suma total de pesos: "+saleOperation.getSellingAmount(),ParagraphAlignment.LEFT);
             createParagraph(word,"Pagaderos de la siguiente forma: __________________________________________________________ __________________________________________________________"
                     + "________________________________________________________________________________________________________________",ParagraphAlignment.LEFT);
             createParagraph(word,"Esta unidad se entrega en el estado de uso en que se encuentra y que el comprador declara conocer, al igual que todo lo concerniente a "
@@ -104,20 +107,32 @@ public class FileServiceImpl implements FileService {
             createParagraph(word, "En "+buyOperation.getClient().getCity()+" a los: "+calendar.get(Calendar.DAY_OF_MONTH)+" días del mes de "+getMonthForInt(calendar.get(Calendar.MONTH))+
                     " del año "+calendar.get(Calendar.YEAR)+" se firman dos ejemplares del mismo tenor y a un solo efecto.", ParagraphAlignment.LEFT, true);
             createParagraph(word,"OBSERVACIONES: ______________________________________________________________________________"
-                    + "_______________________________________________________________________________________________________"
-                    + "_________________________________________________________________________", ParagraphAlignment.LEFT,true);
-            createParagraph(word,"COMPRADOR", ParagraphAlignment.LEFT,false);
-            createParagraph(word,"Nombre: "+buyOperation.getClient().getFirstName()+" "+buyOperation.getClient().getLastName(), ParagraphAlignment.LEFT,false);
-            createParagraph(word,"Dirección: "+buyOperation.getClient().getAddress(), ParagraphAlignment.LEFT,false);
-            createParagraph(word,"Localidad: "+buyOperation.getClient().getCity(), ParagraphAlignment.LEFT,false);
-            createParagraph(word,"Teléfono: "+buyOperation.getClient().getPhone(), ParagraphAlignment.LEFT,true);
-            createParagraph(word,"VENDEDOR", ParagraphAlignment.LEFT,false);
-            createParagraph(word,"Nombre: "+saleOperation.getClient().getFirstName()+" "+saleOperation.getClient().getLastName(), ParagraphAlignment.LEFT,false);
-            createParagraph(word,"Dirección: "+saleOperation.getClient().getAddress(), ParagraphAlignment.LEFT,false);
-            createParagraph(word,"Localidad: "+saleOperation.getClient().getCity(), ParagraphAlignment.LEFT,false);
-            createParagraph(word,"Teléfono: "+saleOperation.getClient().getPhone(), ParagraphAlignment.LEFT,true);
+                    + "_______________________________________________________________________________________________________", ParagraphAlignment.LEFT,true);
             createParagraph(word,"_________________________________                ___________________________________", ParagraphAlignment.LEFT,false);
             createParagraph(word,"firma                                                                                firma", ParagraphAlignment.LEFT,false);
+            
+            XWPFTable table = word.createTable();
+            XWPFTableRow tableRowOne = table.getRow(0);
+            XWPFTableRow tableRowTwo = table.createRow();
+            XWPFTableRow tableRowThree = table.createRow();
+            XWPFTableRow tableRowFour = table.createRow();
+            XWPFTableRow tableRowFive = table.createRow();
+            
+            tableRowOne.getCell(0).setText("COMPRADOR");
+            tableRowOne.addNewTableCell().setText("VENDEDOR");
+            
+            tableRowTwo.getCell(0).setText("Nombre: "+saleOperation.getClient().getFirstName()+" "+saleOperation.getClient().getLastName());
+            tableRowTwo.addNewTableCell().setText("Nombre: "+buyOperation.getClient().getFirstName()+" "+buyOperation.getClient().getLastName());
+            
+            tableRowThree.getCell(0).setText("Dirección: "+saleOperation.getClient().getAddress());
+            tableRowThree.addNewTableCell().setText("Dirección: "+buyOperation.getClient().getAddress());
+            
+            tableRowFour.getCell(0).setText("Localidad: "+saleOperation.getClient().getCity());
+            tableRowFour.addNewTableCell().setText("Localidad: "+buyOperation.getClient().getCity());
+            
+            tableRowFive.getCell(0).setText("Teléfono: "+saleOperation.getClient().getPhone());
+            tableRowFive.addNewTableCell().setText("Teléfono: "+buyOperation.getClient().getPhone());
+            
             word.write(out);
             out.close();
             File file = new File(fileUrl);
@@ -143,25 +158,25 @@ public class FileServiceImpl implements FileService {
             createParagraph(word, "RECIBO DE SEÑA", ParagraphAlignment.CENTER, 20, true);
             createParagraph(word, calendar.get(Calendar.DAY_OF_MONTH)+" de "+getMonthForInt(calendar.get(Calendar.MONTH))+" de "+calendar.get(Calendar.YEAR), ParagraphAlignment.RIGHT, true);
             BuyOperation buyOperation = operationDAO.findBuyOperationsByVehicleId(vehicle.getId());
-            SaleOperation saleOperation = operationDAO.findSellOperationsByVehicleId(vehicle.getId());
+            ReservationOperation reservation = operationDAO.findReservationOperationsByVehicleId(vehicle.getId());
             Model model = makesAndModelsDAO.getModel(Long.valueOf(vehicle.getModelId()));
             Make make =  makesAndModelsDAO.getMake(Long.valueOf(vehicle.getMakeId()));
-            createParagraph(word, "RECIBI de "+saleOperation.getClient().getFirstName()+" "+saleOperation.getClient().getLastName()+" Doc. Id. "+saleOperation.getClient().getDni()+
-                    " Domiciliado en "+saleOperation.getClient().getAddress()+" Localidad "+saleOperation.getClient().getCity()+" Tel. "+saleOperation.getClient().getPhone()+ " La cantidad de "
-                            + "dólares estadounidenses billetes __________ SON U$S __________ como seña de la cantidad de dólares estadounidenses billetes ____________________ SON U$S __________ "
-                            + "establecido como precio por la compra-venta de un vehiculo "+model.getName()+" en las condiciones vistas y que se encuentra.", ParagraphAlignment.LEFT, true);            
+            createParagraph(word, "RECIBI de "+reservation.getClient().getFirstName()+" "+reservation.getClient().getLastName()+" Doc. Id. "+reservation.getClient().getDni()+
+                    " Domiciliado en "+reservation.getClient().getAddress()+" Localidad "+reservation.getClient().getCity()+" Tel. "+reservation.getClient().getPhone()+ " La cantidad de "
+                            + "pesos argentinos $ "+reservation.getAdvancePayment()+" como seña del valor de venta establecido en $____________ para el vehiculo "+model.getName()+" en las condiciones vistas y que se encuentra.", ParagraphAlignment.LEFT, true);            
             createParagraph(word, "Marca "+make.getName()+ " Modelo "+model.getName()+" Color "+vehicle.getColor().getText()+" Tipo "+vehicle.getVehicleType().getText()+
-                    " Motor "+vehicle.getEngineNumber()+ " Chasis "+vehicle.getChassisNumber()+ " Patente "+vehicle.getPlate()+" del año "+vehicle.getModelYear().getText()+" Localidad ____________", ParagraphAlignment.LEFT);
+                    " Motor "+vehicle.getEngineNumber()+ " Chasis "+vehicle.getChassisNumber()+ " Patente "+vehicle.getPlate()+" del año "+vehicle.getModelYear().getText()+" Localidad "+vehicle.getDealer().getLocation().getCity().getName(), ParagraphAlignment.LEFT);
             createParagraph(word, "Se recibe como parte de pago un automotor marca ________________________________ Modelo ________________________________ Tipo ________________ Color __________________ "+
                     " Motor ________________________________ Chasis ________________________________ Patente __________________ del año __________________  Localidad ______________________________"+
                     " libre de deudas y gravámenes, tasado en la suma de dólares estadounidenses billetes _____________________", ParagraphAlignment.LEFT);
-            createParagraph(word, "El comprador deberá abonar el saldoa de su compra en el domicilio del vendedor dentro de los ____ días a contar desde la fecha sin necesidad de ningún requerimiento", ParagraphAlignment.LEFT);
+            createParagraph(word, "El comprador deberá abonar el saldo a de su compra en el domicilio del vendedor dentro de los ____ días a contar desde la fecha sin necesidad de ningún requerimiento", ParagraphAlignment.LEFT, true);
             createParagraph(word, "En el caso de que el comprador no abonara el saldo de precio dentro del plazo establecido incurrirá en mora, de pleno derecho por el mero vencimiento del plazo pactado y automáticamente sin necesidad"
                     + "de requerimiento alguno, el vendedor queda facultado para dar por rescindido sin más trámite y de pleno derecho el contrato, sin necesidad de intervención judicial alguna,"
-                    + "quedando a su exclusivo beneficio la suma percibidad como seña", ParagraphAlignment.LEFT);
+                    + "quedando a su exclusivo beneficio la suma percibida como seña", ParagraphAlignment.LEFT);
             createParagraph(word, "Observaciones _______________________________________________________________________ ___________________________________________________________________________________", ParagraphAlignment.LEFT);
             createParagraph(word, "____________________                   _______________________", ParagraphAlignment.CENTER, false);
             createParagraph(word, " firma comprador                                       firma vendedor", ParagraphAlignment.CENTER,true);
+            //TODO: Los datos son del vendedor o de la agencia
             createParagraph(word, "Nombre y Apellido: "+buyOperation.getClient().getFirstName()+" "+buyOperation.getClient().getLastName(), ParagraphAlignment.LEFT,false);
             createParagraph(word, "Domicilio: "+buyOperation.getClient().getAddress()+", "+buyOperation.getClient().getCity(), ParagraphAlignment.LEFT, false);
             createParagraph(word, "Tel: "+buyOperation.getClient().getPhone()+" Doc. Identidad: "+buyOperation.getClient().getDni(), ParagraphAlignment.LEFT,false);

@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
 
 import com.miagencia.core.dao.OperationDAO;
 import com.miagencia.core.model.operations.BuyOperation;
+import com.miagencia.core.model.operations.ReservationOperation;
 import com.miagencia.core.model.Client;
 import com.miagencia.core.model.operations.SaleOperation;
 import com.miagencia.core.model.operations.VehicleOperation;
@@ -78,4 +79,14 @@ public class OperationDAOImpl implements OperationDAO {
         sessionFactory.getCurrentSession().delete(operation);
     }
 
+    @Override
+    public ReservationOperation findReservationOperationsByVehicleId(Long vehicleId) {
+        if (vehicleId == null) 
+            throw new IllegalArgumentException("Vehicle id argument cannot be null");
+        
+        Query query = sessionFactory.getCurrentSession().createQuery("from ReservationOperation vo where vo.vehicle.id = :vehicleId");
+        query.setParameter("vehicleId", vehicleId);
+        return (ReservationOperation) query.list().get(0);
+    }
+    
 }
