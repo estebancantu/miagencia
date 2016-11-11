@@ -20,7 +20,9 @@ import com.miagencia.core.model.Vehicle;
 import com.miagencia.core.model.operations.BuyOperation;
 import com.miagencia.core.model.operations.ConsignmentOperation;
 import com.miagencia.core.model.operations.VehicleOperation;
+import com.miagencia.core.service.ExpenseService;
 import com.miagencia.core.service.VehicleService;
+import com.miagencia.rest.dto.ExpenseDTO;
 import com.miagencia.rest.dto.VehicleDetailsDTO;
 import com.miagencia.rest.dto.VehicleSummaryDTO;
 import com.miagencia.rest.dto.util.EntityDTOTranslator;
@@ -43,6 +45,9 @@ public class VehicleServiceImpl implements VehicleService {
 	
 	@Autowired
 	ClientDAO clientDao;
+	
+	@Autowired
+	ExpenseService expenseService;
 	
 
 	
@@ -115,7 +120,30 @@ public class VehicleServiceImpl implements VehicleService {
 			
 			SaleItem saleItem = saleItemDao.getSaleItemByVehicleId(vehicle.getId());
 			
-			VehicleSummaryDTO vehicleDto = EntityDTOTranslator.buildVehicleSummaryDTO(vehicle, saleItem, makeString, modelString);
+			List<ExpenseDTO> expenseDtos = expenseService.getAllExpenses(vehicle.getId());
+			
+			List<VehicleOperation> operations;
+			operations = operationDao.findOperationsByVehicleId(vehicle.getId());
+				
+			
+			int paidPrice = 0;
+			
+			for (Iterator iterator2 = operations.iterator(); iterator2.hasNext();) {
+				VehicleOperation vehicleOperation = (VehicleOperation) iterator2
+						.next();
+				
+				if(vehicleOperation.getClass().equals(BuyOperation.class)) {
+					
+					paidPrice = ((BuyOperation)vehicleOperation).getPaidAmount();
+				}
+				else if	(vehicleOperation.getClass().equals(ConsignmentOperation.class)){
+					
+					paidPrice = ((ConsignmentOperation)vehicleOperation).getDealPrice();
+				}	
+			}
+			
+			
+			VehicleSummaryDTO vehicleDto = EntityDTOTranslator.buildVehicleSummaryDTO(vehicle, saleItem, makeString, modelString, paidPrice, expenseDtos);
 			
 			vehiclesDto.add(vehicleDto);
 		}
