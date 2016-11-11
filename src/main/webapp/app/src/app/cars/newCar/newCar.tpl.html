@@ -269,7 +269,13 @@
 							    <label>
 							      <input type="checkbox"> Posee deuda de patentes
 							    </label>
-						</div>	
+						</div>
+						<div>
+							  <a href="http://hitman.arba.gov.ar/AvisoDeudas/?imp=1" target="_blank">Consulta Deuda patentes Prov. Buenos Aires</a>
+						</div>
+						<div>
+							  <a href="https://lbserver02.agip.gob.ar/ConsultaPat/" target="_blank">Consulta Deuda patentes Capital Federal</a>
+						</div>
 						 <div class="form-group">			    		
 							      <div class="input-group new-vehicle-input-amount">
 							      	<div class="input-group-addon">$</div>
@@ -283,6 +289,12 @@
 							      <input type="checkbox"> Posee multas impagas
 							    </label>
 							 </div>
+							 <div>
+											<a href="https://www.infraccionesba.net/webInfractor.do?method=consultaInfracciones" target="_blank">Consulta Infracciones Prov. Buenos Aires</a>
+								</div>
+							 <div>
+							    <a href="http://www.buenosaires.gob.ar/consulta-de-infracciones" target="_blank">Consulta Infracciones Capital Federal</a>
+								</div>		
 							 <div class="form-group">
 							      <div class="input-group new-vehicle-input-amount">
 							      	<div class="input-group-addon">$</div>
@@ -335,27 +347,26 @@
 					</div>
 					</br>
 					<div class="form-group col-md-9 revenue-title">
-					<label for="exampleInputEmail1">Margen de ganancia</br>  
+					<label for="exampleInputEmail1">Margen de ganancia</label>
+					</br>  
 					</div>
 					<div class="form-group revenue-container">
 
-						
 						<div class="col-md-6 text-center">
 						<div class="revenue-area-first well">
-							<span ng-class="{'revenue color-negative-revenue': marginPrice < 0, 'revenue color-zero-revenue': marginPrice == 0, 'revenue color-positive-revenue': marginPrice > 0, 'revenue hidden-no-revenue': sellingPrice == undefined && dealPrice == undefined}">$&nbsp;{{ marginPrice = sellingPrice - dealPrice | number }}
+							<span ng-class="{'revenue color-negative-revenue': marginPrice < 0, 'revenue color-zero-revenue': marginPrice == 0, 'revenue color-positive-revenue': marginPrice > 0, 'revenue hidden-no-revenue': sellingPrice == undefined && dealPrice == undefined}">$&nbsp;{{ marginPrice = sellingPrice - (dealPrice + taxDebt + trafficTicketsDebt) | number }}
 							</span>
 						</div>
 						</div>  
 						<div class="col-md-6">
 						<div class="revenue-area-last well">
-							<span ng-class="{'revenue color-negative-revenue': marginPrice < 0, 'revenue color-zero-revenue': marginPrice == 0, 'revenue color-positive-revenue': marginPrice > 0, 'revenue hidden-no-revenue': sellingPrice == undefined && dealPrice == undefined}">%&nbsp;{{(sellingPrice - dealPrice) * 100 / dealPrice | number:2}}&nbsp;
+							<span ng-class="{'revenue color-negative-revenue': marginPrice < 0, 'revenue color-zero-revenue': marginPrice == 0, 'revenue color-positive-revenue': marginPrice > 0, 'revenue hidden-no-revenue': sellingPrice == undefined && dealPrice == undefined}">%&nbsp;{{(sellingPrice - (dealPrice + taxDebt + trafficTicketsDebt)) * 100 / dealPrice | number:2}}&nbsp;
 							</span>
 						</div>
 						</div>
-						</label>
 					</div>
-		    		</div>
-		    	
+		   </div>
+
 				</br>		
 				<div class="row">
 			                  <div class="col-sm-6 col-sm-offset-4">
