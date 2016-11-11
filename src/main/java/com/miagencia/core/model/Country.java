@@ -10,7 +10,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="COUNTRY")
+@Table(name="COUNTRIES")
 public class Country extends PersistableEntity {
 
 	@Column(name="MERCADO_LIBRE_ID", nullable=false)

@@ -12,14 +12,14 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="CITY")
+@Table(name="CITIES")
 public class City extends PersistableEntity{
 
-	@Column(name="MERCADO_LIBRE_ID", nullable=false)
+	@Column(name="MERCADO_LIBRE_ID")
     private String mercadolibreId;
-	@Column(name="OLX_ID", nullable=false)
+	@Column(name="OLX_ID")
     private String olxId;
-	@Column(name="AUTOCOSMOS_ID", nullable=false)
+	@Column(name="AUTOCOSMOS_ID")
     private String autocosmosId;
 	@Column(name="NAME", nullable=false)
 	private String name;

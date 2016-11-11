@@ -15,7 +15,7 @@ import javax.persistence.Table;
  *
  */
 @Entity
-@Table(name="DEALERSHIP")
+@Table(name="DEALERSHIPS")
 public class Dealership extends PersistableEntity {
 	
 

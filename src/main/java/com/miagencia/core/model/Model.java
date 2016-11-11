@@ -30,7 +30,7 @@ public class Model extends PersistableEntity {
 	@Column(name="OLX_ID", nullable=false)
 	private String olxId;  
 	
-	@Column(name="AUTOCOSMOS_ID", nullable=false)
+	@Column(name="AUTOCOSMOS_ID")
     private String autocosmosId;  
 	
 	

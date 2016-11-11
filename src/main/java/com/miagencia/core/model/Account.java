@@ -15,7 +15,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
   * @author estebancantu
   */
 @Entity
-@Table(name="ACCOUNT")
+@Table(name="ACCOUNTS")
 public class Account extends PersistableEntity {
 	
 
