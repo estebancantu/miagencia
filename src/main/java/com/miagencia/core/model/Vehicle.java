@@ -74,12 +74,12 @@ public class Vehicle extends PersistableEntity {
 	
 	//Color
 	@Enumerated(EnumType.STRING)
-	@Column(name="COLOR", nullable=false)
+	@Column(name="COLOR")
 	private Color color;
 	
 	//Door
     @Enumerated(EnumType.STRING)
-    @Column(name="DOOR_QUANTITY", nullable=false)
+    @Column(name="DOOR_QUANTITY")
     private Door doorQuantity;
 
 	
@@ -111,7 +111,7 @@ public class Vehicle extends PersistableEntity {
 	//documentación?
 	
 	@ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-	@JoinTable(name = "VEHICLE_FEATURE_VALUE", catalog = "miagencia", joinColumns = { 
+	@JoinTable(name = "VEHICLE_FEATURE_VALUE", joinColumns = { 
 			@JoinColumn(name = "VEHICLE_ID", nullable = false, updatable = false) }, 
 			inverseJoinColumns = { @JoinColumn(name = "FEATURE_VALUE_ID", 
 					nullable = false, updatable = false) })
