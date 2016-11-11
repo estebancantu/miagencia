@@ -49,6 +49,7 @@ angular.module('ngBoilerplate.carExpenses').controller('expensesCtrl', function 
 		return total;
 	};
 
+
 	$scope.totalPaid = function(){
 		var total = 0;
 		for(count=0;count<$scope.expenses.length;count++){
@@ -77,9 +78,7 @@ angular.module('ngBoilerplate.carExpenses').controller('expensesCtrl', function 
 		var total = $scope.profit;
 		for(count=0;count<$scope.expenses.length;count++){
 
-			if($scope.expenses[count].paid) {
 				total = total - $scope.expenses[count].cost;
-			}
 		}
 		return total;
 	};
