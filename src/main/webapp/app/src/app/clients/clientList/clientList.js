@@ -17,13 +17,14 @@ angular.module( 'ngBoilerplate.clientList', [
   });
 })
 
-.controller( 'ClientListCtrl', function ClientListCtrl( $scope, $uibModal, $location, clientService ) {
+.controller( 'ClientListCtrl', function ClientListCtrl( $scope, $uibModal, $location, clientService, CDN_URL ) {
 
 
   $scope.locationService = $location; 
   $scope.clients = clientService.query();
 
-
+  $scope.sellForm = CDN_URL + "forms/sell-form.pdf";
+  $scope.reservationForm = CDN_URL + "forms/reservation-form.pdf";
 
 
     $scope.deleteClientModal = function (client) {
@@ -154,7 +155,7 @@ angular.module('ngBoilerplate.clientList').controller('deleteClientModalInstance
                         // esto no tiene que estar, al recargar la pagina tiene que traer lo que quedo
                           //       $scope.clients.splice($scope.clients.indexOf(client), 1);
                            //      $uibModalInstance.dismiss('ok');
-                          };
+            };
 
   });
 

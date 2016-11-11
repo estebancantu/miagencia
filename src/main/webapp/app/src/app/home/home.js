@@ -38,11 +38,15 @@ angular.module( 'ngBoilerplate.home', [
 /**
  * And of course we define a controller for our route.
  */
-.controller( 'HomeCtrl', function HomeController( $scope, vehicleService ) {
+.controller( 'HomeCtrl', function HomeController( $scope, vehicleService, CDN_URL ) {
 
 
+  $scope.sellForm = CDN_URL + "forms/sell-form.pdf";
+  $scope.reservationForm = CDN_URL + "forms/reservation-form.pdf";
 
- $scope.cars = vehicleService.query(); 
+  $scope.today = new Date();
+
+  $scope.cars = vehicleService.query(); 
 
 
 
