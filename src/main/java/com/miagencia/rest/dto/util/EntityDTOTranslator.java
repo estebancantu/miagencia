@@ -1,10 +1,12 @@
 package com.miagencia.rest.dto.util;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import com.miagencia.core.model.Client;
 import com.miagencia.core.model.Color;
+import com.miagencia.core.model.Dealership;
 import com.miagencia.core.model.Door;
 import com.miagencia.core.model.Expense;
 import com.miagencia.core.model.FuelType;
@@ -40,8 +42,7 @@ public class EntityDTOTranslator {
 	public static Vehicle buildVehicle(VehicleDTO vehicleDto) {
 		
 		Vehicle vehicle = new Vehicle();
-		
-		// TODO chequear que los enums no sean null
+
 		
 		vehicle.setId(vehicleDto.getId());
 		vehicle.setVehicleType(VehicleType.fromString(vehicleDto.getVehicleType()));
@@ -50,7 +51,7 @@ public class EntityDTOTranslator {
 		vehicle.setModelYear(Year.fromString(String.valueOf(vehicleDto.getYear())));
 		vehicle.setPlate(vehicleDto.getPlate());
 		vehicle.setColor(Color.fromString(vehicleDto.getColor()));
-		vehicle.setDoorQuantity(Door.fromString(vehicleDto.getDoors().toString()));
+		vehicle.setDoorQuantity(Door.fromString(vehicleDto.getDoors()));
 		vehicle.setVehicleCondition(VehicleCondition.fromString(vehicleDto.getVehicleCondition()));
 		vehicle.setChassisNumber(vehicleDto.getChassisNumber());
 		vehicle.setEngineNumber(vehicleDto.getEngineNumber());
@@ -58,8 +59,9 @@ public class EntityDTOTranslator {
 		vehicle.setFuelType(FuelType.fromString(vehicleDto.getFuelType()));
 		vehicle.setTransmission(Transmission.fromString(vehicleDto.getTransmissionType()));
 		vehicle.setDescription(vehicleDto.getDescription());
-		vehicle.setVehicleCondition(VehicleCondition.fromString(vehicleDto.getVehicleCondition()));
 		vehicle.setImageUrls(vehicleDto.getImageUrls());
+		
+
 		
 		return vehicle;
 	}
@@ -78,8 +80,15 @@ public class EntityDTOTranslator {
 		vehicleDto.setModel(vehicle.getModelId());
 		vehicleDto.setYear(vehicle.getModelYear().getText());
 		vehicleDto.setPlate(vehicle.getPlate());
-		vehicleDto.setColor(vehicle.getColor().getText());
-		vehicleDto.setDoors(vehicle.getDoorQuantity().getText());
+		
+		if (vehicle.getColor() != null) {
+			vehicleDto.setColor(vehicle.getColor().getText());
+		}
+		
+		if (vehicle.getDoorQuantity() != null) {
+			vehicleDto.setDoors(vehicle.getDoorQuantity().getText());
+		}
+		
 		vehicleDto.setVehicleCondition(vehicle.getVehicleCondition().getText());
 		vehicleDto.setChassisNumber(vehicle.getChassisNumber());
 		vehicleDto.setEngineNumber(vehicle.getEngineNumber());
@@ -110,7 +119,7 @@ public class EntityDTOTranslator {
 	
 
 	
-	public static VehicleSummaryDTO buildVehicleSummaryDTO(Vehicle vehicle, SaleItem saleItem, String make, String model) {
+	public static VehicleSummaryDTO buildVehicleSummaryDTO(Vehicle vehicle, SaleItem saleItem, String make, String model, int paidPrice, List<ExpenseDTO> expenseDtos) {
 		
 		VehicleSummaryDTO vehicleDto = new VehicleSummaryDTO();
 		
@@ -118,11 +127,22 @@ public class EntityDTOTranslator {
 		vehicleDto.setMake(make);
 		vehicleDto.setModel(model);
 		vehicleDto.setYear(vehicle.getModelYear().toString());
+		vehicleDto.setPlate(vehicle.getPlate());
 		vehicleDto.setKilometers(vehicle.getKilometers());
 		vehicleDto.setPrice(saleItem.getSellingPrice());
+		
+		// TODO calcular profit
+		vehicleDto.setProfit(calculateProfit(paidPrice, saleItem.getSellingPrice(), expenseDtos));
+		
 		// devolvemos solo la primera imagen, que es la imagen destacada que se va a mostrar en el home
 		vehicleDto.setImageUrl(vehicle.getImageUrls().get(0));
 		vehicleDto.setImageCount(vehicle.getImageUrls().size());
+		
+		
+		
+		// TODO cuando ande el created at, usar esa fecha. Ver si no hay problema
+		// con el updated time cuando se edita y se guarda un auto.
+		vehicleDto.setDaysInDealership(daysBetween(vehicle.getUpdatedTime(), new Date()));
 	
 		
 		// TODO chequear otros estados, delivered etc
@@ -370,5 +390,21 @@ public class EntityDTOTranslator {
 
 		return expenseDto;
 	}
+	
+	
+	 private static int daysBetween(Date d1, Date d2){
+         return (int)( (d2.getTime() - d1.getTime()) / (1000 * 60 * 60 * 24));
+	 }
+	 
+	 private static int calculateProfit(int paidPrice, int sellingPrice, List<ExpenseDTO> expenseDtos) {
+		 
+		 int totalExpenses = 0;
+		 
+		 for (ExpenseDTO expense : expenseDtos) {			 
+			 totalExpenses = totalExpenses + expense.getCost();
+		 }
+ 
+		 return sellingPrice - ( paidPrice + totalExpenses );
+	 }
 
 }
