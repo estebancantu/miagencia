@@ -31,9 +31,6 @@ public class SaleItem extends PersistableEntity {
 	@Column(name="STATUS", nullable=false)
 	private VehicleStatus status;
 	
-	@Column(name="DAYS_IN_DEALERSHIP")
-	private int daysInDealership;
-	
    /** 
     * Título de propiedad
     */
@@ -78,7 +75,6 @@ public class SaleItem extends PersistableEntity {
 		this.vehicle = vehicle;
 		this.sellingPrice = sellingPrice;
 		this.status = VehicleStatus.AVAILABLE;
-		this.daysInDealership = 0;
 	}
 	
 	public SaleItem(Vehicle vehicle, int sellingPrice, boolean hasRegistration, boolean hasDomainCertificate, 
@@ -87,7 +83,6 @@ public class SaleItem extends PersistableEntity {
 		this.vehicle = vehicle;
 		this.sellingPrice = sellingPrice;
 		this.status = VehicleStatus.AVAILABLE;
-		this.daysInDealership = 0;
 		this.hasRegistration = hasRegistration;
 		this.hasDomainCertificate = hasDomainCertificate;
 		this.taxDebt = taxDebt;
@@ -111,13 +106,6 @@ public class SaleItem extends PersistableEntity {
 		this.status = status;
 	}
 
-	public int getDaysInDealership() {
-		return daysInDealership;
-	}
-
-	public void setDaysInDealership(int daysInDealership) {
-		this.daysInDealership = daysInDealership;
-	}
 
 	public Vehicle getVehicle() {
 		return vehicle;
