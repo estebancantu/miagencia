@@ -12,6 +12,8 @@ public class VehicleSummaryDTO {
 	
 	private String year;
 	
+	private String plate;
+	
 	private Long kilometers;
 	
 	private int price;
@@ -23,10 +25,13 @@ public class VehicleSummaryDTO {
 	private boolean isBooked;
 	
 	private int imageCount;
+	
+	private int daysInDealership;
+	
+	private int profit;
 
 	
-	// images cant, para la camarita que dice cuantas fotos tiene
-	// cuando sea una lista de imagenes
+
 	
 	
 	public Long getId() {
@@ -108,5 +113,30 @@ public class VehicleSummaryDTO {
 	public void setImageCount(int imageCount) {
 		this.imageCount = imageCount;
 	}
+
+	public String getPlate() {
+		return plate;
+	}
+
+	public void setPlate(String plate) {
+		this.plate = plate;
+	}
+
+	public int getDaysInDealership() {
+		return daysInDealership;
+	}
+
+	public void setDaysInDealership(int daysInDealership) {
+		this.daysInDealership = daysInDealership;
+	}
+
+	public int getProfit() {
+		return profit;
+	}
+
+	public void setProfit(int profit) {
+		this.profit = profit;
+	}
+	
 
 }

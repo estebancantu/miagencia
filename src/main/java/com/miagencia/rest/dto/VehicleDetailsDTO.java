@@ -5,6 +5,8 @@ public class VehicleDetailsDTO {
 	
 	private VehicleDTO vehicleDto;
 	
+	private int daysInDealership;
+	
 	private ClientDTO seller;
 	
 	private int sellingPrice;
@@ -68,8 +70,14 @@ public class VehicleDetailsDTO {
 	public void setDealPrice(int dealPrice) {
 		this.dealPrice = dealPrice;
 	}
-	
-	
+
+	public int getDaysInDealership() {
+		return daysInDealership;
+	}
+
+	public void setDaysInDealership(int daysInDealership) {
+		this.daysInDealership = daysInDealership;
+	}
 	
 
 }
