@@ -32,7 +32,7 @@ public class OperationDAOTests {
 		
 		Vehicle vehicle = new Vehicle(VehicleType.CAR, 1, 1, Year.DOS_MIL_CINCO, "AAA123", 
 				Color.VERDE, "12312378", "323432344", 140000l, FuelType.GASOLINE, 
-					Transmission.MANUAL, "Bastante bien", "La Plata", 3, VehicleCondition.NEW);
+					Transmission.MANUAL, "Bastante bien", "Mas o menos.", "La Plata", 3, VehicleCondition.NEW);
 		
 		
 		Client seller = new Client(27528358l, "Esteban", "Cantu","estebancantu@hotmail.com",
