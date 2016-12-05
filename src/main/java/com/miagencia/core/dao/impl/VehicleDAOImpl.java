@@ -53,4 +53,13 @@ public class VehicleDAOImpl implements VehicleDAO {
 		
 	}
 
+
+
+
+	@Override
+	public int countTotalVehicles() {
+		Long count = (Long) sessionFactory.getCurrentSession().createQuery("select count(*) from Vehicle").uniqueResult();
+		return count.intValue();
+	}
+
 }
