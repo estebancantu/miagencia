@@ -17,7 +17,6 @@ public interface VehicleService {
 	public List<VehicleSummaryDTO> getAllVehicles();
 	
 	public void delete(Long vehicleId);
-	
-	//public List<VehicleSummaryDTO> getAllVehiclesOnStock();
+
 
 }
