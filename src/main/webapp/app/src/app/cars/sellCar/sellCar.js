@@ -21,7 +21,7 @@ angular.module( 'ngBoilerplate.sellCar', [
 .controller( 'sellCarCtrl', function AboutCtrl( $scope, $http, clientService, $stateParams, vehicleService, $uibModal, $location, SERVER_URL, CDN_URL) {
 
 
-
+  $scope.disablePrintLink = true;
 
   $scope.carDetailsDto = vehicleService.get({id: $stateParams.carId}, function(result) {
 
@@ -33,7 +33,7 @@ angular.module( 'ngBoilerplate.sellCar', [
   $scope.selectedBuyerId = null;
 
 
-  $scope.sellForm = CDN_URL + "forms/sell-form.pdf";
+  $scope.sellForm =  'http://www.miagenciavirtual.com.ar:8080/miagencia/file/receipt/'+$stateParams.carId;
 
   $scope.buyerList = clientService.query();
 
@@ -73,9 +73,9 @@ angular.module( 'ngBoilerplate.sellCar', [
     .then(function (response) {
 
                 if (response.status == 201) {
-
+                   $scope.disablePrintLink = false;
                    $scope.locationService.path('/home');
-                    $scope.saveSuccessModal();
+                   $scope.saveSuccessModal();
                 }
                 else {
                   /*  $scope.vm.errorMessages = [];

@@ -2,6 +2,7 @@ angular.module( 'ngBoilerplate.carDetails', [
   'vehicleService',
   'broadcastService',
   'ui.router',
+  'broadcastService',
   'placeholders',
   'ui.bootstrap',
   'ngAnimate'
@@ -29,8 +30,7 @@ angular.module( 'ngBoilerplate.carDetails', [
 
 
   $scope.carDetailsDto = vehicleService.get({id: $stateParams.carId}, function(response) {
-
-	var urls = [];
+    var urls = [];
 	urls = response.vehicleDto.imageUrls;
 
 	broadcastService.postInitialProfit(response.sellingPrice - response.dealPrice);
@@ -47,18 +47,24 @@ angular.module( 'ngBoilerplate.carDetails', [
 	}
 
   });
-
-broadcastService.broadcast($stateParams.carId);
-
-
-
-
-
-
-
-
-
-
+  
+  broadcastService.broadcast($stateParams.carId);
+  
+  $scope.downloadReceipt = function () {
+		$http({
+			method: 'GET',
+			url: 'http://www.miagenciavirtual.com.ar:8080//miagencia/file/salesContract/'+$stateParams.carId,
+			headers: {
+				
+				"Content-Type": "application/json",
+				"Accept": "application/msword"
+			}
+		}).success(function(data){
+		}).error(function(){
+		});
+		
+		};
+		
 	$scope.deleteCarModal = function () {
 
 		var modalInstance = $uibModal.open({
@@ -71,8 +77,7 @@ broadcastService.broadcast($stateParams.carId);
 			}
 		});
 	};
-
-
+	
 	$scope.saveSuccessModal = function () {
 
 		var modalInstance = $uibModal.open({
@@ -81,17 +86,10 @@ broadcastService.broadcast($stateParams.carId);
 			controller: 'saveSuccessModalInstanceCtrl'
 		});
 	};
-
-
-
-
-
-  
 })
-
 .$inject = ['$scope', 'broadcastService'];
 
-
+  
 
 angular.module('ngBoilerplate.carDetails').controller('shareModalCtrl', function ($scope, $uibModal) {
 	
@@ -116,6 +114,8 @@ angular.module('ngBoilerplate.carDetails').controller('shareModalCtrl', function
 		$scope.toggleAnimation = function () {
 			$scope.animationsEnabled = !$scope.animationsEnabled;
 		};
+		
+	
 
 });
 
@@ -352,7 +352,6 @@ angular.module('ngBoilerplate.carDetails').controller('shareModalInstanceCtrl', 
 }]);
 
 
-
 angular.module('ngBoilerplate.carDetails').controller('deleteCarModalInstanceCtrl', function ( $scope, $uibModalInstance, $location, $http, SERVER_URL, carId ) {
 
               $scope.cancel = function () {
@@ -389,6 +388,13 @@ angular.module('ngBoilerplate.carDetails').controller('deleteCarModalInstanceCtr
             };
 
   });
+
+
+
+
+
+
+
 
 
 

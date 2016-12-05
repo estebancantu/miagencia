@@ -98,7 +98,7 @@
 			                    <div class="form-group">
 			                      <div class="sell-car-buttons">
 			                      	<!-- <a href="http://localhost:8080/miagencia/pics/legalDocument/boleto-compra-venta-automotor.pdf" type="submit" class="btn btn-default"> -->
-			                     <a href={{sellForm}} target="_blank" class="btn btn-default"> 
+			                     <a ng-disabled="disablePrintLink" href={{sellForm}} download="Se�a" target="_self" class="btn btn-default">
 			                      	Imprimir boleto</a>
 			                        <div class="pull-right">
 			                          <button type="submit" class="btn btn-default" ng-click="cancelModal()">Cancelar</button>
