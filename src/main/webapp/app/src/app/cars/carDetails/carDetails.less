@@ -18,6 +18,7 @@
 }
 
 .black-well {
+    height: 85px;
     background: #242424;
     border: 0px;
     border-radius: 10px 10px 0px 0px;
@@ -30,67 +31,131 @@
     color: #ffffff;
 }
 
+.title-make-and-model {
+    margin-left: 15px;
+}
+
 .black-well h2 .title-make {
     color: #ed382b;
+    padding-left: 9px;
 }
 
 .title-model {
-  font-weight: 200;
+  font-weight: 600;
   display: inline;
+}
+
+.title-year {
+  font-weight: 200;
+  margin-right: 27px;
+  margin-top: 3px;
+  color: #ed382b;
 }
 
 .side-well {
     padding: 0px;
     border: 0px;
     border-radius: 0px;
-    background: #f3f3f3;
-    margin-top: -20px;
+    background: transparent;
+    margin-top: 0px;
 }
 
 .price-well {
     border-radius: 0px;
 }
 
+.details-price-area {
+  padding: 19px;
+  height: 129px;
+ // border: 1px solid white;
+}
+
+.details-status-label {
+  font-size: 1em;
+  font-weight:  200;  
+  float: right;
+  margin-right: 20px;
+}
+
+.big-price {
+  margin-top: 18px;
+  margin-right: 15px;
+  clear: both;
+}
+
 .price-label-details {
-    font-size: 17px;
+    font-size: 15px;
+    padding-right: 6px;
     font-weight: 100;
     color: #667;
-    margin-top: 13px;
-    margin-left: -30px;
-    display: inline;
+    display: block;
 }
 
 .price-details {
-    display: inline;
-    font-size: 30px;
+    font-family: Monserrat, sans-serif;
+    font-size: 1em;
+    font-weight: 700;
+    clear: both;
 }
 
 .carousel {
-    margin-top: -21px !important;
+    margin-top: 0px !important;
+    background-color: black !important;
+    border-top: 5px solid black;
+    border-bottom: 5px solid black;
+    border-radius: 5px;
 }
 
 
-.carousel-container	{
-	height:400px;
-}
 
 .car-thumbs-container {
-    margin-top: -9px;
-    border-radius: 0px;
+    width: 100% !important;
+    margin: 0px !important;
+    border-radius: 7px;
+}
+
+.carousel-container {
+  height:100%;
+}
+
+// Determina la altura final de la foto de la galeria. 
+// La imagen esta a 100%, asi que toma esta altura
+.carousel-inner {
+  height: 421px;
+}
+
+.carousel-inner > .active {
+  height: 100%;
 }
 
 .carousel-image {
-  max-height: 420px;
-  height: 420px;
+  height: 100%;
 }
+
+.operation-label {
+  margin-top: 0px;
+  margin-bottom: 0px; 
+  font-size: 23px;
+}
+
 
 .car-details-panel {
 	margin-bottom: 45px;
+  box-shadow: 6px 5px 16px #D1D0CE;
+}
+
+.operation-details-column {
+  font-size: 16px;
 }
 
 .car-details-panel-title {
-  margin-left: 29px;
-  font-size: 22px;
+    margin-left: 49px;
+    padding-left: 10px;
+    padding-top: 25px;
+    padding-bottom: 19px;
+    font-size: 22px;
+    border-bottom: 1px solid red;
+    width: 85%;
 }
 
 .car-details-panel-first {
@@ -101,21 +166,40 @@
   margin-bottom: 240px;
 }
 
+.car-details-badge {
+  font-size: 15px;
+
+  // esto lo agregue porque parecia caido un poco para abajo ..
+  position:relative;
+  top: -1px;
+}
 
 .carousel {
   margin-top: 40px;
 }
 
 .panel-details-right {
-  margin-top:50px;
-  height: 255px;
+  margin-top:22px;
+  height: 280px;
+}
+
+.panel-details-right-body {
+  width: 90%;
+  margin: auto;
 }
 
 .car-details-buttons {
     text-align: left;
-   text-align: center;
-    font-size: 16px;
-    font-weight: 200;
+    padding-left: 16px;
+} 
+
+.car-details-buttons div {
+   // margin-left: 68px;
+    display: inline;
+}
+
+.alternative-buttons-block {
+  margin-top: 5px;
 }
 
 .car-details-crud-buttons {
@@ -137,7 +221,16 @@
 }
 
 .car-thumbs {
-  margin-bottom: 0px;
+  padding: 0px !important;
+  margin: 0px !important;
+}
+
+.carousel-control .glyphicon-chevron-left {
+  left: 43% !important;
+}
+
+.carousel-control .glyphicon-chevron-right {
+  right: 30% !important;
 }
 
 ul.car-thumbs li {
@@ -148,9 +241,8 @@ ul.car-thumbs li {
 }
 
 ul.car-thumbs img {
-  height: 135px;
   width: 170px;
-  padding: 0.2em;
+
 }
 
 ul.car-thumbs img:hover {
