@@ -28,7 +28,7 @@
 
 
     <!-- font awesome from BootstrapCDN -->
-    <link href="http://netdna.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.css" rel="stylesheet">
+    <link href="http://netdna.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.css" rel="stylesheet">
 
  
     <!-- compiled CSS --><% styles.forEach( function ( file ) { %>
@@ -59,7 +59,7 @@
             <li>
             </li>
             <li>
-              <a class="user-menu" href="#"><i class="fa fa-user fa-lg user-avatar"></i>&nbsp;&nbsp;&nbsp;Zingaro Automotores</a>
+              <a class="user-menu" href="#"><i class="glyphicon glyphicon-user"></i>&nbsp;&nbsp;&nbsp;Zingaro Automotores</a>
             </li>
           </ul>
         </div>
@@ -76,18 +76,18 @@
       
         <!-- sidebar -->
         <!--<div class="sidebar" sidebar-directive="state"> -->
-        <div class="sidebar" ng-class="{'show' : state }" ng-mouseleave="toggleState()">
-            <a id="navigation-toggle" ng-mouseover="showSidebar()"><i class="fa fa-2x"
+        <div class="sidebar navbar navbar-inverse" ng-class="{'show' : state }" ng-mouseover="showSidebar()" ng-mouseleave="hideSidebar()">
+            <a id="navigation-toggle"><i class="fa fa-2x"
               ng-class="{'fa-angle-double-left' : state, 'fa-angle-double-right' : !state}"></i></a>
             <div class="brand">
-              <a href="#menu-toggle" style="visibility:hidden;" class="btn btn-default" id="menu-toggle">Toggle Menu</a>
+              <a href="#menu-toggle" style="visibility:hidden;" class="btn btn-default" id="menu-toggle">Toggle Menu</a> 
             </br>
             </div>
-            <ul class="navigation list-unstyled">
+            <ul class="nav nav-pills nav-stacked sidebar-nav-pills">
               <uib-accordion class="sidebar-menu-entry" close-others="oneAtATime">
                   <uib-accordion-group is-open="false">
                   <uib-accordion-heading>
-                    <a href="#">
+                    <a href="#" class="sidebar-link">
                       <i class="fa fa-cloud-upload"></i>
                       <div class="div-inline"> Nuevo</div>
                       <span class="arrow"></span>
@@ -99,29 +99,29 @@
                   </ul>
                   </uib-accordion-group>
               </uib-accordion>
-              <li>
-                  <a ui-sref="home">
-                    <i class="fa fa-car"></i> Mis Autos
+              <li class="active">
+                  <a ui-sref="home" class="sidebar-link">
+                    <i class="fa fa-car"></i> Mis Autos&nbsp;<span class ="badge pull-right">{{vehiclesCount}}</span>
                   </a>
               </li>
-              <li>
-                  <a ui-sref="clientList">
-                    <i class="fa fa-users"></i>  Mis Contactos
+              <li class="active">
+                  <a ui-sref="clientList" class="sidebar-link">
+                    <i class="glyphicon glyphicon-user"></i>  Mis Contactos&nbsp;<span class ="badge pull-right">{{clientsCount}}</span>
                   </a>
               </li>
-              <li>
+              <li style="display:none;">
                   <a ui-sref="home">
                     <i class="fa fa-car"></i>  Autos para levantar
                   </a>
               </li>
                 
-              <li data-toggle="collapse" data-target="#service" class="collapsed">
+              <li data-toggle="collapse" data-target="#service">
                 <a ui-sref="insuranceQuote" target="_blank">
-                  <i class="fa fa-globe fa-lg"></i> Seguros </a>
+                  <i class="fa fa-lock fa-lg"></i> Seguros </a>
               </li>  
-              <li data-toggle="collapse" data-target="#new" class="collapsed">
+              <li style="display:none;" data-toggle="collapse" data-target="#new" class="collapsed">
                   <a ui-sref="insuranceQuote">
-                    <i class="fa fa-bar-chart fa-lg"></i> Prendas 
+                    <i class="fa fa-handshake-o fa-lg"></i> Prendas 
                   </a>
               </li>
             </ul>
