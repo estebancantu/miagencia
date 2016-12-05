@@ -23,5 +23,7 @@ public interface ClientDAO {
 	
 	public List<Client> getAllClients();
 	
+	public int countTotalClients();
+	
 
 }

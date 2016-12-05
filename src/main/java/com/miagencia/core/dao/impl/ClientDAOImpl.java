@@ -79,4 +79,10 @@ public class ClientDAOImpl implements ClientDAO {
 		return sessionFactory.getCurrentSession().createQuery("from Client").list();
 	}
 
+	@Override
+	public int countTotalClients() {
+		Long count = (Long) sessionFactory.getCurrentSession().createQuery("select count(*) from Client").uniqueResult();
+		return count.intValue();
+	}
+
 }
