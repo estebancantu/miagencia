@@ -2,6 +2,7 @@ angular.module('ngBoilerplate.newCar', [
   'ui.router',
   'makeAndModelsServices',
   'clientService',
+  'vehicleService',
   'ngFileUpload',
   'ngImgCrop'
 
@@ -23,7 +24,7 @@ angular.module('ngBoilerplate.newCar', [
 })
 
 
-.controller('newCarCtrl', function AboutCtrl($scope, $http, MakesAndModels, clientService, Upload, $timeout, $uibModal, $location, $stateParams, SERVER_URL, CDN_URL) {
+.controller('newCarCtrl', function AboutCtrl($scope, $http, MakesAndModels, clientService, vehicleService, Upload, $timeout, $uibModal, $location, $stateParams, SERVER_URL, CDN_URL) {
 
 
 
@@ -35,11 +36,32 @@ angular.module('ngBoilerplate.newCar', [
 
   $scope.newCar = null;
 
+  $scope.carIsNew = true;
+
+  if( $stateParams.carId !== "" ) {
+
+      $scope.newCar = vehicleService.get({id:$stateParams.carId} );
+      $scope.carIsNew = false;
+
+  }
+
+
+
   $scope.seller = null;
 
   $scope.opType = 'BUY';
 
-  $scope.availableVehicles = MakesAndModels.query();
+  $scope.showSpinner = true;  
+
+  MakesAndModels.query(function(data) {
+
+      $scope.availableVehicles = data;
+      $scope.showSpinner = false;
+
+  });
+
+
+
 
   $scope.vehicleConditions = [
     "Nuevo", 
@@ -141,9 +163,14 @@ angular.module('ngBoilerplate.newCar', [
         
     };
 
-    // TODO modificar para que sea una lista
-    newVehicleRequestDto.vehicleDto.imageUrls = $scope.imageUrl;
+    // Si no se subio ninguna imagen para ese vehiculo, poner una imagen por defecto
+    if ($scope.imageUrl.length === 0) {
 
+      $scope.imageUrl.push(CDN_URL + "imagen-default.jpg");
+    }
+
+
+    newVehicleRequestDto.vehicleDto.imageUrls = $scope.imageUrl;
 
 
     $http({
