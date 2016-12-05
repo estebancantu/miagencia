@@ -34,7 +34,7 @@ public class SaleItemDAOTests {
 		
 		Vehicle newVehicle = new Vehicle(VehicleType.CAR, 1, 1, Year.DOS_MIL_CINCO, "ABC123", 
 			Color.AMARILLO, "12345678", "323432344", 140000l, FuelType.GASOLINE, 
-				Transmission.MANUAL, "Un lindo auto", "Buenos Aires", 3, VehicleCondition.NEW);
+				Transmission.MANUAL, "Un lindo auto", "Problemas de motor.", "Buenos Aires", 3, VehicleCondition.NEW);
 		
 		SaleItem saleItem = new SaleItem(newVehicle, 120000);
 		
