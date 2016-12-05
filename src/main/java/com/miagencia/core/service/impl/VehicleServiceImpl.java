@@ -24,6 +24,7 @@ import com.miagencia.core.service.ExpenseService;
 import com.miagencia.core.service.VehicleService;
 import com.miagencia.rest.dto.ExpenseDTO;
 import com.miagencia.rest.dto.VehicleDetailsDTO;
+import com.miagencia.rest.dto.VehicleOperationDTO;
 import com.miagencia.rest.dto.VehicleSummaryDTO;
 import com.miagencia.rest.dto.util.EntityDTOTranslator;
 
@@ -70,6 +71,10 @@ public class VehicleServiceImpl implements VehicleService {
 		VehicleOperation newVehicleOperation = null;
 		
 		
+		List<VehicleOperationDTO> vehicleOperationDtos;
+		
+		
+		vehicleOperationDtos = EntityDTOTranslator.buildVehicleOperationDtos(operations);
 		
 		for (Iterator iterator = operations.iterator(); iterator.hasNext();) {
 			VehicleOperation vehicleOperation = (VehicleOperation) iterator
@@ -94,7 +99,7 @@ public class VehicleServiceImpl implements VehicleService {
 		SaleItem saleItem = saleItemDao.getSaleItemByVehicleId(vehicleId);
 
 
-		VehicleDetailsDTO vehicleDetailsDto = EntityDTOTranslator.buildVehicleDetailsDTO(vehicle, newVehicleOperation, saleItem, makeString, modelString, codInfoauto);
+		VehicleDetailsDTO vehicleDetailsDto = EntityDTOTranslator.buildVehicleDetailsDTO(vehicle, newVehicleOperation, saleItem, makeString, modelString, codInfoauto, vehicleOperationDtos);
 
 		return vehicleDetailsDto;
 	}
@@ -174,5 +179,8 @@ public class VehicleServiceImpl implements VehicleService {
 			// borrar el vehiculo aca usando el vehicleDao.delete(vehicleId);
 		
 	}
+
+
+
 
 }

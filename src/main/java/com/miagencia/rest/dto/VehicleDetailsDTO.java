@@ -1,5 +1,7 @@
 package com.miagencia.rest.dto;
 
+import java.util.List;
+
 public class VehicleDetailsDTO {
 	
 	
@@ -16,8 +18,9 @@ public class VehicleDetailsDTO {
 	private boolean isSold;
 	
 	private boolean isBooked;
+	
+	private List<VehicleOperationDTO> operations;
 
-	// TODO falta lo de gastos
 	
 	
 	
@@ -78,6 +81,14 @@ public class VehicleDetailsDTO {
 	public void setDaysInDealership(int daysInDealership) {
 		this.daysInDealership = daysInDealership;
 	}
-	
+
+	public List<VehicleOperationDTO> getOperations() {
+		return operations;
+	}
+
+	public void setOperations(List<VehicleOperationDTO> operations) {
+		this.operations = operations;
+	}
+
 
 }

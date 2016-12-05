@@ -32,6 +32,7 @@ import com.miagencia.rest.dto.MakeDTO;
 import com.miagencia.rest.dto.ModelDTO;
 import com.miagencia.rest.dto.VehicleDTO;
 import com.miagencia.rest.dto.VehicleDetailsDTO;
+import com.miagencia.rest.dto.VehicleOperationDTO;
 import com.miagencia.rest.dto.VehicleSummaryDTO;
 import com.miagencia.rest.dto.operations.NewVehicleRequestDTO;
 import com.miagencia.rest.dto.operations.ReserveVehicleRequestDTO;
@@ -58,7 +59,8 @@ public class EntityDTOTranslator {
 		vehicle.setKilometers(vehicleDto.getKilometers());
 		vehicle.setFuelType(FuelType.fromString(vehicleDto.getFuelType()));
 		vehicle.setTransmission(Transmission.fromString(vehicleDto.getTransmissionType()));
-		vehicle.setDescription(vehicleDto.getDescription());
+		vehicle.setPublicDescription(vehicleDto.getPublicDescription());
+		vehicle.setPrivateDescription(vehicleDto.getPrivateDescription());
 		vehicle.setImageUrls(vehicleDto.getImageUrls());
 		
 
@@ -107,7 +109,8 @@ public class EntityDTOTranslator {
 			vehicleDto.setTransmissionType(Transmission.NOT_SPECIFIED.getText());
 		}
 		
-		vehicleDto.setDescription(vehicle.getDescription());
+		vehicleDto.setPublicDescription(vehicle.getPublicDescription());
+		vehicleDto.setPrivateDescription(vehicle.getPrivateDescription());
 		
 		for(String imageUrl: vehicle.getImageUrls()) {
 			vehicleDto.getImageUrls().add(imageUrl);
@@ -126,7 +129,7 @@ public class EntityDTOTranslator {
 		vehicleDto.setId(vehicle.getId());
 		vehicleDto.setMake(make);
 		vehicleDto.setModel(model);
-		vehicleDto.setYear(vehicle.getModelYear().toString());
+		vehicleDto.setYear(vehicle.getModelYear().getText());
 		vehicleDto.setPlate(vehicle.getPlate());
 		vehicleDto.setKilometers(vehicle.getKilometers());
 		vehicleDto.setPrice(saleItem.getSellingPrice());
@@ -160,7 +163,8 @@ public class EntityDTOTranslator {
 	
 	
 	
-	public static VehicleDetailsDTO buildVehicleDetailsDTO(Vehicle vehicle, VehicleOperation operation, SaleItem saleItem, String makeString, String modelString, Long codInfoauto) {
+	public static VehicleDetailsDTO buildVehicleDetailsDTO(Vehicle vehicle, VehicleOperation operation, SaleItem saleItem,
+			String makeString, String modelString, Long codInfoauto, List<VehicleOperationDTO> operationDtos) {
 		
 		
 		
@@ -198,7 +202,58 @@ public class EntityDTOTranslator {
 		vehicleDetailsDto.setVehicleDto(vehicleDto);
 		vehicleDetailsDto.setSeller(clientDto);
 		
+		
+		vehicleDetailsDto.setOperations(operationDtos);
+		
 		return vehicleDetailsDto;
+	}
+	
+	
+	public static List<VehicleOperationDTO> buildVehicleOperationDtos(List<VehicleOperation> vehicleOperations) {
+		
+		List<VehicleOperationDTO> operationDtos = new ArrayList<VehicleOperationDTO>();
+		
+		
+		for (VehicleOperation operation: vehicleOperations) {
+			
+			
+			VehicleOperationDTO operationDto = new VehicleOperationDTO();
+			
+			Client client = operation.getClient();
+			
+			operationDto.setDate(operation.getUpdatedTime()); // TODO cuando ande cambiar por CREATED_AT
+			
+			operationDto.setClientId(String.valueOf(client.getId()));
+			operationDto.setClientName(client.getFirstName() + " " + client.getLastName());
+			
+			if(operation.getClass().equals(BuyOperation.class)) {
+				operationDto.setOperationType(VehicleOperation.BUY);
+				operationDto.setBuyOperationPaidAmount(String.valueOf(((BuyOperation)operation).getPaidAmount()));
+			} else
+				
+			if (operation.getClass().equals(ConsignmentOperation.class)) {
+				operationDto.setOperationType(VehicleOperation.CONSIGNMENT);
+				operationDto.setConsignmentOperationDealPrice(String.valueOf(((ConsignmentOperation)operation).getDealPrice()));
+			} else 
+				
+			if (operation.getClass().equals(ReservationOperation.class)) {
+				operationDto.setOperationType(VehicleOperation.RESERVATION);
+				operationDto.setReservationOperationAdvancePayment(String.valueOf(((ReservationOperation)operation).getAdvancePayment()));
+			} else 
+			
+			if (operation.getClass().equals(SaleOperation.class)) {
+				operationDto.setOperationType(VehicleOperation.SALE);
+				operationDto.setSaleOperationSaleAmount(String.valueOf(((SaleOperation)operation).getSellingAmount()));
+			} 
+			
+			operationDtos.add(operationDto);
+			
+		}
+		
+		
+		
+		return operationDtos;	
+		
 	}
 	
 	
