@@ -1,324 +1,422 @@
 <div class="container-fluid padding-right-45" ng-controller="carDetailsCtrl">
 
-	<div>
+
+		<!-- Banner marca y modelo -->
 		<div class="row">
 			<div class="col-sm-12">
 				<div class="well well-sm black-well">
-					<div class="container">
-						<div class="col-sm-8">
+
+						<div class="col-sm-10">
 							<h2>
 								<span class="title-make">{{carDetailsDto.vehicleDto.makeString}}</span>&nbsp;
-								<div class="title-model">{{carDetailsDto.vehicleDto.modelString | capitalize}}&nbsp;{{carDetailsDto.vehicleDto.plate}}</div>
+								<div class="title-model">{{carDetailsDto.vehicleDto.modelString | removeString: carDetailsDto.vehicleDto.makeString | capitalize}}</div>
 							</h2>
 						</div>
-						<div class="col-sm-4">
-							<!--<h3><span class="label label-danger">2012</span></h3> -->
+						<div class="col-sm-2">
+							<h3><span class="title-year pull-right">{{carDetailsDto.vehicleDto.kilometers}}&nbsp;&nbsp;|&nbsp;&nbsp;{{carDetailsDto.vehicleDto.year}}</span></h3>
 						</div>
-					</div>
+
 				</div>
 			</div>
 		</div>
 
 		<div class="row">
 			<div class="col-sm-8">
-				<carousel interval="setInterval"> <slide
+				<!-- carousel -->
+				<carousel interval="setInterval"> 
+					<slide
 					ng-repeat="slide in slides">
-				<div class="carousel-container img-polaroid">
-					<img class="carousel-image img-polaroid" ng-src="{{slide.image}}" />
-					<div class="carousel-caption"></div>
-				</div>
-				</slide> </carousel>
-				</br>
-				<div class="well car-thumbs-container">
-					<ul class="car-thumbs">
-						<li ng-repeat="slide in slides"><img ng-src="{{slide.image}}"
-							ng-click="setImage(slide.image)"></li>
-					</ul>
-				</div>
+						<div class="carousel-container img-polaroid">
+							<img class="carousel-image img-polaroid" ng-src="{{slide.image}}" />
+							<div class="carousel-caption"></div>
+						</div>
+					</slide> 
+				</carousel>
 				&nbsp;
-
-				<!-- Panel de detalles del auto -->
-				<div
-					class="panel panel-default panel-default-shadow car-details-panel car-details-panel-first">
-
-					<div class="panel-heading">
-						<h4 class="car-details-panel-title">Datos del Veh&iacute;culo</h4>
-					</div>
-
-					<div class="panel-body">
-						<div class="tab-content">
-							<div class="tab-pane fade in active" id="tab1default">
-								<div class="col-md-12 no-padding features">
-									<div class="col-md-4 no-padding m-b-md">
-										<div class="col-md-10 no-padding">
-											<small class="text-muted">Marca</small>
-											<div class="h4 no-margin-top fw-400">
-												{{carDetailsDto.vehicleDto.makeString | capitalize}}</div>
-										</div>
-									</div>
-									<div class="col-md-4 no-padding m-b-md">
-										<div class="col-md-10 no-padding">
-											<small class="text-muted">Modelo</small>
-											<div class="h4 no-margin-top fw-400">
-												{{carDetailsDto.vehicleDto.modelString | capitalize}}</div>
-										</div>
-									</div>
-									<div class="col-md-4 no-padding m-b-md">
-										<div class="col-md-10 no-padding">
-											<small class="text-muted">A&ntilde;o</small>
-											<div class="h4 no-margin-top fw-400">
-												{{carDetailsDto.vehicleDto.year}}</div>
-										</div>
-									</div>
-
-								   	 <div class="col-md-4 no-padding m-b-md">
-
-										<div class="col-md-10 no-padding">
-											<small class="text-muted">Kilometraje</small>
-											<div class="h4 no-margin-top fw-400">{{
-												carDetailsDto.vehicleDto.kilometers | number }} Km.</div>
-										</div>
-									</div>
-									<div class="col-md-4 no-padding m-b-md">
-
-										<div class="col-md-10 no-padding">
-											<small class="text-muted">Color</small>
-
-											<div class="h4 no-margin-top fw-400">
-												{{carDetailsDto.vehicleDto.color}}
-											</div>
-										</div>
-									</div>
-									<div class="col-md-4 no-padding m-b-md">
-
-										<div class="col-md-10 no-padding">
-											<small class="text-muted">Código de Info Auto</small>
-											<div class="h4 no-margin-top fw-400">
-												{{carDetailsDto.vehicleDto.codInfoauto}}
-											</div>
-
-										</div>
-									</div>
-								</div>
-							</div>
-							<div class="tab-pane fade" id="tab2default">
-								<div class="col-md-12 no-padding features">
-									<hr class="m-t-xs">
-								</div>
-							</div>
-							<div class="tab-pane fade" id="tab3default">Default 3</div>
-							<div class="tab-pane fade" id="tab4default">Default 4</div>
-							<div class="tab-pane fade" id="tab5default">Default 5</div>
-						</div>
-					</div>
-				</div>
-
-
-
-				<div class="panel panel-default panel-default-shadow car-details-panel">
-
-					<div class="panel-heading">
-						<h4 class="car-details-panel-title">Datos del Vendedor</h4>
-					</div>
-
-					<div class="panel-body">
-						<div class="tab-content">
-							<div class="tab-pane fade in active" id="tab1default">
-								<div class="col-md-12 no-padding features">
-									<div class="col-md-4 col-sm-6 col-xs-12 no-padding m-b-md">
-										<div class="col-md-10 no-padding">
-											<small class="text-muted">Nombre</small>
-											<div class="h4 no-margin-top fw-400">
-												{{carDetailsDto.seller.firstName}}&nbsp;
-												{{carDetailsDto.seller.lastName}}</div>
-										</div>
-									</div>
-									<div class="col-md-4 col-sm-6 col-xs-12 no-padding m-b-md">
-										<div class="col-md-10 no-padding">
-											<small class="text-muted">Direcci&oacute;n</small>
-											<div class="h4 no-margin-top fw-400">
-												{{carDetailsDto.seller.address}}</div>
-										</div>
-									</div>
-									<div class="col-md-4 col-sm-6 col-xs-12 no-padding m-b-md">
-										<div class="col-md-10 no-padding">
-											<small class="text-muted">Localidad</small>
-											<div class="h4 no-margin-top fw-400">
-												{{carDetailsDto.seller.city}}</div>
-										</div>
-									</div>
-									<div class="col-md-4 col-sm-6 col-xs-12 no-padding m-b-md">
-										<div class="col-md-10 no-padding">
-											<small class="text-info">Provincia</small>
-											<div class="h4 no-margin-top fw-400">
-												{{carDetailsDto.seller.province}}</div>
-										</div>
-									</div>
-									<div class="col-md-4 col-sm-6 col-xs-12 no-padding m-b-md">
-										<div class="col-md-10 no-padding">
-											<small class="text-muted">Tel&eacute;fono fijo</small>
-											<div class="h4 no-margin-top fw-400">
-												{{carDetailsDto.seller.phone | tel }}</div>
-										</div>
-									</div>
-									<div class="col-md-4 col-sm-6 col-xs-12 no-padding m-b-md">
-										<div class="col-md-10 no-padding">
-											<small class="text-muted">Tel&eacute;fono
-												m&oacute;vil</small>
-											<div class="h4 no-margin-top fw-400">
-												{{carDetailsDto.seller.mobile | tel }}</div>
-										</div>
-									</div>
-								</div>
-							</div>
-							<div class="tab-pane fade" id="tab2default">
-								<div class="col-md-12 no-padding features">
-									<hr class="m-t-xs">
-								</div>
-							</div>
-							<div class="tab-pane fade" id="tab3default">Default 3</div>
-							<div class="tab-pane fade" id="tab4default">Default 4</div>
-							<div class="tab-pane fade" id="tab5default">Default 5</div>
-						</div>
-					</div>
-				</div>
-					
-				
 			</div>
 
+
 			<div class="col-sm-4">
+
+				<!-- Precio y botonera principal -->
 				<div class="well side-well">
-					<div class="well price-well price-area">
-						<h1 class="text-center">
-							<div class="price-label-details">Precio</div>
+
+					<div class="well price-well details-price-area">
+						<div ng-show="!carDetailsDto.booked && !carDetailsDto.sold" class="label label-info details-status-label">En venta</div>
+						<div ng-show="carDetailsDto.booked" class="label label-primary details-status-label">Reservado</div>
+						<div ng-show="carDetailsDto.sold" class="label label-success details-status-label">Vendido</div>
+						<h1 class="big-price pull-right">
+							<div class="price-label-details pull-right">Precio</div>
 							<div class="price-details">$ {{carDetailsDto.sellingPrice |
 								number }}</div>
 						</h1>
 					</div>
+
 					<div class="panel panel-default panel-details-right">
-						<div class="panel-body">
-							<a ui-sref="sellCar({carId:carDetailsDto.vehicleDto.id})"
-								ng-hide="carDetailsDto.sold"
-								class="btn btn-danger btn-lg btn-block" role="button">
+							<div class="panel-body panel-details-right-body">
+
+							<!-- Boton Vender -->
+							<a ui-sref="sellCar({carId:carDetailsDto.vehicleDto.id})" ng-class="{'disabled': carDetailsDto.sold}" class="btn btn-danger btn-lg btn-block" role="button" style="margin-top:26px;">
 								<div class="car-details-buttons">
-									<i class="fa fa-usd"></i> Vender
+									<i class="glyphicon glyphicon-usd"></i><div>&nbsp;Vender</div>
 								</div>
-							</a> <a ui-sref="reserveCar({carId:carDetailsDto.vehicleDto.id})"
-								ng-hide="carDetailsDto.booked || carDetailsDto.sold"
-								class="btn btn-primary btn-lg btn-block" role="button">
+							</a>
+
+						<div class="alternative-buttons-block">
+							<!-- Boton Reservar -->
+							<a ui-sref="reserveCar({carId:carDetailsDto.vehicleDto.id})" ng-class="{'disabled': carDetailsDto.booked || carDetailsDto.sold}" class="btn btn-primary btn-lg btn-block" role="button">
 								<div class="car-details-buttons">
-									<i class="fa fa-lock"></i> Reservar
+									<i class="fa fa-lock"></i><div>&nbsp;&nbsp;Reservar</div>
 								</div>
-							        <a ui-sref="insuranceQuote({carId:carDetailsDto.vehicleDto.id})"  class="btn btn-primary btn-lg btn-block" role="button">
-							        	<div class="car-details-buttons">
-							        		<i class="fa fa-globe"></i> Calcular Seguro
-							        	</div>
-							        </a> 
-							        <a ui-sref="insuranceQuote" class="btn btn-primary btn-lg btn-block" role="button" target="_blank">
-							        	<div class="car-details-buttons">
-							        		<i class="fa fa-bar-chart"></i> Calcular Prenda
-							        	</div>
-							        </a>
-							<div ng-click="open()" ng-controller="shareModalCtrl"
-								ng-hide="carDetailsDto.booked || carDetailsDto.sold" 
-								class="car-details-buttons btn btn-primary btn-lg btn-block"
-								id="shareDiv"> 
-								<i class="fa fa-bar-chart"></i> Publicar
+							</a>
+
+							<!-- Boton Calcular Seguro -->
+							<a ui-sref="insuranceQuote({carId:carDetailsDto.vehicleDto.id})"  class="btn btn-primary btn-lg btn-block" role="button">
+							 <div class="car-details-buttons">
+							  <i class="fa fa-lock"></i><div>&nbsp;&nbsp;Calcular Seguro</div>
+							 </div>
+							</a> 
+
+							<!-- Boton Calcular Prenda -->
+							<a ui-sref="insuranceQuote" class="btn btn-primary btn-lg btn-block disabled" style="display:none;" role="button" target="_blank">
+							 <div class="car-details-buttons">
+							   <i class="fa fa-bar-chart"></i><div>&nbsp;Calcular Prenda</div>
+							 </div>
+							</a>
+
+							<!-- Boton Publicar -->
+							<div ng-click="open()" ng-controller="shareModalCtrl" ng-class="{'disabled': carDetailsDto.booked || carDetailsDto.sold}" class="btn btn-primary btn-lg btn-block" id="shareDiv"> 
+								<div class="car-details-buttons">
+										<i class="glyphicon glyphicon-share-alt"></i><div>&nbsp;Publicar</div>
+								</div>
 								<script type="text/ng-template" id="shareModal.html">
 									  <div class="modal-header">
-            							<h4 style="color: black">Seleccione</h4>
-       								 </div>
-                                      <div class="modal-body modal-options">
-										<a id="facebookBtn" role="button" ng-click="loginFacebook()"
-											class="btn btn-block btn-social btn-facebook"> 
-											<span class="fa fa-facebook"></span> Facebook
-										</a>
-                                        <a id="mercadolibreBtn" ng-click="loginMercadoLibre()" style="background-color: yellow; color: black; font-weight:600" 
-											class="btn btn-block btn-social" > 
-											<span style=""></span> Mercadolibre
-										</a>
-										<a id="olxBtn" style="background-color: grey; color: black; font-weight:600" ng-click="postOLX()"
-											class="btn btn-block btn-social "> 
-											<span class=""></span> OLX
-										</a>
-										<a id="autocosmosBtn" style="display:none;background-color: rgba(100,100,100,.6); color: black; font-weight:600"
-											ng-click="postAutocosmos()" 
-											class="btn btn-block btn-social "> 
-											<span class=""></span> Autocosmos
-										</a>
+            		<h4 style="color: black">Seleccione</h4>
+       				</div>
+           <div class="modal-body modal-options">
+													<a id="facebookBtn" role="button" ng-click="loginFacebook()" class="btn btn-block btn-social btn-facebook"> 
+														<span class="fa fa-facebook"></span> Facebook
+													</a>
+
+	            <a id="mercadolibreBtn" ng-click="loginMercadoLibre()" style="background-color: yellow; color: black; font-weight:600"  class="btn btn-block btn-social" > 
+														<span style=""></span> Mercadolibre
+													</a>
+
+													<a id="olxBtn" style="background-color: grey; color: black; font-weight:600" ng-click="postOLX()" class="btn btn-block btn-social "> 
+														<span class=""></span> OLX
+													</a>
+
+													<a id="autocosmosBtn" style="display:none;background-color: rgba(100,100,100,.6); color: black; font-weight:600" ng-click="postAutocosmos()"  class="btn btn-block btn-social "> 
+														<span class=""></span> Autocosmos
+													</a>
 										</div>
-										  <div class="modal-footer" style="margin-top:0px; text-align=right;">
-								            <button class="btn btn-warning" type="button" ng-click="cancel()">Cancelar</button>
-								         </div>		
-										</div>
-								</script>
-								<script type="text/ng-template" id="shareSuccessContent.html">
-								   	  <div class="modal-success-{{dialogSize}}" style="padding:25px 10px 10px 10px" >
-									  	<strong>{{successTextAlert}}</strong> <br>
-										<label ng-hide="hideOLXCopyLink"><strong>{{oLXLink}}</strong> </label>
-									    <div class="modal-footer"   style="margin-top:20px; padding:10px 10px 5px 0px">
-											<div style="float:left">
-											<img  src="./assets/logo_mini.png"  style="margin-right:5px"/> 
-											<label style="font-weight: normal; font-size:small; margin-top:5px; margin-left:5px;margin-right: 20px;" aling="left">AGENCIA <strong>VIRTUAL</strong></label>
-											</div>
-											<div style="float:right">
-											<button ng-hide="hideOLXCopyLink" type="button" class="btn btn-warning" ng-click="goToOLX()">
-    											Ir a OLX
-											</button>
-								      		<button  class="btn btn-warning" type="button" ng-click="cancelSuccess()">Aceptar</button>
-											</div>
-  									 	 </div>		
+										<div class="modal-footer" style="margin-top:0px; text-align=right;">
+								     <button class="btn btn-warning" type="button" ng-click="cancel()">Cancelar</button>
+								  </div>		
+
+								</script> 
+							</div> <!-- fin boton publicar -->
+						</div> <!-- fin alternative-buttons-block -->
+
+						<!-- Ventana modal Success Share -->
+						<script type="text/ng-template" id="shareSuccessContent.html">
+								 <div class="modal-success-{{dialogSize}}" style="padding:25px 10px 10px 10px">
+									  	<strong>{{successTextAlert}}</strong>
+									  	<br>
+												<label ng-hide="hideOLXCopyLink">
+														<strong>{{oLXLink}}</strong>
+												</label>
+									  <div class="modal-footer" style="margin-top:20px; padding:10px 10px 5px 0px">
+													<div style="float:left">
+															<img  src="./assets/logo_mini.png"  style="margin-right:5px"/> 
+															<label style="font-weight: normal; font-size:small; margin-top:5px; margin-left:5px;margin-right: 20px;" aling="left">AGENCIA <strong>VIRTUAL</strong></label>
+													</div>
+													<div style="float:right">
+															<button ng-hide="hideOLXCopyLink" type="button" class="btn btn-warning" ng-click="goToOLX()">Ir a OLX</button>
+												   <button  class="btn btn-warning" type="button" ng-click="cancelSuccess()">Aceptar</button>
+													</div>
+  									</div>		
 									</div>
 								</script>
+
 							</div>
-							<!--a class="btn btn-primary btn-lg btn-block" role="button" href="http://www.miagenciavirtual.com.ar:8080/miagencia/file/receipt/1"  download="Se�a" target="_self">
-							    <div class="car-details-buttons">
-							        <i class="fa fa-bar-chart"></i> Descargar Se&#241;a
-							    </div>
-							</a-->
-							<!--a class="btn btn-primary btn-lg btn-block" role="button" href="http://www.miagenciavirtual.com.ar:8080/miagencia/file/salesContract/1"  download="Boleto.doc" target="_self">
-							    <div class="car-details-buttons">
-							        <i class="fa fa-bar-chart"></i> Descargar Boleto Compra/Venta
-							    </div>
-							</a-->
+						</div>
+					</div>
+				</div>
+		</div> <!-- fin row -->
+
+
+
+
+
+				<!-- thumbnails -->
+				<div class="row">
+					<div class="col-sm-8">
+						<div class="well car-thumbs-container">
+							<ul class="car-thumbs">
+								<li ng-repeat="slide in slides"><img ng-src="{{slide.image}}"
+									ng-click="setImage(slide.image)"></li>
+							</ul>
+						</div>
+					</div>
+				</div>
+
+				<!-- Panel Datos del auto -->
+				<div class="row">
+					<div class="col-sm-8">
+						<div class="panel panel-default panel-default-shadow car-details-panel car-details-panel-first">
+
+							<div>
+								<h4 class="car-details-panel-title">Datos del Veh&iacute;culo</h4>
 							</div>
+
+							<div class="panel-body">
+								<div class="tab-content">
+									<div class="tab-pane fade in active" id="tab1default">
+										<div class="col-md-12 no-padding features">
+											<div class="col-md-4 no-padding m-b-md">
+												<div class="col-md-10 no-padding">
+													<small class="text-muted">Marca</small>
+													<div class="h4 no-margin-top fw-400">
+														{{carDetailsDto.vehicleDto.makeString | capitalize}}</div>
+												</div>
+											</div>
+											<div class="col-md-4 no-padding m-b-md">
+												<div class="col-md-10 no-padding">
+													<small class="text-muted">Modelo</small>
+													<div class="h4 no-margin-top fw-400">
+														{{carDetailsDto.vehicleDto.modelString | capitalize}}</div>
+												</div>
+											</div>
+											<div class="col-md-4 no-padding m-b-md">
+												<div class="col-md-10 no-padding">
+													<small class="text-muted">A&ntilde;o</small>
+													<div class="h4 no-margin-top fw-400">
+														{{carDetailsDto.vehicleDto.year}}</div>
+												</div>
+											</div>
+
+										   	 <div class="col-md-4 no-padding m-b-md">
+
+												<div class="col-md-10 no-padding">
+													<small class="text-muted">Kilometraje</small>
+													<div class="h4 no-margin-top fw-400">{{
+														carDetailsDto.vehicleDto.kilometers | number }} Km.</div>
+												</div>
+											</div>
+											<div class="col-md-4 no-padding m-b-md">
+
+												<div class="col-md-10 no-padding">
+													<small class="text-muted">Color</small>
+
+													<div class="h4 no-margin-top fw-400">
+														{{carDetailsDto.vehicleDto.color}}
+													</div>
+												</div>
+											</div>
+											<div class="col-md-4 no-padding m-b-md">
+
+												<div class="col-md-10 no-padding">
+													<small class="text-muted">Código de Info Auto</small>
+													<div class="h4 no-margin-top fw-400">
+														{{carDetailsDto.vehicleDto.codInfoauto}}
+													</div>
+
+												</div>
+											</div>
+										</div>
+									</div>
+									<div class="tab-pane fade" id="tab2default">
+										<div class="col-md-12 no-padding features">
+											<hr class="m-t-xs">
+										</div>
+									</div>
+									<div class="tab-pane fade" id="tab3default">Default 3</div>
+									<div class="tab-pane fade" id="tab4default">Default 4</div>
+									<div class="tab-pane fade" id="tab5default">Default 5</div>
+								</div>
+							</div>
+						</div>		
+					</div>
+				</div>
+				<!-- Fin Datos del auto -->
+
+
+
+			<!-- Datos Adicionales -->
+			<div class="row">
+				<div class="col-sm-8">
+				<div class="panel panel-default panel-default-shadow car-details-panel">
+
+					<div>
+						<h4 class="car-details-panel-title">Datos Adicionales</h4>
+					</div>
+
+					<div class="panel-body">
+						<div class="tab-content">
+							<div class="tab-pane fade in active" id="tab1default">
+								<div class="col-md-12 no-padding features">
+									<div class="col-md-4 col-sm-6 col-xs-12 no-padding m-b-md">
+										<div class="col-md-10 no-padding">
+											<small class="text-muted">Condici&oacute;n</small>
+											<div class="h4 no-margin-top fw-400">
+												{{carDetailsDto.vehicleDto.vehicleCondition}}</div>
+										</div>
+									</div>
+									<div class="col-md-4 col-sm-6 col-xs-12 no-padding m-b-md">
+										<div class="col-md-10 no-padding">
+											<small class="text-muted">Combustible</small>
+											<div class="h4 no-margin-top fw-400">
+												{{carDetailsDto.vehicleDto.fuelType}}</div>
+										</div>
+									</div>
+									<div class="col-md-4 col-sm-6 col-xs-12 no-padding m-b-md">
+										<div class="col-md-10 no-padding">
+											<small class="text-muted">Transmisi&oacute;n</small>
+											<div class="h4 no-margin-top fw-400">
+												{{carDetailsDto.vehicleDto.transmissionType}}</div>
+										</div>
+									</div>
+									<div class="col-md-4 col-sm-6 col-xs-12 no-padding m-b-md">
+										<div class="col-md-10 no-padding">
+											<small class="text-info">Cantidad de Puertas</small>
+											<div class="h4 no-margin-top fw-400">
+												{{carDetailsDto.vehicleDto.doors}}</div>
+										</div>
+									</div>
+									<div class="col-md-4 col-sm-6 col-xs-12 no-padding m-b-md">
+										<div class="col-md-10 no-padding">
+											<small class="text-muted">N&uacute;mero de patente</small>
+											<div class="h4 no-margin-top fw-400">
+												{{carDetailsDto.vehicleDto.plate}}</div>
+										</div>
+									</div>
+									<div class="col-md-4 col-sm-6 col-xs-12 no-padding m-b-md">
+										<div class="col-md-10 no-padding">
+											<small class="text-muted">N&uacute;mero de chasis</small>
+											<div class="h4 no-margin-top fw-400">
+												{{carDetailsDto.vehicleDto.chassisNumber}}</div>
+										</div>
+									</div>
+									<div class="col-md-4 col-sm-6 col-xs-12 no-padding m-b-md">
+										<div class="col-md-10 no-padding">
+											<small class="text-muted">N&uacute;mero de motor</small>
+											<div class="h4 no-margin-top fw-400">
+												{{carDetailsDto.vehicleDto.engineNumber}}</div>
+										</div>
+									</div>
+									<div class="col-md-4 col-sm-6 col-xs-12 no-padding m-b-md">
+										<div class="col-md-10 no-padding">
+											<small class="text-muted">Descripci&oacute; p&uacute;blica</small>
+											<div class="h4 no-margin-top fw-400">
+												{{carDetailsDto.vehicleDto.publicDescription}}</div>
+										</div>
+									</div>
+									<div class="col-md-4 col-sm-6 col-xs-12 no-padding m-b-md">
+										<div class="col-md-10 no-padding">
+											<small class="text-muted">Descripci&oacute; privada</small>
+											<div class="h4 no-margin-top fw-400">
+												{{carDetailsDto.vehicleDto.privateDescription}}</div>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="tab-pane fade" id="tab2default">
+								<div class="col-md-12 no-padding features">
+									<hr class="m-t-xs">
+								</div>
+							</div>
+							<div class="tab-pane fade" id="tab3default">Default 3</div>
+							<div class="tab-pane fade" id="tab4default">Default 4</div>
+							<div class="tab-pane fade" id="tab5default">Default 5</div>
+						</div>
 					</div>
 				</div>
 			</div>
 		</div>
+				<!-- Fin Datos Adicionales -->
 
 
-	<div class="row">
 
-		<div class="col-md-12">
-			<div class="panel panel-default panel-default-shadow car-details-panel car-details-panel-last">
 
-				<div class="panel-heading">
-					<h4 class="car-details-panel-title">Gastos del
-						Veh&iacute;culo</h4>
-				</div>
 
-				<div class="panel-body">
-					<ng-include src="'cars/carExpenses/carExpenses.tpl.html'" ></ng-include>
 
+				<!-- Operaciones -->
+			<div class="row">
+				<div class="col-sm-12">
+				<div class="panel panel-default panel-default-shadow car-details-panel">
+
+					<div>
+						<h4 class="car-details-panel-title">Operaciones&nbsp;&nbsp;<span class ="badge badge-important car-details-badge">{{carDetailsDto.operations.length}}</span></h4>
+					</div>
+
+					<div class="panel-body">
+
+					<div class="row">
+								<div class="col-md-12">	
+									<table class="table table-condensed table-striped table-hover expenses-table">
+										<thead>
+											<tr>
+												<th class="col-md-2">Fecha</th>
+												<th class="col-md-3">Operaci&oacute;n</th>
+												<th class="col-md-7">Detalle</th>
+											</tr>
+										</thead>
+										<tbody>
+											<tr ng-repeat="operation in carDetailsDto.operations">
+												<td class="col-md-2">{{operation.date | date:'dd/MM/yyyy' }}</td>
+												<td class="col-md-3">
+													<h4 class="operation-label"><label class="label label-info" ng-show="operation.operationType == 'BUY'">Compra</label></h4>
+													<h4 class="operation-label"><label class="label label-info" ng-show="operation.operationType == 'CONSIGNMENT'">Concesi&oacute;n</label></h4>
+													<h4 class="operation-label"><label class="label label-primary" ng-show="operation.operationType == 'RESERVATION'">Reserva</label></h4>
+													<h4 class="operation-label"><label class="label label-success" ng-show="operation.operationType == 'SALE'">Venta</label></h4>
+												</td>
+												<td class="col-md-7 operation-details-column">
+													<div ng-show="operation.operationType == 'BUY'">Comprado a <a href="#/clientDetails/{{operation.clientId}}">{{operation.clientName}}</a> por <b>${{operation.buyOperationPaidAmount | number }}.</b></div>
+													<div ng-show="operation.operationType == 'CONSIGNMENT'">Tomado en concesi&oacute;n a nombre de <a href="#/clientDetails/{{operation.clientId}}">{{operation.clientName}}</a>.</div>
+													<div ng-show="operation.operationType == 'CONSIGNMENT'">El monto acordado con el vendedor es de  <b>${{operation.consignmentOperationDealPrice | number }}.</b></div>
+													<div ng-show="operation.operationType == 'RESERVATION'">Reservado a <a href="#/clientDetails/{{operation.clientId}}">{{operation.clientName}}</a>. El monto de la seña fu&eacute; de <b>${{operation.reservationOperationAdvancePayment | number }}.</b></div>
+													<div ng-show="operation.operationType == 'SALE'">Vendido a <a href="#/clientDetails/{{operation.clientId}}">{{operation.clientName}}</a> en <b>${{operation.saleOperationSaleAmount | number }}.</b></div>
+												</td>
+											</tr>
+										</tbody>
+									</table>
+									</br>
+								</div>
+
+					</div>
+
+					</div>
 				</div>
 			</div>
 		</div>
-	</div>
+				<!-- Fin Operaciones -->
+
+
+
+
+	<!-- Gastos -->
+
+					<ng-include src="'cars/carExpenses/carExpenses.tpl.html'" ></ng-include>
+
+
+
+
+	<!-- Botones borrar y editar vehiculo -->
 	<div class="row">
-	                  <div class="col-sm-8 col-sm-offset-4">
-	                    <div class="form-group">
-	                      <div class="car-details-crud-buttons">
-	                        <div class="pull-right">
-	                          <button type="submit" ui-sref="newCar({carId:carDetailsDto.vehicleDto.id})" class="btn btn-lg btn-primary"><span class="fa fa-pencil"></span>&nbsp;Editar</button>
-	                          <button type="submit" class="btn btn-lg btn-danger" ng-disabled="newClientForm.$invalid" ng-click="deleteCarModal()"><span class="fa fa-trash-o"></span>&nbsp;Eliminar Veh&iacute;culo</button>
-	                        </div>
-	                      </div>
-	                    </div>
-	                  </div>
+    <div class="col-sm-8 col-sm-offset-4">
+      <div class="form-group">
+        <div class="car-details-crud-buttons">
+          <div class="pull-right">
+            <button type="submit" ui-sref="newCar({carId:carDetailsDto.vehicleDto.id})" class="btn btn-lg btn-primary"><span class="fa fa-pencil"></span>&nbsp;Editar</button>
+            <button type="submit" class="btn btn-lg btn-danger" ng-disabled="newClientForm.$invalid" ng-click="deleteCarModal()"><span class="fa fa-trash-o"></span>&nbsp;Eliminar Veh&iacute;culo</button>
+          </div>
+        </div>
+      </div>
+    </div>
 	</div>
 
+	<!-- Ventana modal Delete car -->
 	<ng-include src="'cars/carDetails/deleteCar.tpl.html'" ></ng-include>
 
-</div>
 </div>

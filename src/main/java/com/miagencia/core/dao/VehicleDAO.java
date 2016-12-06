@@ -20,6 +20,8 @@ public interface VehicleDAO {
 	public List<Vehicle> getAllVehicles();
 	
 	public void deleteVehicle(Long vehicleId);
+	
+	public int countTotalVehicles();
 
 
 }

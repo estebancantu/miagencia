@@ -151,7 +151,7 @@ public class ShareServiceImpl implements ShareService {
 			    .picture(URL_MI_AGENCIA.concat("pics/"+vehicle.getImageUrls().get(0)))
 			    .caption( make.getName()+" "+model.getName())
 			    .name( make.getName()+" "+model.getName())
-			    .description(vehicle.getDescription()));
+			    .description(vehicle.getPublicDescription()));
 		}
 		
 	}
@@ -170,7 +170,7 @@ public class ShareServiceImpl implements ShareService {
 			    throw new Exception("Error posting to MercadoLibre"+ r.getResponseBody());
 			}
 			String[] locations=r.getHeader("Location").split("/");
-			r = m.put("/items/"+locations[locations.length - 1]+"/description", params, "{\"text\":\""+vehicle.getDescription()+"\"}");
+			r = m.put("/items/"+locations[locations.length - 1]+"/description", params, "{\"text\":\""+vehicle.getPublicDescription()+"\"}");
 			if(r.getStatusCode() != 200){
                 throw new Exception("Error posting to MercadoLibre"+ r.getResponseBody());
             }
@@ -255,7 +255,7 @@ public class ShareServiceImpl implements ShareService {
 	    publication.setColor(vehicle.getColor().getText());
 	    publication.setPlate(vehicle.getPlate());
 	    publication.setKilometers(vehicle.getKilometers());
-	    publication.setComment(vehicle.getDescription());
+	    publication.setComment(vehicle.getPublicDescription());
 	    SaleItem saleItem = saleItemDAO.getSaleItemByVehicleId(vehicle.getId());
         if(saleItem != null){
             publication.setPrice(saleItem.getSellingPrice());

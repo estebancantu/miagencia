@@ -58,8 +58,13 @@ public class Vehicle extends PersistableEntity {
 	private String engineNumber;
 	
 	// Descripción
-	@Column(name="DESCRIPTION")
-	private String description;
+	@Column(name="PUBLIC_DESCRIPTION")
+	private String publicDescription;
+	
+	// Descripción
+	@Column(name="PRIVATE_DESCRIPTION")
+	private String privateDescription;
+
 		
 	// Lista de imagenes
 	@ElementCollection
@@ -129,7 +134,7 @@ public class Vehicle extends PersistableEntity {
 	public Vehicle(VehicleType vehicleType, int makeId, int modelId,
 			Year modelYear, String plate, Color color, String chassisNumber,
 			String engineNumber, Long kilometers, FuelType fuelType,
-			Transmission transmission, String description, String city,
+			Transmission transmission, String publicDescription, String privateDescription, String city,
 			int provinceId, VehicleCondition vehicleCondition) {
 		
 		super();
@@ -144,7 +149,8 @@ public class Vehicle extends PersistableEntity {
 		this.kilometers = kilometers;
 		this.fuelType = fuelType;
 		this.transmission = transmission;
-		this.description = description;
+		this.publicDescription = publicDescription;
+		this.privateDescription = privateDescription;
 		this.vehicleCondition = vehicleCondition;
 
 	}
@@ -229,12 +235,23 @@ public class Vehicle extends PersistableEntity {
 		this.transmission = transmission;
 	}
 
-	public String getDescription() {
-		return description;
+	public String getPublicDescription() {
+		return publicDescription;
 	}
 
-	public void setDescription(String description) {
-		this.description = description;
+
+	public void setPublicDescription(String publicDescription) {
+		this.publicDescription = publicDescription;
+	}
+
+
+	public String getPrivateDescription() {
+		return privateDescription;
+	}
+
+
+	public void setPrivateDescription(String privateDescription) {
+		this.privateDescription = privateDescription;
 	}
 
 

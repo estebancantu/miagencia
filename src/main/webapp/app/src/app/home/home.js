@@ -43,10 +43,25 @@ angular.module( 'ngBoilerplate.home', [
 
   $scope.sellForm = CDN_URL + "forms/sell-form.pdf";
   $scope.reservationForm = CDN_URL + "forms/reservation-form.pdf";
+  $scope.plateImg = CDN_URL + "plate.jpg";
+
 
   $scope.today = new Date();
 
-  $scope.cars = vehicleService.query(); 
+  $scope.showSpinner = true;
+  $scope.noCars = false;
+
+
+  vehicleService.query(function(data) {
+
+      $scope.cars = data;
+
+      $scope.showSpinner = false;
+
+      if ($scope.cars.length === 0) {
+          $scope.noCars = true;
+      }
+  }); 
 
 
 

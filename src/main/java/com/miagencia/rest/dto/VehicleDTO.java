@@ -41,7 +41,9 @@ public class VehicleDTO {
 	
 	private String transmissionType;
 	
-	private String description;
+	private String publicDescription;
+	
+	private String privateDescription;
 	
 	private String vehicleCondition;
 	
@@ -162,12 +164,20 @@ public class VehicleDTO {
 		this.transmissionType = transmissionType;
 	}
 
-	public String getDescription() {
-		return description;
+	public String getPublicDescription() {
+		return publicDescription;
 	}
 
-	public void setDescription(String description) {
-		this.description = description;
+	public void setPublicDescription(String publicDescription) {
+		this.publicDescription = publicDescription;
+	}
+
+	public String getPrivateDescription() {
+		return privateDescription;
+	}
+
+	public void setPrivateDescription(String privateDescription) {
+		this.privateDescription = privateDescription;
 	}
 
 	public String getVehicleCondition() {

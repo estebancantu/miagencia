@@ -21,7 +21,7 @@ angular.module( 'ngBoilerplate.carDetails', [
   });
 })
 
-.controller( 'carDetailsCtrl', function carDetailsCtrl( $scope, $stateParams, vehicleService, $http, $uibModal, broadcastService) {
+.controller( 'carDetailsCtrl', function carDetailsCtrl( $scope, $stateParams, vehicleService, $http, $uibModal, broadcastService ) {
 
  
   $scope.setInterval=5000;

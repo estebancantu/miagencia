@@ -22,7 +22,8 @@ angular.module( 'ngBoilerplate', [
   'ngResource',
   'ngFileUpload',
   'ngImgCrop',
-  'ui.utils.masks'
+  'ui.utils.masks',
+  'badgeCountersService'
 ])
 
 .config(['localStorageServiceProvider', function(localStorageServiceProvider) {
@@ -72,13 +73,22 @@ angular.module( 'ngBoilerplate', [
 		
 	}])
 
-.controller( 'AppCtrl', function AppCtrl ( $scope, $location ) {
+.controller( 'AppCtrl', function AppCtrl ( $scope, $location, badgeCountersService ) {
 
   $scope.$on('$stateChangeSuccess', function(event, toState, toParams, fromState, fromParams){
     if ( angular.isDefined( toState.data.pageTitle ) ) {
       $scope.pageTitle = toState.data.pageTitle + ' | Mi Agencia Virtual' ;
     }
   });
+
+
+    // badges
+    badgeCountersService.get(function(data) {
+
+      $scope.vehiclesCount = data.vehiclesCount;
+      $scope.clientsCount = data.clientsCount;
+
+  }); 
 
 
 
@@ -91,6 +101,10 @@ angular.module( 'ngBoilerplate', [
 
     $scope.showSidebar = function() {
       $scope.state = true;
+  };
+
+      $scope.hideSidebar = function() {
+      $scope.state = false;
   };
 
 })
@@ -146,10 +160,22 @@ angular.module( 'ngBoilerplate', [
     };
 })
 
+
+.filter('removeString', function () {
+    return function (text, toRemove) {
+        var str = text.replace(toRemove, '');
+        return str;
+    };
+})
+
+
 .constant('SERVER_URL', 'http://localhost:8080/miagencia/api/')
 .constant('CDN_URL', 'http://localhost:8080/miagencia/pics/')
+
 /*
+
 .constant('SERVER_URL', 'http://www.miagenciavirtual.com.ar:8080/miagencia/api/')
+.constant('CDN_URL', 'http://www.miagenciavirtual.com.ar:8080/miagencia/pics/')
 */
 ;
 
