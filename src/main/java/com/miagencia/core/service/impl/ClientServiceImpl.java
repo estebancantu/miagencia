@@ -83,11 +83,11 @@ public class ClientServiceImpl implements ClientService {
 
 	@Override
 	@Transactional
-	public List<ClientSummaryDTO> getAllClients() {
+	public List<ClientSummaryDTO> getAllClients(Long accountId) {
 		
 		List<ClientSummaryDTO> clientsDto = new ArrayList<ClientSummaryDTO>();
 		
-		List<Client> clients = clientDao.getAllClients();
+		List<Client> clients = clientDao.getAllClients(accountId);
 		
 		for (Iterator iterator = clients.iterator(); iterator.hasNext();) {
 			

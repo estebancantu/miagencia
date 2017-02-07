@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import com.miagencia.core.model.Account;
 import com.miagencia.core.model.Client;
 import com.miagencia.core.model.Color;
 import com.miagencia.core.model.Dealership;
@@ -25,6 +26,7 @@ import com.miagencia.core.model.operations.ConsignmentOperation;
 import com.miagencia.core.model.operations.ReservationOperation;
 import com.miagencia.core.model.operations.SaleOperation;
 import com.miagencia.core.model.operations.VehicleOperation;
+import com.miagencia.rest.dto.AccountDTO;
 import com.miagencia.rest.dto.ClientDTO;
 import com.miagencia.rest.dto.ClientSummaryDTO;
 import com.miagencia.rest.dto.ExpenseDTO;
@@ -62,6 +64,7 @@ public class EntityDTOTranslator {
 		vehicle.setPublicDescription(vehicleDto.getPublicDescription());
 		vehicle.setPrivateDescription(vehicleDto.getPrivateDescription());
 		vehicle.setImageUrls(vehicleDto.getImageUrls());
+	
 		
 
 		
@@ -461,5 +464,20 @@ public class EntityDTOTranslator {
  
 		 return sellingPrice - ( paidPrice + totalExpenses );
 	 }
+	 
+	 
+		public static AccountDTO buildAccountDTO(Account account) {
+			
+			AccountDTO accountDto = new AccountDTO();
+			
+			accountDto.setId(account.getId());
+			accountDto.setUsername(account.getUsername());
+			accountDto.setPassword(null);
+			accountDto.setDealershipName(account.getDealership().getName());
+			accountDto.setEmail(account.getDealership().getEmail());
+			
+			return accountDto;
+		}
+		
 
 }

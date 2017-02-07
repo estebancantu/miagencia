@@ -1,9 +1,13 @@
 package com.miagencia.core.service.impl;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.miagencia.core.dao.AccountDAO;
 import com.miagencia.core.dao.CityDAO;
 import com.miagencia.core.dao.ClientDAO;
 import com.miagencia.core.dao.CountryDAO;
@@ -12,7 +16,9 @@ import com.miagencia.core.dao.OperationDAO;
 import com.miagencia.core.dao.SaleItemDAO;
 import com.miagencia.core.dao.StateDAO;
 import com.miagencia.core.dao.VehicleDAO;
+import com.miagencia.core.model.Account;
 import com.miagencia.core.model.Client;
+import com.miagencia.core.model.Dealership;
 import com.miagencia.core.model.Expense;
 import com.miagencia.core.model.Location;
 import com.miagencia.core.model.Neighborhood;
@@ -24,6 +30,7 @@ import com.miagencia.core.model.operations.SaleOperation;
 import com.miagencia.core.model.operations.VehicleOperation;
 import com.miagencia.core.service.ExpenseService;
 import com.miagencia.core.service.VehicleOperationService;
+import com.miagencia.rest.dto.AccountDTO;
 import com.miagencia.rest.dto.ExpenseDTO;
 import com.miagencia.rest.dto.VehicleDTO;
 import com.miagencia.rest.dto.operations.NewVehicleRequestDTO;
@@ -65,13 +72,30 @@ public class VehicleOperationServiceImpl implements
 	@Autowired
 	ExpenseService expenseService;
 	
+	@Autowired 
+	AccountDAO accountDao;
+	
 	@Override
 	@Transactional
-	public void newVehicle(NewVehicleRequestDTO newVehicleRequestDto) {
+	public void newVehicle(NewVehicleRequestDTO newVehicleRequestDto, AccountDTO accountDto) {
+		
+		
+		Account account = accountDao.find(accountDto.getId());
+		
+		Dealership dealership = account.getDealership();
 		
 		VehicleDTO vehicleDto = newVehicleRequestDto.getVehicleDto();
 		Vehicle vehicle = EntityDTOTranslator.buildVehicle(vehicleDto); // TODO falta features
 
+		List<Vehicle> vehicles = dealership.getVehicles();
+		
+		if (vehicles == null) {
+			vehicles = new ArrayList();
+		}
+		
+		vehicles.add(vehicle);
+	//	vehicle.setDealer(account.getDealership());
+		
 		Client client = clientDao.find(newVehicleRequestDto.getClientId());
 		
 		VehicleOperation operation = null;

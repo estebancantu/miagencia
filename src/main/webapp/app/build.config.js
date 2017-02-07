@@ -75,7 +75,8 @@ module.exports = {
       'vendor/angular-resource/angular-resource.min.js',
       'vendor/ng-file-upload/ng-file-upload-all.min.js',
       'vendor/ng-img-crop-full-extended/compile/minified/ng-img-crop.js',
-      'vendor/angular-input-masks/angular-input-masks-standalone.js'
+      'vendor/angular-input-masks/angular-input-masks-standalone.js',
+      'vendor/angular-http-auth/dist/http-auth-interceptor.min.js'
       
 
     ],

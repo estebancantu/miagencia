@@ -21,9 +21,9 @@ public interface ClientDAO {
 	
 	public Client getClient(String firstName, String lastName);
 	
-	public List<Client> getAllClients();
+	public List<Client> getAllClients(Long accountId);
 	
-	public int countTotalClients();
+	public int countTotalClients(Long accountId);
 	
 
 }

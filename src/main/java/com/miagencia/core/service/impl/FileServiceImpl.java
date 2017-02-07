@@ -60,8 +60,8 @@ public class FileServiceImpl implements FileService {
 	
 	private SimpleDateFormat sdf = new SimpleDateFormat("EEE, dd MMM yyyy HH:mm:ss z");
 	
-	@Inject
-	public FileServiceImpl(RestTemplate restTemplate) {
+
+	public FileServiceImpl() {
         super();
         sdf.setTimeZone(java.util.TimeZone.getTimeZone("GMT"));
     }
@@ -82,19 +82,19 @@ public class FileServiceImpl implements FileService {
             XWPFDocument word = new XWPFDocument(finStream); 
             FileOutputStream out = new FileOutputStream(new File(fileUrl));
             createParagraphWithBorder(word, "BOLETO DE COMPRA VENTA AUTOMOTOR", ParagraphAlignment.CENTER, 20, false);
-            createParagraph(word, "Conste por el presente que entre el SeÒor "+buyOperation.getClient().getFirstName()+" "+buyOperation.getClient().getLastName(), ParagraphAlignment.LEFT, false);
-            createParagraph(word, "como VENDEDOR y el SeÒor "+saleOperation.getClient().getFirstName()+" "+saleOperation.getClient().getLastName(), ParagraphAlignment.LEFT, false);
+            createParagraph(word, "Conste por el presente que entre el Se√±or "+buyOperation.getClient().getFirstName()+" "+buyOperation.getClient().getLastName(), ParagraphAlignment.LEFT, false);
+            createParagraph(word, "como VENDEDOR y el Se√±or "+saleOperation.getClient().getFirstName()+" "+saleOperation.getClient().getLastName(), ParagraphAlignment.LEFT, false);
             createParagraph(word, "como comprador se conviene lo siguiente:", ParagraphAlignment.LEFT, false);
-            createParagraph(word,"El seÒor: "+buyOperation.getClient().getFirstName()+" "+buyOperation.getClient().getLastName()+" vende un: "+vehicle.getVehicleType().getText()+"  en las condiciones vistas.", ParagraphAlignment.LEFT);
-            createParagraphWithBorder(word, "Marca: "+make.getName()+" Modelo: "+model.getName()+" Tipo: "+vehicle.getVehicleType().getText()+" AÒo: "+vehicle.getModelYear().getText()+
-                    " Motor N∫ "+vehicle.getEngineNumber()+" Chasis N∫ "+vehicle.getChassisNumber()+" Dominio: "+vehicle.getPlate(), ParagraphAlignment.LEFT , false);
+            createParagraph(word,"El se√±or: "+buyOperation.getClient().getFirstName()+" "+buyOperation.getClient().getLastName()+" vende un: "+vehicle.getVehicleType().getText()+"  en las condiciones vistas.", ParagraphAlignment.LEFT);
+            createParagraphWithBorder(word, "Marca: "+make.getName()+" Modelo: "+model.getName()+" Tipo: "+vehicle.getVehicleType().getText()+" A√±o: "+vehicle.getModelYear().getText()+
+                    " Motor N. "+vehicle.getEngineNumber()+" Chasis N. "+vehicle.getChassisNumber()+" Dominio: "+vehicle.getPlate(), ParagraphAlignment.LEFT , false);
             createParagraph(word,"En la suma total de pesos: "+saleOperation.getSellingAmount(),ParagraphAlignment.LEFT);
             createParagraph(word,"Pagaderos de la siguiente forma: __________________________________________________________ __________________________________________________________"
                     + "________________________________________________________________________________________________________________",ParagraphAlignment.LEFT);
             createParagraph(word,"Esta unidad se entrega en el estado de uso en que se encuentra y que el comprador declara conocer, al igual que todo lo concerniente a "
                     + "la marca, modelo, numeros de motor y/o chasis del referido vehiculo, que ha sido revisado y constatado y acepta de plena"
                     + " conformidad, haciendose responsable civil y criminalmente, a partir de la fecha y hora de efectuada esta venta por"
-                    + " cualquier accidente, daÒo y/o perjucio que pudiera ocasionar el vehiculo que es recibido en este acto con su documentacion"
+                    + " cualquier accidente, da√±o y/o perjucio que pudiera ocasionar el vehiculo que es recibido en este acto con su documentacion"
                     + " completa y al dia. El comprador se compromente a efectuar la correspondiente transferencia de dominio del vehiculo "
                     + "dentro de los _____ dias de la fecha, de acuerdo a lo establecido al respecto por la ley 22.977 y sus normas complementarias, "
                     + "interpretativas y/o complementarias, estando a a su exclusivo cargo la totalidad de los gastos que demande la misma y los tramites"
@@ -104,8 +104,8 @@ public class FileServiceImpl implements FileService {
                     + " que imposibilitan la efectivizacion de dicho tramite, incluyendo embargos y/o prendas o medidas judiciales de cualquier tipo sobre el"
                     + " vehiculo, al igual que deudas emergentes de patentes municipales y/o multas. Con absoluta conformidad del Comprador."
                     + "----------------------------------------------------------------------------------------------------/",ParagraphAlignment.LEFT,true);
-            createParagraph(word, "En "+buyOperation.getClient().getCity()+" a los: "+calendar.get(Calendar.DAY_OF_MONTH)+" dÌas del mes de "+getMonthForInt(calendar.get(Calendar.MONTH))+
-                    " del aÒo "+calendar.get(Calendar.YEAR)+" se firman dos ejemplares del mismo tenor y a un solo efecto.", ParagraphAlignment.LEFT, true);
+            createParagraph(word, "En "+buyOperation.getClient().getCity()+" a los: "+calendar.get(Calendar.DAY_OF_MONTH)+" d√≠as del mes de "+getMonthForInt(calendar.get(Calendar.MONTH))+
+                    " del a√±o "+calendar.get(Calendar.YEAR)+" se firman dos ejemplares del mismo tenor y a un solo efecto.", ParagraphAlignment.LEFT, true);
             createParagraph(word,"OBSERVACIONES: ______________________________________________________________________________"
                     + "_______________________________________________________________________________________________________", ParagraphAlignment.LEFT,true);
             createParagraph(word,"_________________________________                ___________________________________", ParagraphAlignment.LEFT,false);
@@ -124,14 +124,14 @@ public class FileServiceImpl implements FileService {
             tableRowTwo.getCell(0).setText("Nombre: "+saleOperation.getClient().getFirstName()+" "+saleOperation.getClient().getLastName());
             tableRowTwo.addNewTableCell().setText("Nombre: "+buyOperation.getClient().getFirstName()+" "+buyOperation.getClient().getLastName());
             
-            tableRowThree.getCell(0).setText("DirecciÛn: "+saleOperation.getClient().getAddress());
-            tableRowThree.addNewTableCell().setText("DirecciÛn: "+buyOperation.getClient().getAddress());
+            tableRowThree.getCell(0).setText("Direcci√≥n: "+saleOperation.getClient().getAddress());
+            tableRowThree.addNewTableCell().setText("Direcci√≥n: "+buyOperation.getClient().getAddress());
             
             tableRowFour.getCell(0).setText("Localidad: "+saleOperation.getClient().getCity());
             tableRowFour.addNewTableCell().setText("Localidad: "+buyOperation.getClient().getCity());
             
-            tableRowFive.getCell(0).setText("TelÈfono: "+saleOperation.getClient().getPhone());
-            tableRowFive.addNewTableCell().setText("TelÈfono: "+buyOperation.getClient().getPhone());
+            tableRowFive.getCell(0).setText("Tel√©fono: "+saleOperation.getClient().getPhone());
+            tableRowFive.addNewTableCell().setText("Tel√©fono: "+buyOperation.getClient().getPhone());
             
             word.write(out);
             out.close();
@@ -155,7 +155,7 @@ public class FileServiceImpl implements FileService {
             String fileUrl = getTempFolder() + File.separator + fileName;
             XWPFDocument word = new XWPFDocument(finStream); 
             FileOutputStream out = new FileOutputStream(new File(fileUrl));
-            createParagraph(word, "RECIBO DE SE—A", ParagraphAlignment.CENTER, 20, true);
+            createParagraph(word, "RECIBO DE SE√ëA", ParagraphAlignment.CENTER, 20, true);
             createParagraph(word, calendar.get(Calendar.DAY_OF_MONTH)+" de "+getMonthForInt(calendar.get(Calendar.MONTH))+" de "+calendar.get(Calendar.YEAR), ParagraphAlignment.RIGHT, true);
             BuyOperation buyOperation = operationDAO.findBuyOperationsByVehicleId(vehicle.getId());
             ReservationOperation reservation = operationDAO.findReservationOperationsByVehicleId(vehicle.getId());
@@ -163,16 +163,16 @@ public class FileServiceImpl implements FileService {
             Make make =  makesAndModelsDAO.getMake(Long.valueOf(vehicle.getMakeId()));
             createParagraph(word, "RECIBI de "+reservation.getClient().getFirstName()+" "+reservation.getClient().getLastName()+" Doc. Id. "+reservation.getClient().getDni()+
                     " Domiciliado en "+reservation.getClient().getAddress()+" Localidad "+reservation.getClient().getCity()+" Tel. "+reservation.getClient().getPhone()+ " La cantidad de "
-                            + "pesos argentinos $ "+reservation.getAdvancePayment()+" como seÒa del valor de venta establecido en $____________ para el vehiculo "+model.getName()+" en las condiciones vistas y que se encuentra.", ParagraphAlignment.LEFT, true);            
+                            + "pesos argentinos $ "+reservation.getAdvancePayment()+" como se√±a del valor de venta establecido en $____________ para el vehiculo "+model.getName()+" en las condiciones vistas y que se encuentra.", ParagraphAlignment.LEFT, true);            
             createParagraph(word, "Marca "+make.getName()+ " Modelo "+model.getName()+" Color "+vehicle.getColor().getText()+" Tipo "+vehicle.getVehicleType().getText()+
-                    " Motor "+vehicle.getEngineNumber()+ " Chasis "+vehicle.getChassisNumber()+ " Patente "+vehicle.getPlate()+" del aÒo "+vehicle.getModelYear().getText()+" Localidad "+vehicle.getDealer().getLocation().getCity().getName(), ParagraphAlignment.LEFT);
+                    " Motor "+vehicle.getEngineNumber()+ " Chasis "+vehicle.getChassisNumber()+ " Patente "+vehicle.getPlate()+" del a√±o "+vehicle.getModelYear().getText()+" Localidad "+vehicle.getDealer().getLocation().getCity().getName(), ParagraphAlignment.LEFT);
             createParagraph(word, "Se recibe como parte de pago un automotor marca ________________________________ Modelo ________________________________ Tipo ________________ Color __________________ "+
-                    " Motor ________________________________ Chasis ________________________________ Patente __________________ del aÒo __________________  Localidad ______________________________"+
-                    " libre de deudas y grav·menes, tasado en la suma de dÛlares estadounidenses billetes _____________________", ParagraphAlignment.LEFT);
-            createParagraph(word, "El comprador deber· abonar el saldo a de su compra en el domicilio del vendedor dentro de los ____ dÌas a contar desde la fecha sin necesidad de ning˙n requerimiento", ParagraphAlignment.LEFT, true);
-            createParagraph(word, "En el caso de que el comprador no abonara el saldo de precio dentro del plazo establecido incurrir· en mora, de pleno derecho por el mero vencimiento del plazo pactado y autom·ticamente sin necesidad"
-                    + "de requerimiento alguno, el vendedor queda facultado para dar por rescindido sin m·s tr·mite y de pleno derecho el contrato, sin necesidad de intervenciÛn judicial alguna,"
-                    + "quedando a su exclusivo beneficio la suma percibida como seÒa", ParagraphAlignment.LEFT);
+                    " Motor ________________________________ Chasis ________________________________ Patente __________________ del a√±o __________________  Localidad ______________________________"+
+                    " libre de deudas y grav√°menes, tasado en la suma de d√≥lares estadounidenses billetes _____________________", ParagraphAlignment.LEFT);
+            createParagraph(word, "El comprador deber√° abonar el saldo a de su compra en el domicilio del vendedor dentro de los ____ d√≠as a contar desde la fecha sin necesidad de ning√∫n requerimiento", ParagraphAlignment.LEFT, true);
+            createParagraph(word, "En el caso de que el comprador no abonara el saldo de precio dentro del plazo establecido incurrir√° en mora, de pleno derecho por el mero vencimiento del plazo pactado y autom√°ticamente sin necesidad"
+                    + "de requerimiento alguno, el vendedor queda facultado para dar por rescindido sin m√°s tr√°mite y de pleno derecho el contrato, sin necesidad de intervenci√≥n judicial alguna,"
+                    + "quedando a su exclusivo beneficio la suma percibida como se√±a", ParagraphAlignment.LEFT);
             createParagraph(word, "Observaciones _______________________________________________________________________ ___________________________________________________________________________________", ParagraphAlignment.LEFT);
             createParagraph(word, "____________________                   _______________________", ParagraphAlignment.CENTER, false);
             createParagraph(word, " firma comprador                                       firma vendedor", ParagraphAlignment.CENTER,true);

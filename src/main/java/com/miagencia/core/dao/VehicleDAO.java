@@ -17,11 +17,11 @@ public interface VehicleDAO {
 	
 	public Vehicle find(Long vehicleId);
 	
-	public List<Vehicle> getAllVehicles();
+	public List<Vehicle> getAllVehicles(Long accountId);
 	
 	public void deleteVehicle(Long vehicleId);
 	
-	public int countTotalVehicles();
+	public int countTotalVehicles(Long accountId);
 
 
 }

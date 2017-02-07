@@ -2,6 +2,7 @@ package com.miagencia.core.dao.impl;
 
 import java.util.List;
 
+import org.hibernate.Query;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -34,8 +35,12 @@ public class VehicleDAOImpl implements VehicleDAO {
 
 
 	@Override
-	public List<Vehicle> getAllVehicles() {
-		return sessionFactory.getCurrentSession().createQuery("from Vehicle").list();
+	public List<Vehicle> getAllVehicles(Long accountId) {
+
+	Query query = sessionFactory.getCurrentSession().createQuery("select v from Account ac inner join ac.dealership dl inner join dl.vehicles v where ac.id = :accountId");
+	query.setLong("accountId", accountId);	
+	return query.list();
+
 	}
 
 
@@ -57,8 +62,10 @@ public class VehicleDAOImpl implements VehicleDAO {
 
 
 	@Override
-	public int countTotalVehicles() {
-		Long count = (Long) sessionFactory.getCurrentSession().createQuery("select count(*) from Vehicle").uniqueResult();
+	public int countTotalVehicles(Long accountId) {
+		Query query = sessionFactory.getCurrentSession().createQuery("select count(v) from Account ac inner join ac.dealership dl inner join dl.vehicles v where ac.id = :accountId");
+		query.setLong("accountId", accountId);	
+		Long count = (Long)query.uniqueResult();
 		return count.intValue();
 	}
 

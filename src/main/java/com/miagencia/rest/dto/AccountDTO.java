@@ -3,13 +3,17 @@ package com.miagencia.rest.dto;
 public class AccountDTO {
 	
 	
-	
+	private Long id;
 	
 	private String username;
 	
 	private String password;
 	
+	private String email;
+	
 	private String dealershipName;
+	
+	
 	
 	
 	public String getUsername() {
@@ -36,4 +40,20 @@ public class AccountDTO {
 		this.dealershipName = dealershipName;
 	}
 
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+	
 }

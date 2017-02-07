@@ -30,6 +30,7 @@
     <!-- font awesome from BootstrapCDN -->
     <link href="http://netdna.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.css" rel="stylesheet">
 
+
 	<script type="text/javascript" src="assets/FileSaver.min.js" ></script>
  
     <!-- compiled CSS --><% styles.forEach( function ( file ) { %>
@@ -42,25 +43,33 @@
   <body>
 
   <div class="row">
-    <nav class="navbar navbar-inverse navbar-fixed-top">
+    <nav class="navbar navbar-inverse navbar-fixed-top" ng-show="authenticated">
       <div class="container-fluid">
         <div class="navbar-header">
+          <!--
           <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
             <span class="sr-only">Toggle navigation</span>
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
+          -->
           <a class="navbar-brand" href="index.html#/home">
             <img src="assets/img/logo.png"></img>
           </a>
         </div>
         <div id="navbar" class="navbar-collapse collapse"> 
           <ul class="nav navbar-nav navbar-right">
-            <li>
-            </li>
-            <li>
-              <a class="user-menu" href="#"><i class="glyphicon glyphicon-user"></i>&nbsp;&nbsp;&nbsp;Zingaro Automotores</a>
+            <li class="dropdown open">
+              <a class="user-menu dropdown-toggle" href="#"><i class="glyphicon glyphicon-user"></i>&nbsp;&nbsp;&nbsp;{{account.dealershipName}}</a>
+              <ul class="dropdown-menu">
+                <li>
+                  <a href="#">Mi Perfil</a>
+                </li>
+                <li>
+                    <a href="#" ng-click="logout()">Salir</a>
+                </li>
+              </ul>
             </li>
           </ul>
         </div>
@@ -77,7 +86,7 @@
       
         <!-- sidebar -->
         <!--<div class="sidebar" sidebar-directive="state"> -->
-        <div class="sidebar navbar navbar-inverse" ng-class="{'show' : state }" ng-mouseover="showSidebar()" ng-mouseleave="hideSidebar()">
+        <div class="sidebar navbar navbar-inverse" ng-class="{'show' : state }" ng-mouseover="showSidebar()" ng-mouseleave="hideSidebar()" ng-show="authenticated">
             <a id="navigation-toggle"><i class="fa fa-2x"
               ng-class="{'fa-angle-double-left' : state, 'fa-angle-double-right' : !state}"></i></a>
             <div class="brand">

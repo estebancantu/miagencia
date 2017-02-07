@@ -108,11 +108,11 @@ public class VehicleServiceImpl implements VehicleService {
 	
 	@Override
 	@Transactional
-	public List<VehicleSummaryDTO> getAllVehicles() {
+	public List<VehicleSummaryDTO> getAllVehicles(Long accountId) {
 		
 		List<VehicleSummaryDTO> vehiclesDto = new ArrayList<VehicleSummaryDTO>();
 		
-		List<Vehicle> vehicles = vehicleDao.getAllVehicles();
+		List<Vehicle> vehicles = vehicleDao.getAllVehicles(accountId);
 		
 		for (Iterator<Vehicle> iterator = vehicles.iterator(); iterator.hasNext();) {
 			

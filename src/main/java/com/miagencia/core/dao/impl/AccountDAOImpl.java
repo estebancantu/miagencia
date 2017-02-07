@@ -1,12 +1,12 @@
 package com.miagencia.core.dao.impl;
 
+import org.hibernate.Query;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.miagencia.core.dao.AccountDAO;
 import com.miagencia.core.model.Account;
-import com.miagencia.core.model.Client;
 
 @Repository
 public class AccountDAOImpl implements AccountDAO {
@@ -52,5 +52,16 @@ public class AccountDAOImpl implements AccountDAO {
 		if (accountId == null) throw new IllegalArgumentException("Account id argument cannot be null");
 		return (Account)sessionFactory.getCurrentSession().get(Account.class, accountId);
 	}
+	
+	@Override
+	public Account find(String username) {
+		
+		if (username == null) throw new IllegalArgumentException("Username argument cannot be null");
+		Query query = sessionFactory.getCurrentSession().createQuery("from Account where username = :username");
+		query.setParameter("username", username);
+		return (Account)query.uniqueResult();
+	}
+	
+
 
 }

@@ -2,6 +2,7 @@ package com.miagencia.core.model;
 
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
@@ -32,13 +33,13 @@ public class Dealership extends PersistableEntity {
 	private String phone;
 	
 	@OneToOne
-	@JoinColumn(name="ACCOUNT_ID")
+	@JoinColumn(name="ACCOUNT_ID", nullable=false)
 	private Account account;
 	
-	@OneToMany(targetEntity=Vehicle.class)
+	@OneToMany(targetEntity=Vehicle.class, cascade=CascadeType.ALL)
 	private List<Vehicle> vehicles;
 	
-	@OneToMany(targetEntity=Client.class)
+	@OneToMany(targetEntity=Client.class, cascade=CascadeType.ALL)
 	private List<Client> clients;
 	
 	@OneToOne

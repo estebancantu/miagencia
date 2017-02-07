@@ -77,7 +77,7 @@ angular.module( 'ngBoilerplate.reserveCar', [
     .then(function (response) {
 
                 if (response.status == 201) {
-                	$scope.disablePrintLink = false;
+                    $scope.disablePrintLink = false;
                     $scope.locationService.path('/home');
                     $scope.saveSuccessModal();
 

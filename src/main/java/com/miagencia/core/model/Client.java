@@ -4,6 +4,9 @@ import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -17,6 +20,12 @@ public class Client extends PersistableEntity {
 	// TODO no mapea bien los timestamps a las fechas, revisar.
 	
 	// TODO HAY QUE VER SI ESTO PUEDE SER PERSONA FISICA O JURIDICA
+	
+	// TODO hacer not null una vez que este lo de Dealership
+	// Agencia concesionaria 
+	@ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "DEALER_ID")
+    private Dealership dealer;
 
 	@Column(name="DNI")
 	private Long dni;

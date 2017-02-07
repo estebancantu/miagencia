@@ -23,11 +23,11 @@ public class BadgeCountersServiceImpl implements BadgeCountersService {
 
 	@Override
 	@Transactional
-	public BadgeCountersDTO getBadgeCounters() {
+	public BadgeCountersDTO getBadgeCounters(Long accountId) {
 		
 		
-		int clientsCount = clientDao.countTotalClients();
-		int vehiclesCount = vehicleDao.countTotalVehicles();
+		int clientsCount = clientDao.countTotalClients(accountId);
+		int vehiclesCount = vehicleDao.countTotalVehicles(accountId);
 		
 		BadgeCountersDTO badgeCountersDto = new BadgeCountersDTO();
 		badgeCountersDto.setClientsCount(clientsCount);

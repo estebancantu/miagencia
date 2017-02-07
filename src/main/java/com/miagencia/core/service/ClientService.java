@@ -18,7 +18,7 @@ public interface ClientService {
 	
 	public ClientDTO find(Long clientId);
 	
-	public List<ClientSummaryDTO> getAllClients();
+	public List<ClientSummaryDTO> getAllClients(Long accountId);
 	
 	public boolean isClientExist(String firstName, String lastName);
 
