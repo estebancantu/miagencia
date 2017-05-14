@@ -1,16 +1,13 @@
-
 /*
-
- grant select on miagencia.client to miagencia@'localhost';
- grant insert on miagencia.client to miagencia@'localhost';
-
- acordarse del flush privileges;
- 
- */
+  SCRIPT DE INSERCION DE DATOS DE PRUEBA
+  --------------------------------------------------------------
+*/
 
 
-INSERT INTO `miagencia`.`accounts` (`ID`, `USERNAME`, `PASSWORD`, `ACTIVE`, `DEALERSHIP_ID`) VALUES ('1', 'agustin', '123456', '1', '1');
-INSERT INTO `miagencia`.`dealerships` (`ID`, `NAME`, `LOCATION_ID`, `ACCOUNT_ID`) VALUES ('1', 'Agencia 1', '1', '1');
+
+/* Inserta una Cuenta y una Agencia de prueba */
+INSERT INTO `accounts` (`ID`, `USERNAME`, `PASSWORD`, `ACTIVE`, `DEALERSHIP_ID`) VALUES ('1', 'testaccount', '123456', '1', '1');
+INSERT INTO `miagencia`.`dealerships` (`ID`, `NAME`, `LOCATION_ID`, `ACCOUNT_ID`) VALUES ('1', 'Test Dealership', '1', '1');
 INSERT INTO `miagencia`.`location` (`ID`, `ADDRESS_LINE`, `ZIP_CODE`, `COUNTRY_ID`, `STATE_ID`, `CITY_ID`, `NEIGHBORHOOD_ID`, `LATITUDE`, `LONGITUDE`, `OPEN_HOURS`) VALUES ('1', '13 n659', '1900', '1', '1', '1', '1', '-21.2332323', '-23.323232', '10 a 20');
 /* INSERT INTO `miagencia`.`countries` (`ID`, `NAME`, `MERCADO_LIBRE_ID`) VALUES ('1', 'Argentina', 'AR','www.olx.com.ar'); */
 /* INSERT INTO `miagencia`.`state` (`ID`, `COUNTRY_ID`, `NAME`, `MERCADO_LIBRE_ID`) VALUES ('1', '1', 'Bs.As. G.B.A. Sur', 'TUxBUEdSQXJlMDNm', 'buenosaires.olx.com.ar'); */
@@ -18,108 +15,16 @@ INSERT INTO `miagencia`.`location` (`ID`, `ADDRESS_LINE`, `ZIP_CODE`, `COUNTRY_I
 INSERT INTO `miagencia`.`neighborhood` (`ID`, `NAME`, `MERCADO_LIBRE_ID`, `CITY_ID`) VALUES ( '1', 'La Plata', 'TUxBQkxBUDgzNjRa', '1'); 
 
 
+/* Inserta un Cliente de prueba */
+INSERT INTO Clients (dni, FIRST_NAME, LAST_NAME, E_MAIL, MOBILE, PHONE) VALUES ( 27528358, 'Esteban','Cantu','estebancantu@gmail.com','2215608507','4519011');
 
 
-//INSERT INTO Clients (dni, FIRST_NAME, LAST_NAME, E_MAIL, MOBILE, PHONE)
-// VALUES ( 27528358, 'Esteban','Cantu','estebancantu@gmail.com','2215608507','4519011');
 
 
-/* TODO esto hay que sacarlo, incluso hay cosas que ya no corren porque la estructura de las tablas se actualizo
-
-//INSERT INTO `miagencia`.`vehicles`
-//(`ID`,`CREATED_AT`,`UPDATED_TIME`,`CHASSIS_NUMBER`,`COLOR`,`DESCRIPTION`,`ENGINE_NUMBER`,`FUEL_TYPE`,`IMAGE_URL`,`KILOMETERS`,`MAKE_ID`,`MODEL_ID`,`MODEL_YEAR`,`PLATE`,`TRANSMISSION`,`VEHICLE_CONDITION`,`VEHICLE_TYPE`, `LOCATION_ID`)
-//VALUES ('1', NULL, '2016-07-29 14:57:35', '21', 'Blanco', 'dasads', '2121', 'GASOLINE', NULL, '123', '1', '1', '2014', 'dasa213212', 'AUTOMATIC', 'USED', 'CAR_TRUCK',1);
 
 
-INSERT INTO `miagencia`.`vehicle_feature_value` (`VEHICLE_ID`, `FEATURE_VALUE_ID`) VALUES (1, 1);
-INSERT INTO `miagencia`.`vehicle_feature_value` (`VEHICLE_ID`, `FEATURE_VALUE_ID`) VALUES (1, 56);
-INSERT INTO `miagencia`.`vehicle_feature_value` (`VEHICLE_ID`, `FEATURE_VALUE_ID`) VALUES (1, 68);
-INSERT INTO `miagencia`.`vehicle_feature_value` (`VEHICLE_ID`, `FEATURE_VALUE_ID`) VALUES (1, 545);
-
-<<<<<<< HEAD
-INSERT INTO `miagencia`.`sale_items`(`ID`,`CREATED_AT`,`UPDATED_TIME`,`HAS_DOMAIN_CERTIFICATE`,`HAS_REGISTRATION`,`SELLING_PRICE`,`STATUS`,`TAX_DEBT`,`TRAFFIC_TICKETS_DEBT`,`VEHICLE_ID`)
-VALUES (1, null, null,1,1,100000, 'AVAILABLE', 10000,10000,1);
-=======
-//INSERT INTO `miagencia`.`sale_items`(`ID`,`CREATED_AT`,`UPDATED_TIME`,`DAYS_IN_DEALERSHIP`,`HAS_DOMAIN_CERTIFICATE`,`HAS_REGISTRATION`,`SELLING_PRICE`,`STATUS`,`TAX_DEBT`,`TRAFFIC_TICKETS_DEBT`,`VEHICLE_ID`)
-//VALUES (1, null, null, 1,1,1,100000, 'AVAILABLE', 10000,10000,1);
->>>>>>> f2f31992db8aefb1387906d5e428306ca0eb91a3
-
-*/
-
-INSERT INTO `miagencia`.`feature_group` (`id`, `name`, `MERCADO_LIBRE_ID`) VALUES ('1', 'Adicionales', 'ADICIONALES');
-INSERT INTO `miagencia`.`feature_group` (`id`, `name`, `MERCADO_LIBRE_ID`) VALUES ('2', 'Confort', 'CONFORT');
-INSERT INTO `miagencia`.`feature_group` (`id`, `name`, `MERCADO_LIBRE_ID`) VALUES ('3', 'Exterior', 'EXTERIOR');
-INSERT INTO `miagencia`.`feature_group` (`id`, `name`, `MERCADO_LIBRE_ID`) VALUES ('4', 'Ficha t�cnica', 'FIND');
-INSERT INTO `miagencia`.`feature_group` (`id`, `name`, `MERCADO_LIBRE_ID`) VALUES ('5', 'Seguridad', 'SECURITY');
-INSERT INTO `miagencia`.`feature_group` (`id`, `name`, `MERCADO_LIBRE_ID`) VALUES ('6', 'Sonido', 'SONIDO');
 
 
-INSERT INTO `miagencia`.`feature` (`id`, `name`, `GROUP_ID`, `MERCADO_LIBRE_ID`, `MERCADO_LIBRE_TYPE`) VALUES ('1', 'Horario de contacto', '1', 'MLA1743-HORPREF', 'string');
-INSERT INTO `miagencia`.`feature` (`id`, `name`, `GROUP_ID`, `MERCADO_LIBRE_ID`, `MERCADO_LIBRE_TYPE`) VALUES ('2', 'Color', '1', 'MLA1744-COLOREXT', 'list');
-INSERT INTO `miagencia`.`feature` (`id`, `name`, `GROUP_ID`, `MERCADO_LIBRE_ID`, `MERCADO_LIBRE_TYPE`) VALUES ('3', 'Direcci�n', '1', 'MLA1744-DIREC', 'string');
-INSERT INTO `miagencia`.`feature` (`id`, `name`, `GROUP_ID`, `MERCADO_LIBRE_ID`, `MERCADO_LIBRE_TYPE`) VALUES ('4', '�nico due�o', '1', 'MLA1744-OWNER', 'boolean');
-INSERT INTO `miagencia`.`feature` (`id`, `name`, `GROUP_ID`, `MERCADO_LIBRE_ID`, `MERCADO_LIBRE_TYPE`) VALUES ('5', 'Aire acondicionado', '1', 'MLA1744-AIRACON', 'boolean');
-INSERT INTO `miagencia`.`feature` (`id`, `name`, `GROUP_ID`, `MERCADO_LIBRE_ID`, `MERCADO_LIBRE_TYPE`) VALUES ('6', 'Alarma de luces encendidas', '2', 'MLA1744-ALARMLUC', 'boolean');
-INSERT INTO `miagencia`.`feature` (`id`, `name`, `GROUP_ID`, `MERCADO_LIBRE_ID`, `MERCADO_LIBRE_TYPE`) VALUES ('7', 'Apertura remota de ba�l', '2', 'MLA1744-APERBAUL', 'boolean');
-INSERT INTO `miagencia`.`feature` (`id`, `name`, `GROUP_ID`, `MERCADO_LIBRE_ID`, `MERCADO_LIBRE_TYPE`) VALUES ('8', 'Asientos el�ctricos', '2', 'MLA1744-ASIENELEC', 'boolean');
-INSERT INTO `miagencia`.`feature` (`id`, `name`, `GROUP_ID`, `MERCADO_LIBRE_ID`, `MERCADO_LIBRE_TYPE`) VALUES ('9', 'Asiento trasero rebatible', '2', 'MLA1744-ASREBAT-Y', 'boolean');
-INSERT INTO `miagencia`.`feature` (`id`, `name`, `GROUP_ID`, `MERCADO_LIBRE_ID`, `MERCADO_LIBRE_TYPE`) VALUES ('10', 'Asiento conductor regulable en altura', '2', 'MLA1744-ASREGULA', 'boolean');
-INSERT INTO `miagencia`.`feature` (`id`, `name`, `GROUP_ID`, `MERCADO_LIBRE_ID`, `MERCADO_LIBRE_TYPE`) VALUES ('11', 'Cierre centralizado de puertas', '2', 'MLA1744-BLQCNTDOOR', 'boolean');
-INSERT INTO `miagencia`.`feature` (`id`, `name`, `GROUP_ID`, `MERCADO_LIBRE_ID`, `MERCADO_LIBRE_TYPE`) VALUES ('12', 'Climatizador autom�tico', '2', 'MLA1744-CLIMAUT', 'boolean');
-INSERT INTO `miagencia`.`feature` (`id`, `name`, `GROUP_ID`, `MERCADO_LIBRE_ID`, `MERCADO_LIBRE_TYPE`) VALUES ('13', 'Computadora de abordo', '2', 'MLA1744-COMPABO', 'boolean');
-INSERT INTO `miagencia`.`feature` (`id`, `name`, `GROUP_ID`, `MERCADO_LIBRE_ID`, `MERCADO_LIBRE_TYPE`) VALUES ('14', 'Control de velocidad de crucero', '2', 'MLA1744-CTRLVEL', 'boolean');
-INSERT INTO `miagencia`.`feature` (`id`, `name`, `GROUP_ID`, `MERCADO_LIBRE_ID`, `MERCADO_LIBRE_TYPE`) VALUES ('15', 'Espejos el�ctricos', '2', 'MLA1744-ESPELEC', 'boolean');
-INSERT INTO `miagencia`.`feature` (`id`, `name`, `GROUP_ID`, `MERCADO_LIBRE_ID`, `MERCADO_LIBRE_TYPE`) VALUES ('16', 'Sensor de estacionamiento', '2', 'MLA1744-ESTACIONAM', 'boolean');
-INSERT INTO `miagencia`.`feature` (`id`, `name`, `GROUP_ID`, `MERCADO_LIBRE_ID`, `MERCADO_LIBRE_TYPE`) VALUES ('17', 'Faros regulables desde el interior', '2', 'MLA1744-FAROREG', 'boolean');
-INSERT INTO `miagencia`.`feature` (`id`, `name`, `GROUP_ID`, `MERCADO_LIBRE_ID`, `MERCADO_LIBRE_TYPE`) VALUES ('18', 'GPS', '2', 'MLA1744-GPS', 'boolean');
-INSERT INTO `miagencia`.`feature` (`id`, `name`, `GROUP_ID`, `MERCADO_LIBRE_ID`, `MERCADO_LIBRE_TYPE`) VALUES ('19', 'Sensor de lluvia', '2', 'MLA1744-SENSLL', 'boolean');
-INSERT INTO `miagencia`.`feature` (`id`, `name`, `GROUP_ID`, `MERCADO_LIBRE_ID`, `MERCADO_LIBRE_TYPE`) VALUES ('20', 'Sensor de luz', '2', 'MLA1744-SENSLUZ', 'boolean');
-INSERT INTO `miagencia`.`feature` (`id`, `name`, `GROUP_ID`, `MERCADO_LIBRE_ID`, `MERCADO_LIBRE_TYPE`) VALUES ('21', 'Tapizado de cuero', '2', 'MLA1744-TAPCUERO', 'boolean');
-INSERT INTO `miagencia`.`feature` (`id`, `name`, `GROUP_ID`, `MERCADO_LIBRE_ID`, `MERCADO_LIBRE_TYPE`) VALUES ('22', 'Techo corredizo', '2', 'MLA1744-TECHOCORR', 'boolean');
-INSERT INTO `miagencia`.`feature` (`id`, `name`, `GROUP_ID`, `MERCADO_LIBRE_ID`, `MERCADO_LIBRE_TYPE`) VALUES ('23', 'Cristales el�ctricos', '2', 'MLA1744-VIDELEC', 'boolean');
-INSERT INTO `miagencia`.`feature` (`id`, `name`, `GROUP_ID`, `MERCADO_LIBRE_ID`, `MERCADO_LIBRE_TYPE`) VALUES ('24', 'Limpia/lava luneta', '3', 'MLA1744-LIMPIA_LAV', 'boolean');
-INSERT INTO `miagencia`.`feature` (`id`, `name`, `GROUP_ID`, `MERCADO_LIBRE_ID`, `MERCADO_LIBRE_TYPE`) VALUES ('25', 'Llantas de aleaci�n', '3', 'MLA1744-LLANALEAC', 'boolean');
-INSERT INTO `miagencia`.`feature` (`id`, `name`, `GROUP_ID`, `MERCADO_LIBRE_ID`, `MERCADO_LIBRE_TYPE`) VALUES ('26', 'Paragolpes pintados', '3', 'MLA1744-PARAGOLPES', 'boolean');
-INSERT INTO `miagencia`.`feature` (`id`, `name`, `GROUP_ID`, `MERCADO_LIBRE_ID`, `MERCADO_LIBRE_TYPE`) VALUES ('27', 'Vidrios polarizados', '3', 'MLA1744-VIDPOLARIZ', 'boolean');
-INSERT INTO `miagencia`.`feature` (`id`, `name`, `GROUP_ID`, `MERCADO_LIBRE_ID`, `MERCADO_LIBRE_TYPE`) VALUES ('28', 'Combustible', '4', 'MLA1744-COMBUS', 'list');
-INSERT INTO `miagencia`.`feature` (`id`, `name`, `GROUP_ID`, `MERCADO_LIBRE_ID`, `MERCADO_LIBRE_TYPE`) VALUES ('29', 'Cant. de puertas', '4', 'MLA1744-DOOR', 'list');
-INSERT INTO `miagencia`.`feature` (`id`, `name`, `GROUP_ID`, `MERCADO_LIBRE_ID`, `MERCADO_LIBRE_TYPE`) VALUES ('30', 'Kil�metros', '4', 'MLA1744-KMTS', 'string');
-INSERT INTO `miagencia`.`feature` (`id`, `name`, `GROUP_ID`, `MERCADO_LIBRE_ID`, `MERCADO_LIBRE_TYPE`) VALUES ('31', 'Marca', '4', 'MLA1744-MARC', 'list');
-INSERT INTO `miagencia`.`feature` (`id`, `name`, `GROUP_ID`, `MERCADO_LIBRE_ID`, `MERCADO_LIBRE_TYPE`) VALUES ('32', 'Modelo', '4', 'MLA1744-MODL', 'list');
-INSERT INTO `miagencia`.`feature` (`id`, `name`, `GROUP_ID`, `MERCADO_LIBRE_ID`, `MERCADO_LIBRE_TYPE`) VALUES ('33', 'Transmisi�n', '4', 'MLA1744-TRANS', 'list');
-INSERT INTO `miagencia`.`feature` (`id`, `name`, `GROUP_ID`, `MERCADO_LIBRE_ID`, `MERCADO_LIBRE_TYPE`) VALUES ('34', 'A�o', '4', 'MLA1744-YEAR', 'list');
-INSERT INTO `miagencia`.`feature` (`id`, `name`, `GROUP_ID`, `MERCADO_LIBRE_ID`, `MERCADO_LIBRE_TYPE`) VALUES ('35', 'Versi�n', '4', 'MLA92242-VERS', 'string');
-INSERT INTO `miagencia`.`feature` (`id`, `name`, `GROUP_ID`, `MERCADO_LIBRE_ID`, `MERCADO_LIBRE_TYPE`) VALUES ('36', 'Tercer stop', '5', 'MLA1744-3LUZSTOP', 'boolean');
-INSERT INTO `miagencia`.`feature` (`id`, `name`, `GROUP_ID`, `MERCADO_LIBRE_ID`, `MERCADO_LIBRE_TYPE`) VALUES ('37', 'Frenos ABS', '5', 'MLA1744-ABS', 'boolean');
-INSERT INTO `miagencia`.`feature` (`id`, `name`, `GROUP_ID`, `MERCADO_LIBRE_ID`, `MERCADO_LIBRE_TYPE`) VALUES ('38', 'Airbag conductor', '5', 'MLA1744-AIR1', 'boolean');
-INSERT INTO `miagencia`.`feature` (`id`, `name`, `GROUP_ID`, `MERCADO_LIBRE_ID`, `MERCADO_LIBRE_TYPE`) VALUES ('39', 'Airbag pasajero', '5', 'MLA1744-AIR2', 'boolean');
-INSERT INTO `miagencia`.`feature` (`id`, `name`, `GROUP_ID`, `MERCADO_LIBRE_ID`, `MERCADO_LIBRE_TYPE`) VALUES ('40', 'Airbag laterales', '5', 'MLA1744-AIR3', 'boolean');
-INSERT INTO `miagencia`.`feature` (`id`, `name`, `GROUP_ID`, `MERCADO_LIBRE_ID`, `MERCADO_LIBRE_TYPE`) VALUES ('41', 'Airbag de cortina', '5', 'MLA1744-AIRBAGCORT', 'boolean');
-INSERT INTO `miagencia`.`feature` (`id`, `name`, `GROUP_ID`, `MERCADO_LIBRE_ID`, `MERCADO_LIBRE_TYPE`) VALUES ('42', 'Alarma', '5', 'MLA1744-ALAR', 'boolean');
-INSERT INTO `miagencia`.`feature` (`id`, `name`, `GROUP_ID`, `MERCADO_LIBRE_ID`, `MERCADO_LIBRE_TYPE`) VALUES ('43', 'Apoya cabeza en asientos traseros', '5', 'MLA1744-APCABEZA', 'boolean');
-INSERT INTO `miagencia`.`feature` (`id`, `name`, `GROUP_ID`, `MERCADO_LIBRE_ID`, `MERCADO_LIBRE_TYPE`) VALUES ('44', 'Blindado', '5', 'MLA1744-BLIND', 'boolean');
-INSERT INTO `miagencia`.`feature` (`id`, `name`, `GROUP_ID`, `MERCADO_LIBRE_ID`, `MERCADO_LIBRE_TYPE`) VALUES ('45', 'Control de tracci�n', '5', 'MLA1744-CNTTRACC', 'boolean');
-INSERT INTO `miagencia`.`feature` (`id`, `name`, `GROUP_ID`, `MERCADO_LIBRE_ID`, `MERCADO_LIBRE_TYPE`) VALUES ('46', 'Control de estabilidad', '5', 'MLA1744-CONTR', 'boolean');
-INSERT INTO `miagencia`.`feature` (`id`, `name`, `GROUP_ID`, `MERCADO_LIBRE_ID`, `MERCADO_LIBRE_TYPE`) VALUES ('47', 'Doble tracci�n', '5', 'MLA1744-DOBTRACC-Y', 'boolean');
-INSERT INTO `miagencia`.`feature` (`id`, `name`, `GROUP_ID`, `MERCADO_LIBRE_ID`, `MERCADO_LIBRE_TYPE`) VALUES ('48', 'Faros antinieblas delanteros', '5', 'MLA1744-FARANTI', 'boolean');
-INSERT INTO `miagencia`.`feature` (`id`, `name`, `GROUP_ID`, `MERCADO_LIBRE_ID`, `MERCADO_LIBRE_TYPE`) VALUES ('49', 'Faros de xen�n', '5', 'MLA1744-FAROXEN', 'boolean');
-INSERT INTO `miagencia`.`feature` (`id`, `name`, `GROUP_ID`, `MERCADO_LIBRE_ID`, `MERCADO_LIBRE_TYPE`) VALUES ('50', 'Inmovilizador de motor', '5', 'MLA1744-INMOVMOT', 'boolean');
-INSERT INTO `miagencia`.`feature` (`id`, `name`, `GROUP_ID`, `MERCADO_LIBRE_ID`, `MERCADO_LIBRE_TYPE`) VALUES ('51', 'Isofix', '5', 'MLA1744-ISOFIX', 'boolean');
-INSERT INTO `miagencia`.`feature` (`id`, `name`, `GROUP_ID`, `MERCADO_LIBRE_ID`, `MERCADO_LIBRE_TYPE`) VALUES ('52', 'Faros antinieblas traseros', '5', 'MLA1744-NEBLTRAS', 'boolean');
-INSERT INTO `miagencia`.`feature` (`id`, `name`, `GROUP_ID`, `MERCADO_LIBRE_ID`, `MERCADO_LIBRE_TYPE`) VALUES ('53', 'Repartidor electr�nico de fuerza de frenado', '5', 'MLA1744-REPFUERZA', 'boolean');
-INSERT INTO `miagencia`.`feature` (`id`, `name`, `GROUP_ID`, `MERCADO_LIBRE_ID`, `MERCADO_LIBRE_TYPE`) VALUES ('54', 'AM/FM', '6', 'MLA1744-AM_FM', 'boolean');
-INSERT INTO `miagencia`.`feature` (`id`, `name`, `GROUP_ID`, `MERCADO_LIBRE_ID`, `MERCADO_LIBRE_TYPE`) VALUES ('55', 'Bluetooth', '6', 'MLA1744-BLUETOOTH', 'boolean');
-INSERT INTO `miagencia`.`feature` (`id`, `name`, `GROUP_ID`, `MERCADO_LIBRE_ID`, `MERCADO_LIBRE_TYPE`) VALUES ('56', 'Caja de CD', '6', 'MLA1744-CAJACD', 'boolean');
-INSERT INTO `miagencia`.`feature` (`id`, `name`, `GROUP_ID`, `MERCADO_LIBRE_ID`, `MERCADO_LIBRE_TYPE`) VALUES ('57', 'Cargador de CD', '6', 'MLA1744-CARGADORCD', 'boolean');
-INSERT INTO `miagencia`.`feature` (`id`, `name`, `GROUP_ID`, `MERCADO_LIBRE_ID`, `MERCADO_LIBRE_TYPE`) VALUES ('58', 'Pasacassette', '6', 'MLA1744-CASET', 'boolean');
-INSERT INTO `miagencia`.`feature` (`id`, `name`, `GROUP_ID`, `MERCADO_LIBRE_ID`, `MERCADO_LIBRE_TYPE`) VALUES ('59', 'Comando satelital de stereo', '6', 'MLA1744-COMANDOSAT', 'boolean');
-INSERT INTO `miagencia`.`feature` (`id`, `name`, `GROUP_ID`, `MERCADO_LIBRE_ID`, `MERCADO_LIBRE_TYPE`) VALUES ('60', 'DVD', '6', 'MLA1744-DVD', 'boolean');
-INSERT INTO `miagencia`.`feature` (`id`, `name`, `GROUP_ID`, `MERCADO_LIBRE_ID`, `MERCADO_LIBRE_TYPE`) VALUES ('61', 'Entrada auxiliar', '6', 'MLA1744-ENTAUXILIA', 'boolean');
-INSERT INTO `miagencia`.`feature` (`id`, `name`, `GROUP_ID`, `MERCADO_LIBRE_ID`, `MERCADO_LIBRE_TYPE`) VALUES ('62', 'MP3', '6', 'MLA1744-MP3', 'boolean');
-INSERT INTO `miagencia`.`feature` (`id`, `name`, `GROUP_ID`, `MERCADO_LIBRE_ID`, `MERCADO_LIBRE_TYPE`) VALUES ('63', 'CD', '6', 'MLA1744-REPRODCD', 'boolean');
-INSERT INTO `miagencia`.`feature` (`id`, `name`, `GROUP_ID`, `MERCADO_LIBRE_ID`, `MERCADO_LIBRE_TYPE`) VALUES ('64', 'Tarjeta SD', '6', 'MLA1744-TARJETASD', 'boolean');
-INSERT INTO `miagencia`.`feature` (`id`, `name`, `GROUP_ID`, `MERCADO_LIBRE_ID`, `MERCADO_LIBRE_TYPE`) VALUES ('65', 'Entrada USB', '6', 'MLA1744-USB', 'boolean');
-update miagencia.feature set mercado_libre_type = 'BOOLEAN' where mercado_libre_type = 'boolean'
 
 /* NO ANDA, EL CAMPO OLX_ID NO EXISTE EN LA TABLA
 INSERT INTO `miagencia`.`feature_value` (`id`, `VALUE`, `FEATURE_ID`, `MERCADO_LIBRE_ID`, `OLX_ID`) VALUES ('1', 'Amarillo', '2', 'MLA1744-COLOREXT-AMARILLO','14');
