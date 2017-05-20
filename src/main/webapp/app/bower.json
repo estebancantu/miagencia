@@ -16,5 +16,8 @@
     "jquery": "1.11.2",
     "angular-input-masks": "~2.3.0",
     "ng-img-crop-full-extended": "ngImgCropFullExtended#~0.5.5"
+  },
+  "resolutions": {
+    "angular": "1.5.3"
   }
 }
