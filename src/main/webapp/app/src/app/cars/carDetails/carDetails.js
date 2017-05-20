@@ -3,7 +3,6 @@ angular.module( 'ngBoilerplate.carDetails', [
   'broadcastService',
   'ui.router',
   'broadcastService',
-  'placeholders',
   'ui.bootstrap',
   'ngAnimate'
 ])

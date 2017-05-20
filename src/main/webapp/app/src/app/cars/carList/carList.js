@@ -1,6 +1,5 @@
 angular.module( 'ngBoilerplate.carList', [
   'ui.router',
-  'placeholders',
   'ui.bootstrap'
 ])
 
