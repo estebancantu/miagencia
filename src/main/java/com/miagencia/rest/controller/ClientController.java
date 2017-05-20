@@ -21,6 +21,8 @@ import com.miagencia.rest.dto.ClientSummaryDTO;
 import com.miagencia.rest.dto.util.CustomResponseHeaders;
 import com.miagencia.rest.dto.util.DTOValidator;
 
+import javax.servlet.http.HttpServletRequest;
+
 
 // TODO probar update
 // TODO verificar si esta bueno el hecho que recupere un cliente por nombre y apellido para
@@ -61,15 +63,15 @@ public class ClientController {
 	 * @return
 	 */
 	@RequestMapping(value = "/", method = RequestMethod.GET)
-	public @ResponseBody ResponseEntity<List<ClientSummaryDTO>> getClients() {
+	public @ResponseBody ResponseEntity<List<ClientSummaryDTO>> getClients(HttpServletRequest request) {
 		
 		List<ClientSummaryDTO> clients = clientService.getAllClients();
 		
 		if(clients == null || clients.isEmpty()) {
-			return new ResponseEntity<List<ClientSummaryDTO>>(new CustomResponseHeaders(), HttpStatus.NO_CONTENT);
+			return new ResponseEntity<List<ClientSummaryDTO>>(new CustomResponseHeaders(request), HttpStatus.NO_CONTENT);
 		}
 
-		return new ResponseEntity<List<ClientSummaryDTO>>(clients, new CustomResponseHeaders(), HttpStatus.OK);	
+		return new ResponseEntity<List<ClientSummaryDTO>>(clients, new CustomResponseHeaders(request), HttpStatus.OK);
 		
 	}
 
@@ -87,7 +89,7 @@ public class ClientController {
 	    responseHeaders.set("TestHeaderKey", "TestHeaderData");
 		
 	    ClientDTO clientDto = null;
-	    System.out.println("Fetching Client with id " + clientId);   
+	    System.out.println("Fetching Client with id " + clientId);
 		clientDto = clientService.find(clientId);
 		
 		

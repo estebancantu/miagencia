@@ -2,6 +2,7 @@ package com.miagencia.rest.controller;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -46,15 +47,15 @@ public class VehicleController {
 	
 	
 	@RequestMapping(value = "/", method = RequestMethod.GET)
-	public @ResponseBody ResponseEntity<List<VehicleSummaryDTO>> getVehicles() {
+	public @ResponseBody ResponseEntity<List<VehicleSummaryDTO>> getVehicles(HttpServletRequest request) {
 		
 		List<VehicleSummaryDTO> vehiclesDto = vehicleService.getAllVehicles();
 		
 		if(vehiclesDto == null || vehiclesDto.isEmpty()){
-			return new ResponseEntity<List<VehicleSummaryDTO>>(new CustomResponseHeaders(), HttpStatus.NO_CONTENT);
+			return new ResponseEntity<List<VehicleSummaryDTO>>(new CustomResponseHeaders(request), HttpStatus.NO_CONTENT);
 		}
 		
-		return new ResponseEntity<List<VehicleSummaryDTO>>(vehiclesDto, new CustomResponseHeaders(), HttpStatus.OK);
+		return new ResponseEntity<List<VehicleSummaryDTO>>(vehiclesDto, new CustomResponseHeaders(request), HttpStatus.OK);
 	}
 	
 	
@@ -62,7 +63,7 @@ public class VehicleController {
 	
 	
 	@RequestMapping(value = "/{vehicleId}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-	public @ResponseBody ResponseEntity<VehicleDetailsDTO> getVehicleById(@PathVariable long vehicleId) {
+	public @ResponseBody ResponseEntity<VehicleDetailsDTO> getVehicleById(@PathVariable long vehicleId, HttpServletRequest request) {
 		
 	    VehicleDetailsDTO vehicleDetailsDto = null;
 	    System.out.println("Fetching Vehicle with id " + vehicleId);   
@@ -70,10 +71,10 @@ public class VehicleController {
 
 		if(vehicleDetailsDto == null){
 			System.out.println("Vehicle with id " + vehicleId + " not found");
-			return new ResponseEntity<VehicleDetailsDTO>(new CustomResponseHeaders(), HttpStatus.NOT_FOUND);
+			return new ResponseEntity<VehicleDetailsDTO>(new CustomResponseHeaders(request), HttpStatus.NOT_FOUND);
 		}
 		
-		return new ResponseEntity<VehicleDetailsDTO>(vehicleDetailsDto, new CustomResponseHeaders(), HttpStatus.OK);		
+		return new ResponseEntity<VehicleDetailsDTO>(vehicleDetailsDto, new CustomResponseHeaders(request), HttpStatus.OK);
 	}
 	
 	

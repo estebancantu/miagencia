@@ -15,6 +15,7 @@ import com.miagencia.core.service.MakesAndModelsService;
 import com.miagencia.rest.dto.VehicleTypeDTO;
 import com.miagencia.rest.dto.util.CustomResponseHeaders;
 
+import javax.servlet.http.HttpServletRequest;
 
 
 @RestController // NOTA teoricamente al usar REST CONTROLLER, no necesitamos poner @ResponseBody en cada metodo, probar.
@@ -26,11 +27,11 @@ public class MakesAndModelsController {
 	
 	
 	@RequestMapping(value = "/", method = RequestMethod.GET)
-	public @ResponseBody ResponseEntity<List<VehicleTypeDTO>> getMakesAndModels() {
+	public @ResponseBody ResponseEntity<List<VehicleTypeDTO>> getMakesAndModels(HttpServletRequest request) {
 		
 		List<VehicleTypeDTO> makesAndModels = makesAndModelsService.getAllMakesAndModels();
 		
-		return new ResponseEntity<List<VehicleTypeDTO>>(makesAndModels, new CustomResponseHeaders(), HttpStatus.OK);	
+		return new ResponseEntity<List<VehicleTypeDTO>>(makesAndModels, new CustomResponseHeaders(request), HttpStatus.OK);
 		
 	}
 	

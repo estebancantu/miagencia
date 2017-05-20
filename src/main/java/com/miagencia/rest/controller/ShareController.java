@@ -37,7 +37,7 @@ public class ShareController {
     
 	
 	@RequestMapping(value = "/facebook", method = RequestMethod.POST)
-	public ResponseEntity<Void> shareFacebook(@RequestBody ShareRequestDTO shareRequestDTO) {
+	public ResponseEntity<Void> shareFacebook(@RequestBody ShareRequestDTO shareRequestDTO, HttpServletRequest request) {
 		if (shareRequestDTO == null || !DTOValidator.validate(shareRequestDTO)){
 			System.out.println("Share Facebook fields are incorrect"); 
 			return new ResponseEntity<Void>( HttpStatus.BAD_REQUEST);
@@ -49,11 +49,11 @@ public class ShareController {
 		    return new ResponseEntity<Void>( HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 		
-		return new ResponseEntity<Void>(new CustomResponseHeaders(), HttpStatus.CREATED); 
+		return new ResponseEntity<Void>(new CustomResponseHeaders(request), HttpStatus.CREATED);
 	}
 	
 	@RequestMapping(value = "/mercadoLibre", method = RequestMethod.POST)
-	public ResponseEntity<Void> postMercadoLibre(@RequestBody ShareRequestDTO shareRequestDTO) throws Exception{
+	public ResponseEntity<Void> postMercadoLibre(@RequestBody ShareRequestDTO shareRequestDTO, HttpServletRequest request) throws Exception{
 		if (shareRequestDTO == null || !DTOValidator.validate(shareRequestDTO)){
 			System.out.println("Post MercadoLibre fields are incorrect"); 
 			return new ResponseEntity<Void>( HttpStatus.BAD_REQUEST);
@@ -65,7 +65,7 @@ public class ShareController {
 		    return new ResponseEntity<Void>( HttpStatus.NOT_IMPLEMENTED);
 		}
 		
-		return new ResponseEntity<Void>(new CustomResponseHeaders(), HttpStatus.CREATED); 
+		return new ResponseEntity<Void>(new CustomResponseHeaders(request), HttpStatus.CREATED);
 	}
 	
 	@RequestMapping(value = "/olx", method = RequestMethod.POST)
@@ -97,7 +97,7 @@ public class ShareController {
             return new ResponseEntity<Void>(HttpStatus.NOT_IMPLEMENTED);
         }
         
-        return new ResponseEntity<Void>(new CustomResponseHeaders(), HttpStatus.CREATED);
+        return new ResponseEntity<Void>(new CustomResponseHeaders(request), HttpStatus.CREATED);
     }
 	
 	@RequestMapping(value = "/olx/{fileName}", method = RequestMethod.GET)

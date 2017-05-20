@@ -17,6 +17,8 @@ import com.miagencia.rest.dto.BadgeCountersDTO;
 import com.miagencia.rest.dto.ClientSummaryDTO;
 import com.miagencia.rest.dto.util.CustomResponseHeaders;
 
+import javax.servlet.http.HttpServletRequest;
+
 
 @RestController
 @RequestMapping("/api/badgeCounters")
@@ -32,12 +34,12 @@ public class BadgeCountersController {
 	 * @return
 	 */
 	@RequestMapping(value = "/", method = RequestMethod.GET)
-	public @ResponseBody ResponseEntity<BadgeCountersDTO> getBadgeCounters() {
+	public @ResponseBody ResponseEntity<BadgeCountersDTO> getBadgeCounters(HttpServletRequest request) {
 		
 
 		BadgeCountersDTO badgeCountersDto = badgeCountersService.getBadgeCounters();
 
-		return new ResponseEntity<BadgeCountersDTO>(badgeCountersDto, new CustomResponseHeaders(), HttpStatus.OK);	
+		return new ResponseEntity<BadgeCountersDTO>(badgeCountersDto, new CustomResponseHeaders(request), HttpStatus.OK);
 		
 	}
 
