@@ -6,9 +6,12 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.miagencia.core.dao.AccountDAO;
 import com.miagencia.core.model.Account;
+import com.miagencia.core.model.Client;
 import com.miagencia.core.model.Dealership;
 import com.miagencia.core.service.AccountService;
 import com.miagencia.rest.dto.AccountDTO;
+import com.miagencia.rest.dto.ClientDTO;
+import com.miagencia.rest.dto.util.EntityDTOTranslator;
 
 @Service
 public class AccountServiceImpl implements AccountService {
@@ -54,6 +57,25 @@ public class AccountServiceImpl implements AccountService {
 	public AccountDTO find(Long accountId) {
 		// TODO Auto-generated method stub
 		return null;
+	}
+	
+	@Override
+	@Transactional
+	public AccountDTO find(String username) {
+		
+		AccountDTO accountDto = null;
+		Account account = accountDao.find(username);
+		
+		
+		if (account != null) {
+			accountDto = EntityDTOTranslator.buildAccountDTO(account);
+		}
+		
+		return accountDto;
+		
+		
+		
+		
 	}
 
 }

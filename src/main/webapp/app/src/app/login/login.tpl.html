@@ -1,0 +1,13 @@
+<div class="alert alert-danger" ng-show="loginError">
+    El usuario o la contrase&ntilde;a son incorrectos. Por favor intente de nuevo.
+</div>
+<div ng-controller="LoginCtrl">
+    <div class="loginmodal-container" role="form" ng-submit="login()">
+        <h1>Ingresar a Mi Agencia</h1><br>
+      <form>
+        <input type="text" name="user" placeholder="Usuario" ng-model="credentials.username">
+        <input type="password" name="pass" placeholder="Contrase&ntilde;a" ng-model="credentials.password">
+        <input type="submit" name="login" class="login loginmodal-submit btn btn-danger" value="Continuar">
+      </form>
+    </div>
+</div>

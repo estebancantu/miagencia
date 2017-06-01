@@ -1,5 +1,7 @@
 package com.miagencia.rest.controller;
 
+import java.security.Principal;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -10,7 +12,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.UriComponentsBuilder;
 
+import com.miagencia.core.service.AccountService;
 import com.miagencia.core.service.VehicleOperationService;
+import com.miagencia.rest.dto.AccountDTO;
 import com.miagencia.rest.dto.operations.NewVehicleRequestDTO;
 import com.miagencia.rest.dto.operations.ReserveVehicleRequestDTO;
 import com.miagencia.rest.dto.operations.SellVehicleRequestDTO;
@@ -27,6 +31,8 @@ public class OperationController {
 	@Autowired
 	VehicleOperationService vehicleOperationService;
 	
+	@Autowired
+	AccountService accountService;
 	
 	
 	// TODO validar con Spring validation o algo asi
@@ -37,8 +43,11 @@ public class OperationController {
 	 * @return
 	 */
 	@RequestMapping(value = "/buyVehicle", method = RequestMethod.POST)
-	public ResponseEntity<Void> newVehicle(@RequestBody NewVehicleRequestDTO newVehicleRequestDto,  UriComponentsBuilder ucBuilder) {
+	public ResponseEntity<Void> newVehicle(@RequestBody NewVehicleRequestDTO newVehicleRequestDto,  UriComponentsBuilder ucBuilder, Principal principal) {
 		
+		
+		// Get logged user account
+		AccountDTO accountDto = accountService.find(principal.getName());
 		
 		// TODO revisar validacion, tal vez se pueda resolver con excepciones etc
 		if (newVehicleRequestDto == null || !DTOValidator.validate(newVehicleRequestDto) ){
@@ -51,7 +60,7 @@ public class OperationController {
 		System.out.println("Creating New Vehicle Operation ");
 
 		
-		vehicleOperationService.newVehicle(newVehicleRequestDto);
+		vehicleOperationService.newVehicle(newVehicleRequestDto, accountDto);
 
 		
 		HttpHeaders responseHeaders = new HttpHeaders();

@@ -243,7 +243,7 @@ public class ShareServiceImpl implements ShareService {
     private PublicationAutocosmos createAutocosmosPublication(Vehicle vehicle){
 	    PublicationAutocosmos publication = new PublicationAutocosmos();
 	    publication.setExternalId("MiAgenciaVirtual-"+vehicle.getId().toString());
-	    publication.setEmail(vehicle.getDealer().getEmail());
+	    publication.setEmail(vehicle.getDealership().getEmail());
 	    Model model = makesAndModelsDAO.getModel(new Long(vehicle.getModelId()));
 	    if(model != null && model.getAutocosmosId() != null   && !model.getAutocosmosId().isEmpty()) {
 	        publication.setModel(new com.miagencia.core.model.autocosmos.Model(model.getAutocosmosId()));
@@ -300,9 +300,9 @@ public class ShareServiceImpl implements ShareService {
 		Model model = makesAndModelsDAO.getModel(new Long(vehicle.getModelId()));
 		AD ad = new AD();
 		ad.setCategory(vehicle.getVehicleType().getOlxId());
-		ad.setContactEmail(vehicle.getDealer().getEmail());
-		ad.setContactPhone(vehicle.getDealer().getPhone());
-		ad.setContactName(vehicle.getDealer().getName());
+		ad.setContactEmail(vehicle.getDealership().getEmail());
+		ad.setContactPhone(vehicle.getDealership().getPhone());
+		ad.setContactName(vehicle.getDealership().getName());
 		String[] urls = {URL_MI_AGENCIA.concat("pics/"+vehicle.getImageUrls().get(0))};
 		ad.setImageUrl(urls);
 				
@@ -312,35 +312,35 @@ public class ShareServiceImpl implements ShareService {
 		
 		ad.setId("OLX-"+vehicle.getId());
 		
-		if(vehicle.getDealer().getLocation().getNeighborhood() != null && vehicle.getDealer().getLocation().getNeighborhood().getOlxId() != null
-		            && !vehicle.getDealer().getLocation().getNeighborhood().getOlxId().isEmpty()) {
-		    ad.setLocationNeighborhood(vehicle.getDealer().getLocation().getNeighborhood().getOlxId());
+		if(vehicle.getDealership().getLocation().getNeighborhood() != null && vehicle.getDealership().getLocation().getNeighborhood().getOlxId() != null
+		            && !vehicle.getDealership().getLocation().getNeighborhood().getOlxId().isEmpty()) {
+		    ad.setLocationNeighborhood(vehicle.getDealership().getLocation().getNeighborhood().getOlxId());
 		} else {
-		    if(vehicle.getDealer().getLocation().getNeighborhood() != null){
+		    if(vehicle.getDealership().getLocation().getNeighborhood() != null){
 		        throw new LocationDoesNotExistException();
 		    }
 		}
-		if(vehicle.getDealer().getLocation().getCity() != null && vehicle.getDealer().getLocation().getCity().getOlxId() != null
-                && !vehicle.getDealer().getLocation().getCity().getOlxId().isEmpty()) {
-		ad.setLocationCity(vehicle.getDealer().getLocation().getCity().getOlxId());
+		if(vehicle.getDealership().getLocation().getCity() != null && vehicle.getDealership().getLocation().getCity().getOlxId() != null
+                && !vehicle.getDealership().getLocation().getCity().getOlxId().isEmpty()) {
+		ad.setLocationCity(vehicle.getDealership().getLocation().getCity().getOlxId());
 		} else {
 		    throw new LocationDoesNotExistException();
 		}
 		
-		if(vehicle.getDealer().getLocation().getState() != null && vehicle.getDealer().getLocation().getState().getOlxId() != null
-                && !vehicle.getDealer().getLocation().getState().getOlxId().isEmpty()) {
-		ad.setLocationState(vehicle.getDealer().getLocation().getState().getOlxId());
+		if(vehicle.getDealership().getLocation().getState() != null && vehicle.getDealership().getLocation().getState().getOlxId() != null
+                && !vehicle.getDealership().getLocation().getState().getOlxId().isEmpty()) {
+		ad.setLocationState(vehicle.getDealership().getLocation().getState().getOlxId());
 		} else {
 		    throw new LocationDoesNotExistException();
 		}
-		if(vehicle.getDealer().getLocation().getCountry() != null && vehicle.getDealer().getLocation().getCountry().getOlxId() != null
-                && !vehicle.getDealer().getLocation().getCountry().getOlxId().isEmpty()) {
-		ad.setLocationCountry(vehicle.getDealer().getLocation().getCountry().getOlxId());
+		if(vehicle.getDealership().getLocation().getCountry() != null && vehicle.getDealership().getLocation().getCountry().getOlxId() != null
+                && !vehicle.getDealership().getLocation().getCountry().getOlxId().isEmpty()) {
+		ad.setLocationCountry(vehicle.getDealership().getLocation().getCountry().getOlxId());
 		} else {
 		    throw new LocationDoesNotExistException();
 		}
-		ad.setLocationLatitud(vehicle.getDealer().getLocation().getLatitude());
-		ad.setLocationLongitude(vehicle.getDealer().getLocation().getLongitude());
+		ad.setLocationLatitud(vehicle.getDealership().getLocation().getLatitude());
+		ad.setLocationLongitude(vehicle.getDealership().getLocation().getLongitude());
 		
 		SaleItem saleItem = saleItemDAO.getSaleItemByVehicleId(vehicle.getId());
 		if(saleItem != null){
@@ -388,32 +388,32 @@ public class ShareServiceImpl implements ShareService {
 		publication.setAttributes(createMercadoLibreAttributes(vehicle));
 		
 		Location location = new Location();
-		location.setAddress_line(vehicle.getDealer().getLocation().getAddressLine());
-		location.setZip_code(vehicle.getDealer().getLocation().getZipCode());
-		location.setLatitude(vehicle.getDealer().getLocation().getLatitude());
-		location.setLongitude(vehicle.getDealer().getLocation().getLongitude());
-		location.setOpen_hours(vehicle.getDealer().getLocation().getOpenHours());
-		if(vehicle.getDealer().getLocation().getCountry() != null && vehicle.getDealer().getLocation().getCountry().getMercadolibreId() != null &&
-		        !vehicle.getDealer().getLocation().getCountry().getMercadolibreId().isEmpty()){
-			location.setCountry(new Country(vehicle.getDealer().getLocation().getCountry().getMercadolibreId(), vehicle.getDealer().getLocation().getCountry().getName()));
+		location.setAddress_line(vehicle.getDealership().getLocation().getAddressLine());
+		location.setZip_code(vehicle.getDealership().getLocation().getZipCode());
+		location.setLatitude(vehicle.getDealership().getLocation().getLatitude());
+		location.setLongitude(vehicle.getDealership().getLocation().getLongitude());
+		location.setOpen_hours(vehicle.getDealership().getLocation().getOpenHours());
+		if(vehicle.getDealership().getLocation().getCountry() != null && vehicle.getDealership().getLocation().getCountry().getMercadolibreId() != null &&
+		        !vehicle.getDealership().getLocation().getCountry().getMercadolibreId().isEmpty()){
+			location.setCountry(new Country(vehicle.getDealership().getLocation().getCountry().getMercadolibreId(), vehicle.getDealership().getLocation().getCountry().getName()));
 		} else {
 		    throw new LocationDoesNotExistException();
 		}
-		if(vehicle.getDealer().getLocation().getState() != null && vehicle.getDealer().getLocation().getState().getMercadolibreId() != null &&
-                !vehicle.getDealer().getLocation().getState().getMercadolibreId().isEmpty()){
-			location.setState(new State(vehicle.getDealer().getLocation().getState().getMercadolibreId(), vehicle.getDealer().getLocation().getState().getName()));
+		if(vehicle.getDealership().getLocation().getState() != null && vehicle.getDealership().getLocation().getState().getMercadolibreId() != null &&
+                !vehicle.getDealership().getLocation().getState().getMercadolibreId().isEmpty()){
+			location.setState(new State(vehicle.getDealership().getLocation().getState().getMercadolibreId(), vehicle.getDealership().getLocation().getState().getName()));
 		} else {
             throw new LocationDoesNotExistException();
         }
-		if(vehicle.getDealer().getLocation().getCity() != null && vehicle.getDealer().getLocation().getCity().getMercadolibreId() != null &&
-                !vehicle.getDealer().getLocation().getCity().getMercadolibreId().isEmpty()){
-			location.setCity(new City(vehicle.getDealer().getLocation().getCity().getMercadolibreId(), vehicle.getDealer().getLocation().getCity().getName()));
+		if(vehicle.getDealership().getLocation().getCity() != null && vehicle.getDealership().getLocation().getCity().getMercadolibreId() != null &&
+                !vehicle.getDealership().getLocation().getCity().getMercadolibreId().isEmpty()){
+			location.setCity(new City(vehicle.getDealership().getLocation().getCity().getMercadolibreId(), vehicle.getDealership().getLocation().getCity().getName()));
 		} else {
             throw new LocationDoesNotExistException();
         }
-		if(vehicle.getDealer().getLocation().getNeighborhood() != null){
-		    if(vehicle.getDealer().getLocation().getNeighborhood().getMercadolibreId() != null && !vehicle.getDealer().getLocation().getNeighborhood().getMercadolibreId().isEmpty()){
-		        location.setNeighborhood(new Neighborhood(vehicle.getDealer().getLocation().getNeighborhood().getMercadolibreId(), vehicle.getDealer().getLocation().getNeighborhood().getName()));
+		if(vehicle.getDealership().getLocation().getNeighborhood() != null){
+		    if(vehicle.getDealership().getLocation().getNeighborhood().getMercadolibreId() != null && !vehicle.getDealership().getLocation().getNeighborhood().getMercadolibreId().isEmpty()){
+		        location.setNeighborhood(new Neighborhood(vehicle.getDealership().getLocation().getNeighborhood().getMercadolibreId(), vehicle.getDealership().getLocation().getNeighborhood().getName()));
 		    } else {
 	            throw new LocationDoesNotExistException();
 	        }

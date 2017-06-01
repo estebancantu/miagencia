@@ -67,7 +67,7 @@ module.exports = {
       'vendor/angular/angular.js',
       'vendor/angular-animate/angular-animate.min.js',
       'vendor/angular-bootstrap/ui-bootstrap-tpls.min.js',
-      'vendor/placeholders/angular-placeholders-0.0.1-SNAPSHOT.min.js',
+      'vendor/angular-bootstrap/ui-bootstrap-tpls.min.js',
       'vendor/angular-ui-router/release/angular-ui-router.js',
       'vendor/angular-ui-utils/modules/route/route.js',
       'vendor/ng-flow/dist/ng-flow.min.js',
@@ -75,7 +75,8 @@ module.exports = {
       'vendor/angular-resource/angular-resource.min.js',
       'vendor/ng-file-upload/ng-file-upload-all.min.js',
       'vendor/ng-img-crop-full-extended/compile/minified/ng-img-crop.js',
-      'vendor/angular-input-masks/angular-input-masks-standalone.js'
+      'vendor/angular-input-masks/angular-input-masks-standalone.js',
+      'vendor/angular-http-auth/dist/http-auth-interceptor.min.js'
       
 
     ],

@@ -1,5 +1,6 @@
 	package com.miagencia.rest.controller;
 
+import java.security.Principal;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,7 +16,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.UriComponentsBuilder;
 
+import com.miagencia.core.service.AccountService;
 import com.miagencia.core.service.ClientService;
+import com.miagencia.rest.dto.AccountDTO;
 import com.miagencia.rest.dto.ClientDTO;
 import com.miagencia.rest.dto.ClientSummaryDTO;
 import com.miagencia.rest.dto.util.CustomResponseHeaders;
@@ -57,15 +60,21 @@ public class ClientController {
 	@Autowired
 	ClientService clientService;
 
+	@Autowired
+	AccountService accountService;
 	
 	
 	/**
 	 * @return
 	 */
 	@RequestMapping(value = "/", method = RequestMethod.GET)
-	public @ResponseBody ResponseEntity<List<ClientSummaryDTO>> getClients(HttpServletRequest request) {
+	public @ResponseBody ResponseEntity<List<ClientSummaryDTO>> getClients(HttpServletRequest request, Principal principal) {
+
 		
-		List<ClientSummaryDTO> clients = clientService.getAllClients();
+		// Get logged user account
+		AccountDTO account = accountService.find(principal.getName());
+
+		List<ClientSummaryDTO> clients = clientService.getAllClients(account.getId());
 		
 		if(clients == null || clients.isEmpty()) {
 			return new ResponseEntity<List<ClientSummaryDTO>>(new CustomResponseHeaders(request), HttpStatus.NO_CONTENT);

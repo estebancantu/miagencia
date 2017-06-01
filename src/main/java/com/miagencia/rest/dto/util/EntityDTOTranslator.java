@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import com.miagencia.core.model.Account;
 import com.miagencia.core.model.Client;
 import com.miagencia.core.model.Color;
 import com.miagencia.core.model.Dealership;
@@ -25,6 +26,7 @@ import com.miagencia.core.model.operations.ConsignmentOperation;
 import com.miagencia.core.model.operations.ReservationOperation;
 import com.miagencia.core.model.operations.SaleOperation;
 import com.miagencia.core.model.operations.VehicleOperation;
+import com.miagencia.rest.dto.AccountDTO;
 import com.miagencia.rest.dto.ClientDTO;
 import com.miagencia.rest.dto.ClientSummaryDTO;
 import com.miagencia.rest.dto.ExpenseDTO;
@@ -40,7 +42,7 @@ import com.miagencia.rest.dto.operations.SellVehicleRequestDTO;
 
 public class EntityDTOTranslator {
 	
-	public static Vehicle buildVehicle(VehicleDTO vehicleDto) {
+	public static Vehicle buildVehicle(VehicleDTO vehicleDto, Dealership dealership) {
 		
 		Vehicle vehicle = new Vehicle();
 
@@ -62,7 +64,8 @@ public class EntityDTOTranslator {
 		vehicle.setPublicDescription(vehicleDto.getPublicDescription());
 		vehicle.setPrivateDescription(vehicleDto.getPrivateDescription());
 		vehicle.setImageUrls(vehicleDto.getImageUrls());
-		
+	
+		vehicle.setDealership(dealership);
 
 		
 		return vehicle;
@@ -260,7 +263,7 @@ public class EntityDTOTranslator {
 	
 	
 	
-	public static Client buildClient(ClientDTO clientDto) {
+	public static Client buildClient(ClientDTO clientDto, Dealership dealership) {
 		
 		Client client = new Client();
 		
@@ -277,8 +280,9 @@ public class EntityDTOTranslator {
 		client.setPostalCode(clientDto.getPostalCode());
 		client.setCountry(clientDto.getCountry());
 		client.setDateOfBirth(clientDto.getDateOfBirth());
-		
 
+		client.setDealership(dealership);
+		
 		return client;
 	}
 	
@@ -461,5 +465,20 @@ public class EntityDTOTranslator {
  
 		 return sellingPrice - ( paidPrice + totalExpenses );
 	 }
+	 
+	 
+		public static AccountDTO buildAccountDTO(Account account) {
+			
+			AccountDTO accountDto = new AccountDTO();
+			
+			accountDto.setId(account.getId());
+			accountDto.setUsername(account.getUsername());
+			accountDto.setPassword(null);
+			accountDto.setDealershipName(account.getDealership().getName());
+			accountDto.setEmail(account.getDealership().getEmail());
+			
+			return accountDto;
+		}
+		
 
 }

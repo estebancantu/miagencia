@@ -28,7 +28,7 @@ public class FileController {
     public void getReceipt(@PathVariable Long vehicleId, HttpServletResponse response) throws IOException{
         InputStream is = fileService.getReceiptFile(vehicleId);
         response.setContentType("application/vnd.openxmlformats-officedocument.wordprocessingml.document");
-        response.addHeader("Content-Disposition", "attachment; filename=Seña.docx");
+        response.addHeader("Content-Disposition", "attachment; filename=SeÃ±a.docx");
         org.apache.commons.io.IOUtils.copy(is, response.getOutputStream());
         response.flushBuffer();
         is.close();

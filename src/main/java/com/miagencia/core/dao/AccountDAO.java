@@ -11,5 +11,7 @@ public interface AccountDAO {
 	public void delete(Long accountId);
 	
 	public Account find(Long accountId);
+	
+	public Account find(String username);
 
 }

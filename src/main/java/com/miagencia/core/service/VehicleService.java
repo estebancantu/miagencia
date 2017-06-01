@@ -14,7 +14,7 @@ public interface VehicleService {
 
 	public VehicleDetailsDTO find(Long vehicleId);
 
-	public List<VehicleSummaryDTO> getAllVehicles();
+	public List<VehicleSummaryDTO> getAllVehicles(Long accountId);
 	
 	public void delete(Long vehicleId);
 

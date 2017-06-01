@@ -2,6 +2,7 @@ package com.miagencia.core.dao.impl;
 
 import java.util.List;
 
+import org.hibernate.Query;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -34,8 +35,12 @@ public class VehicleDAOImpl implements VehicleDAO {
 
 
 	@Override
-	public List<Vehicle> getAllVehicles() {
-		return sessionFactory.getCurrentSession().createQuery("from Vehicle").list();
+	public List<Vehicle> getAllVehicles(Long accountId) {
+
+	Query query = sessionFactory.getCurrentSession().createQuery("select v from Vehicle v where v.dealership.id = :accountId");
+	query.setLong("accountId", accountId);	
+	return query.list();
+
 	}
 
 
@@ -57,9 +62,21 @@ public class VehicleDAOImpl implements VehicleDAO {
 
 
 	@Override
-	public int countTotalVehicles() {
-		Long count = (Long) sessionFactory.getCurrentSession().createQuery("select count(*) from Vehicle").uniqueResult();
+	public int countTotalVehicles(Long accountId) {
+		Query query = sessionFactory.getCurrentSession().createQuery("select count(v) from Vehicle v where v.dealership.id = :accountId");
+		query.setLong("accountId", accountId);	
+		Long count = (Long)query.uniqueResult();
 		return count.intValue();
+	}
+
+
+
+
+	@Override
+	public Long addVehicle(Vehicle vehicle) {
+
+		if (vehicle == null) throw new IllegalArgumentException("Vehicle argument cannot be null");
+		return (Long) sessionFactory.getCurrentSession().save(vehicle);	
 	}
 
 }

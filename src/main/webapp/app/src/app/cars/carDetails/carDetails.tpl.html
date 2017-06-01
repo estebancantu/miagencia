@@ -13,7 +13,7 @@
 							</h2>
 						</div>
 						<div class="col-sm-2">
-							<h3><span class="title-year pull-right">{{carDetailsDto.vehicleDto.kilometers}}&nbsp;&nbsp;|&nbsp;&nbsp;{{carDetailsDto.vehicleDto.year}}</span></h3>
+							<h3><span class="title-year pull-right">{{carDetailsDto.vehicleDto.kilometers | number }}&nbsp;Km.&nbsp;&nbsp;|&nbsp;&nbsp;{{carDetailsDto.vehicleDto.year}}</span></h3>
 						</div>
 
 				</div>
@@ -408,7 +408,7 @@
       <div class="form-group">
         <div class="car-details-crud-buttons">
           <div class="pull-right">
-            <button type="submit" ui-sref="newCar({carId:carDetailsDto.vehicleDto.id})" class="btn btn-lg btn-primary"><span class="fa fa-pencil"></span>&nbsp;Editar</button>
+            <button type="submit" ng-class="disabled" ui-sref="newCar({carId:carDetailsDto.vehicleDto.id})" class="btn btn-lg btn-primary"><span class="fa fa-pencil"></span>&nbsp;Editar</button>
             <button type="submit" class="btn btn-lg btn-danger" ng-disabled="newClientForm.$invalid" ng-click="deleteCarModal()"><span class="fa fa-trash-o"></span>&nbsp;Eliminar Veh&iacute;culo</button>
           </div>
         </div>

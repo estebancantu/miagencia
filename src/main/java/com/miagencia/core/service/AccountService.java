@@ -12,5 +12,8 @@ public interface AccountService {
 	public void delete(Long accountId);
 	
 	public AccountDTO find(Long accountId);
+	
+	public AccountDTO find(String username);
+	
 
 }

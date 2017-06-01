@@ -15,6 +15,8 @@ import java.util.List;
 
 
 
+
+
 import org.hibernate.Query;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -75,14 +77,19 @@ public class ClientDAOImpl implements ClientDAO {
 	}
 
 	@Override
-	public List<Client> getAllClients() {
-		return sessionFactory.getCurrentSession().createQuery("from Client").list();
+	public List<Client> getAllClients(Long accountId) {
+		
+		Query query = sessionFactory.getCurrentSession().createQuery("select c from Client c where c.dealership.id = :accountId");
+		query.setLong("accountId", accountId);	
+		return query.list();
 	}
 
 	@Override
-	public int countTotalClients() {
-		Long count = (Long) sessionFactory.getCurrentSession().createQuery("select count(*) from Client").uniqueResult();
+	public int countTotalClients(Long accountId) {
+		
+		Query query = sessionFactory.getCurrentSession().createQuery("select count(c) from Client c where c.dealership.id = :accountId");
+		query.setLong("accountId", accountId);	
+		Long count = (Long)query.uniqueResult();
 		return count.intValue();
 	}
-
 }
