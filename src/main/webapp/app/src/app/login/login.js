@@ -19,7 +19,6 @@ angular.module( 'ngBoilerplate.login', ['authSharedService'])
 .controller( 'LoginCtrl', function LoginController( $rootScope, $scope, authSharedService ) {
 
       $scope.rememberMe = true;
-
       $scope.credentials = {};
 
      $scope.login = function() {
@@ -27,7 +26,5 @@ angular.module( 'ngBoilerplate.login', ['authSharedService'])
         authSharedService.login($scope.credentials.username, $scope.credentials.password, $scope.rememberMe);
 
      };
-
-
 });
 
