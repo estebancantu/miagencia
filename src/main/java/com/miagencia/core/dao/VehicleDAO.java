@@ -11,9 +11,7 @@ import com.miagencia.core.model.Vehicle;
 public interface VehicleDAO {
 	
 
-	/* No hay un método para dar de alta un vehículo directamente. Los vehículos
-	 * se crean por cascade cuando se crea una nueva operación.
-	 */
+	public Long addVehicle(Vehicle vehicle);
 	
 	public Vehicle find(Long vehicleId);
 	

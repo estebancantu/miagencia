@@ -1,17 +1,5 @@
 var authSharedService = angular.module('authSharedService', ['ngResource', 'ngBoilerplate', 'http-auth-interceptor']);
 
-/*
-authSharedService.factory('authSharedService', ['$resource', 'SERVER_URL',
-  function($resource, SERVER_URL){
-    return $resource( SERVER_URL + 'clients/:id', {id:'@id'});
-  }]);
-
-authSharedService.config(function($resourceProvider) {
-  $resourceProvider.defaults.stripTrailingSlashes = false;
-});
-*/
-
-
 
 authSharedService.service('authSharedService', function ($rootScope, $http, $resource, authService, Session, SERVER_URL) {
     return {
@@ -29,7 +17,7 @@ authSharedService.service('authSharedService', function ($rootScope, $http, $res
             };
 
 
-
+            // TODO ver si hay que armar el url o hay que mandarlo en data, alguno de los dos esta de mas
             $http({
                 method: 'POST',
                 url: SERVER_URL + 'authenticate?' + 'j_username=' + userName + '&' + 'j_password=' + password + '&' + '_spring_security_remember_me=' + rememberMe,
@@ -38,8 +26,7 @@ authSharedService.service('authSharedService', function ($rootScope, $http, $res
             })
             .then(function success(response) {
                         
-               // $rootScope.authenticated = true;
-               // aca propagar el estado
+                // Dispara el evento 'event:auth-loginConfirmed'. Lo captura app.js y redirecciona al estado 'home'.
                 authService.loginConfirmed(response.data);
             
 			}, function error(response) {
@@ -62,6 +49,7 @@ authSharedService.service('authSharedService', function ($rootScope, $http, $res
             });
 
             Session.invalidate();
+            // Dispara el evento 'event:auth-loginCancelled'. Lo captura app.js y dispara un evento '$stateChangeSuccess'.
             authService.loginCancelled();
         }
 

@@ -70,9 +70,7 @@ public class VehicleServiceImpl implements VehicleService {
 		operations = operationDao.findOperationsByVehicleId(vehicleId);
 		VehicleOperation newVehicleOperation = null;
 		
-		
 		List<VehicleOperationDTO> vehicleOperationDtos;
-		
 		
 		vehicleOperationDtos = EntityDTOTranslator.buildVehicleOperationDtos(operations);
 		

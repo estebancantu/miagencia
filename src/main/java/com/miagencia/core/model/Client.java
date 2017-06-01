@@ -2,6 +2,7 @@ package com.miagencia.core.model;
 
 import java.util.Date;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -10,6 +11,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+
 
 
 @Entity
@@ -21,11 +23,10 @@ public class Client extends PersistableEntity {
 	
 	// TODO HAY QUE VER SI ESTO PUEDE SER PERSONA FISICA O JURIDICA
 	
-	// TODO hacer not null una vez que este lo de Dealership
-	// Agencia concesionaria 
-	@ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "DEALER_ID")
-    private Dealership dealer;
+
+	@ManyToOne(fetch = FetchType.EAGER, cascade=CascadeType.ALL)
+    @JoinColumn(name = "DEALERSHIP_ID")
+    private Dealership dealership;
 
 	@Column(name="DNI")
 	private Long dni;
@@ -75,7 +76,6 @@ public class Client extends PersistableEntity {
 
 	
 
-	
 
 	
 	// TODO Supuesto no-arg constructor para hibernate. Probar y borrar si no se necesita
@@ -85,7 +85,7 @@ public class Client extends PersistableEntity {
 
 	public Client(Long dni, String firstName, String lastName, String email,
 			String phone, String mobile, String address, String city,
-			String province, String postalCode, String country) {
+			String province, String postalCode, String country, Date dateOfBirth) {
 		
 		// TODO recordar el dateOfBirth
 		super();
@@ -100,6 +100,7 @@ public class Client extends PersistableEntity {
 		this.province = province;
 		this.postalCode = postalCode;
 		this.country = country;
+		this.dateOfBirth = dateOfBirth;
 	}
 
 	
@@ -191,13 +192,20 @@ public class Client extends PersistableEntity {
 		this.country = country;
 	}
 
-
 	public Date getDateOfBirth() {
 		return dateOfBirth;
 	}
 
 	public void setDateOfBirth(Date dateOfBirth) {
 		this.dateOfBirth = dateOfBirth;
+	}
+
+	public Dealership getDealership() {
+		return dealership;
+	}
+
+	public void setDealership(Dealership dealership) {
+		this.dealership = dealership;
 	}
 
 }

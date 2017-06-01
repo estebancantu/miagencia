@@ -42,7 +42,7 @@ import com.miagencia.rest.dto.operations.SellVehicleRequestDTO;
 
 public class EntityDTOTranslator {
 	
-	public static Vehicle buildVehicle(VehicleDTO vehicleDto) {
+	public static Vehicle buildVehicle(VehicleDTO vehicleDto, Dealership dealership) {
 		
 		Vehicle vehicle = new Vehicle();
 
@@ -65,7 +65,7 @@ public class EntityDTOTranslator {
 		vehicle.setPrivateDescription(vehicleDto.getPrivateDescription());
 		vehicle.setImageUrls(vehicleDto.getImageUrls());
 	
-		
+		vehicle.setDealership(dealership);
 
 		
 		return vehicle;
@@ -263,7 +263,7 @@ public class EntityDTOTranslator {
 	
 	
 	
-	public static Client buildClient(ClientDTO clientDto) {
+	public static Client buildClient(ClientDTO clientDto, Dealership dealership) {
 		
 		Client client = new Client();
 		
@@ -280,8 +280,9 @@ public class EntityDTOTranslator {
 		client.setPostalCode(clientDto.getPostalCode());
 		client.setCountry(clientDto.getCountry());
 		client.setDateOfBirth(clientDto.getDateOfBirth());
-		
 
+		client.setDealership(dealership);
+		
 		return client;
 	}
 	

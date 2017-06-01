@@ -5,16 +5,21 @@ import java.util.Iterator;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.miagencia.core.dao.AccountDAO;
 import com.miagencia.core.dao.ClientDAO;
+import com.miagencia.core.model.Account;
 import com.miagencia.core.model.Client;
+import com.miagencia.core.model.Dealership;
 import com.miagencia.core.service.ClientService;
 import com.miagencia.rest.dto.ClientDTO;
 import com.miagencia.rest.dto.ClientSummaryDTO;
-import com.miagencia.rest.dto.VehicleDTO;
 import com.miagencia.rest.dto.util.EntityDTOTranslator;
+
 
 // TODO los servicios tienen que tirar excepciones si pasa algo
 // ej no encuentra al cliente, despues el controller las atrapa y las wrapea en 
@@ -25,14 +30,25 @@ public class ClientServiceImpl implements ClientService {
 	
 	@Autowired
 	private ClientDAO clientDao;
+	
+	@Autowired
+	private AccountDAO accountDao;
 
 	
 	@Override
 	@Transactional
 	public Long add(ClientDTO client) {
 		
-		Client newClient = EntityDTOTranslator.buildClient(client);
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		
+		Account account = accountDao.find(auth.getName());
+		Dealership dealership = account.getDealership();
+		
+		Client newClient = EntityDTOTranslator.buildClient(client, dealership);
+	
 		return clientDao.add(newClient);
+		
+		
 
 	}
 

@@ -15,6 +15,7 @@ angular.module( 'ngBoilerplate', [
   'ngBoilerplate.carExpenses',
   'ngBoilerplate.modals',
   'ngBoilerplate.login',
+  'ngBoilerplate.error',
   'ui.router',
   'ngAnimate',
   'flow',
@@ -36,131 +37,134 @@ angular.module( 'ngBoilerplate', [
 
 
 // Sets default app state
-.config( function myAppConfig ( $stateProvider, $urlRouterProvider ) {
+.config( ["$stateProvider", "$urlRouterProvider", function myAppConfig ( $stateProvider, $urlRouterProvider ) {
   $urlRouterProvider.otherwise( '/home' );
-})
+}])
 
 
 .run( ['$rootScope', '$window', '$state', 'Session',
        function($rootScope, $window, $state, Session ) {
 
-
     $rootScope.authenticated = false;
 
-    // checks for authentication every state change
+   /*
+    * Checks for authentication every state change.
+    */
     $rootScope.$on( "$stateChangeStart", function(event, toState, toParams, fromState, fromParams, options) {
-      
 
-     // alert(toState.name);
+      // alert(toState.name);
       
       // if the user goes to any state (other than login) and is not authenticated, should be
       // redirected to login
       if (toState.name != "login" && !$rootScope.authenticated) {
-
           event.preventDefault();
           $rootScope.$broadcast("event:auth-loginRequired", {});
         }
+    });
 
+   /*
+    * Handler for auth-loginRequired event.
+    * This is called when the user is not authenticated and it is required to log in.
+    * If on any state change the user is not authenticated, this function is called.
+    * It redirects to the login state.
+    */
+    $rootScope.$on('event:auth-loginRequired', function(event, toState, toParams, fromState, fromParams, options) {
+        //   if ($rootScope.loadingAccount && data.status !== 401) {
+          //  $rootScope.requestedUrl = $location.path();
+        //   $location.path('/loading');
+        //   } else {
+        //   Session.invalidate();
+      $rootScope.authenticated = false;
+      $rootScope.loadingAccount = false;
+      $state.go("login", {notify: false}); 
+
+        //   }
+    });
+
+   /*
+    * Handler for auth-loginConfirmed event.
+    * This is called when the user has been succesfully authenticated.
+    * If the user came from a given page, it redirects to that page. Otherwise redirects to home state.
+    * Then creates a session an sets authenticated = true
+    * TODO It has a tentative delay function, see if that is needed.
+    */
+    $rootScope.$on('event:auth-loginConfirmed', function(event, toState, toParams, fromState, fromParams, options) {
+      // $rootScope.loadingAccount = false;
+      console.log('login confirmed ' + fromParams + ' ' + toParams);
+      var nextLocation = ($rootScope.requestedUrl ? $rootScope.requestedUrl : "home");
+      // var delay = ($location.path() === "/loading" ? 1500 : 0);
+         
+      // $timeout(function() {
+      Session.create(toState);
+      $rootScope.account = Session;
+      $rootScope.authenticated = true;
+      $state.go(nextLocation, {notify: false}).then(function() {
+                      $rootScope.$broadcast('$stateChangeSuccess', toState, toParams, fromState, fromParams);
       });
 
-
-
-        // Call when the the client is confirmed ----
-         $rootScope.$on('event:auth-loginConfirmed', function(event, toState, toParams, fromState, fromParams, options) {
-         // $rootScope.loadingAccount = false;
-          var nextLocation = ($rootScope.requestedUrl ? $rootScope.requestedUrl : "home");
-         // var delay = ($location.path() === "/loading" ? 1500 : 0);
+      // }, delay);
          
-         // $timeout(function() {
-           Session.create(toState);
-           $rootScope.account = Session;
-           $rootScope.authenticated = true;
-           $state.go(nextLocation, {notify: false}).then(function() {
-                      $rootScope.$broadcast('$stateChangeSuccess', toState, toParams, fromState, fromParams);
-            });
+    });
 
 
-         // }, delay);
-         
-         });
+    // Call when the 403 response is returned by the server ---
+    $rootScope.$on('event:auth-forbidden', function(rejection) {
 
+        $rootScope.$evalAsync(function() {
+          console.log("evento auth:forbidden");
+          $state.go("error", {notify: false});          
+        });
+    });
 
-         // Call when the 401 response is returned by the server ---
-           $rootScope.$on('event:auth-loginRequired', function(event, toState, toParams, fromState, fromParams, options) {
-         //   if ($rootScope.loadingAccount && data.status !== 401) {
-           //  $rootScope.requestedUrl = $location.path();
-          //   $location.path('/loading');
-         //   } else {
-          //   Session.invalidate();
-             $rootScope.authenticated = false;
-             $rootScope.loadingAccount = false;
-             $state.go("login", {notify: false}); 
-
-         //   }
-           });
+    // Call when the user logs out
+    // TODO sigue autenticado! No se pone la variable en false
+    // Hay que llamar al estado auth-loginRequired
+    $rootScope.$on('event:auth-loginCancelled', function () {
+        $state.go('login', {notify: false}).then(function() {
+            $rootScope.$broadcast('$stateChangeSuccess', toState, toParams, fromState, fromParams);
+        });
+    });
 
 
 
-          // Call when the 403 response is returned by the server ---
-            $rootScope.$on('event:auth-forbidden', function(rejection) {
-              $rootScope.$evalAsync(function() {
+    $rootScope.user = {};
 
-                console.log("evento auth:forbidden");
-               //$location.path('/error/403').replace();
-               // TODO no va a andar, cambiar por un cambio de estado a error
-              });
-            });
+    // Facebook Init
+    $window.fbAsyncInit = function() {
+      // Executed when the SDK is loaded
+      FB.init({
+        appId: '1607953992831087',
+        channelUrl: 'app/channel.html',
+        status: true,
+        cookie: true,
+        xfbml: true
+      });
 
+    };
 
+    (function(d){
+      var js,
+      id = 'facebook-jssdk',
+      ref = d.getElementsByTagName('script')[0];
 
+      if (d.getElementById(id)) {
+        return;
+      }
 
-          // Call when the user logs out
-            $rootScope.$on('event:auth-loginCancelled', function () {
-               $state.go('login', {notify: false}).then(function() {
-                      $rootScope.$broadcast('$stateChangeSuccess', toState, toParams, fromState, fromParams);
-            });
-            });
+      js = d.createElement('script');
+      js.id = id;
+      js.async = true;
+      js.src = "//connect.facebook.net/en_US/all.js";
+      ref.parentNode.insertBefore(js, ref);
+    }(document));
+  
+    // MercadoLibre Init
+    //MELI.init({client_id: 4108975373321744});
+    
+    
+  }])
 
-
-
-		$rootScope.user = {};
-
-		// Facebook Init
-		$window.fbAsyncInit = function() {
-			// Executed when the SDK is loaded
-			FB.init({
-				appId: '1607953992831087',
-				channelUrl: 'app/channel.html',
-				status: true,
-				cookie: true,
-				xfbml: true
-			});
-
-		};
-
-		(function(d){
-			var js,
-			id = 'facebook-jssdk',
-			ref = d.getElementsByTagName('script')[0];
-
-			if (d.getElementById(id)) {
-				return;
-			}
-
-			js = d.createElement('script');
-			js.id = id;
-			js.async = true;
-			js.src = "//connect.facebook.net/en_US/all.js";
-			ref.parentNode.insertBefore(js, ref);
-		}(document));
-	
-		// MercadoLibre Init
-		//MELI.init({client_id: 4108975373321744});
-		
-		
-	}])
-
-.controller( 'AppCtrl', function AppCtrl ( $scope, $location, badgeCountersService, authSharedService ) {
+.controller( 'AppCtrl', ["$scope", "$location", "badgeCountersService", "authSharedService", function AppCtrl ( $scope, $location, badgeCountersService, authSharedService ) {
 
   $scope.$on('$stateChangeSuccess', function(event, toState, toParams, fromState, fromParams){
     if ( angular.isDefined( toState .data.pageTitle ) ) {
@@ -199,7 +203,7 @@ angular.module( 'ngBoilerplate', [
       $scope.state = false;
   };
 
-})
+}])
 
 .directive('sidebarDirective', function() {
     return {
@@ -277,9 +281,6 @@ angular.module( 'ngBoilerplate', [
         return str;
     };
 })
-
-
-
 
 
 

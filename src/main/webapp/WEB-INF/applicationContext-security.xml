@@ -18,7 +18,7 @@
     <context:annotation-config />
     <context:component-scan base-package="com.miagencia"></context:component-scan>
  
-	<http pattern="/api/**" create-session="stateless" entry-point-ref="restAuthenticationEntryPoint">
+	<http pattern="/api/**" create-session="always" entry-point-ref="restAuthenticationEntryPoint">
 		<intercept-url pattern="/**" access="ROLE_USER" />
 		<!--  <intercept-url pattern="**login" access="ROLE_ANONYMOUS" requires-channel="https"/> -->
 		<form-login
@@ -26,7 +26,6 @@
 		    authentication-success-handler-ref="mySuccessHandler"
          	authentication-failure-handler-ref="myFailureHandler"
 		    />
-		 <remember-me key="miagencia-key"/>
 		<logout logout-url="/api/logout"/>
 		<!--  <http-basic/> -->
 	</http> 
@@ -106,7 +105,7 @@
 	      
 	      <jdbc-user-service data-source-ref="dataSource"
 	          users-by-username-query="select USERNAME,PASSWORD,ACTIVE from ACCOUNTS where USERNAME=?"
-	          authorities-by-username-query="select u1.USERNAME, u2.ROLE from ACCOUNTS u1, USER_ROLES u2 where u1.ID = u2.ID and u1.USERNAME =?" 
+	          authorities-by-username-query="select u1.USERNAME, u2.ROLE from ACCOUNTS u1, USER_ROLES u2 where u1.ID = u2.ACCOUNTS_ID and u1.USERNAME =?" 
 	      />
 	      
 	   <!--  

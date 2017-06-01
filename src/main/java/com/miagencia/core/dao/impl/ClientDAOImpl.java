@@ -79,7 +79,7 @@ public class ClientDAOImpl implements ClientDAO {
 	@Override
 	public List<Client> getAllClients(Long accountId) {
 		
-		Query query = sessionFactory.getCurrentSession().createQuery("select c from Account ac inner join ac.dealership dl inner join dl.clients c where ac.id = :accountId");
+		Query query = sessionFactory.getCurrentSession().createQuery("select c from Client c where c.dealership.id = :accountId");
 		query.setLong("accountId", accountId);	
 		return query.list();
 	}
@@ -87,10 +87,9 @@ public class ClientDAOImpl implements ClientDAO {
 	@Override
 	public int countTotalClients(Long accountId) {
 		
-		Query query = sessionFactory.getCurrentSession().createQuery("select count(c) from Account ac inner join ac.dealership dl inner join dl.clients c where ac.id = :accountId");
+		Query query = sessionFactory.getCurrentSession().createQuery("select count(c) from Client c where c.dealership.id = :accountId");
 		query.setLong("accountId", accountId);	
 		Long count = (Long)query.uniqueResult();
 		return count.intValue();
 	}
-
 }

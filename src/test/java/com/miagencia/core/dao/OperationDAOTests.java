@@ -36,7 +36,7 @@ public class OperationDAOTests {
 		
 		
 		Client seller = new Client(27528358l, "Esteban", "Cantu","estebancantu@hotmail.com",
-				"2214564536","34553495459", null, null, null, null, null);
+				"2214564536","34553495459", null, null, null, null, null, null);
 		
 		BuyOperation purchase = new BuyOperation(vehicle, seller, 124000, PaymentType.CASH);
 		

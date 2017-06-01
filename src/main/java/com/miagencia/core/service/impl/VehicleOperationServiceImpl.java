@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -38,64 +40,56 @@ import com.miagencia.rest.dto.operations.ReserveVehicleRequestDTO;
 import com.miagencia.rest.dto.operations.SellVehicleRequestDTO;
 import com.miagencia.rest.dto.util.EntityDTOTranslator;
 
-
-
 @Service
-public class VehicleOperationServiceImpl implements
-		VehicleOperationService {
-	
-	
+public class VehicleOperationServiceImpl implements VehicleOperationService {
+
 	@Autowired
 	OperationDAO operationDao;
-	
+
 	@Autowired
 	SaleItemDAO saleItemDao;
-	
+
 	@Autowired
 	ClientDAO clientDao;
-	
+
 	@Autowired
 	VehicleDAO vehicleDao;
-	
+
 	@Autowired
 	CountryDAO countryDAO;
-	
+
 	@Autowired
 	StateDAO stateDAO;
-	
+
 	@Autowired
 	CityDAO cityDAO;
-	
+
 	@Autowired
 	NeighborhoodDAO neighborhoodDAO;
-	
+
 	@Autowired
 	ExpenseService expenseService;
-	
-	@Autowired 
+
+	@Autowired
 	AccountDAO accountDao;
-	
+
 	@Override
 	@Transactional
 	public void newVehicle(NewVehicleRequestDTO newVehicleRequestDto, AccountDTO accountDto) {
 		
 		
 		Account account = accountDao.find(accountDto.getId());
+		// TODO remplazar por 
+		// Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		// Account account = accountDao.find(auth.getName());
+		// Dealership dealership = account.getDealership();
+		// Los datos del account no deberian viajar del cliente al server
 		
 		Dealership dealership = account.getDealership();
 		
 		VehicleDTO vehicleDto = newVehicleRequestDto.getVehicleDto();
-		Vehicle vehicle = EntityDTOTranslator.buildVehicle(vehicleDto); // TODO falta features
+		Vehicle vehicle = EntityDTOTranslator.buildVehicle(vehicleDto, dealership); // TODO falta features
 
-		List<Vehicle> vehicles = dealership.getVehicles();
-		
-		if (vehicles == null) {
-			vehicles = new ArrayList();
-		}
-		
-		vehicles.add(vehicle);
-	//	vehicle.setDealer(account.getDealership());
-		
 		Client client = clientDao.find(newVehicleRequestDto.getClientId());
 		
 		VehicleOperation operation = null;
@@ -149,118 +143,112 @@ public class VehicleOperationServiceImpl implements
 			
 		}
 		
+		vehicleDao.addVehicle(vehicle);
+		
 	}
-	
-	
 
-	
-	
-	
-	
-	
-	
-	
-/*	@Override
-	@Transactional
-	public void buyVehicle(BuyVehicleRequestDTO buyRequestDto) {
-		
-		VehicleDTO vehicleDto = buyRequestDto.getVehicleDto();
-		Vehicle vehicle = EntityDTOTranslator.buildVehicle(vehicleDto);
-		
-		
-		Client sellerParty;
-		
-		// por el momento esto de dar de alta un nuevo cliente en el mismo dto de la operacion no lo usamos 
-//		if (buyRequestDto.getSellerId() == null ) {
-			
-//			ClientDTO clientDto = buyRequestDto.getClientDto();
-//			sellerParty = EntityDTOTranslator.buildClient(clientDto);
-//		}
-		
-//		else {
-			sellerParty = clientDao.find(buyRequestDto.getSellerId());
-//		}
-		
-		
-		
-		BuyOperation buyOperation = EntityDTOTranslator.buildBuyOperation(buyRequestDto, vehicle, sellerParty);
-		
-		operationDao.add(buyOperation);
-		
-		SaleItem saleItem = new SaleItem(vehicle, buyRequestDto.getOfferingAmount());
-		saleItemDao.add(saleItem);
-		
-	}*/
-	
-	
-	
-/*	@Override
-	@Transactional
-	public void consignVehicle(ConsignVehicleRequestDTO consignRequestDto) {
-		
-		VehicleDTO vehicleDto = consignRequestDto.getVehicleDto();
-		Vehicle vehicle = EntityDTOTranslator.buildVehicle(vehicleDto);
-		
+	/*
+	 * @Override
+	 * 
+	 * @Transactional public void buyVehicle(BuyVehicleRequestDTO buyRequestDto)
+	 * {
+	 * 
+	 * VehicleDTO vehicleDto = buyRequestDto.getVehicleDto(); Vehicle vehicle =
+	 * EntityDTOTranslator.buildVehicle(vehicleDto);
+	 * 
+	 * 
+	 * Client sellerParty;
+	 * 
+	 * // por el momento esto de dar de alta un nuevo cliente en el mismo dto de
+	 * la operacion no lo usamos // if (buyRequestDto.getSellerId() == null ) {
+	 * 
+	 * // ClientDTO clientDto = buyRequestDto.getClientDto(); // sellerParty =
+	 * EntityDTOTranslator.buildClient(clientDto); // }
+	 * 
+	 * // else { sellerParty = clientDao.find(buyRequestDto.getSellerId()); // }
+	 * 
+	 * 
+	 * 
+	 * BuyOperation buyOperation =
+	 * EntityDTOTranslator.buildBuyOperation(buyRequestDto, vehicle,
+	 * sellerParty);
+	 * 
+	 * operationDao.add(buyOperation);
+	 * 
+	 * SaleItem saleItem = new SaleItem(vehicle,
+	 * buyRequestDto.getOfferingAmount()); saleItemDao.add(saleItem);
+	 * 
+	 * }
+	 */
 
-		Client sellerParty = clientDao.find(consignRequestDto.getClientId());
-		
-		ConsignmentOperation consignmentOperation = EntityDTOTranslator.buildConsignmentOperation(consignRequestDto, vehicle, sellerParty);
-		
-		operationDao.add(consignmentOperation);
-		
-		SaleItem saleItem = new SaleItem(vehicle, consignRequestDto.getOfferingPrice());
-		saleItemDao.add(saleItem);
-		
-	}*/
-	
-	
+	/*
+	 * @Override
+	 * 
+	 * @Transactional public void consignVehicle(ConsignVehicleRequestDTO
+	 * consignRequestDto) {
+	 * 
+	 * VehicleDTO vehicleDto = consignRequestDto.getVehicleDto(); Vehicle
+	 * vehicle = EntityDTOTranslator.buildVehicle(vehicleDto);
+	 * 
+	 * 
+	 * Client sellerParty = clientDao.find(consignRequestDto.getClientId());
+	 * 
+	 * ConsignmentOperation consignmentOperation =
+	 * EntityDTOTranslator.buildConsignmentOperation(consignRequestDto, vehicle,
+	 * sellerParty);
+	 * 
+	 * operationDao.add(consignmentOperation);
+	 * 
+	 * SaleItem saleItem = new SaleItem(vehicle,
+	 * consignRequestDto.getOfferingPrice()); saleItemDao.add(saleItem);
+	 * 
+	 * }
+	 */
+
 	@Override
 	@Transactional
 	public void reserveVehicle(ReserveVehicleRequestDTO operationDto) {
-		
+
 		Long vehicleId = operationDto.getVehicleId();
 		Vehicle vehicle = vehicleDao.find(vehicleId);
-		
+
 		Long clientId = operationDto.getClientId();
 		Client sellerParty = clientDao.find(clientId);
-		
-		// TODO chequear que el vehiculo no este ya reservado o no este vendido, si es asi
+
+		// TODO chequear que el vehiculo no este ya reservado o no este vendido,
+		// si es asi
 		// lanzar una excepcion
 		SaleItem saleItem = saleItemDao.getSaleItemByVehicleId(vehicle.getId());
 		saleItem.setStatus(VehicleStatus.RESERVED);
 		saleItemDao.edit(saleItem);
-		
-		ReservationOperation reservationOperation = EntityDTOTranslator.buildReservationOperation(operationDto, vehicle, sellerParty);
-	
+
+		ReservationOperation reservationOperation = EntityDTOTranslator.buildReservationOperation(operationDto, vehicle,
+				sellerParty);
+
 		operationDao.add(reservationOperation);
-		
 
 	}
-	
-	
+
 	@Override
 	@Transactional
 	public void sellVehicle(SellVehicleRequestDTO operationDto) {
-		
-		
+
 		Long vehicleId = operationDto.getVehicleId();
 		Vehicle vehicle = vehicleDao.find(vehicleId);
-		
+
 		Long clientId = operationDto.getBuyerId();
 		Client sellerParty = clientDao.find(clientId);
-		
-		// TODO chequear que el auto no este vendido ya, si es asi tirar una excepcion
+
+		// TODO chequear que el auto no este vendido ya, si es asi tirar una
+		// excepcion
 		SaleItem saleItem = saleItemDao.getSaleItemByVehicleId(vehicle.getId());
 		saleItem.setStatus(VehicleStatus.SOLD);
 		saleItemDao.edit(saleItem);
-		
+
 		SaleOperation saleOperation = EntityDTOTranslator.buildSaleOperation(operationDto, vehicle, sellerParty);
-	
+
 		operationDao.add(saleOperation);
-		
 
 	}
-	
-
 
 }
