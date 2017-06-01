@@ -1,6 +1,5 @@
 angular.module( 'ngBoilerplate.clientDetails', [
   'ui.router',
-  'placeholders',
   'ui.bootstrap'
 ])
 
